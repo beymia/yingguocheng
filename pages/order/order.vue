@@ -6,7 +6,7 @@
 				<view style="height: 35px;line-height: 35px;border-radius: 18px;border: 1px solid #eaeaea;margin-left: 24rpx;padding: 0 15px;display: flex;align-self: center;">
 					<text style="font-size: 17px;color: #666666;" >拼</text>
 					<text style="width: 29px;font-size: 17px;text-align: center;color: #EAEAEA;">|</text>
-					<icon type="search" size="17" color="#666666" ></icon>
+					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;" ></icon>
 				</view>
 			</block>
 		</uni-nav-bar>
@@ -76,12 +76,19 @@
 		<view class="main">
 			<!-- 左侧菜单栏start -->
 			<scroll-view class="menu_bar" scroll-y="true" >
-				<view class="menu_item">
-					<image class="menu_icon" src="/static/images_t/order/tstc.png" mode=""></image>
-					<text class="menu_name">堂食套餐</text>
+				<view class="menu_item" v-for="(menu,menu_index) in menu_list" :class="{active:menu.id==menu_id_current}" @tap="menuTap(menu.id)" >
+					<image class="menu_icon" :src="menu.icon_url" mode=""></image>
+					<text class="menu_name">{{menu.menu_name}}</text>
 				</view>
 			</scroll-view>
 			<!-- 左侧菜单栏end -->
+			<!-- 右侧商品栏start -->
+			<view class="goods">
+				<view class="goods_list">
+					
+				</view>
+			</view>
+			<!-- 右侧商品栏end -->
 			
 		</view>
 		<!-- 点单主体部分end -->
@@ -103,10 +110,23 @@
 				},{
 					text:'歐洲國外冰箱貼法國巴黎挪威英國倫敦新西蘭丹麥匈牙利出國紀念品'
 				}],
-				//下面都是默认值
+				menu_list:[
+					{id:1,icon_url:'/static/images_t/order/tstc.png',menu_name:'堂食套餐',goods_list:[{name:'黑糖波波希臘酸奶',isHot:false,}]},
+					{id:2,icon_url:'/static/images_t/order/ncjgc.png',menu_name:'奶茶及果茶'},
+					{id:3,icon_url:'/static/images_t/order/cxkf.png',menu_name:'濃香咖啡'},
+					{id:4,icon_url:'/static/images_t/order/dxjdz.png',menu_name:'點心及蛋糕'},
+					{id:5,icon_url:'/static/images_t/order/yscp.png',menu_name:'英式菜品'},
+					{id:6,icon_url:'/static/images_t/order/amfw.png',menu_name:'澳門風味'},
+					{id:7,icon_url:'/static/images_t/order/tssx.png',menu_name:'特色手信'},
+					{id:8,icon_url:'/static/images_t/order/tssx.png',menu_name:'特色手信'},
+					{id:9,icon_url:'/static/images_t/order/tssx.png',menu_name:'特色手信'},
+					{id:10,icon_url:'/static/images_t/order/tssx.png',menu_name:'特色手信'},
+				],
+				//下面都是静态默认值
 				order_type_selected:'order_type_selected',
 				order_type_current:0,
-				title:'英国城'
+				title:'英国城',
+				menu_id_current:1
 			
 			}
 		},
@@ -120,6 +140,9 @@
 			order_type_tap(e){
 			
 				this.order_type_current=e.currentTarget.dataset.index;
+			},
+			menuTap(id){
+				this.menu_id_current=id;
 			}
 		}
 	}

@@ -131,6 +131,7 @@
 .main{
 	flex: 1;
 	display: flex;
+	overflow: hidden;
 	.menu_bar{
 		width: 160rpx;
 		margin-right: 30rpx;
@@ -138,6 +139,7 @@
 		.menu_item{
 			height: 130rpx;
 			display: flex;
+			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 			overflow: hidden;
@@ -152,7 +154,8 @@
 				height: 40rpx;
 			}
 			.menu_name{
-				font-size: 36rpx;
+				font-size: 26rpx;
+				color: #999999;
 			}
 		}
 	}
