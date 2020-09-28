@@ -83,7 +83,7 @@
 			</scroll-view>
 			<!-- 左侧菜单栏end -->
 			<!-- 右侧商品栏start -->
-			<scroll-view scroll-y="true" scroll-with-animation class="goods" >
+			<scroll-view scroll-y="true" scroll-with-animation :scroll-top="goods_scrollTop" class="goods" >
 					<view class="goods_list" :id="`goods_${menu.id}`" v-for="(menu,menu_index) in menu_list">
 						<view class="goods_title">
 							{{menu.menu_name}}
@@ -144,7 +144,8 @@
 				order_type_selected:'order_type_selected',
 				order_type_current:0,
 				title:'英国城',
-				menu_id_current:1
+				menu_id_current:1,
+				goods_scrollTop:0
 			
 			}
 		},
