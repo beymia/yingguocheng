@@ -83,11 +83,39 @@
 			</scroll-view>
 			<!-- 左侧菜单栏end -->
 			<!-- 右侧商品栏start -->
-			<view class="goods">
-				<view class="goods_list">
-					
-				</view>
-			</view>
+			<scroll-view scroll-y="true" scroll-with-animation class="goods" >
+					<view class="goods_list" :id="`goods_${menu.id}`" v-for="(menu,menu_index) in menu_list">
+						<view class="goods_title">
+							{{menu.menu_name}}
+						</view>
+						<view class="goods_item" v-for="(good,good_index) in menu.goods_list">
+							<view class="good_icon">
+								<image :src="good.imgurl" mode=""></image>
+							</view>
+							<view class="good_intro">
+								<view class="good_name">
+									{{good.name}}
+								</view>
+								<view class="good_label">
+									<view class="isHot" v-if="good.isHot">
+										可做热饮
+									</view>
+									<view class="recipe">
+										{{good.recipe}}
+									</view>
+								</view>
+								<view class="good_des">
+									{{good.des}}
+								</view>
+								<view class="price">
+									<view class="">
+										￥{{good.price}}
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+			</scroll-view>
 			<!-- 右侧商品栏end -->
 			
 		</view>
@@ -96,6 +124,7 @@
 </template>
 
 <script>
+	import {menu_list} from './data.js';
 	export default{
 		components:{},
 		data() {
@@ -110,18 +139,7 @@
 				},{
 					text:'歐洲國外冰箱貼法國巴黎挪威英國倫敦新西蘭丹麥匈牙利出國紀念品'
 				}],
-				menu_list:[
-					{id:1,icon_url:'/static/images_t/order/tstc.png',menu_name:'堂食套餐',goods_list:[{name:'黑糖波波希臘酸奶',isHot:false,}]},
-					{id:2,icon_url:'/static/images_t/order/ncjgc.png',menu_name:'奶茶及果茶'},
-					{id:3,icon_url:'/static/images_t/order/cxkf.png',menu_name:'濃香咖啡'},
-					{id:4,icon_url:'/static/images_t/order/dxjdz.png',menu_name:'點心及蛋糕'},
-					{id:5,icon_url:'/static/images_t/order/yscp.png',menu_name:'英式菜品'},
-					{id:6,icon_url:'/static/images_t/order/amfw.png',menu_name:'澳門風味'},
-					{id:7,icon_url:'/static/images_t/order/tssx.png',menu_name:'特色手信'},
-					{id:8,icon_url:'/static/images_t/order/tssx.png',menu_name:'特色手信'},
-					{id:9,icon_url:'/static/images_t/order/tssx.png',menu_name:'特色手信'},
-					{id:10,icon_url:'/static/images_t/order/tssx.png',menu_name:'特色手信'},
-				],
+				menu_list,
 				//下面都是静态默认值
 				order_type_selected:'order_type_selected',
 				order_type_current:0,
