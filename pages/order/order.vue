@@ -15,6 +15,7 @@
 		<!-- 头部start -->
 		<view class="order_head">
 			<!-- 位置、自取、外卖、堂食start -->
+			
 			<view class="location">
 				<view class="left">
 					<view class="top">
