@@ -66,7 +66,7 @@
 		text-decoration: none;
 		text-align: center;
 		/* 以下是后来添加 */
-		display:flex;
+		display: flex;
 		align-items: center;
 	}
 </style>

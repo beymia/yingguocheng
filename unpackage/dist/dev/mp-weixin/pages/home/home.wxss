@@ -24,6 +24,8 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+/*订单页的通过margin或者padding值*/
+/*订单页默认的背景色*/
 .swiper-wrap {
 
   margin-top: 10rpx;
