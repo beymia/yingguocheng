@@ -8,7 +8,7 @@
 		align-items: center;
 		justify-content: space-between;
 		margin-top: 23rpx;
-
+		
 		// left start
 		.left{
 			display: flex;
@@ -30,14 +30,14 @@
 					// display: -webkit-box;
 					// -webkit-box-orient: vertical;
 					// -webkit-line-clamp: 1;
-					// overflow: hidden;
+					// overflow: hidden; 
 					margin-left: 10rpx;
 				}
 				.foward_icon{
 					font-size: 28rpx;
 				}
 			}
-
+			
 			.bottom{
 				display: flex;
 				align-items: center;
@@ -52,10 +52,10 @@
 				}
 				.tip_text{
 					font-size: 26rpx;
-					color: #999999;
+					color: #999999;	
 				}
 			}
-
+			
 		}
 		// left end
 		//right start
@@ -83,7 +83,7 @@
 			}
 		}
 		//right end
-
+		
 		}
 // location end
 // notice start
@@ -111,13 +111,13 @@
 			.notice_text{
 				margin-left: 10rpx;
 				flex: 1;
-				overflow: hidden;
-				text-overflow: ellipsis;
+				overflow: hidden; 
+				text-overflow: ellipsis; 
 				white-space: nowrap;
 			}
 		}
 	}
-
+	
 	.notice_more{
 		display: flex;
 		align-items: center;
@@ -131,6 +131,7 @@
 .main{
 	flex: 1;
 	display: flex;
+	overflow: hidden;
 	.menu_bar{
 		width: 160rpx;
 		margin-right: 30rpx;
@@ -138,6 +139,7 @@
 		.menu_item{
 			height: 130rpx;
 			display: flex;
+			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 			overflow: hidden;
@@ -152,9 +154,86 @@
 				height: 40rpx;
 			}
 			.menu_name{
-				font-size: 36rpx;
+				font-size: 26rpx;
+				color: #999999;
+				white-space: nowrap;
 			}
 		}
 	}
 }
 // main end
+
+// goods start 
+.goods{
+	flex: 1;
+	overflow: hidden;
+	padding-right: 24rpx;
+	.goods_list{
+		.goods_title{
+			height: 80rpx;
+			font-size: 22rpx;
+			color: #333333;
+			font-weight: bold;
+		}
+		.goods_item{
+			display: flex;
+			align-items: center;
+			margin-bottom: 50rpx;
+			.good_icon{
+				width: 130rpx;
+				height: 130rpx;
+				margin-right: 33rpx;
+			}
+			.good_intro{
+				display: flex;
+				flex-direction: column;
+				.good_name{
+					font-size: 28rpx;
+					color: #333333;
+					font-weight: bold;
+				}
+				.good_label{
+					margin-top: 14rpx;
+					margin-left: 10rpx;
+					font-size: 20rpx;
+					color: #999999;
+					display: flex;
+					.isHot{
+						color: #17A1FF;
+						font-size: 20rpx;
+						background-color: #E7F5FF;
+						margin-right: 20rpx;
+					}
+				}
+				.good_des{
+					margin-top: 14rpx;
+					line-height: 26rpx;
+					font-size: 20rpx;
+					color: #999999;
+					display: -webkit-box;
+					 -webkit-box-orient: vertical;
+					  -webkit-line-clamp: 2;
+					  overflow: hidden;
+					 /* autoprefixer: off */
+					 -webkit-box-orient: vertical;
+					  /* autoprefixer: on */
+					  /*因为代码环境的关系-webkit-box-orient被过滤掉了 autoprefixer 这个关键字可以免除被过滤的动作*/
+	　　　　　　　　　　word-wrap:break-word;
+	　　　　　　　　　　word-break:break-all;
+				}
+				.price{
+					display: flex;
+					justify-content: space-between;
+					height: 48rpx;
+					line-height: 48rpx;
+					font-size: 34rpx;
+					color: #333333;
+					font-weight: bold;
+					margin-top: 12rpx;
+				}
+			}
+		}
+	}
+	
+}
+// goods end
