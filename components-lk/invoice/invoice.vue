@@ -60,7 +60,6 @@
 						justify-content: space-between;
 					}
 
-					/* #ifdef H5*/
 					//改变uni-app默认的多选框样式
 					/deep/ .uni-checkbox-input {
 						width: 42rpx !important;
@@ -77,7 +76,6 @@
 						border: none;
 					}
 
-					/* #endif*/
 
 					
 				}

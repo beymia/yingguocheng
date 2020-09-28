@@ -76,14 +76,14 @@
 		<view class="main">
 			<!-- 左侧菜单栏start -->
 			<scroll-view class="menu_bar" scroll-y="true" >
-				<view class="menu_item" v-for="(menu,menu_index) in menu_list" :class="{active:menu.id==menu_id_current}" @tap="menu_Tap(menu.id)" >
+				<view class="menu_item" v-for="(menu,menu_index) in menu_list" :class="{active:menu.id==menu_id_current}" @click="menu_Tap(menu.id)" >
 					<image class="menu_icon" :src="menu.icon_url" mode=""></image>
 					<text class="menu_name">{{menu.menu_name}}</text>
 				</view>
 			</scroll-view>
 			<!-- 左侧菜单栏end -->
 			<!-- 右侧商品栏start -->
-			<scroll-view scroll-y="true" scroll-with-animation :scroll-top="goods_scrollTop" class="goods" >
+			<scroll-view scroll-y="true" scroll-with-animation :scroll-top="goods_scrollTop"  class="goods" @scroll="goods_scroll" >
 					<view class="goods_list" :id="`goods_${menu.id}`" v-for="(menu,menu_index) in menu_list">
 						<view class="goods_title">
 							{{menu.menu_name}}
@@ -125,6 +125,7 @@
 
 <script>
 	import {menu_list} from './data.js';
+	import actions from './components/actions/actions.vue'
 	export default{
 		components:{},
 		data() {
@@ -171,8 +172,8 @@
 						size: true
 					}, data => {
 						item.top = h
-						h += Math.floor(data.height)
-						item.bottom = h
+						h += data.height
+						item.ht = h
 					}).exec()
 				})
 			},
@@ -183,6 +184,18 @@
 			menu_Tap(id){
 				this.menu_id_current=id;
 				this.goods_scrollTop = this.menu_list.find(item => item.id == id).top
+				console.log(this.goods_scrollTop)
+					
+			},
+			goods_scroll({detail}) {
+				this.goods_scrollTop=detail.scrollTop;//仅仅起到监听作用，防止重复设值不生效
+				let {scrollTop} =detail;
+				scrollTop=Math.ceil(scrollTop)+1;
+				
+				let tabs = this.menu_list.filter(item=>item.top<=scrollTop&&item.ht>scrollTop)
+				if(tabs.length>0){
+					this.menu_id_current=tabs[0].id
+				}
 			}
 		}
 	}
