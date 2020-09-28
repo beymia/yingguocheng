@@ -178,7 +178,7 @@
 		.goods_item{
 			display: flex;
 			align-items: center;
-			margin-bottom: 50rpx;
+			padding-bottom: 50rpx;
 			.good_icon{
 				width: 130rpx;
 				height: 130rpx;
@@ -187,6 +187,7 @@
 			.good_intro{
 				display: flex;
 				flex-direction: column;
+				flex: 1;
 				.good_name{
 					font-size: 28rpx;
 					color: #333333;
