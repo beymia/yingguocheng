@@ -7,7 +7,8 @@
     "pages/my/my",
     "pages/bulkInvoice/bulkInvoice",
     "pages/wantTell/wantTell",
-    "pages/invoiceInfo/invoiceInfo"
+    "pages/invoiceInfo/invoiceInfo",
+    "pages/orderPayment/orderPayment"
   ],
   "subPackages": [],
   "window": {
