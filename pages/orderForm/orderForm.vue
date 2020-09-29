@@ -274,10 +274,10 @@ export default {
     .current,
     .history {
       width: 128rpx;
-      font-size: 32rpx;
-      font-weight: 700;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-lg;
       text-align: left;
-      color: #333333;
+      color: $font-color1;
       line-height: 100rpx;
       box-sizing: border-box;
 
@@ -295,7 +295,7 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-top: 228rpx;
-    background-color: #F5F5F5;
+    background-color: $order-bg;
 
     .empty_img {
       width: 264rpx;
@@ -308,19 +308,19 @@ export default {
       height: 126rpx;
       display: flex;
       flex-direction: column;
-      font-size: 24rpx;
-      font-weight: 400;
+      font-size:  $font-size-sm;
+      font-weight: $font-weight-base;
       text-align: center;
-      color: #999999;
+      color: $font-color3;
     }
 
       .go_order {
         width: 360rpx;
         height: 78rpx;
         border-radius: 6rpx;
-        background: #17a1ff;
-        font-size: 28rpx;
-        font-weight: 400;
+        background: $main-color;
+        font-size:  $font-size-base;
+        font-weight: $font-weight-base;
         text-align: center;
         line-height: 78rpx;
         color: #ffffff;
@@ -330,7 +330,7 @@ export default {
 
   .order_detail,
   .order_history {
-    padding: 128rpx 24rpx 30rpx 24rpx;
+    padding: 128rpx $order-spacing-base $order-spacing-lg $order-spacing-base;
   }
 
   .order_history {
@@ -353,9 +353,9 @@ export default {
             width: 120rpx;
             height: 44rpx;
             border: none;
-            font-size: 22rpx;
-            font-weight: 400;
-            color: #666666;
+            font-size:  $font-size-sm - 2rpx;
+            font-weight: $font-weight-base;
+            color: $font-color2;
             text-align: center;
             line-height: 44rpx;
             padding: 0;
@@ -364,7 +364,7 @@ export default {
             &.active_btn {
               background: #fff;
               border-radius: 6rpx;
-              color: #17a1ff;
+              color: $main-color;
             }
           }
         }

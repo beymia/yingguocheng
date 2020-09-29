@@ -45,14 +45,12 @@
 		display: block;
 	}
 
-	/* #ifdef MP-WEIXIN*/
-	page {
-		height: 100%;
-	}
-
-	/* #endif*/
-
 	/* #ifdef APP-PLUS ||MP-WEIXIN */
+
+  page {
+    height: 100%;
+  }
+
 	checkbox .wx-checkbox-input {
 		width: 42rpx !important;
 		height: 42rpx !important;
@@ -67,13 +65,20 @@
 		color: #fff !important;
 		border: none;
 	}
-	/* #endif */
 
-  /* #ifdef MP*/
   radio .wx-radio-input{
     width: 34rpx !important;
     height: 34rpx !important;
-    margin-right: 20rpx !important;
+    padding: 0 !important;
   }
-  /* #endif*/
+
+  progress .wx-progress-bar{
+    height: 30rpx !important;
+    border-radius: 15rpx !important;
+  }
+
+  progress .wx-progress-inner-bar{
+    border-radius:15rpx !important;
+  }
+	/* #endif */
 </style>

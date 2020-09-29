@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniNavBar: function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 81))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 91))
   },
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 88))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 98))
   }
 }
 var render = function() {
@@ -149,6 +149,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -399,8 +400,9 @@ var _data = __webpack_require__(/*! ./data.js */ 33); //
 //
 //
 //
+//
 var _default = { components: {}, data: function data() {return { shop_info: { shop_adress: '合肥市蜀山區丹霞路店店', shop_name: '合肥正大廣場店', tip: '送出外賣' }, notice_list: [{ text: '多肉玫瓏瓜&玫瓏芒芒甘露新上市，優秀玫瓏瓜，清涼夏日解渴' }, { text: '歐洲國外冰箱貼法國巴黎挪威英國倫敦新西蘭丹麥匈牙利出國紀念品' }], menu_list: _data.menu_list, //下面都是静态默认值
-      order_type_selected: 'order_type_selected', order_type_current: 0, title: '英国城', menu_id_current: 1 };}, onLoad: function onLoad() {var _this = this;this.$nextTick(function () {return _this.calcSize();});}, computed: {}, methods: { calcSize: function calcSize() {var h = 0;var view = uni.createSelectorQuery().select('#ads');view.fields({ size: true }, function (data) {h += Math.floor(data.height);}).exec();this.menu_list.forEach(function (item) {var view = uni.createSelectorQuery().select("#goods_".concat(item.id));view.fields({ size: true }, function (data) {item.top = h;h += Math.floor(data.height);item.bottom = h;}).exec();});}, order_type_tap: function order_type_tap(e) {this.order_type_current = e.currentTarget.dataset.index;}, menu_Tap: function menu_Tap(id) {this.menu_id_current = id;this.goods_scrollTop = this.menu_list.find(function (item) {return item.id == id;}).top;} } };exports.default = _default;
+      order_type_selected: 'order_type_selected', order_type_current: 0, title: '英国城', menu_id_current: 1, goods_scrollTop: 0 };}, onLoad: function onLoad() {var _this = this;this.$nextTick(function () {return _this.calcSize();});}, computed: {}, methods: { calcSize: function calcSize() {var h = 0;var view = uni.createSelectorQuery().select('#ads');view.fields({ size: true }, function (data) {h += Math.floor(data.height);}).exec();this.menu_list.forEach(function (item) {var view = uni.createSelectorQuery().select("#goods_".concat(item.id));view.fields({ size: true }, function (data) {item.top = h;h += Math.floor(data.height);item.bottom = h;}).exec();});}, order_type_tap: function order_type_tap(e) {this.order_type_current = e.currentTarget.dataset.index;}, menu_Tap: function menu_Tap(id) {this.menu_id_current = id;this.goods_scrollTop = this.menu_list.find(function (item) {return item.id == id;}).top;} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

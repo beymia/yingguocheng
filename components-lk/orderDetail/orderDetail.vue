@@ -78,9 +78,9 @@
 			min-height: 335rpx;
 			background: #ffffff;
 			border-radius: 20rpx;
-			padding:0 $order-spacing;
+			padding:0 $order-spacing-lg;
 			box-sizing: border-box;
-			margin-top: $order-spacing;
+			margin-top: $order-spacing-lg;
 		}
 
 		.order_shop {
@@ -89,9 +89,9 @@
 			box-sizing: border-box;
 			border-bottom: 1rpx solid #ccc;
 			display: flex;
-			font-size: 24rpx;
+			font-size: $font-size-sm;
 			position: relative;
-			font-weight: 400;
+			font-weight: $font-weight-base;
 
 			view {
 				line-height: 95rpx;
@@ -99,7 +99,7 @@
 
 			.order_shop_name {
 				width: 364rpx;
-				color: #333333;
+				color: $font-color1;
 				margin-left: 20rpx;
 				overflow: hidden;
 				white-space: nowrap;
@@ -107,7 +107,7 @@
 			}
 
 			.order_progress {
-				color: #999999;
+				color: $font-color3;
 				position: absolute;
 				right: 0;
 			}
@@ -117,43 +117,43 @@
 				height: 34rpx;
 				line-height: 34rpx;
 				text-align: center;
-				background: #17a1ff;
+				background: $main-color;
 				border-radius: 6rpx;
 				align-self: center;
-				font-size: 22rpx;
+				font-size: $font-size-sm - 2rpx;
 				color: #ffffff;
 			}
 		}
 
 		.order_goods_container {
-			padding: $order-spacing 0;
+			padding: $order-spacing-lg 0;
 			box-sizing: border-box;
-			font-weight: 400;
-			color: #999999;
+			font-weight: $font-weight-base;
+			color: $font-color3;
 
 			.order_goods {
 				display: flex;
-				margin-bottom: $order-spacing;
+				margin-bottom: $order-spacing-lg;
 
 				.goods_description {
 					flex-grow: 1;
 					margin-left: 20rpx;
 					display: flex;
 					flex-direction: column;
-					font-size: 22rpx;
-					font-weight: 400;
-					color: #999999;
+					font-size: $font-size-sm - 2rpx;
+					font-weight: $font-weight-base;
+					color: $font-color3;
 
 
 					.goods_name {
 						height: 40rpx;
 						line-height: 40rpx;
-						font-size: 28rpx;
-						color: #333333;
+						font-size: $font-size-base;
+						color: $font-color1;
 					}
 
 					.goods_feature {
-						font-size: 22rpx;
+						font-size: $font-size-sm - 2rpx;
 						display: flex;
 						flex-wrap: wrap;
 					}
@@ -168,8 +168,8 @@
 
 				.single_count {
 					width: 130rpx;
-					font-size: 24rpx;
-					color: #999;
+					font-size: $font-size-sm;
+					color: $font-color3;
 					text-align: right;
 				}
 			}
@@ -182,12 +182,12 @@
 			justify-content: space-between;
 
 			.order_goods_date {
-				font-size: 20rpx
+				font-size: $font-size-sm - 4rpx
 			}
 
 			.order_goods_amount {
-				font-size: 24rpx;
-				color: #333;
+				font-size: $font-size-sm;
+				color: $font-color1;
 			}
 		}
 	}

@@ -1,6 +1,5 @@
 <template>
   <view class="bulk_invoice">
-    <form action="">
       <view v-for="(invoice,index) in invoiceData"
             :key="index"
             class="invoice_container">
@@ -26,7 +25,6 @@
           </navigator>
         </view>
       </view>
-    </form>
     <view class="empty"></view>
   </view>
 </template>
@@ -80,13 +78,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-uni-page-body {
-  height: 100%;
-}
 
 .bulk_invoice {
   width: 100%;
-  height: 100%;
   background: $order-bg;
 
   .empty{
@@ -97,7 +91,7 @@ uni-page-body {
 
   .invoice_container{
     width: 100%;
-    padding:$order-spacing 24rpx 0 24rpx;
+    padding:$order-spacing-lg $order-spacing-base 0 $order-spacing-base;
     box-sizing: border-box;
   }
   .invoice_foot{
@@ -120,36 +114,32 @@ uni-page-body {
         line-height: 98rpx;
       }
       view:nth-child(1){
-        font-size: 24rpx;
-        color: #333333;
-        margin-left: 24rpx;
+        font-size: $font-size-sm;
+        color: $font-color1;
+        margin-left: $order-spacing-base;
       }
       view:nth-child(2){
         flex: 1;
         text-align: right;
         line-height: inherit;
-        padding: 20rpx $order-spacing 17rpx 0;
+        padding: 20rpx $order-spacing-lg 17rpx 0;
         box-sizing: border-box;
-        color: #333333;
+        color: $font-color1;
 
         text:nth-child(1){
-          font-size: 24rpx;
+          font-size: $font-size-sm;
           display: block;
         }
         text:nth-child(2){
-          font-size: 20rpx;
-          /* #ifdef H5*/
-          display: inline-block;
-          transform:scale(0.8);
-          /* #endif*/
+          font-size: $font-size-sm - 4rpx;
         }
       }
      .next_stop{
         width: 200rpx;
         line-height: 98rpx;
         text-align: center;
-        background: #17a1ff;
-        font-size: 28rpx;
+        background: $main-color;
+        font-size: $font-size-base;
         color: #FFFFFF;
       }
     }

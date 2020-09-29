@@ -29,12 +29,12 @@
 	.invoice {
 		width: 100%;
 		height: 200rpx;
-		font-size: 24rpx;
-		font-weight: 400;
+		font-size: $font-size-sm;
+		font-weight: $font-weight-base;
 		background: #fff;
-		color: #333333;
+		color: $font-color1;
 		border-radius: 20rpx;
-		padding: 30rpx;
+		padding: $order-spacing-lg;
 		box-sizing: border-box;
 
 		.invoice_box {
@@ -54,7 +54,7 @@
 
 					view {
 						height: 100%;
-						margin-left: $order-spacing;
+						margin-left: $order-spacing-lg;
 						display: flex;
 						flex-direction: column;
 						justify-content: space-between;
@@ -72,14 +72,11 @@
 						width: 46rpx !important;
 						height: 46rpx !important;
 						border-radius: 50%;
-						background: #17A1FF;
+						background: $main-color;
 						color: #fff !important;
 						border: none;
 					}
-
 					/* #endif*/
-
-					
 				}
 			}
 		}
