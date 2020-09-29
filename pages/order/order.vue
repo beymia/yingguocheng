@@ -54,30 +54,42 @@
 			
 			<!-- 公告栏start -->
 			<view class="notice">
-				<swiper class="swiper_wrap_notice" style="height: 35rpx;"  :autoplay="true" vertical circular :interval="3000" :duration="1000">
-					<swiper-item v-for="(notice,index) in notice_list">
+				<swiper   class="swiper_wrap_notice"  :autoplay="true" vertical circular :interval="3000" :duration="1000">
+					<swiper-item v-show="!is_notice" v-for="(notice,notice_index) in notice_list">
 						<view class="swiper-item notice_title">
 							<view class="notice_icon">
 								<image src="../../static/images/order/blueBall.png" mode=""></image>
 							</view>
-							<text class="notice_text">{{notice.text}}</text>
+							<text class="notice_text">{{notice}}</text>
 						</view>
 					</swiper-item>
 				</swiper>
 				
-				<view class="notice_more">
-					<text class="notice_more">更多</text>
-					<uni-icons type="arrowdown" size="24" color="#999999"></uni-icons>
-				</view>
+					<template v-if="is_notice">
+						<view class="notice_more" @tap="is_notice=false">
+							<text class="notice_more">收起</text>
+							<uni-icons type="arrowup" size="24" color="#999999"></uni-icons>
+						</view>
+					</template>
+					<template v-else>
+						<view class="notice_more" @tap="is_notice=true">
+							<text class="notice_more">更多</text>
+							<uni-icons type="arrowdown" size="24" color="#999999"></uni-icons>
+						</view>
+					</template>
+					
 			</view>
 			<!-- 公告栏end -->
 		</view>
 		<!-- 头部end-->
+		<!-- 新聞詳情頁開始 -->
+		<notice v-show="is_notice" :news_list="notice_list"></notice>
+		<!-- 新聞詳情頁結束 -->
 		<!-- 点单主体部分start -->
-		<view class="main">
+		<view class="main" v-show="!is_notice">
 			<!-- 左侧菜单栏start -->
 			<scroll-view class="menu_bar" scroll-y="true" >
-				<view class="menu_item" v-for="(menu,menu_index) in menu_list" :class="{active:menu.id==menu_id_current}" @click="menu_Tap(menu.id)" >
+				<view class="menu_item" v-for="(menu,menu_index) in menu_list"  :class="{active:menu.id==menu_id_current}" @click="menu_Tap(menu.id)" >
 					<image class="menu_icon" :src="menu.icon_url" mode=""></image>
 					<text class="menu_name">{{menu.menu_name}}</text>
 				</view>
@@ -112,12 +124,20 @@
 									<view class="">
 										￥{{good.price}}
 									</view>
+									<actions :materials-btn="!good.is_single"
+											@materials="showProductDetailModal(good)" 
+											:number="productCartNum(good.id)"
+											@add="handleAddToCart(good)" 
+											@minus="handleMinusFromCart(good)" />
 								</view>
 							</view>
 						</view>
 					</view>
 			</scroll-view>
 			<!-- 右侧商品栏end -->
+			<!-- 商品詳情頁開始 -->
+			<good-modal></good-modal>
+			<!-- 商品詳情頁結束 -->
 			
 		</view>
 		<!-- 点单主体部分end -->
@@ -127,8 +147,14 @@
 <script>
 	import {menu_list} from './data.js';
 	import actions from './components/actions/actions.vue'
+	import notice from './components/notice/notice.vue'
+	import goodModal from './components/good-modal/good-modal.vue'
 	export default{
-		components:{},
+		components:{
+			actions,
+			notice,
+			goodModal
+			},
 		data() {
 			return {
 				shop_info:{
@@ -136,18 +162,24 @@
 					shop_name:'合肥正大廣場店',
 					tip:'送出外賣'
 				},
-				notice_list:[{
-					text:'多肉玫瓏瓜&玫瓏芒芒甘露新上市，優秀玫瓏瓜，清涼夏日解渴'
-				},{
-					text:'歐洲國外冰箱貼法國巴黎挪威英國倫敦新西蘭丹麥匈牙利出國紀念品'
-				}],
+				notice_list:[
+					'多肉玫瓏瓜&玫瓏芒芒甘露新上市，優秀玫瓏瓜，清涼夏日解渴',
+					'歐洲國外冰箱貼法國巴黎挪威英國倫敦新西蘭丹麥匈牙利出國紀念品',
+					'【混合堅果】限時買壹送壹，下單兩件自動減免壹件，快來選購嘗鮮吧~',
+					'生打椰系列全新上市，生打椰椰奶凍、生打椰椰芒2款可選，快來【當季限定】下單嘗鮮吧~',
+					'【混合堅果】限時買壹送壹，下單兩件自動減免壹件，快來選購嘗鮮吧~'
+				],
 				menu_list,
 				//下面都是静态默认值
 				order_type_selected:'order_type_selected',
 				order_type_current:0,
 				title:'英国城',
+				is_notice:false,
 				menu_id_current:1,
-				goods_scrollTop:0
+				goods_scrollTop:0,
+				good:{},
+				goodModalVisible:false,
+				cart:[]
 			
 			}
 		},
@@ -155,17 +187,18 @@
 			this.$nextTick(() => this.calcSize())
 		},
 		computed:{
-			
+			productCartNum(id) {	//计算单个饮品添加到购物车的数量
+				return id => this.cart.reduce((acc, cur) => {
+						if(cur.id === id) {
+							return acc += cur.number
+						}
+						return acc
+					}, 0)
+			}
 		},
 		methods:{
 			calcSize() {
 				let h = 0
-				let view = uni.createSelectorQuery().select('#ads')
-				view.fields({
-					size: true
-				}, data => {
-					h += Math.floor(data.height)
-				}).exec()
 				
 				this.menu_list.forEach(item => {
 					let view = uni.createSelectorQuery().select(`#goods_${item.id}`)
@@ -197,7 +230,58 @@
 				if(tabs.length>0){
 					this.menu_id_current=tabs[0].id
 				}
-			}
+			},
+			showProductDetailModal(good) {
+				this.good = good
+				this.goodModalVisible = true
+			},
+			handleAddToCart(good) {	//添加到购物车
+			console.log(this.productCartNum());
+				const index = this.cart.findIndex(item => {
+					if(!good.is_single) {
+						return (item.id == good.id) && (item.materials_text == good.materials_text)
+					} else {
+						return item.id === good.id
+					}
+				})
+				
+				if(index > -1) {
+					this.cart[index].number += (good.number || 1)
+					return
+				}
+				
+				this.cart.push({id: good.id,
+					//cate_id: good.category_id,
+					name: good.name,
+					price: good.price,
+					number: good.number || 1,
+					//image: good.images[0].url,
+					is_single: good.is_single,
+					materials_text: good.materials_text || ''
+				});
+				// this.cart.push({
+				// 	id: good.id,
+				// 	cate_id: good.category_id,
+				// 	name: good.name,
+				// 	price: good.price,
+				// 	number: good.number || 1,
+				// 	image: good.images[0].url,
+				// 	is_single: good.is_single,
+				// 	materials_text: good.materials_text || ''
+				// })
+			},
+			handleMinusFromCart(good) { //从购物车减商品
+				let index
+				if(good.is_single) {
+				   index = this.cart.findIndex(item => item.id == good.id)
+				} else {
+				   index = this.cart.findIndex(item => (item.id == good.id) && (item.materials_text == good.materials_text))
+				}
+				this.cart[index].number -= 1
+				if(this.cart[index].number <= 0) {
+					this.cart.splice(index, 1)
+				}
+			},
 		}
 	}
 </script>

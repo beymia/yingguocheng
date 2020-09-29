@@ -7,7 +7,7 @@
 		</template>
 		<template v-else>
 			<view class="materials-box">
-				<button type="primary" size="mini" class="materials-btn" @tap="$emit('materials')">选规格</button>
+				<button type="primary" size="mini" class="materials-btn" @tap="$emit('materials')">選規格</button>
 				<view class="number-badge" v-show="number">
 					<view class="number">{{ number }}</view>
 				</view>
@@ -42,7 +42,6 @@
 
 <style lang="scss" scoped>
 .actions {
-	margin-right: 20rpx;
 	display: flex;
 	align-items: center;
 
@@ -67,7 +66,14 @@
 		display: flex;
 		
 		.materials-btn {
-			border-radius: 50rem !important;
+			border-radius: 22rpx;
+			width: 110rpx;
+			height: 44rpx;
+			line-height: 44rpx;
+			text-align: center;
+			font-size: 22rpx;
+			white-space: nowrap;
+			padding: 0;
 		}
 		
 		.number-badge {
@@ -86,7 +92,7 @@
 			.number {
 				font-size: 20rpx;
 				flex-shrink: 0;
-				background-color: #DBA871;
+				background-color: #007aff;
 				color: #FFFFFF;
 				width: 0.9rem;
 				height: 0.9rem;

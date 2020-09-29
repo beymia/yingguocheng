@@ -1935,6 +1935,148 @@ function normalizeComponent (
 
 /***/ }),
 
+/***/ 101:
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  "pulldown": "\uE588",
+  "refreshempty": "\uE461",
+  "back": "\uE471",
+  "forward": "\uE470",
+  "more": "\uE507",
+  "more-filled": "\uE537",
+  "scan": "\uE612",
+  "qq": "\uE264",
+  "weibo": "\uE260",
+  "weixin": "\uE261",
+  "pengyouquan": "\uE262",
+  "loop": "\uE565",
+  "refresh": "\uE407",
+  "refresh-filled": "\uE437",
+  "arrowthindown": "\uE585",
+  "arrowthinleft": "\uE586",
+  "arrowthinright": "\uE587",
+  "arrowthinup": "\uE584",
+  "undo-filled": "\uE7D6",
+  "undo": "\uE406",
+  "redo": "\uE405",
+  "redo-filled": "\uE7D9",
+  "bars": "\uE563",
+  "chatboxes": "\uE203",
+  "camera": "\uE301",
+  "chatboxes-filled": "\uE233",
+  "camera-filled": "\uE7EF",
+  "cart-filled": "\uE7F4",
+  "cart": "\uE7F5",
+  "checkbox-filled": "\uE442",
+  "checkbox": "\uE7FA",
+  "arrowleft": "\uE582",
+  "arrowdown": "\uE581",
+  "arrowright": "\uE583",
+  "smallcircle-filled": "\uE801",
+  "arrowup": "\uE580",
+  "circle": "\uE411",
+  "eye-filled": "\uE568",
+  "eye-slash-filled": "\uE822",
+  "eye-slash": "\uE823",
+  "eye": "\uE824",
+  "flag-filled": "\uE825",
+  "flag": "\uE508",
+  "gear-filled": "\uE532",
+  "reload": "\uE462",
+  "gear": "\uE502",
+  "hand-thumbsdown-filled": "\uE83B",
+  "hand-thumbsdown": "\uE83C",
+  "hand-thumbsup-filled": "\uE83D",
+  "heart-filled": "\uE83E",
+  "hand-thumbsup": "\uE83F",
+  "heart": "\uE840",
+  "home": "\uE500",
+  "info": "\uE504",
+  "home-filled": "\uE530",
+  "info-filled": "\uE534",
+  "circle-filled": "\uE441",
+  "chat-filled": "\uE847",
+  "chat": "\uE263",
+  "mail-open-filled": "\uE84D",
+  "email-filled": "\uE231",
+  "mail-open": "\uE84E",
+  "email": "\uE201",
+  "checkmarkempty": "\uE472",
+  "list": "\uE562",
+  "locked-filled": "\uE856",
+  "locked": "\uE506",
+  "map-filled": "\uE85C",
+  "map-pin": "\uE85E",
+  "map-pin-ellipse": "\uE864",
+  "map": "\uE364",
+  "minus-filled": "\uE440",
+  "mic-filled": "\uE332",
+  "minus": "\uE410",
+  "micoff": "\uE360",
+  "mic": "\uE302",
+  "clear": "\uE434",
+  "smallcircle": "\uE868",
+  "close": "\uE404",
+  "closeempty": "\uE460",
+  "paperclip": "\uE567",
+  "paperplane": "\uE503",
+  "paperplane-filled": "\uE86E",
+  "person-filled": "\uE131",
+  "contact-filled": "\uE130",
+  "person": "\uE101",
+  "contact": "\uE100",
+  "images-filled": "\uE87A",
+  "phone": "\uE200",
+  "images": "\uE87B",
+  "image": "\uE363",
+  "image-filled": "\uE877",
+  "location-filled": "\uE333",
+  "location": "\uE303",
+  "plus-filled": "\uE439",
+  "plus": "\uE409",
+  "plusempty": "\uE468",
+  "help-filled": "\uE535",
+  "help": "\uE505",
+  "navigate-filled": "\uE884",
+  "navigate": "\uE501",
+  "mic-slash-filled": "\uE892",
+  "search": "\uE466",
+  "settings": "\uE560",
+  "sound": "\uE590",
+  "sound-filled": "\uE8A1",
+  "spinner-cycle": "\uE465",
+  "download-filled": "\uE8A4",
+  "personadd-filled": "\uE132",
+  "videocam-filled": "\uE8AF",
+  "personadd": "\uE102",
+  "upload": "\uE402",
+  "upload-filled": "\uE8B1",
+  "starhalf": "\uE463",
+  "star-filled": "\uE438",
+  "star": "\uE408",
+  "trash": "\uE401",
+  "phone-filled": "\uE230",
+  "compose": "\uE400",
+  "videocam": "\uE300",
+  "trash-filled": "\uE8DC",
+  "download": "\uE403",
+  "chatbubble-filled": "\uE232",
+  "chatbubble": "\uE202",
+  "cloud-download": "\uE8E4",
+  "cloud-upload-filled": "\uE8E5",
+  "cloud-upload": "\uE8E6",
+  "cloud-download-filled": "\uE8E9",
+  "headphones": "\uE8BF",
+  "shop": "\uE609" };exports.default = _default;
+
+/***/ }),
+
 /***/ 2:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
@@ -8011,92 +8153,78 @@ module.exports = g;
 /***/ }),
 
 /***/ 33:
-<<<<<<< HEAD
 /*!*************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/pages/order/data.js ***!
   \*************************************************************************************************************/
-=======
-/*!***********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/order/data.js ***!
-  \***********************************************************************/
->>>>>>> eee319ea4c5521854cbea4fa571e0fb89dd9a2f5
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list = void 0;var menu_list = [
 { id: 1, icon_url: '/static/images_t/order/tstc.png', menu_name: '堂食套餐', goods_list: [
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' },
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
+  { id: 1, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 2, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: false, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 3, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 4, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' },
+  { id: 5, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 6, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: false, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 7, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 8, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
 
 { id: 2, icon_url: '/static/images_t/order/ncjgc.png', menu_name: '奶茶及果茶', goods_list: [
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
+  { id: 9, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 10, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: false, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 11, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 12, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
 { id: 3, icon_url: '/static/images_t/order/cxkf.png', menu_name: '濃香咖啡', goods_list: [
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
+  { id: 13, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 14, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 15, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 16, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
-<<<<<<< HEAD
 { id: 4, icon_url: '/static/images_t/order/dxjdg.png', menu_name: '點心及蛋糕', goods_list: [
-=======
-{ id: 4, icon_url: '/static/images_t/order/dxjdz.png', menu_name: '點心及蛋糕', goods_list: [
->>>>>>> eee319ea4c5521854cbea4fa571e0fb89dd9a2f5
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
+  { id: 17, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 18, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 19, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 20, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
 { id: 5, icon_url: '/static/images_t/order/yscp.png', menu_name: '英式菜品', goods_list: [
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
+  { id: 21, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 22, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 23, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 24, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
 { id: 6, icon_url: '/static/images_t/order/amfw.png', menu_name: '澳門風味', goods_list: [
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
+  { id: 25, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 26, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 27, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 28, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
-<<<<<<< HEAD
 { id: 7, icon_url: '/static/images_t/order/dxjdg.png', menu_name: '點心及蛋糕', goods_list: [
-=======
-{ id: 7, icon_url: '/static/images_t/order/dxjdz.png', menu_name: '點心及蛋糕', goods_list: [
->>>>>>> eee319ea4c5521854cbea4fa571e0fb89dd9a2f5
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
+  { id: 29, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 30, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 31, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 32, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
 { id: 8, icon_url: '/static/images_t/order/yscp.png', menu_name: '英式菜品', goods_list: [
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
+  { id: 33, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 34, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 35, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 36, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
 { id: 9, icon_url: '/static/images_t/order/amfw.png', menu_name: '澳門風味', goods_list: [
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
+  { id: 37, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 38, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 39, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 40, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
 { id: 10, icon_url: '/static/images_t/order/tssx.png', menu_name: '特色手信', goods_list: [
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] }];exports.menu_list = menu_list;
+  { id: 41, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 42, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
+  { id: 43, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
+  { id: 44, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] }];exports.menu_list = menu_list;
 
 /***/ }),
 
@@ -8108,154 +8236,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 /***/ (function(module, exports) {
 
 
-
-/***/ }),
-
-/***/ 93:
-<<<<<<< HEAD
-/*!***********************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
-  \***********************************************************************************************************************/
-=======
-/*!*********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-icons/icons.js ***!
-  \*********************************************************************************/
->>>>>>> eee319ea4c5521854cbea4fa571e0fb89dd9a2f5
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  "pulldown": "\uE588",
-  "refreshempty": "\uE461",
-  "back": "\uE471",
-  "forward": "\uE470",
-  "more": "\uE507",
-  "more-filled": "\uE537",
-  "scan": "\uE612",
-  "qq": "\uE264",
-  "weibo": "\uE260",
-  "weixin": "\uE261",
-  "pengyouquan": "\uE262",
-  "loop": "\uE565",
-  "refresh": "\uE407",
-  "refresh-filled": "\uE437",
-  "arrowthindown": "\uE585",
-  "arrowthinleft": "\uE586",
-  "arrowthinright": "\uE587",
-  "arrowthinup": "\uE584",
-  "undo-filled": "\uE7D6",
-  "undo": "\uE406",
-  "redo": "\uE405",
-  "redo-filled": "\uE7D9",
-  "bars": "\uE563",
-  "chatboxes": "\uE203",
-  "camera": "\uE301",
-  "chatboxes-filled": "\uE233",
-  "camera-filled": "\uE7EF",
-  "cart-filled": "\uE7F4",
-  "cart": "\uE7F5",
-  "checkbox-filled": "\uE442",
-  "checkbox": "\uE7FA",
-  "arrowleft": "\uE582",
-  "arrowdown": "\uE581",
-  "arrowright": "\uE583",
-  "smallcircle-filled": "\uE801",
-  "arrowup": "\uE580",
-  "circle": "\uE411",
-  "eye-filled": "\uE568",
-  "eye-slash-filled": "\uE822",
-  "eye-slash": "\uE823",
-  "eye": "\uE824",
-  "flag-filled": "\uE825",
-  "flag": "\uE508",
-  "gear-filled": "\uE532",
-  "reload": "\uE462",
-  "gear": "\uE502",
-  "hand-thumbsdown-filled": "\uE83B",
-  "hand-thumbsdown": "\uE83C",
-  "hand-thumbsup-filled": "\uE83D",
-  "heart-filled": "\uE83E",
-  "hand-thumbsup": "\uE83F",
-  "heart": "\uE840",
-  "home": "\uE500",
-  "info": "\uE504",
-  "home-filled": "\uE530",
-  "info-filled": "\uE534",
-  "circle-filled": "\uE441",
-  "chat-filled": "\uE847",
-  "chat": "\uE263",
-  "mail-open-filled": "\uE84D",
-  "email-filled": "\uE231",
-  "mail-open": "\uE84E",
-  "email": "\uE201",
-  "checkmarkempty": "\uE472",
-  "list": "\uE562",
-  "locked-filled": "\uE856",
-  "locked": "\uE506",
-  "map-filled": "\uE85C",
-  "map-pin": "\uE85E",
-  "map-pin-ellipse": "\uE864",
-  "map": "\uE364",
-  "minus-filled": "\uE440",
-  "mic-filled": "\uE332",
-  "minus": "\uE410",
-  "micoff": "\uE360",
-  "mic": "\uE302",
-  "clear": "\uE434",
-  "smallcircle": "\uE868",
-  "close": "\uE404",
-  "closeempty": "\uE460",
-  "paperclip": "\uE567",
-  "paperplane": "\uE503",
-  "paperplane-filled": "\uE86E",
-  "person-filled": "\uE131",
-  "contact-filled": "\uE130",
-  "person": "\uE101",
-  "contact": "\uE100",
-  "images-filled": "\uE87A",
-  "phone": "\uE200",
-  "images": "\uE87B",
-  "image": "\uE363",
-  "image-filled": "\uE877",
-  "location-filled": "\uE333",
-  "location": "\uE303",
-  "plus-filled": "\uE439",
-  "plus": "\uE409",
-  "plusempty": "\uE468",
-  "help-filled": "\uE535",
-  "help": "\uE505",
-  "navigate-filled": "\uE884",
-  "navigate": "\uE501",
-  "mic-slash-filled": "\uE892",
-  "search": "\uE466",
-  "settings": "\uE560",
-  "sound": "\uE590",
-  "sound-filled": "\uE8A1",
-  "spinner-cycle": "\uE465",
-  "download-filled": "\uE8A4",
-  "personadd-filled": "\uE132",
-  "videocam-filled": "\uE8AF",
-  "personadd": "\uE102",
-  "upload": "\uE402",
-  "upload-filled": "\uE8B1",
-  "starhalf": "\uE463",
-  "star-filled": "\uE438",
-  "star": "\uE408",
-  "trash": "\uE401",
-  "phone-filled": "\uE230",
-  "compose": "\uE400",
-  "videocam": "\uE300",
-  "trash-filled": "\uE8DC",
-  "download": "\uE403",
-  "chatbubble-filled": "\uE232",
-  "chatbubble": "\uE202",
-  "cloud-download": "\uE8E4",
-  "cloud-upload-filled": "\uE8E5",
-  "cloud-upload": "\uE8E6",
-  "cloud-download-filled": "\uE8E9",
-  "headphones": "\uE8BF",
-  "shop": "\uE609" };exports.default = _default;
 
 /***/ })
 

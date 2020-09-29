@@ -167,7 +167,6 @@
 .goods{
 	flex: 1;
 	overflow: hidden;
-	padding-right: 24rpx;
 	.goods_list{
 		.goods_title{
 			height: 80rpx;
@@ -188,6 +187,7 @@
 				display: flex;
 				flex-direction: column;
 				flex: 1;
+				margin-right: 24rpx;
 				.good_name{
 					font-size: 28rpx;
 					color: #333333;
