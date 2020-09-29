@@ -135,12 +135,15 @@
 					</view>
 			</scroll-view>
 			<!-- 右侧商品栏end -->
-			<!-- 商品詳情頁開始 -->
-			<good-modal></good-modal>
-			<!-- 商品詳情頁結束 -->
-			
 		</view>
 		<!-- 点单主体部分end -->
+		<!-- 商品詳情頁開始 -->
+		<product-modal :product="good"
+						:visible="goodModalVisible" 
+						@cancel="closeProductDetailModal" 
+						@add-to-cart="handleAddToCartInModal" 
+		/>
+		<!-- 商品詳情頁結束 -->
 	</view>
 </template>
 

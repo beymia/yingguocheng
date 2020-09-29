@@ -1,7 +1,7 @@
 <template>
-	<modal :show="visible" custom padding="0" width="90%" radius="18rpx">
+	<modal :show="visible" custom padding="0" width="90%" radius="30rpx">
 		<view class="header">
-			<image src="/static/images/index/menupopup_btn_share_normal.png"></image>
+			<!-- <image src="/static/images/index/menupopup_btn_share_normal.png"></image> -->
 			<image src="/static/images/index/round_close_btn.png" @tap="$emit('cancel')"></image>
 		</view>
 		<swiper :duration="1000" indicator-dots class="swiper" autoplay :interval="3000">
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-	import Modal from '@/components/modal/modal.vue'
+	import Modal from '../modal/modal.vue'
 	import Actions from '../actions/actions.vue'
 	
 	export default {
