@@ -2,7 +2,8 @@
 	<view class="order_form_show">
 		<view v-for="(order,index) in orderFormData"
           :key="index"
-          class="order_form_content">
+          class="order_form_content"
+          @click="$emit('order-click')">
 			<view class="order_shop">
 				<view class="order_receiving">
 					<text>{{order.receiving}}</text>

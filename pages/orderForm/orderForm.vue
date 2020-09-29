@@ -32,9 +32,9 @@
       </view>
     </view>
 
-    <!-- 有訂單展示頁面 -->
+    <!-- 当前订单展示頁面 -->
     <view v-else-if="!empty&&activeFeat==='current'" class="order_detail">
-      <orderDetail :orderFormData="orderFormData"></orderDetail>
+      <orderDetail @order-click="orderPayment" :orderFormData="orderFormData"></orderDetail>
     </view>
 
     <!-- 歷史訂單頁面 -->
@@ -236,6 +236,14 @@ export default {
     navDescription() {
       uni.navigateTo({
         url: '/pages/wantTell/wantTell'
+      })
+    },
+    /*
+    * 跳转至订单结算页面
+    * */
+    orderPayment(id){
+      uni.navigateTo({
+        url:'/pages/orderPayment/orderPayment'
       })
     }
   },

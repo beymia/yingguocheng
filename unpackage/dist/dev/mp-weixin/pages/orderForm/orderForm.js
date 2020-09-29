@@ -382,6 +382,14 @@ __webpack_require__.r(__webpack_exports__);
       uni.navigateTo({
         url: '/pages/wantTell/wantTell' });
 
+    },
+    /*
+       * 跳转至订单结算页面
+       * */
+    orderPayment: function orderPayment(id) {
+      uni.navigateTo({
+        url: '/pages/orderPayment/orderPayment' });
+
     } },
 
   components: {
