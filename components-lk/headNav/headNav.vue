@@ -46,25 +46,24 @@
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
+    position: absolute;
 		/* #ifdef MP */
-		position: absolute;
 		left: 24rpx;
 		bottom: 14rpx;
 		/* #endif */
 
 		/* #ifdef H5 | APP-PLUS */
-		position: absolute;
 		left: 24rpx;
 		top: 22rpx;
 		/* #endif */
 
 		.head_nav_text {
 			height: 30rpx;
-			font-size: 22rpx;
-			font-weight: 400;
+			font-size: $font-size-base - 2rpx;
+			font-weight: $font-weight-base;
 			text-align: left;
 			line-height: 30rpx;
-			color: #666666;
+			color: $font-color2;
 		}
 
 		.head_nav_icon {

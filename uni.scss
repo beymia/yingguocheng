@@ -75,8 +75,22 @@ $uni-font-size-subtitle:36rpx;
 $uni-color-paragraph: #3F536E; // 文章段落颜色
 $uni-font-size-paragraph:30rpx;
 
-/*订单页的通过margin或者padding值*/
-$order-spacing:30rpx;
+/*通用字体属性*/
+$font-size-sm:24rpx;
+$font-size-base:28rpx;
+$font-size-lg:32rpx;
+$font-color1:#333333;
+$font-color2:#666666;
+$font-color3:#999999;
+$font-weight-base:400;
+$font-weight-lg:700;
 
-/*订单页默认的背景色*/
+/*订单页的margin或者padding值*/
+$order-spacing-lg:30rpx;
+$order-spacing-base:24rpx;
+
+/*订单页默认整体的背景色*/
 $order-bg:#F5F5F5;
+
+/*默认的局部主题色*/
+$main-color:#17A1FF;

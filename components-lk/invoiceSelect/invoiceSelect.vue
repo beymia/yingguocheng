@@ -80,28 +80,28 @@
 
 			.invoice_title {
 				display: flex;
-				font-size: 24rpx;
-				color: #333333;
+				font-size: $font-size-sm;
+				color: $font-color1;
 
 				text {
 					margin-right: 80rpx;
-					font-size: 24rpx;
-					font-weight: 700;
+					font-size: $font-size-sm;
+					font-weight: $font-weight-lg;
 				}
 
 				input {
 					height: 95rpx;
 					width: 431rpx;
 					line-height: 95rpx;
-					font-size: 24rpx;
-					color: #666666;
+					font-size: $font-size-sm;
+					color: $font-color2;
 					box-sizing: border-box;
-					font-weight: 400;
+					font-weight: $font-weight-base;
 				}
 				
 				.incoive_radio_text {
-					font-weight: 400;
-					color: #666666;
+					font-weight: $font-weight-base;
+					color: $font-color2;
 				}
 				.invoice_radio:nth-child(2){
 					position: absolute;

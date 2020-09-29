@@ -30,24 +30,24 @@ export default {
 .want_tell{
   width: 100%;
   height: 100%;
-  padding: 30rpx 65rpx;
+  padding: $order-spacing-lg 65rpx;
   box-sizing: border-box;
-  color: #333333;
+  color: $font-color1;
 
   .tell_head{
     font-size: 44rpx;
-    font-weight: 700;
+    font-weight: $font-weight-lg;
     text-align: center;
   }
 
   .tell_content{
     view{
-      font-size: 32rpx;
+      font-size: $font-size-lg;
       margin: 50rpx 0 20rpx 0;
       text-align: center;
     }
     text{
-      font-size: 28rpx;
+      font-size: $font-size-base;
       text-indent: 2em;
       display: inline-block;
     }

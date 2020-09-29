@@ -24,8 +24,10 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-/*订单页的通过margin或者padding值*/
-/*订单页默认的背景色*/
+/*通用字体属性*/
+/*订单页的margin或者padding值*/
+/*订单页默认整体的背景色*/
+/*默认的局部主题色*/
 .data-v-127632e4 .uni-navbar__header-container-inner {
   font-size: 17px;
 }
@@ -301,8 +303,6 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  word-wrap: break-word;
-  word-break: break-all;
 }
 .goods .goods_list .goods_item .good_intro .price.data-v-127632e4 {
   display: -webkit-box;

@@ -41,21 +41,21 @@
 		width: 100%;
 		height: 100%;
 		background: $order-bg;
-		padding: $order-spacing 24rpx;
+		padding: $order-spacing-lg $order-spacing-base;
 		box-sizing: border-box;
 
 		.invoice_content {
 			width: 100%;
 			background: #FFFFFF;
 			border-radius: 20rpx;
-			padding: 0 24rpx;
+			padding: 0 $order-spacing-base;
 			box-sizing: border-box;
 		}
 
 		.tips {
-			margin-top: $order-spacing + 2rpx;
-			font-size: 22rpx;
-			color: #999999;
+			margin-top: $order-spacing-lg + 2rpx;
+			font-size: $font-size-sm - 2rpx;
+			color: $font-color3;
 			box-sizing: border-box;
 
 
@@ -78,7 +78,7 @@
 
 		/* #ifndef H5*/
 		.tips {
-			padding: 0 30rpx;
+			padding: 0 $order-spacing-lg;
 		}
 
 		/* #endif*/
@@ -89,15 +89,15 @@
 			position: fixed;
 			left: 0;
 			bottom: 50rpx;
-			margin-left: 24rpx;
+			margin-left: $order-spacing-base;
 
 			.submit_btn {
 				height: 100%;
 				padding: 0;
 				margin: 0;
-				font-size: 28rpx;
+				font-size: $font-size-base;
 				color: #ffffff;
-				background: #17a1ff;
+				background: $main-color;
 				border: none
 			}
 		}
