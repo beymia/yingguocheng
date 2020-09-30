@@ -84,7 +84,7 @@ export default {
 
 <style lang="scss" scoped>
 .cart-popup {
-	background-color: $bg-color-white;
+	background-color: #FFFFFF;
 	padding-bottom: 100rpx;
 }
 
@@ -93,22 +93,22 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 1rpx solid rgba($color: $border-color, $alpha: 0.6);
-	font-size: $font-size-sm;
-	color: $text-color-assist;
+	border-bottom: 1rpx solid rgba($color: #c8c7cc, $alpha: 0.6);
+	font-size: 24rpx;
+	color: #999999;
 
 	.order-type {
 		display: flex;
 		align-items: center;
-		font-size: $font-size-sm;
-		color: $text-color-base;
+		font-size: 24rpx;
+		color: #343434;
 		
 		.extra {
 			margin-right: 10rpx;
-			border: 2rpx solid $color-primary;
+			border: 2rpx solid #DBA871;
 			font-size: 18rpx;
 			padding: 2rpx 10rpx;
-			color: $color-primary;
+			color: #DBA871;
 			margin-left: 10rpx;
 		}
 	}
@@ -146,7 +146,7 @@ export default {
 				bottom: 0;
 				left: 180rpx;
 				right: 0;
-				border-bottom: 1rpx solid rgba($color: $border-color, $alpha: 0.6);
+				border-bottom: 1rpx solid rgba($color: #c8c7cc, $alpha: 0.6);
 			}
 			
 			.left {
@@ -164,8 +164,8 @@ export default {
 				display: flex;
 				flex-direction: column;
 				justify-content: space-between;
-				font-size: $font-size-medium;
-				color: $text-color-base;
+				font-size: 28rpx;
+				color: #343434;
 				
 				.name-and-materials {
 					display: flex;
@@ -177,8 +177,8 @@ export default {
 					}
 					
 					.materials {
-						font-size: $font-size-sm;
-						color: $text-color-assist;
+						font-size: 24rpx;
+						color: #999999;
 					}
 				}
 				
@@ -187,7 +187,7 @@ export default {
 					justify-content: space-between;
 				
 					.price {
-						color: $text-color-grey;
+						color: #666666;
 					}
 				}
 			}

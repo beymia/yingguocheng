@@ -8,7 +8,7 @@
 		<template v-else>
 			<view class="materials-box">
 				<button type="primary" size="mini" class="materials-btn" @tap="$emit('materials')">選規格</button>
-				<view class="number-badge" v-show="number">
+				<view class="number-badge" v-if="number">
 					<view class="number">{{ number }}</view>
 				</view>
 			</view>

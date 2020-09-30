@@ -12,7 +12,7 @@
 	};
 </script>
 
-<style>
+<style lang="scss">
 	/* 解决头条小程序组件内引入字体不生效的问题 */
 	/* #ifdef MP-TOUTIAO */
 	@font-face {
@@ -81,4 +81,23 @@
     border-radius:15rpx !important;
   }
 	/* #endif */
+  .align-items-center {
+	align-items: center;
+  }
+  .d-flex{display: flex;}
+  uni-page-body, uni-view, uni-scroll-view, uni-text, uni-image, uni-textarea, uni-button, uni-swiper, uni-swiper-item, uni-input {
+      box-sizing: border-box;
+  }
+  uni-button {
+      font-size: 13px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px;
+      margin: 0;
+  }
+  uni-button[type='primary']{
+	  background-color: $main-color;
+  }
+  button[type='primary']{
+  	  background-color: $main-color;
+  }
 </style>

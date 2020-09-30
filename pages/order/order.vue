@@ -101,7 +101,7 @@
 						<view class="goods_title">
 							{{menu.menu_name}}
 						</view>
-						<view class="goods_item" v-for="(good,good_index) in menu.goods_list">
+						<view class="goods_item" v-for="(good,good_index) in menu.goods_list" @tap="showProductDetailModal(good)">
 							<view class="good_icon">
 								<image :src="good.imgurl" mode=""></image>
 							</view>
@@ -110,15 +110,18 @@
 									{{good.name}}
 								</view>
 								<view class="good_label">
-									<view class="isHot" v-if="good.isHot">
+									<!-- <view class="isHot" v-if="good.isHot">
 										可做热饮
 									</view>
 									<view class="recipe">
 										{{good.recipe}}
+									</view> -->
+									<view class="isHot" v-for="label in good.labels">
+										{{label}}
 									</view>
 								</view>
 								<view class="good_des">
-									{{good.des}}
+									{{good.description}}
 								</view>
 								<view class="price">
 									<view class="">
@@ -152,11 +155,16 @@
 	import actions from './components/actions/actions.vue'
 	import notice from './components/notice/notice.vue'
 	import goodModal from './components/good-modal/good-modal.vue'
+	import CartBar from './components/cartbar/cartbar.vue'
+	import ProductModal from './components/product-modal/product-modal.vue'
+	import cartPopup from './components/cart-popup/cart-popup.vue'
+	import Search from './components/search/search.vue'
 	export default{
 		components:{
 			actions,
 			notice,
-			goodModal
+			goodModal,
+			ProductModal
 			},
 		data() {
 			return {
@@ -186,7 +194,21 @@
 			
 			}
 		},
-		onLoad() {
+		async onLoad() {
+			uni.request({
+			    url: 'https://host.dot_api.com/classify/list', //仅为示例，并非真实接口地址。
+			    data: {
+			    },
+			    header: {
+			        'custom-header': 'hello' //自定义请求头信息
+			    },
+			    success: (res) => {
+			        console.log('onload sucess data---:'+res.data);
+			    },
+				complete: (res) => {
+				    console.log(res);
+				}
+			});
 			this.$nextTick(() => this.calcSize())
 		},
 		computed:{
@@ -220,12 +242,12 @@
 			},
 			menu_Tap(id){
 				this.menu_id_current=id;
-				this.goods_scrollTop = this.menu_list.find(item => item.id == id).top
+				this.goods_scrollTop = this.menu_list.find(item => item.id == id).top+Math.random();
 				console.log(this.goods_scrollTop)
 					
 			},
 			goods_scroll({detail}) {
-				this.goods_scrollTop=detail.scrollTop;//仅仅起到监听作用，防止重复设值不生效
+				//this.goods_scrollTop=detail.scrollTop;//仅仅起到监听作用，防止重复设值不生效
 				let {scrollTop} =detail;
 				scrollTop=Math.ceil(scrollTop)+1;
 				
@@ -284,6 +306,14 @@
 				if(this.cart[index].number <= 0) {
 					this.cart.splice(index, 1)
 				}
+			},
+			handleAddToCartInModal(good) {
+				this.handleAddToCart(good)
+				this.closeProductDetailModal()
+			},
+			closeProductDetailModal() {
+				this.goodModalVisible = false
+				this.good = {}
 			},
 		}
 	}

@@ -6,6 +6,7 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "actions": "/pages/order/components/actions/actions",
     "notice": "/pages/order/components/notice/notice",
-    "good-modal": "/pages/order/components/good-modal/good-modal"
+    "good-modal": "/pages/order/components/good-modal/good-modal",
+    "product-modal": "/pages/order/components/product-modal/product-modal"
   }
 }

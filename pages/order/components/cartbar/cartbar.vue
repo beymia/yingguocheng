@@ -93,7 +93,7 @@ export default {
 		height: 100%;
 		border-radius: 100%;
 		background-color: #ffffff;
-		box-shadow: 0 10rpx 10rpx 0 rgba($color: $border-color, $alpha: 0.2);
+		box-shadow: 0 10rpx 10rpx 0 rgba($color: #c8c7cc, $alpha: 0.2);
 		position: relative;
 		display: flex;
 		align-items: center;
@@ -110,9 +110,9 @@ export default {
 		}
 
 		.badge {
-			background-color: $color-primary;
-			font-size: $font-size-sm;
-			color: $bg-color-white;
+			background-color: #DBA871;
+			font-size: 24rpx;
+			color: #FFFFFF;
 			line-height: 1rem;
 			width: 1rem;
 			text-align: center;
@@ -124,9 +124,9 @@ export default {
 	}
 
 	.price {
-		font-size: $font-size-extra-lg;
+		font-size: 36rpx;
 		font-weight: bold;
-		color: $text-color-base;
+		color: #343434;
 	}
 }
 
@@ -136,6 +136,6 @@ export default {
 	align-items: center;
 	padding: 0 70rpx;
 	border-radius: 0 !important;
-	font-size: $font-size-extra-lg;
+	font-size: 36rpx;
 }
 </style>

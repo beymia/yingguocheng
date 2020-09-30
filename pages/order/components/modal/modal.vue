@@ -1,6 +1,6 @@
 <template>
 	<view @touchmove.stop.prevent>
-		<view class="modal-box" :style="{width:width,padding:padding,borderRadius:radius}" :class="[(fadein || show)?'modal-normal':'modal-scale',show?'modal-show':'']">
+		<view class="modal-box" :style="{width:width,padding:padding,borderRadius:radius}" :class="[(fadein || show)?'modal-normal':'modal-scale',show?'modal-show':'']" style="overflow: hidden;">
 			<view v-if="custom">
 				<slot></slot>
 			</view>
@@ -130,6 +130,9 @@
 		position: fixed;
 		left: 50%;
 		top: 50%;
+		/* #ifdef MP-WEIXIN */
+		top: calc(50vh + 20px);
+		/* #endif */
 		margin: auto;
 		background: #fff;
 		z-index: 1000;

@@ -148,14 +148,14 @@
 		padding: 20rpx 30rpx;
 		display: flex;
 		align-items: center;
-		border-bottom: 1rpx solid rgba($color: $border-color, $alpha: 0.6);
+		border-bottom: 1rpx solid rgba($color: #c8c7cc, $alpha: 0.6);
 		
 		.search-input {
 			flex: 1;
 			height: 60rpx;
 			padding: 10rpx 20rpx;
 			background-color: #f7f7f7;
-			font-size: $font-size-base;
+			font-size: 26rpx;
 			border-radius: 50rem !important;
 			display: flex;
 			align-items: center;
@@ -188,15 +188,15 @@
 			margin-bottom: 20rpx;
 			
 			.title {
-				font-size: $font-size-medium;
-				color: $text-color-base;
+				font-size: 28rpx;
+				color: #343434;
 			}
 			
 			.subtitle {
 				display: flex;
 				align-items: center;
-				font-size: $font-size-sm;
-				color: $text-color-assist;
+				font-size: 24rpx;
+				color: #999;
 				
 				image {
 					width: 40rpx;
@@ -212,8 +212,8 @@
 			.item {
 				background-color: #f5f5f7;
 				padding: 10rpx 20rpx;
-				font-size: $font-size-sm;
-				color: $text-color-grey;
+				font-size: 24rpx;
+				color: #666;
 				border-radius: 50rem !important;
 				margin-right: 20rpx;
 				margin-bottom: 20rpx;
@@ -241,7 +241,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			font-size: $font-size-base;
+			font-size: 26rpx;
 			
 			.pro-image {
 				width: 144rpx;
