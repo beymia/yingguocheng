@@ -8194,6 +8194,55 @@ internalMixin(Vue);
 
 /***/ }),
 
+/***/ 252:
+/*!********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ajax = __webpack_require__(/*! ./ajax */ 253);
+
+
+var orderForm = function orderForm() {return ajax('/orderForm', {});};
+
+module.exports = {
+  orderForm: orderForm };
+
+/***/ }),
+
+/***/ 253:
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {/*
+* 简易封装模拟测试请求
+* */
+function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'get';var header = arguments.length > 3 ? arguments[3] : undefined;
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: url,
+      data: data,
+      method: method,
+      header: header,
+      success: function success(result) {
+        resolve(result);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+module.exports = ajax;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!

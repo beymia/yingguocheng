@@ -6,12 +6,12 @@
 				<input type="text" value="電子發票" disabled>
 			</label>
 		</view>
-		<view class="invoice_items invoice_amount">
-			<label class="invoice_title">
-				<text>發票金額</text>
-				<input type="text" value="￥11.78" disabled>
-			</label>
-		</view>
+    <view class="invoice_items invoice_amount">
+      <label class="invoice_title">
+        <text>發票金額</text>
+        <input type="text" :value="'￥'+invoiceAmount" disabled>
+      </label>
+    </view>
 		<view class="invoice_items invoice_method">
 			<radio-group class="invoice_title">
 				<text>開票方式</text>
@@ -50,7 +50,20 @@
 
 <script>
 	export default {
-		name: "invoiceSelect"
+		name: "invoiceSelect",
+    props:{
+		  /*
+		  * 接收发票总金额，如果不是数字类型，或者转换数字类型失败直接报错
+		  * */
+      invoiceAmount:{
+        type:[Number,String],
+        required:true,
+        validator:function(value){
+          value = parseFloat(value)
+         return typeof value === 'number'
+        }
+      }
+    }
 	}
 </script>
 

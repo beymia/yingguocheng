@@ -1,5 +1,9 @@
 <script>
 	export default {
+	  globalData:{
+	    goodsPayment:{},
+      coupon:0,
+    },
 		onLaunch: function() {
 			console.log('App Launch');
 		},
