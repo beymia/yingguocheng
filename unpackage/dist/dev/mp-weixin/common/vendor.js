@@ -904,7 +904,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1935,17 +1935,10 @@ function normalizeComponent (
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 101:
-/*!***********************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
-  \***********************************************************************************************************************/
-=======
-/***/ 103:
+/***/ 113:
 /*!*********************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-icons/icons.js ***!
   \*********************************************************************************/
->>>>>>> fd6b599410b88e4c0b2b1cef36ad9a577330ec74
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2081,6 +2074,79 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   "cloud-download-filled": "\uE8E9",
   "headphones": "\uE8BF",
   "shop": "\uE609" };exports.default = _default;
+
+/***/ }),
+
+/***/ 191:
+/*!*********************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/popup.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 192));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+// 定义 type 类型:弹出类型：top/bottom/center
+var config = {
+  // 顶部弹出
+  top: 'top',
+  // 底部弹出
+  bottom: 'bottom',
+  // 居中弹出
+  center: 'center',
+  // 消息提示
+  message: 'top',
+  // 对话框
+  dialog: 'center',
+  // 分享
+  share: 'bottom' };var _default =
+
+
+{
+  data: function data() {
+    return {
+      config: config };
+
+  },
+  mixins: [_message.default] };exports.default = _default;
+
+/***/ }),
+
+/***/ 192:
+/*!***********************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/message.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _created$created$meth;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_created$created$meth = {
+  created: function created() {
+    if (this.type === 'message') {
+      // 获取自组件对象
+      this.maskShow = false;
+      this.children = null;
+    }
+  } }, _defineProperty(_created$created$meth, "created", function created()
+{
+  if (this.type === 'message') {
+    // 不显示遮罩
+    this.maskShow = false;
+    // 获取子组件对象
+    this.childrenMsg = null;
+  }
+}), _defineProperty(_created$created$meth, "methods",
+{
+  customOpen: function customOpen() {
+    if (this.childrenMsg) {
+      this.childrenMsg.open();
+    }
+  },
+  customClose: function customClose() {
+    if (this.childrenMsg) {
+      this.childrenMsg.close();
+    }
+  } }), _created$created$meth);exports.default = _default;
 
 /***/ }),
 
@@ -7608,7 +7674,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7629,14 +7695,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7721,7 +7787,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8160,9 +8226,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 33:
-/*!*************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/pages/order/data.js ***!
-  \*************************************************************************************************************/
+/*!***********************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/order/data.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8192,17 +8258,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
   { id: 16, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
 { id: 4, icon_url: '/static/images_t/order/dxjdg.png', menu_name: '點心及蛋糕', goods_list: [
-<<<<<<< HEAD
   { id: 17, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
   { id: 18, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
   { id: 19, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
   { id: 20, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
-=======
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
->>>>>>> fd6b599410b88e4c0b2b1cef36ad9a577330ec74
 
 { id: 5, icon_url: '/static/images_t/order/yscp.png', menu_name: '英式菜品', goods_list: [
   { id: 21, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
@@ -8217,17 +8276,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
   { id: 28, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
 
 { id: 7, icon_url: '/static/images_t/order/dxjdg.png', menu_name: '點心及蛋糕', goods_list: [
-<<<<<<< HEAD
   { id: 29, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
   { id: 30, name: '冷萃桂花綠', price: 9, isGuige: true, is_single: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
   { id: 31, name: 'NFC桃桃汁', price: 25, isGuige: false, is_single: true, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
   { id: 32, name: '多肉芒芒甘露', price: 27, isGuige: false, is_single: true, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
-=======
-  { name: '黑糖波波希臘酸奶', price: 19, isGuige: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
-  { name: '冷萃桂花綠', price: 9, isGuige: true, isHot: false, recipe: '含茶', des: '冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉', imgurl: '/static/images_t/order/lcghl.png' },
-  { name: 'NFC桃桃汁', price: 25, isGuige: false, isHot: false, recipe: '', des: '非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨', imgurl: '/static/images_t/order/nfcttz.png' },
-  { name: '多肉芒芒甘露', price: 27, isGuige: false, isHot: true, recipe: '含乳制品、茶', des: '冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶', imgurl: '/static/images_t/order/drmmgl.png' }] },
->>>>>>> fd6b599410b88e4c0b2b1cef36ad9a577330ec74
 
 { id: 8, icon_url: '/static/images_t/order/yscp.png', menu_name: '英式菜品', goods_list: [
   { id: 33, name: '黑糖波波希臘酸奶', price: 19, isGuige: true, is_single: true, isHot: false, recipe: '含乳、燕麥、南瓜子仁', des: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', imgurl: '/static/images_t/order/htbbxlsn.png' },
@@ -8250,13 +8302,62 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 /***/ }),
 
 /***/ 4:
-/*!****************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/pages.json ***!
-  \****************************************************************************************************/
+/*!**************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/yingguocheng/pages.json ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 
+
+/***/ }),
+
+/***/ 42:
+/*!******************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/yingguocheng/request/api.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ajax = __webpack_require__(/*! ./ajax */ 43);
+
+
+var orderForm = function orderForm() {return ajax('/orderForm', {});};
+
+module.exports = {
+  orderForm: orderForm };
+
+/***/ }),
+
+/***/ 43:
+/*!*******************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/yingguocheng/request/ajax.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {/*
+* 简易封装模拟测试请求
+* */
+function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'get';var header = arguments.length > 3 ? arguments[3] : undefined;
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: url,
+      data: data,
+      method: method,
+      header: header,
+      success: function success(result) {
+        resolve(result);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+module.exports = ajax;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

@@ -8,7 +8,8 @@
     "pages/bulkInvoice/bulkInvoice",
     "pages/wantTell/wantTell",
     "pages/invoiceInfo/invoiceInfo",
-    "pages/orderPayment/orderPayment"
+    "pages/orderPayment/orderPayment",
+    "pages/discount/discount"
   ],
   "subPackages": [],
   "window": {
@@ -50,9 +51,5 @@
     ]
   },
   "usingComponents": {},
-<<<<<<< HEAD
-  "sitemapLocation": "sitemap49.json"
-=======
-  "sitemapLocation": "sitemap61.json"
->>>>>>> fd6b599410b88e4c0b2b1cef36ad9a577330ec74
+  "sitemapLocation": "sitemap73.json"
 }

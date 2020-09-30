@@ -42,8 +42,8 @@
       <view class="history_head">
         <view class="history_head_content">
           <view>
-            <button @click="historyType='yourself'"
-                    :class="{active_btn:historyType==='yourself'}"
+            <button @click="historyType='oneself'"
+                    :class="{active_btn:historyType==='oneself'}"
                     plain>自提訂單
             </button>
             <button @click="historyType='takeaway'"
@@ -60,7 +60,7 @@
         </view>
       </view>
       <view>
-        <orderDetail :orderFormData="historyData"></orderDetail>
+        <orderDetail :orderFormData="sliceOrder"></orderDetail>
       </view>
     </view>
   </view>
@@ -69,7 +69,7 @@
 <script>
 import headNav from '../../components-lk/headNav/headNav.vue'
 import orderDetail from '../../components-lk/orderDetail/orderDetail.vue'
-
+import api from '../../request/api'
 export default {
   data() {
     return {
@@ -79,149 +79,129 @@ export default {
       empty: true,
       historyType: 'takeaway',
       orderFormData: [{
-        receiving: '自提',
-        shop: '合肥尚澤大都會店',
-        progress: '製作中',
+        haul_method: '自提',
+        shop_name: '合肥尚澤大都會店',
+        pay_status: '製作中',
         goods: [{
-          img: '../../static/images_t/orderForm/shop.png',
-          name: '多肉芒芒甘露',
-          straw: '常規吸管',
-          type: '冰(推薦)',
-          size: '標準杯(500ml)',
-          sugar: '正常(推薦)',
-          count: 1,
+          id: "15996445868596547",
+          home_avatar: '../../static/images_t/orderForm/shop.png',
+          goods_name: '多肉芒芒甘露',
+          norm: '正常,标准甜',
+          goods_num: 1,
+          goods_price: 15
         },],
-
-        date: '2020-08-18 12:14',
-        totalCount: 1,
-        totalAmount: '￥27'
+        created_at: '2020-08-18 12:14',
+        payment_info: '￥15'
+      },{
+        haul_method: '自提',
+        shop_name: '合肥尚澤大都會店',
+        pay_status: '製作中',
+        goods: [{
+          id: "15996445868596547",
+          home_avatar: '../../static/images_t/orderForm/shop.png',
+          goods_name: '多肉芒芒甘露',
+          norm: '正常,标准甜',
+          goods_num: 1,
+          goods_price: 15
+        },],
+        created_at: '2020-08-18 12:14',
+        payment_info: '￥15'
+      },{
+        haul_method: '自提',
+        shop_name: '合肥尚澤大都會店',
+        pay_status: '待支付',
+        goods: [{
+          id: "15996445868596547",
+          home_avatar: '../../static/images_t/orderForm/shop.png',
+          goods_name: '多肉芒芒甘露',
+          norm: '正常,标准甜',
+          goods_num: 1,
+          goods_price: 15
+        },{
+          id: "15996445868596547",
+          home_avatar: '../../static/images_t/orderForm/shop.png',
+          goods_name: '多肉葡萄冰棒',
+          norm: '正常,不另外加糖',
+          goods_num: 1,
+          goods_price: 15
+        },
+        ],
+        created_at: '2020-08-18 12:14',
+        payment_info: '￥15'
       },
-        {
-          receiving: '自提',
-          shop: '合肥尚澤大都會店',
-          progress: '製作中',
-          goods: [{
-            img: '../../static/images_t/orderForm/shop.png',
-            name: '多肉芒芒甘露',
-            straw: '常規吸管',
-            type: '冰(推薦)',
-            size: '標準杯(500ml)',
-            sugar: '正常(推薦)',
-            count: 1,
-          }, {
-            img: '../../static/images_t/orderForm/shop.png',
-            name: '多肉芒芒甘露',
-            straw: '常規吸管',
-            type: '冰(推薦)',
-            size: '標準杯(500ml)',
-            sugar: '正常(推薦)',
-            count: 1,
-          }, {
-            img: '../../static/images_t/orderForm/shop.png',
-            name: '多肉芒芒甘露',
-            straw: '常規吸管',
-            type: '冰(推薦)',
-            size: '標準杯(500ml)',
-            sugar: '正常(推薦)',
-            count: 1,
-          },],
-
-          date: '2020-08-18 12:14',
-          totalCount: 1,
-          totalAmount: '￥27'
-        },
-        {
-          receiving: '自提',
-          shop: '合肥尚澤大都會店',
-          progress: '製作中',
-          goods: [{
-            img: '../../static/images_t/orderForm/shop.png',
-            name: '多肉芒芒甘露',
-            straw: '常規吸管',
-            type: '冰(推薦)',
-            size: '標準杯(500ml)',
-            sugar: '正常(推薦)',
-            count: 1,
-          },],
-          date: '2020-08-18 12:14',
-          totalCount: 1,
-          totalAmount: '￥27'
-        },
       ],
       historyData: [{
-        receiving: '自提',
-        shop: '蓮花智谷創業園 經開區蓮花路與蓮花智谷創業園 經開區蓮花路與...',
-        progress: '製作中',
+        haul_method: '自提',
+        shop_name: '合肥尚澤大都會店',
+        pay_status: '已完成',
         goods: [{
-          img: '../../static/images_t/orderForm/shop2.png',
-          name: '黑糖波波希臘酸奶',
-          straw: '常規吸管',
-          type: '冰(推薦)',
-          size: '標準杯(500ml)',
-          sugar: '正常(推薦)',
-          count: 1,
+          id: "15996445868596547",
+          home_avatar: '../../static/images_t/orderForm/shop2.png',
+          goods_name: '多肉芒芒甘露',
+          norm: '正常,标准甜',
+          goods_num: 1,
+          goods_price: 15
         },],
-
-        date: '2020-08-18 12:14',
-        totalCount: 1,
-        totalAmount: '￥27'
+        created_at: '2020-08-18 12:14',
+        payment_info: '￥15'
+      },{
+        haul_method: '外卖',
+        shop_name: '合肥尚澤大都會店',
+        pay_status: '已完成',
+        goods: [{
+          id: "15996445868596547",
+          home_avatar: '../../static/images_t/orderForm/shop2.png',
+          goods_name: '多肉芒芒甘露',
+          norm: '正常,标准甜',
+          goods_num: 1,
+          goods_price: 15
+        },],
+        created_at: '2020-08-18 12:14',
+        payment_info: '￥15'
+      },{
+        haul_method: '外卖',
+        shop_name: '合肥尚澤大都會店',
+        pay_status: '已完成',
+        goods: [{
+          id: "15996445868596547",
+          home_avatar: '../../static/images_t/orderForm/shop2.png',
+          goods_name: '多肉芒芒甘露',
+          norm: '正常,标准甜',
+          goods_num: 1,
+          goods_price: 15
+        },],
+        created_at: '2020-08-18 12:14',
+        payment_info: '￥15'
       },
-        {
-          receiving: '自提',
-          shop: '合肥尚澤大都會店',
-          progress: '製作中',
-          goods: [{
-            img: '../../static/images_t/orderForm/shop2.png',
-            name: '黑糖波波希臘酸奶',
-            straw: '常規吸管',
-            type: '冰(推薦)',
-            size: '標準杯(500ml)',
-            sugar: '正常(推薦)',
-            tableware: '需要餐具',
-            count: 1,
-          }, {
-            img: '../../static/images_t/orderForm/shop2.png',
-            name: '黑糖波波希臘酸奶',
-            straw: '常規吸管',
-            type: '冰(推薦)',
-            size: '標準杯(500ml)',
-            sugar: '正常(推薦)',
-            count: 1,
-          }, {
-            img: '../../static/images_t/orderForm/shop2.png',
-            name: '黑糖波波希臘酸奶',
-            straw: '常規吸管',
-            type: '冰(推薦)',
-            size: '標準杯(500ml)',
-            sugar: '正常(推薦)',
-            tableware: '需要餐具',
-            count: 1,
-          },],
-
-          date: '2020-08-18 12:14',
-          totalCount: 1,
-          totalAmount: '￥27'
-        },
-        {
-          receiving: '自提',
-          shop: '合肥尚澤大都會店',
-          progress: '製作中',
-          goods: [{
-            img: '../../static/images_t/orderForm/shop2.png',
-            name: '黑糖波波希臘酸奶',
-            straw: '常規吸管',
-            type: '冰(推薦)',
-            size: '標準杯(500ml)',
-            sugar: '正常(推薦)',
-            count: 1,
-          },],
-          date: '2020-08-18 12:14',
-          totalCount: 1,
-          totalAmount: '￥27'
-        },
       ],
+      oneSelfOrder:[],
+      takeawayOrder:[],
     }
   },
+  computed:{
+    /*
+    * 将外卖订单和自提订单分割出来
+    * 根据展示板块动态切换传递给展示组件的数据
+    * */
+    sliceOrder(){
+      this.takeawayOrder = [];
+      this.oneSelfOrder = [];
+      this.historyData.forEach((item)=>{
+        if(item.haul_method === '外卖'){
+          this.takeawayOrder.push(item)
+        }else{
+          this.oneSelfOrder.push(item)
+        }
+      });
+      if(this.historyType === 'oneself'){
+        return this.oneSelfOrder
+      }
+      return this.takeawayOrder
+    },
+  },
+  mounted() {
+      api.orderForm()
+    },
   methods: {
     toggleFeat(feat) {
       if(feat === 'history'){
@@ -239,13 +219,15 @@ export default {
       })
     },
     /*
-    * 跳转至订单结算页面
-    * */
-    orderPayment(id){
+   * 跳转至订单结算页面
+   * */
+    orderPayment(g) {
+      getApp().globalData.goodsPaymeny = g.order.goods;
+      console.log(g);
       uni.navigateTo({
-        url:'/pages/orderPayment/orderPayment'
+        url: '/pages/orderPayment/orderPayment',
       })
-    }
+    },
   },
   components: {
     headNav,
@@ -255,9 +237,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+uni-page-body{
+  min-height: 100%;background-color: $order-bg;
+}
 .order_form {
   width: 100%;
   background-color: $order-bg;
+  min-height: 100%;
 
   .head_feat {
     width: 100%;
