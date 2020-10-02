@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -31,28 +30,6 @@
 /*订单页默认整体的背景色*/
 /*默认的局部主题色*/
 /* 解决头条小程序组件内引入字体不生效的问题 */
-=======
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/* 解决头条小程序组件内引入字体不生效的问题 */
->>>>>>> fe78afa1934ffa9f998deddf69b4c2e6029d1320
 .page {
   position: absolute;
   top: 0;
@@ -126,16 +103,39 @@ uni-page-body, uni-view, uni-scroll-view, uni-text, uni-image, uni-textarea, uni
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-uni-button {
-  font-size: 13px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
+button {
+  font-size: 26rpx;
+  -webkit-border-radius: 4rpx;
+          border-radius: 4rpx;
   margin: 0;
+  /* 
+  	&[type='default'] {
+  		color: $text-color-grey !important;
+  		border: 2rpx solid #ccc !important;
+  		background-color: $bg-color-white;
+  	}
+  	
+  	&[type='info'] {
+  		background-color: #343434;
+  		color: $bg-color-white !important;
+  		
+  		&.button-hover, &[disabled] {
+  			background-color: rgba($color: #343434, $alpha: 0.6);
+  		}
+  	} */
 }
-uni-button[type='primary'] {
-  background-color: #17A1FF;
+button:after {
+  border: 0;
 }
 button[type='primary'] {
   background-color: #17A1FF;
+}
+button[type='primary'][plain] {
+  background-color: #FFFFFF;
+  border: 2rpx solid #17A1FF;
+  color: #17A1FF;
+}
+button[type='primary'].button-hover {
+  background-color: rgba(23, 161, 255, 0.6);
 }
 

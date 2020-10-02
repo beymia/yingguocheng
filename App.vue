@@ -92,16 +92,43 @@
   uni-page-body, uni-view, uni-scroll-view, uni-text, uni-image, uni-textarea, uni-button, uni-swiper, uni-swiper-item, uni-input {
       box-sizing: border-box;
   }
-  uni-button {
-      font-size: 13px;
-      -webkit-border-radius: 2px;
-      border-radius: 2px;
-      margin: 0;
-  }
-  uni-button[type='primary']{
-	  background-color: $main-color;
-  }
-  button[type='primary']{
-  	  background-color: $main-color;
+
+  button {
+  	font-size: 26rpx;
+  	border-radius: 4rpx;
+  	margin: 0;
+  	
+  	&:after {
+  		border: 0;
+  	}
+  	
+  	&[type='primary'] {
+  		background-color: $main-color;
+  		
+  		&[plain] {
+  			background-color: #FFFFFF;
+  			border: 2rpx solid $main-color;;
+  			color: $main-color;
+  		}
+  		
+  		&.button-hover {
+  			background-color: rgba($color: $main-color, $alpha: 0.6);
+  		}
+  	}
+  	/* 
+  	&[type='default'] {
+  		color: $text-color-grey !important;
+  		border: 2rpx solid #ccc !important;
+  		background-color: $bg-color-white;
+  	}
+  	
+  	&[type='info'] {
+  		background-color: #343434;
+  		color: $bg-color-white !important;
+  		
+  		&.button-hover, &[disabled] {
+  			background-color: rgba($color: #343434, $alpha: 0.6);
+  		}
+  	} */
   }
 </style>

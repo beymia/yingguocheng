@@ -39,7 +39,7 @@
 		<view class="bottom" :style="{height: !productData.is_single ? '250rpx' : '200rpx'}">
 			<view class="d-flex align-items-center">
 				<view class="price-and-materials">
-					<view class="price">￥{{ productData.price }}</view>
+					<view class="price">￥{{ productData.truePrice || productData.price }}</view>
 					<view class="materials" v-show="getProductSelectedMaterials">{{ getProductSelectedMaterials }}</view>
 				</view>
 				<actions :number="productData.number ?productData.number:0" @add="add" @minus="minus"></actions>
@@ -81,20 +81,25 @@
 			}
 		},
 		computed: {
+			//获取所选的规格和实际的价格
 			getProductSelectedMaterials() {
 				if(!this.productData.is_single && this.productData.materials) {
-					let materials = []
+					let materials = [];
+					let truePrice=this.productData.price;
 					this.productData.materials.forEach(({values}) => {
 						values.forEach(value => {
 							if(value.is_selected) {
+								console.log(value)
+								truePrice += Number(value.price || 0);
 								materials.push(value.name)
 							}
 						})
 					})
+					this.productData.truePrice=truePrice;
 					return materials.length ? materials.join('，') : ''
 				}
 				return ''
-			}
+			},
 		},
 		methods: {
 			changeMaterialSelected(index, key) {

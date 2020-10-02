@@ -97,6 +97,7 @@
 			<!-- 左侧菜单栏end -->
 			<!-- 右侧商品栏start -->
 			<scroll-view scroll-y="true" scroll-with-animation :scroll-top="goods_scrollTop"  class="goods" @scroll="goods_scroll" >
+				<view class="pdb50">
 					<view class="goods_list" :id="`goods_${menu.id}`" v-for="(menu,menu_index) in menu_list">
 						<view class="goods_title">
 							{{menu.menu_name}}
@@ -136,6 +137,8 @@
 							</view>
 						</view>
 					</view>
+				</view>
+					
 			</scroll-view>
 			<!-- 右侧商品栏end -->
 		</view>
@@ -147,6 +150,14 @@
 						@add-to-cart="handleAddToCartInModal" 
 		/>
 		<!-- 商品詳情頁結束 -->
+		<!-- 购物车栏 begin -->
+		<cart-bar :cart="cart" 
+				  @add="handleAddToCart" 
+				  @minus="handleMinusFromCart"
+				  @clear="clearCart"
+				  @pay="pay"
+		/>
+		<!-- 购物车栏 end -->
 	</view>
 </template>
 
@@ -164,7 +175,8 @@
 			actions,
 			notice,
 			goodModal,
-			ProductModal
+			ProductModal,
+			CartBar
 			},
 		data() {
 			return {
@@ -279,6 +291,7 @@
 					//cate_id: good.category_id,
 					name: good.name,
 					price: good.price,
+					truePrice:good.truePrice|| good.price,
 					number: good.number || 1,
 					//image: good.images[0].url,
 					is_single: good.is_single,

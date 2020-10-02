@@ -7,6 +7,7 @@
     "actions": "/pages/order/components/actions/actions",
     "notice": "/pages/order/components/notice/notice",
     "good-modal": "/pages/order/components/good-modal/good-modal",
-    "product-modal": "/pages/order/components/product-modal/product-modal"
+    "product-modal": "/pages/order/components/product-modal/product-modal",
+    "cart-bar": "/pages/order/components/cartbar/cartbar"
   }
 }

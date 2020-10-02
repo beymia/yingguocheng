@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import uniTransition from '@/components/uni-transition/uni-transition.vue'
+// import uniTransition from '@/components/uni-transition/uni-transition.vue'
 import cartPopup from '../cart-popup/cart-popup.vue'
 
 export default {
 	name: 'CartBar',
 	components: {
-		uniTransition,
+		// uniTransition,
 		cartPopup
 	},
 	props: {
@@ -35,7 +35,7 @@ export default {
 			return this.cart.reduce((acc, cur) => acc + cur.number, 0)
 		},
 		cartPrice() {	//计算购物车总价
-			return this.cart.reduce((acc, cur) => acc + cur.number * cur.price, 0)
+			return this.cart.reduce((acc, cur) => acc + cur.number * (cur.truePrice || cur.price), 0)
 		}	
 	},
 	data() {

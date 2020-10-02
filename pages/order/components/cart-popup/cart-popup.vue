@@ -37,12 +37,12 @@
 </template>
 
 <script>
-import uniPopup from '@/components/uni-popup/uni-popup.vue'
+// import uniPopup from '@/components/uni-popup/uni-popup.vue'
 import actions from '../actions/actions.vue'
 
 export default {
 	components: {
-		uniPopup,
+		// uniPopup,
 		actions
 	},
 	props: {
@@ -86,6 +86,9 @@ export default {
 .cart-popup {
 	background-color: #FFFFFF;
 	padding-bottom: 100rpx;
+	// #ifdef H5
+	bottom: var(--window-bottom);
+	// #endif
 }
 
 .header {

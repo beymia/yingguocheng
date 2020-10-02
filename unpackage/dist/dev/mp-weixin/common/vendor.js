@@ -1935,7 +1935,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 127:
+/***/ 137:
 /*!***********************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
   \***********************************************************************************************************************/
@@ -2077,7 +2077,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 170:
+/***/ 180:
 /*!***********************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/popup.js ***!
   \***********************************************************************************************************************/
@@ -2085,7 +2085,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 171));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 181));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -2112,7 +2112,7 @@ var config = {
 
 /***/ }),
 
-/***/ 171:
+/***/ 181:
 /*!*************************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/message.js ***!
   \*************************************************************************************************************************/
@@ -8194,55 +8194,6 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 252:
-/*!********************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api.js ***!
-  \********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var ajax = __webpack_require__(/*! ./ajax */ 253);
-
-
-var orderForm = function orderForm() {return ajax('/orderForm', {});};
-
-module.exports = {
-  orderForm: orderForm };
-
-/***/ }),
-
-/***/ 253:
-/*!*********************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax.js ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(uni) {/*
-* 简易封装模拟测试请求
-* */
-function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'get';var header = arguments.length > 3 ? arguments[3] : undefined;
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      url: url,
-      data: data,
-      method: method,
-      header: header,
-      success: function success(result) {
-        resolve(result);
-      },
-      fail: function fail(err) {
-        reject(err);
-      } });
-
-  });
-}
-
-module.exports = ajax;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -9155,6 +9106,55 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 /***/ (function(module, exports) {
 
 
+
+/***/ }),
+
+/***/ 66:
+/*!********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ajax = __webpack_require__(/*! ./ajax */ 67);
+
+
+var orderForm = function orderForm() {return ajax('/orderForm', {});};
+
+module.exports = {
+  orderForm: orderForm };
+
+/***/ }),
+
+/***/ 67:
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {/*
+* 简易封装模拟测试请求
+* */
+function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'get';var header = arguments.length > 3 ? arguments[3] : undefined;
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: url,
+      data: data,
+      method: method,
+      header: header,
+      success: function success(result) {
+        resolve(result);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+module.exports = ajax;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 
