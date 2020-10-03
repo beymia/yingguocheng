@@ -2,15 +2,28 @@
 	<view>
 		<uni-transition :mode-class="['slide-bottom']" :show="!!cartNum" :styles="cartBarStyles">
 			<view class="left">
-				<view class="detail-action" @tap="details">
-					<image src="/static/images/index/icon_shopping_bag.png" class="shopbag-btn"></image>
-					<view class="badge">{{ cartNum }}</view>
-				</view>
+				<template v-if="bagIconVisible">
+					<view class="detail-action" @tap="details">
+						<image src="/static/images/order/icon_shopping_bag.png" class="shopbag-btn"></image>
+						<view class="badge">{{ cartNum }}</view>
+					</view>
+				</template>
+				<template v-else>
+					<checkbox-group class="ck" @change="checkAllChange" >
+						<label class="check_con">
+								<checkbox value="all" :checked="is_checked_all" />
+								<view class="select_all">
+									全選
+								</view>
+						</label>
+					</checkbox-group>
+				</template>
+				
 				<view class="price">￥{{ cartPrice }}</view>
 			</view>
 			<button type="primary" class="right" @tap="pay">结算</button>
 		</uni-transition>
-		<cart-popup :cart="cart" ref="cartPopup" @add="add" @minus="minus" @clear="clear"></cart-popup>
+		<cart-popup :cart="cart" ref="cartPopup" @add="add" @minus="minus" @clear="clear" @change="popChange" @checkboxChange="checkboxChange"></cart-popup>
 	</view>
 </template>
 
@@ -28,15 +41,18 @@ export default {
 		cart: {
 			type: Array,
 			default: () => []
-		}
+		},
 	},
 	computed: {
 		cartNum() { //计算购物车总数
 			return this.cart.reduce((acc, cur) => acc + cur.number, 0)
 		},
 		cartPrice() {	//计算购物车总价
-			return this.cart.reduce((acc, cur) => acc + cur.number * (cur.truePrice || cur.price), 0)
-		}	
+			return this.cart.filter(item => item.is_checked).reduce((acc, cur) => acc + cur.number * (cur.truePrice || cur.price), 0)
+		},
+		is_checked_all(){
+			return Boolean(this.cart.length) && !(this.cart.findIndex(item => item.is_checked == false)+1);
+		}
 	},
 	data() {
 		return {
@@ -54,12 +70,14 @@ export default {
 				'display': 'flex',
 				'justify-content': 'space-between',
 				'align-items': 'stretch',
-			}
+			},
+			bagIconVisible:true
 		}
 	},
 	methods: {
 		details() {
 			this.$refs['cartPopup'].open()
+			this.bagIconVisible=false
 		},
 		add(product) {
 			this.$emit('add', {...product, number: 1})
@@ -69,15 +87,30 @@ export default {
 		},
 		clear() {
 			this.$emit('clear')
+			this.bagIconVisible=true
 		},
 		pay() {
 			this.$emit('pay')
+		},
+		popChange(isshow){
+			if(isshow){
+				this.bagIconVisible=false
+			}else{
+				this.bagIconVisible=true
+			}
+		},
+		checkAllChange(e){
+			this.$emit("checkAllChange",e)
+		},
+		checkboxChange(e){
+			this.$emit("checkboxChange",e)
 		}
 	},
 	watch: {
 		cartNum(val) {
 			if(!val) {
 				this.$refs['cartPopup'].close()
+				this.bagIconVisible=true
 			}
 		}
 	}
@@ -88,6 +121,44 @@ export default {
 .left {
 	display: flex;
 	align-items: center;
+	
+	.ck{
+		.check_con{
+			display: flex;
+		align-items: center;
+		margin-right: 10rpx;
+		}
+		//改变uni-app默认的多选框样式
+		/deep/ .uni-checkbox-input {
+			width: 50rpx !important;
+			height: 50rpx !important;
+			border-radius: 50%;
+			transform: scale(.68);
+			box-sizing: border-box;
+		}
+		
+		/deep/ .uni-checkbox-input-checked {
+			width: 50rpx !important;
+			height: 50rpx !important;
+			border-radius: 50%;
+			background: $main-color;
+			color: #fff !important;
+			transform: scale(.68);
+			border: none;
+			box-sizing: border-box;
+		}
+		/deep/.uni-checkbox-input:hover{
+			width: 50rpx !important;
+			height: 50rpx !important;
+			border-color: #d1d1d1 !important;
+			transform: scale(.68);
+			box-sizing: border-box;
+		}
+		.select_all{
+			font-size: 24rpx;
+			color: #333333;
+		}
+	}
 
 	.detail-action {
 		height: 100%;
@@ -110,7 +181,7 @@ export default {
 		}
 
 		.badge {
-			background-color: #DBA871;
+			background-color: $main-color;
 			font-size: 24rpx;
 			color: #FFFFFF;
 			line-height: 1rem;

@@ -155,6 +155,8 @@
 				  @add="handleAddToCart" 
 				  @minus="handleMinusFromCart"
 				  @clear="clearCart"
+				  @checkboxChange="checkboxChange"
+				  @checkAllChange="checkAllChange"
 				  @pay="pay"
 		/>
 		<!-- 购物车栏 end -->
@@ -165,16 +167,13 @@
 	import {menu_list} from './data.js';
 	import actions from './components/actions/actions.vue'
 	import notice from './components/notice/notice.vue'
-	import goodModal from './components/good-modal/good-modal.vue'
 	import CartBar from './components/cartbar/cartbar.vue'
 	import ProductModal from './components/product-modal/product-modal.vue'
-	import cartPopup from './components/cart-popup/cart-popup.vue'
 	import Search from './components/search/search.vue'
 	export default{
 		components:{
 			actions,
 			notice,
-			goodModal,
 			ProductModal,
 			CartBar
 			},
@@ -294,8 +293,10 @@
 					truePrice:good.truePrice|| good.price,
 					number: good.number || 1,
 					//image: good.images[0].url,
+					imgurl:good.imgurl,
 					is_single: good.is_single,
-					materials_text: good.materials_text || ''
+					materials_text: good.materials_text || '',
+					is_checked:true,
 				});
 				// this.cart.push({
 				// 	id: good.id,
@@ -328,8 +329,31 @@
 				this.goodModalVisible = false
 				this.good = {}
 			},
+			clearCart() {
+				this.cart = []
+			},
+			checkAllChange(e){
+				var values = e.detail.value;
+				console.log(e)
+				if(values.length > 0){
+					this.cart.forEach(item => item.is_checked = true)
+				}else{
+					this.cart.forEach(item => item.is_checked = false)
+				}
+			},
+			checkboxChange(e){
+				var values = e.detail.value;
+				var id=e.currentTarget.dataset.id;
+				console.log(e)
+				if(values.length > 0){
+					this.cart.find(item => item.id==id).is_checked=true;
+				}else{
+					this.cart.find(item => item.id==id).is_checked= false;
+			}
 		}
-	}
+	},
+}
+	
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <template>
-	<uni-popup ref="popup" type="bottom" @change="change">
+	<uni-popup ref="popup_cart" type="bottom" @change="change">
 		<view class="cart-popup">
 			<view class="header">
 				<view class="order-type">
@@ -16,7 +16,12 @@
 					<view class="list">
 						<view class="item" v-for="(item, index) in cart" :key="index">
 							<view class="left">
-								<image :src="item.image" mode="widthFix" class="image"></image>
+								<checkbox-group class="ck" :data-id="item.id" @change="checkboxChange" >
+									<label >
+											<checkbox :value="item.id"  :checked="item.is_checked" />
+									</label>
+								</checkbox-group>
+								<image :src="item.imgurl" mode="" class="image"></image>
 							</view>
 							<view class="right">
 								<view class="name-and-materials">
@@ -53,10 +58,10 @@ export default {
 	},
 	methods: {
 		open() {
-			this.$refs['popup'].open()
+			this.$refs['popup_cart'].open();
 		},
 		close() {
-			this.$refs['popup'].close()
+			this.$refs['popup_cart'].close()
 		},
 		change({show}) {
 			this.$emit('change', show)
@@ -77,6 +82,9 @@ export default {
 			        }
 			    }
 			})
+		},
+		checkboxChange(e){
+			this.$emit("checkboxChange",e)
 		}
 	}
 };
@@ -124,12 +132,15 @@ export default {
 }
 
 .content {
+	width: 100%;
 	max-height: calc(100vh - 600rpx);
 	
 	.wrapper {
 		width: 100%;
 		height: 100%;
 		padding: 0 30rpx;
+		box-sizing: border-box;
+		
 	}
 	
 	.list {
@@ -156,9 +167,36 @@ export default {
 				flex-shrink: 0;
 				display: flex;
 				align-items: center;
-				
+				width: 204rpx;
+				justify-content: space-between;
+				.ck{
+					//改变uni-app默认的多选框样式
+					/deep/ .uni-checkbox-input {
+						width: 50rpx !important;
+						height: 50rpx !important;
+						border-radius: 50%;
+						transform: scale(.68);
+					}
+					
+					/deep/ .uni-checkbox-input-checked {
+						width: 50rpx !important;
+						height: 50rpx !important;
+						border-radius: 50%;
+						background: $main-color;
+						color: #fff !important;
+						transform: scale(.68);
+						border: none;
+					}
+					/deep/.uni-checkbox-input:hover{
+						border-color: #d1d1d1 !important;
+						transform: scale(.68);
+					}
+				}
 				.image {
-					width: 180rpx;
+					//width: 180rpx;
+					width:120rpx;
+					height: 120rpx;
+					margin-right: 16rpx;
 				}
 			}
 			
