@@ -123,6 +123,7 @@ export default {
 	align-items: center;
 	
 	.ck{
+		margin-left: 24rpx;
 		.check_con{
 			display: flex;
 		align-items: center;
@@ -197,7 +198,7 @@ export default {
 	.price {
 		font-size: 36rpx;
 		font-weight: bold;
-		color: #343434;
+		color: $main-color;
 	}
 }
 

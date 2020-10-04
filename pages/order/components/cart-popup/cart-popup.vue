@@ -2,14 +2,19 @@
 	<uni-popup ref="popup_cart" type="bottom" @change="change">
 		<view class="cart-popup">
 			<view class="header">
-				<view class="order-type">
+				<!-- <view class="order-type">
 					<view class="font-weight-bold">门店订单</view>
 					<view class="extra">自提/外送</view>
 				</view>
 				<view class="d-flex align-items-center" @tap="clear">
 					<image src="/static/images/common/delete.png" class="delete-btn"></image>
 					<view>清空购物车</view>
+				</view> -->
+				<view class="d-flex align-items-center" @tap="clear">
+					<image src="/static/images/order/delete1.png"  class="delete-btn"></image>
+					<view>清空購物袋</view>
 				</view>
+				<image src="/static/images/order/close.png" @tap="close" class="close_img"></image>
 			</view>
 			<scroll-view scroll-y class="content">
 				<view class="wrapper">
@@ -94,6 +99,7 @@ export default {
 .cart-popup {
 	background-color: #FFFFFF;
 	padding-bottom: 100rpx;
+	border-radius: 20rpx 20rpx 0px 0px;
 	// #ifdef H5
 	bottom: var(--window-bottom);
 	// #endif
@@ -107,6 +113,11 @@ export default {
 	border-bottom: 1rpx solid rgba($color: #c8c7cc, $alpha: 0.6);
 	font-size: 24rpx;
 	color: #999999;
+	
+	.close_img{
+		width: 44rpx;
+		height: 44rpx;
+	}
 
 	.order-type {
 		display: flex;
@@ -125,8 +136,10 @@ export default {
 	}
 	
 	.delete-btn {
-		width: 46rpx;
-		height: 46rpx;
+		/* width: 46rpx;
+		height: 46rpx; */
+		width: 26rpx;
+		height: 26rpx;
 		margin-right: 10rpx;
 	}
 }

@@ -904,7 +904,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1935,7 +1935,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 130:
+/***/ 123:
 /*!***********************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
   \***********************************************************************************************************************/
@@ -2074,79 +2074,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   "cloud-download-filled": "\uE8E9",
   "headphones": "\uE8BF",
   "shop": "\uE609" };exports.default = _default;
-
-/***/ }),
-
-/***/ 166:
-/*!***********************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/popup.js ***!
-  \***********************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 167));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-// 定义 type 类型:弹出类型：top/bottom/center
-var config = {
-  // 顶部弹出
-  top: 'top',
-  // 底部弹出
-  bottom: 'bottom',
-  // 居中弹出
-  center: 'center',
-  // 消息提示
-  message: 'top',
-  // 对话框
-  dialog: 'center',
-  // 分享
-  share: 'bottom' };var _default =
-
-
-{
-  data: function data() {
-    return {
-      config: config };
-
-  },
-  mixins: [_message.default] };exports.default = _default;
-
-/***/ }),
-
-/***/ 167:
-/*!*************************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/message.js ***!
-  \*************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _created$created$meth;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_created$created$meth = {
-  created: function created() {
-    if (this.type === 'message') {
-      // 获取自组件对象
-      this.maskShow = false;
-      this.children = null;
-    }
-  } }, _defineProperty(_created$created$meth, "created", function created()
-{
-  if (this.type === 'message') {
-    // 不显示遮罩
-    this.maskShow = false;
-    // 获取子组件对象
-    this.childrenMsg = null;
-  }
-}), _defineProperty(_created$created$meth, "methods",
-{
-  customOpen: function customOpen() {
-    if (this.childrenMsg) {
-      this.childrenMsg.open();
-    }
-  },
-  customClose: function customClose() {
-    if (this.childrenMsg) {
-      this.childrenMsg.close();
-    }
-  } }), _created$created$meth);exports.default = _default;
 
 /***/ }),
 
@@ -7674,7 +7601,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7695,14 +7622,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7787,7 +7714,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8191,6 +8118,79 @@ internalMixin(Vue);
 /* harmony default export */ __webpack_exports__["default"] = (Vue);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
+
+/***/ }),
+
+/***/ 229:
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/popup.js ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 230));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+// 定义 type 类型:弹出类型：top/bottom/center
+var config = {
+  // 顶部弹出
+  top: 'top',
+  // 底部弹出
+  bottom: 'bottom',
+  // 居中弹出
+  center: 'center',
+  // 消息提示
+  message: 'top',
+  // 对话框
+  dialog: 'center',
+  // 分享
+  share: 'bottom' };var _default =
+
+
+{
+  data: function data() {
+    return {
+      config: config };
+
+  },
+  mixins: [_message.default] };exports.default = _default;
+
+/***/ }),
+
+/***/ 230:
+/*!*************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/message.js ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _created$created$meth;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_created$created$meth = {
+  created: function created() {
+    if (this.type === 'message') {
+      // 获取自组件对象
+      this.maskShow = false;
+      this.children = null;
+    }
+  } }, _defineProperty(_created$created$meth, "created", function created()
+{
+  if (this.type === 'message') {
+    // 不显示遮罩
+    this.maskShow = false;
+    // 获取子组件对象
+    this.childrenMsg = null;
+  }
+}), _defineProperty(_created$created$meth, "methods",
+{
+  customOpen: function customOpen() {
+    if (this.childrenMsg) {
+      this.childrenMsg.open();
+    }
+  },
+  customClose: function customClose() {
+    if (this.childrenMsg) {
+      this.childrenMsg.close();
+    }
+  } }), _created$created$meth);exports.default = _default;
 
 /***/ }),
 
@@ -9026,10 +9026,10 @@ if (hadRuntime) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list = void 0;var menu_list = [
 { id: 1, icon_url: '/static/images_t/order/tstc.png', menu_name: '堂食套餐', goods_list: [
-  { id: 1, name: '黑糖波波希臘酸奶', price: 19, is_single: false, isHot: false, labels: ['可做热饮', '含乳、燕麥、南瓜子仁'], materials: [{ "group_name": "餐具需要", "values": [{ "id": 1289, "name": "需要餐具", "price": "1", "is_selected": false }, { "id": 1289, "name": "不需要壹次性餐具", "price": "1", "is_selected": false }] }], description: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', images: ['/static/images_t/order/htbbxlsn_large.png', '/static/images_t/order/drmmgl_large.png'], imgurl: '/static/images_t/order/htbbxlsn.png' },
+  { id: 1, name: '黑糖波波希臘酸奶', price: 19, is_single: false, isHot: false, labels: ['可做热饮', '含乳、燕麥、南瓜子仁'], materials: [{ "group_name": "餐具需要", "values": [{ "id": 1289, "name": "需要餐具", "price": "1", "is_selected": false }, { "id": 1289, "name": "不需要壹次性餐具", "price": "0", "is_selected": false }] }], description: '黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件', images: ['/static/images_t/order/htbbxlsn_large.png', '/static/images_t/order/drmmgl_large.png'], imgurl: '/static/images_t/order/htbbxlsn.png' },
   { id: 2, name: '冷萃桂花綠', price: 9, is_single: false, isHot: false, labels: ['可做热饮', '含茶'],
     materials: [
-    { "group_name": "餐具需要", "values": [{ "id": 1289, "name": "需要餐具", "price": "1", "is_selected": false }, { "id": 1289, "name": "不需要壹次性餐具", "price": "1", "is_selected": false }] },
+    { "group_name": "餐具需要", "values": [{ "id": 1289, "name": "需要餐具", "price": "1", "is_selected": false }, { "id": 1289, "name": "不需要壹次性餐具", "price": "0", "is_selected": false }] },
     { "group_name": "狀態", "values": [{ "id": 1289, "name": "冰沙（推薦）", "price": "1", "is_selected": false, "is_exclusive": true }, { "id": 1289, "name": "熱", "price": "1", "is_selected": false }, { "id": 1289, "name": "溫", "price": "1", "is_selected": false }] },
     { "group_name": "杯型", "values": [{ "id": 1289, "name": "標準杯（500ml）", "price": "1", "is_selected": false, "is_exclusive": true }, { "id": 1289, "name": "加大MAX杯（670ml）", "price": "1", "is_selected": false, "is_exclusive": true }] },
     { "group_name": "冰量", "values": [{ "id": 1289, "name": "正常（推薦）", "price": "1", "is_selected": false, "is_exclusive": true }, { "id": 1289, "name": "少冰", "price": "1", "is_selected": false, "is_exclusive": true }, { "id": 1289, "name": "少少冰", "price": "1", "is_selected": false, "is_exclusive": true }] }],
@@ -9109,14 +9109,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 
 /***/ }),
 
-/***/ 59:
+/***/ 52:
 /*!********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api.js ***!
   \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ajax = __webpack_require__(/*! ./ajax */ 60);
+var ajax = __webpack_require__(/*! ./ajax */ 53);
 
 
 var orderForm = function orderForm() {return ajax('/orderForm', {});};
@@ -9126,7 +9126,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 60:
+/***/ 53:
 /*!*********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax.js ***!
   \*********************************************************************************************************/

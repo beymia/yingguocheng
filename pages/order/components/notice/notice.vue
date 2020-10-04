@@ -1,38 +1,41 @@
 <template>
 	<view class="notice_page">
 		<scroll-view scroll-y="true" class="notice_scroll" >
-			<!-- 新聞列表開始 -->
-				<view class="news_list">
-					<view class="news" v-for="(news,news_index) in news_list" :key="news_index">
-						<view class="icon">
-							<image src="/static/images/order/blueBall.png" mode=""></image>
+			<view class="mr60_con">
+				<!-- 新聞列表開始 -->
+					<view class="news_list">
+						<view class="news" v-for="(news,news_index) in news_list" :key="news_index">
+							<view class="icon">
+								<image src="/static/images/order/blueBall.png" mode=""></image>
+							</view>
+							<view class="text">
+								{{news}}
+							</view>
 						</view>
-						<view class="text">
-							{{news}}
+					</view>
+				<!-- 新聞列表結束 -->
+				<!-- 配送開始 -->
+					<view class="other">
+						<view class="title">
+							配送
+						</view>
+						<view class="text" v-for="peisong_info in peisong_infos">
+							{{peisong_info}}
 						</view>
 					</view>
-				</view>
-			<!-- 新聞列表結束 -->
-			<!-- 配送開始 -->
-				<view class="other">
-					<view class="title">
-						配送
+				<!-- 配送結束 -->
+				<!-- 門店信息開始 -->
+					<view class="other">
+						<view class="title">
+							門店
+						</view>
+						<view class="text" v-for="mendian_info in mendian_infos">
+							{{mendian_info}}
+						</view>
 					</view>
-					<view class="text" v-for="peisong_info in peisong_infos">
-						{{peisong_info}}
-					</view>
-				</view>
-			<!-- 配送結束 -->
-			<!-- 門店信息開始 -->
-				<view class="other">
-					<view class="title">
-						門店
-					</view>
-					<view class="text" v-for="mendian_info in mendian_infos">
-						{{mendian_info}}
-					</view>
-				</view>
-			<!-- 門店信息結束-->
+				<!-- 門店信息結束-->
+			</view>
+			
 		</scroll-view>
 	</view>
 		
@@ -67,9 +70,12 @@
 	.notice_page{
 		flex: 1;
 		overflow: hidden;
-		padding: 6rpx 60rpx 0 24rpx;
+		padding: 6rpx 0 0 24rpx;
 		.notice_scroll{
 			height: 100%;
+			.mr60_con{
+				margin-right: 60rpx;
+			}
 		}
 		.news_list{
 			margin-bottom: 40rpx;

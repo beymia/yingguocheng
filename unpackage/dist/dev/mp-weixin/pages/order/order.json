@@ -7,6 +7,8 @@
     "actions": "/pages/order/components/actions/actions",
     "notice": "/pages/order/components/notice/notice",
     "product-modal": "/pages/order/components/product-modal/product-modal",
-    "cart-bar": "/pages/order/components/cartbar/cartbar"
+    "cart-bar": "/pages/order/components/cartbar/cartbar",
+    "search": "/pages/order/components/search/search",
+    "rest": "/pages/order/components/rest/rest"
   }
 }

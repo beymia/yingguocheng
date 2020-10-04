@@ -151,7 +151,7 @@
 		/>
 		<!-- 商品詳情頁結束 -->
 		<!-- 购物车栏 begin -->
-		<cart-bar :cart="cart" 
+		<cart-bar v-if="!is_notice && !is_rest" :cart="cart" 
 				  @add="handleAddToCart" 
 				  @minus="handleMinusFromCart"
 				  @clear="clearCart"
@@ -160,6 +160,9 @@
 				  @pay="pay"
 		/>
 		<!-- 购物车栏 end -->
+		<!-- 休息中 start -->
+		<rest :is_rest="is_rest" opening_hours=""></rest>
+		<!-- 休息中 end -->
 	</view>
 </template>
 
@@ -170,12 +173,15 @@
 	import CartBar from './components/cartbar/cartbar.vue'
 	import ProductModal from './components/product-modal/product-modal.vue'
 	import Search from './components/search/search.vue'
+	import rest from './components/rest/rest.vue'
 	export default{
 		components:{
 			actions,
 			notice,
 			ProductModal,
-			CartBar
+			CartBar,
+			Search,
+			rest
 			},
 		data() {
 			return {
@@ -201,7 +207,8 @@
 				goods_scrollTop:0,
 				good:{},
 				goodModalVisible:false,
-				cart:[]
+				cart:[],
+				is_rest:true
 			
 			}
 		},

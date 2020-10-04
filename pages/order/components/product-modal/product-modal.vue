@@ -95,7 +95,8 @@
 							}
 						})
 					})
-					this.productData.truePrice=truePrice;
+					// this.productData.truePrice=truePrice;
+					this.$set(this.productData,"truePrice",truePrice)
 					return materials.length ? materials.join('，') : ''
 				}
 				return ''
@@ -110,7 +111,6 @@
 					currentMaterial.is_selected = 1
 					this.productData.number = 1
 				} else {
-					console.log(111111111111111111111111111111)
 					currentMaterial.is_selected = !currentMaterial.is_selected
 					this.productData.number = 1
 				}

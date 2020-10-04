@@ -1,9 +1,9 @@
 var menu_list=[
 					{id:1,icon_url:'/static/images_t/order/tstc.png',menu_name:'堂食套餐',goods_list:[
-						{id:1,name:'黑糖波波希臘酸奶',price:19,is_single:false,isHot:false,labels:['可做热饮','含乳、燕麥、南瓜子仁'],materials:[{"group_name": "餐具需要","values": [{"id": 1289,"name": "需要餐具","price": "1","is_selected": false},{"id": 1289,"name": "不需要壹次性餐具","price": "1","is_selected": false}]}],description:'黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/htbbxlsn.png'},
+						{id:1,name:'黑糖波波希臘酸奶',price:19,is_single:false,isHot:false,labels:['可做热饮','含乳、燕麥、南瓜子仁'],materials:[{"group_name": "餐具需要","values": [{"id": 1289,"name": "需要餐具","price": "1","is_selected": false},{"id": 1289,"name": "不需要壹次性餐具","price": "0","is_selected": false}]}],description:'黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/htbbxlsn.png'},
 						{id:2,name:'冷萃桂花綠',price:9,is_single:false,isHot:false,labels:['可做热饮','含茶'],
 						materials:[
-							{"group_name": "餐具需要","values": [{"id": 1289,"name": "需要餐具","price": "1","is_selected": false},{"id": 1289,"name": "不需要壹次性餐具","price": "1","is_selected": false}]},
+							{"group_name": "餐具需要","values": [{"id": 1289,"name": "需要餐具","price": "1","is_selected": false},{"id": 1289,"name": "不需要壹次性餐具","price": "0","is_selected": false}]},
 							{"group_name": "狀態","values": [{"id": 1289,"name": "冰沙（推薦）","price": "1","is_selected": false,"is_exclusive": true},{"id": 1289,"name": "熱","price": "1","is_selected": false},{"id": 1289,"name": "溫","price": "1","is_selected": false}]},
 							{"group_name": "杯型","values": [{"id": 1289,"name": "標準杯（500ml）","price": "1","is_selected": false,"is_exclusive": true},{"id": 1289,"name": "加大MAX杯（670ml）","price": "1","is_selected": false,"is_exclusive": true}]},
 							{"group_name": "冰量","values": [{"id": 1289,"name": "正常（推薦）","price": "1","is_selected": false,"is_exclusive": true},{"id": 1289,"name": "少冰","price": "1","is_selected": false,"is_exclusive": true},{"id": 1289,"name": "少少冰","price": "1","is_selected": false,"is_exclusive": true}]}

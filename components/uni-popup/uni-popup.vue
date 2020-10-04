@@ -45,10 +45,10 @@
 				type: String,
 				default: 'center'
 			},
-			// maskClick
+			// maskClick 此處默認true被修改爲false
 			maskClick: {
 				type: Boolean,
-				default: true
+				default: false
 			}
 		},
 		provide() {
@@ -71,9 +71,9 @@
 			 * 监听遮罩是否可点击
 			 * @param {Object} val
 			 */
-			maskClick(val) {
+			/* maskClick(val) {
 				this.mkclick = val
-			}
+			} */
 		},
 		data() {
 			return {
@@ -152,7 +152,7 @@
 				})
 			},
 			onTap() {
-				if (!this.mkclick) return
+				if (!this.maskClick) return
 				this.close()
 			},
 			/**
