@@ -62,7 +62,7 @@
 		.right{
 			width: 240rpx;
 			height: 68rpx;
-			border: 1px solid #17A1FF;
+			border: 1px solid $main-color;
 			border-radius: 40rpx;
 			box-sizing: border-box;
 			padding: 0 12rpx;
@@ -72,14 +72,14 @@
 				height: 56rpx;
 				line-height: 56rpx;
 				font-size: 26rpx;
-				color: #17A1FF;
+				color: $main-color;
 				flex: 1;
 				border-radius: 24rpx;
 				text-align: center;
 			}
 			.order_type_selected{
 				color: #FFFFFF;
-				background-color: #17A1FF;
+				background-color: $main-color;
 			}
 		}
 		//right end
@@ -144,10 +144,13 @@
 			align-items: center;
 			overflow: hidden;
 			color: #999999;
+			&:nth-last-child(1){
+				margin-bottom: 100rpx;
+			}
 			&.active{
 				background-color: #FFFFFF;
-				color: #17A1FF;
-				border-left: 7rpx solid #17A1FF;
+				color: $main-color;
+				border-left: 7rpx solid $main-color;
 			}
 			.menu_icon{
 				width: 40rpx;
@@ -167,6 +170,10 @@
 .goods{
 	flex: 1;
 	overflow: hidden;
+	
+	.pdb50{
+		padding-bottom: 130rpx;
+	}
 	.goods_list{
 		.goods_title{
 			height: 80rpx;
@@ -182,6 +189,7 @@
 				width: 130rpx;
 				height: 130rpx;
 				margin-right: 33rpx;
+				flex-shrink: 0;
 			}
 			.good_intro{
 				display: flex;
@@ -199,11 +207,14 @@
 					font-size: 20rpx;
 					color: #999999;
 					display: flex;
+					overflow: hidden;
 					.isHot{
-						color: #17A1FF;
+						color: $main-color;
 						font-size: 20rpx;
 						background-color: #E7F5FF;
 						margin-right: 20rpx;
+						flex-shrink: 0;
+						
 					}
 				}
 				.good_des{

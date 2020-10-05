@@ -1,21 +1,26 @@
 <template>
-	<modal :show="visible" custom padding="0" width="90%" radius="30rpx">
+	<modal :show="visible" custom padding="0" width="90%" radius="30rpx" >
 		<view class="header">
 			<!-- <image src="/static/images/index/menupopup_btn_share_normal.png"></image> -->
-			<image src="/static/images/index/round_close_btn.png" @tap="$emit('cancel')"></image>
+			<image src="" style="width: 0;height: 0;" mode=""></image>
+			<image src="/static/images/order/round_close_btn.png" @tap="$emit('cancel')"></image>
 		</view>
 		<swiper :duration="1000" indicator-dots class="swiper" autoplay :interval="3000">
 			<swiper-item v-for="(image, index) in productData.images" :key="index" class="swiper-item">
-				<image :src="image.url" class="w-100 h-100"></image>
+				<image :src="image" class="w-100 h-100" style="border-radius: 30rpx;"></image>
 			</swiper-item>
 		</swiper>
 		<scroll-view scroll-y class="content">
 			<view class="wrapper">
 				<view class="title">{{ productData.name }}</view>
 				<view class="labels">
-					<view class="label" v-for="(label, index) in productData.labels" :key="index" 
+					<!-- <view class="label" v-for="(label, index) in productData.labels" :key="index" 
 						:style="{color: label.label_color, background: $util.hexToRgba(label.label_color, 0.2)}">
 						{{ label.name }}
+					</view> -->
+					<view class="label" v-for="(label, index) in productData.labels" :key="index"
+						style="color: #17A1FF;background-color: #E7F5FF;">
+						{{ label }}
 					</view>
 				</view>
 				<view class="mb-10">产品描述</view>
@@ -34,12 +39,12 @@
 		<view class="bottom" :style="{height: !productData.is_single ? '250rpx' : '200rpx'}">
 			<view class="d-flex align-items-center">
 				<view class="price-and-materials">
-					<view class="price">￥{{ productData.price }}</view>
+					<view class="price">￥{{ productData.truePrice || productData.price }}</view>
 					<view class="materials" v-show="getProductSelectedMaterials">{{ getProductSelectedMaterials }}</view>
 				</view>
-				<actions :number="productData.number" @add="add" @minus="minus"></actions>
+				<actions :number="productData.number ?productData.number:0" @add="add" @minus="minus"></actions>
 			</view>
-			<button type="primary" class="add-cart-btn" @tap="addToCart">加入购物袋</button>
+			<button hover-class="bhc" type="primary" class="add-cart-btn" @tap="addToCart">加入购物袋</button>
 		</view>
 	</modal>
 </template>
@@ -76,20 +81,26 @@
 			}
 		},
 		computed: {
+			//获取所选的规格和实际的价格
 			getProductSelectedMaterials() {
 				if(!this.productData.is_single && this.productData.materials) {
-					let materials = []
+					let materials = [];
+					let truePrice=this.productData.price;
 					this.productData.materials.forEach(({values}) => {
 						values.forEach(value => {
 							if(value.is_selected) {
+								console.log(value)
+								truePrice += Number(value.price || 0);
 								materials.push(value.name)
 							}
 						})
 					})
+					// this.productData.truePrice=truePrice;
+					this.$set(this.productData,"truePrice",truePrice)
 					return materials.length ? materials.join('，') : ''
 				}
 				return ''
-			}
+			},
 		},
 		methods: {
 			changeMaterialSelected(index, key) {
@@ -122,6 +133,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.bhc{
+		background-color: #007AFF;
+	}
 	.header {
 		padding: 20rpx 30rpx;
 		position: absolute;
@@ -149,10 +163,16 @@
 	.content {
 		display: flex;
 		flex-direction: column;
-		font-size: $font-size-sm;
-		color: $text-color-assist;
+		font-size: 24rpx;
+		color: #999;
 		min-height: 1vh;
+		/* #ifndef MP-WEIXIN */
 		max-height: calc(100vh - 100rpx - 426rpx - 250rpx);
+		/* #endif */
+		/* #ifdef MP-WEIXIN */
+		max-height: calc(100vh - 100rpx - 426rpx - 250rpx - 68px);
+		/* #endif */
+		
 		
 		.wrapper {
 			width: 100%;
@@ -162,8 +182,8 @@
 		}
 		
 		.title {
-			font-size: $font-size-extra-lg;
-			color: $text-color-base;
+			font-size: 36rpx;
+			color: #343434;
 			font-weight: bold;
 			margin-bottom: 10rpx;
 		}
@@ -200,18 +220,18 @@
 				
 				.value {
 					background-color: #f5f5f7;
-					color: $font-size-base;
+					color: 26rpx;
 					padding: 10rpx 20rpx;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
 					margin-right: 20rpx;
 					margin-bottom: 20rpx;
-					border-radius: $border-radius-lg;
+					border-radius: 12rpx;
 					
 					&.selected {
-						background-color: $color-primary;
-						color: $bg-color-white;
+						background-color: $main-color;
+						color: #FFF;
 					}
 				}
 			}
@@ -223,8 +243,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		border-top: 1rpx solid rgba($color: $border-color, $alpha: 0.3);
-		background-color: $bg-color-white;
+		border-top: 1rpx solid rgba($color: #c8c7cc, $alpha: 0.3);
+		background-color: #FFF;
 		position: relative;
 		z-index: 11;
 		
@@ -236,14 +256,14 @@
 			margin-right: 10rpx;
 			
 			.price {
-				color: $color-primary;
-				font-size: $font-size-extra-lg;
+				color: $main-color;
+				font-size: 36rpx;
 				font-weight: bold;
 			}
 			
 			.materials {
-				font-size: $font-size-sm;
-				color: $text-color-assist;
+				font-size: 24rpx;
+				color: #999;
 				display: -webkit-box;
 				-webkit-box-orient: vertical;
 				-webkit-line-clamp: 2;
@@ -253,8 +273,8 @@
 		
 		.add-cart-btn {
 			margin-top: 20rpx;
-			font-size: $font-size-lg;
-			border-radius: $border-radius-base;
+			font-size: 32rpx;
+			border-radius: 6rpx;
 		}
 	}
 </style>

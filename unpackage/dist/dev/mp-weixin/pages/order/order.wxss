@@ -12,6 +12,7 @@
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
 /* 颜色变量 */
+/* 英国城自定义 */
 /* 行为相关颜色 */
 /* 文字基本颜色 */
 /* 背景颜色 */
@@ -221,6 +222,9 @@
   overflow: hidden;
   color: #999999;
 }
+.main .menu_bar .menu_item.data-v-127632e4:nth-last-child(1) {
+  margin-bottom: 100rpx;
+}
 .main .menu_bar .menu_item.active.data-v-127632e4 {
   background-color: #FFFFFF;
   color: #17A1FF;
@@ -241,6 +245,9 @@
           flex: 1;
   overflow: hidden;
 }
+.goods .pdb50.data-v-127632e4 {
+  padding-bottom: 130rpx;
+}
 .goods .goods_list .goods_title.data-v-127632e4 {
   height: 80rpx;
   font-size: 22rpx;
@@ -260,6 +267,8 @@
   width: 130rpx;
   height: 130rpx;
   margin-right: 33rpx;
+  -webkit-flex-shrink: 0;
+          flex-shrink: 0;
 }
 .goods .goods_list .goods_item .good_intro.data-v-127632e4 {
   display: -webkit-box;
@@ -287,12 +296,15 @@
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+  overflow: hidden;
 }
 .goods .goods_list .goods_item .good_intro .good_label .isHot.data-v-127632e4 {
   color: #17A1FF;
   font-size: 20rpx;
   background-color: #E7F5FF;
   margin-right: 20rpx;
+  -webkit-flex-shrink: 0;
+          flex-shrink: 0;
 }
 .goods .goods_list .goods_item .good_intro .good_des.data-v-127632e4 {
   margin-top: 14rpx;

@@ -97,11 +97,12 @@
 			<!-- 左侧菜单栏end -->
 			<!-- 右侧商品栏start -->
 			<scroll-view scroll-y="true" scroll-with-animation :scroll-top="goods_scrollTop"  class="goods" @scroll="goods_scroll" >
+				<view class="pdb50">
 					<view class="goods_list" :id="`goods_${menu.id}`" v-for="(menu,menu_index) in menu_list">
 						<view class="goods_title">
 							{{menu.menu_name}}
 						</view>
-						<view class="goods_item" v-for="(good,good_index) in menu.goods_list">
+						<view class="goods_item" v-for="(good,good_index) in menu.goods_list" @tap="showProductDetailModal(good)">
 							<view class="good_icon">
 								<image :src="good.imgurl" mode=""></image>
 							</view>
@@ -110,15 +111,18 @@
 									{{good.name}}
 								</view>
 								<view class="good_label">
-									<view class="isHot" v-if="good.isHot">
+									<!-- <view class="isHot" v-if="good.isHot">
 										可做热饮
 									</view>
 									<view class="recipe">
 										{{good.recipe}}
+									</view> -->
+									<view class="isHot" v-for="label in good.labels">
+										{{label}}
 									</view>
 								</view>
 								<view class="good_des">
-									{{good.des}}
+									{{good.description}}
 								</view>
 								<view class="price">
 									<view class="">
@@ -133,6 +137,8 @@
 							</view>
 						</view>
 					</view>
+				</view>
+					
 			</scroll-view>
 			<!-- 右侧商品栏end -->
 		</view>
@@ -144,6 +150,19 @@
 						@add-to-cart="handleAddToCartInModal" 
 		/>
 		<!-- 商品詳情頁結束 -->
+		<!-- 购物车栏 begin -->
+		<cart-bar v-if="!is_notice && !is_rest" :cart="cart" 
+				  @add="handleAddToCart" 
+				  @minus="handleMinusFromCart"
+				  @clear="clearCart"
+				  @checkboxChange="checkboxChange"
+				  @checkAllChange="checkAllChange"
+				  @pay="pay"
+		/>
+		<!-- 购物车栏 end -->
+		<!-- 休息中 start -->
+		<rest :is_rest="is_rest" opening_hours=""></rest>
+		<!-- 休息中 end -->
 	</view>
 </template>
 
@@ -151,12 +170,18 @@
 	import {menu_list} from './data.js';
 	import actions from './components/actions/actions.vue'
 	import notice from './components/notice/notice.vue'
-	import goodModal from './components/good-modal/good-modal.vue'
+	import CartBar from './components/cartbar/cartbar.vue'
+	import ProductModal from './components/product-modal/product-modal.vue'
+	import Search from './components/search/search.vue'
+	import rest from './components/rest/rest.vue'
 	export default{
 		components:{
 			actions,
 			notice,
-			goodModal
+			ProductModal,
+			CartBar,
+			Search,
+			rest
 			},
 		data() {
 			return {
@@ -182,11 +207,26 @@
 				goods_scrollTop:0,
 				good:{},
 				goodModalVisible:false,
-				cart:[]
+				cart:[],
+				is_rest:true
 			
 			}
 		},
-		onLoad() {
+		async onLoad() {
+			uni.request({
+			    url: 'https://host.dot_api.com/classify/list', //仅为示例，并非真实接口地址。
+			    data: {
+			    },
+			    header: {
+			        'custom-header': 'hello' //自定义请求头信息
+			    },
+			    success: (res) => {
+			        console.log('onload sucess data---:'+res.data);
+			    },
+				complete: (res) => {
+				    console.log(res);
+				}
+			});
 			this.$nextTick(() => this.calcSize())
 		},
 		computed:{
@@ -220,12 +260,12 @@
 			},
 			menu_Tap(id){
 				this.menu_id_current=id;
-				this.goods_scrollTop = this.menu_list.find(item => item.id == id).top
+				this.goods_scrollTop = this.menu_list.find(item => item.id == id).top+Math.random();
 				console.log(this.goods_scrollTop)
 					
 			},
 			goods_scroll({detail}) {
-				this.goods_scrollTop=detail.scrollTop;//仅仅起到监听作用，防止重复设值不生效
+				//this.goods_scrollTop=detail.scrollTop;//仅仅起到监听作用，防止重复设值不生效
 				let {scrollTop} =detail;
 				scrollTop=Math.ceil(scrollTop)+1;
 				
@@ -257,10 +297,13 @@
 					//cate_id: good.category_id,
 					name: good.name,
 					price: good.price,
+					truePrice:good.truePrice|| good.price,
 					number: good.number || 1,
 					//image: good.images[0].url,
+					imgurl:good.imgurl,
 					is_single: good.is_single,
-					materials_text: good.materials_text || ''
+					materials_text: good.materials_text || '',
+					is_checked:true,
 				});
 				// this.cart.push({
 				// 	id: good.id,
@@ -285,8 +328,39 @@
 					this.cart.splice(index, 1)
 				}
 			},
+			handleAddToCartInModal(good) {
+				this.handleAddToCart(good)
+				this.closeProductDetailModal()
+			},
+			closeProductDetailModal() {
+				this.goodModalVisible = false
+				this.good = {}
+			},
+			clearCart() {
+				this.cart = []
+			},
+			checkAllChange(e){
+				var values = e.detail.value;
+				console.log(e)
+				if(values.length > 0){
+					this.cart.forEach(item => item.is_checked = true)
+				}else{
+					this.cart.forEach(item => item.is_checked = false)
+				}
+			},
+			checkboxChange(e){
+				var values = e.detail.value;
+				var id=e.currentTarget.dataset.id;
+				console.log(e)
+				if(values.length > 0){
+					this.cart.find(item => item.id==id).is_checked=true;
+				}else{
+					this.cart.find(item => item.id==id).is_checked= false;
+			}
 		}
-	}
+	},
+}
+	
 </script>
 
 <style lang="scss" scoped>

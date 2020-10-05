@@ -1,14 +1,14 @@
 <template>
 	<view class="actions">
 		<template v-if="!materialsBtn">
-			<image src="/static/images/order/minus.png" class="minus-btn" v-show="number" @tap.stop="minus"></image>
-			<view v-show="number" class="number">{{ number }}</view>
+			<image src="/static/images/order/minus.png" class="minus-btn" v-if="number" @tap.stop="minus"></image>
+			<view v-if="number" class="number">{{ number }}</view>
 			<image src="/static/images/order/add.png" class="add-btn" @tap.stop="add"></image>
 		</template>
 		<template v-else>
 			<view class="materials-box">
 				<button type="primary" size="mini" class="materials-btn" @tap="$emit('materials')">選規格</button>
-				<view class="number-badge" v-show="number">
+				<view class="number-badge" v-if="number">
 					<view class="number">{{ number }}</view>
 				</view>
 			</view>

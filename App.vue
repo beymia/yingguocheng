@@ -16,7 +16,7 @@
 	};
 </script>
 
-<style>
+<style lang="scss">
 	/* 解决头条小程序组件内引入字体不生效的问题 */
 	/* #ifdef MP-TOUTIAO */
 	@font-face {
@@ -85,4 +85,50 @@
     border-radius:15rpx !important;
   }
 	/* #endif */
+  .align-items-center {
+	align-items: center;
+  }
+  .d-flex{display: flex;}
+  uni-page-body, uni-view, uni-scroll-view, uni-text, uni-image, uni-textarea, uni-button, uni-swiper, uni-swiper-item, uni-input {
+      box-sizing: border-box;
+  }
+
+  button {
+  	font-size: 26rpx;
+  	border-radius: 4rpx;
+  	margin: 0;
+  	
+  	&:after {
+  		border: 0;
+  	}
+  	
+  	&[type='primary'] {
+  		background-color: $main-color;
+  		
+  		&[plain] {
+  			background-color: #FFFFFF;
+  			border: 2rpx solid $main-color;;
+  			color: $main-color;
+  		}
+  		
+  		&.button-hover {
+  			background-color: rgba($color: $main-color, $alpha: 0.6);
+  		}
+  	}
+  	/* 
+  	&[type='default'] {
+  		color: $text-color-grey !important;
+  		border: 2rpx solid #ccc !important;
+  		background-color: $bg-color-white;
+  	}
+  	
+  	&[type='info'] {
+  		background-color: #343434;
+  		color: $bg-color-white !important;
+  		
+  		&.button-hover, &[disabled] {
+  			background-color: rgba($color: #343434, $alpha: 0.6);
+  		}
+  	} */
+  }
 </style>
