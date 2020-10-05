@@ -1,7 +1,7 @@
 const ajax = require('./ajax')
 
 
-const orderForm = ()=>ajax('/orderForm',{},)
+const orderForm = ()=>ajax('/orderrm',{},)
 
 module.exports = {
     orderForm
