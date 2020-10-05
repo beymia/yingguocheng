@@ -82,7 +82,7 @@ button {
   font-weight: $font-weight-base;
   padding: 0;
   color: $font-color3;
-  margin-right: $order-spacing-lg;
+  margin-right: $spacing-lg;
   box-sizing: border-box;
 
   &.selected{
@@ -123,7 +123,7 @@ button {
 
         .clear_remarks{
           position: absolute;
-          right: $order-spacing-lg;
+          right: $spacing-lg;
           top: 0;
         }
       }

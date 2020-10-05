@@ -1,16 +1,16 @@
 <template>
   <view class="invoice">
     <checkbox-group
-        :data-amount="invoice.amount" @change="handlerChange" class="invoice_box">
+        :data-amount="invoice.payment_info" @change="handlerChange" class="invoice_box">
       <label>
         <checkbox :checked="selectAll"
                   @click.stop.prevent
-                  :value="invoice.amount"
+                  :value="invoice.payment_info.toString()"
                   class="invoice_content">
           <view>
-            <text>開票金額：￥{{ invoice.amount }}</text>
-            <text>訂單號：{{ invoice.orderNumber }}</text>
-            <text>下單時間：{{ invoice.orderDate }}</text>
+            <text>開票金額：￥{{ invoice.payment_info }}</text>
+            <text>訂單號：{{ invoice.id }}</text>
+            <text>下單時間：{{ invoice.created_at }}</text>
           </view>
         </checkbox>
       </label>
@@ -47,7 +47,7 @@
 		background: #fff;
 		color: $font-color1;
 		border-radius: 20rpx;
-		padding: $order-spacing-lg;
+		padding: $spacing-lg;
 		box-sizing: border-box;
 
 		.invoice_box {
@@ -67,7 +67,7 @@
 
 					view {
 						height: 100%;
-						margin-left: $order-spacing-lg;
+						margin-left: $spacing-lg;
 						display: flex;
 						flex-direction: column;
 						justify-content: space-between;

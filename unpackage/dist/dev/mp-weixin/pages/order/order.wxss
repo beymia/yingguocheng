@@ -26,8 +26,8 @@
 /* 透明度 */
 /* 文章场景相关 */
 /*通用字体属性*/
-/*订单页的margin或者padding值*/
-/*订单页默认整体的背景色*/
+/*margin或者padding值*/
+/*默认整体的背景色*/
 /*默认的局部主题色*/
 .data-v-127632e4 .uni-navbar__header-container-inner {
   font-size: 17px;

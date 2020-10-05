@@ -30,7 +30,7 @@ export default {
 .want_tell{
   width: 100%;
   height: 100%;
-  padding: $order-spacing-lg 65rpx;
+  padding: $spacing-lg 65rpx;
   box-sizing: border-box;
   color: $font-color1;
 

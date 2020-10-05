@@ -51,15 +51,43 @@
 				"navigationBarTitleText": "开票信息",
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
-		}
-	    ,{
-            "path" : "pages/orderPayment/orderPayment",
+		}, {
+			"path": "pages/orderPayment/orderPayment",
 			"style": {
 				"navigationBarTitleText": "订单结算",
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
-        }
-    ],
+		}, {
+			"path": "pages/discount/discount",
+			"style": {
+				"navigationBarTitleText": "優惠券",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		}, {
+			"path": "pages/pointsMall/pointsMall",
+			"style": {
+				"navigationBarTitleText": "積分商城",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		}, {
+			"path": "pages/wallet/wallet",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		}, {
+			"path": "pages/planetMember/planetMember",
+			"style": {
+				"navigationBarTitleText": "開通星球會員",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		}, {
+			"path": "pages/customerService/customerService",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

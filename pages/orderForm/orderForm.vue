@@ -34,7 +34,7 @@
 
     <!-- 当前订单展示頁面 -->
     <view v-else-if="!empty&&activeFeat==='current'" class="order_detail">
-      <orderDetail @order-click="orderPayment" :orderFormData="orderFormData"></orderDetail>
+      <orderDetail @order-click="orderPayment" :orderFormData="currentOrderForm.data"></orderDetail>
     </view>
 
     <!-- 歷史訂單頁面 -->
@@ -53,7 +53,7 @@
           </view>
           <navigator hover-class="none"
                      open-type="navigate"
-                     url="/pages/bulkInvoice/bulkInvoice">
+                     :url="`/pages/bulkInvoice/bulkInvoice?invoice=${JSON.stringify(invoiceData)}`">
             <image src="../../static/images/orderForm/invoice.png"></image>
             <button plain>批量開票</button>
           </navigator>
@@ -69,113 +69,20 @@
 <script>
 import headNav from '../../components-lk/headNav/headNav.vue'
 import orderDetail from '../../components-lk/orderDetail/orderDetail.vue'
-import api from '../../request/api'
+import {orderForm} from '../../request/api'
 export default {
   data() {
     return {
       headNavText: '想對你說',
       headNAVIcon: 'email',
-      activeFeat: 'history',
-      empty: true,
+      activeFeat: 'current',
+      empty: false,
       historyType: 'takeaway',
-      orderFormData: [{
-        haul_method: '自提',
-        shop_name: '合肥尚澤大都會店',
-        pay_status: '製作中',
-        goods: [{
-          id: "15996445868596547",
-          home_avatar: '../../static/images_t/orderForm/shop.png',
-          goods_name: '多肉芒芒甘露',
-          norm: '正常,标准甜',
-          goods_num: 1,
-          goods_price: 15
-        },],
-        created_at: '2020-08-18 12:14',
-        payment_info: '￥15'
-      },{
-        haul_method: '自提',
-        shop_name: '合肥尚澤大都會店',
-        pay_status: '製作中',
-        goods: [{
-          id: "15996445868596547",
-          home_avatar: '../../static/images_t/orderForm/shop.png',
-          goods_name: '多肉芒芒甘露',
-          norm: '正常,标准甜',
-          goods_num: 1,
-          goods_price: 15
-        },],
-        created_at: '2020-08-18 12:14',
-        payment_info: '￥15'
-      },{
-        haul_method: '自提',
-        shop_name: '合肥尚澤大都會店',
-        pay_status: '待支付',
-        goods: [{
-          id: "15996445868596547",
-          home_avatar: '../../static/images_t/orderForm/shop.png',
-          goods_name: '多肉芒芒甘露',
-          norm: '正常,标准甜',
-          goods_num: 1,
-          goods_price: 15
-        },{
-          id: "15996445868596547",
-          home_avatar: '../../static/images_t/orderForm/shop.png',
-          goods_name: '多肉葡萄冰棒',
-          norm: '正常,不另外加糖',
-          goods_num: 1,
-          goods_price: 15
-        },
-        ],
-        created_at: '2020-08-18 12:14',
-        payment_info: '￥15'
-      },
-      ],
-      historyData: [{
-        haul_method: '自提',
-        shop_name: '合肥尚澤大都會店',
-        pay_status: '已完成',
-        goods: [{
-          id: "15996445868596547",
-          home_avatar: '../../static/images_t/orderForm/shop2.png',
-          goods_name: '多肉芒芒甘露',
-          norm: '正常,标准甜',
-          goods_num: 1,
-          goods_price: 15
-        },],
-        created_at: '2020-08-18 12:14',
-        payment_info: '￥15'
-      },{
-        haul_method: '外卖',
-        shop_name: '合肥尚澤大都會店',
-        pay_status: '已完成',
-        goods: [{
-          id: "15996445868596547",
-          home_avatar: '../../static/images_t/orderForm/shop2.png',
-          goods_name: '多肉芒芒甘露',
-          norm: '正常,标准甜',
-          goods_num: 1,
-          goods_price: 15
-        },],
-        created_at: '2020-08-18 12:14',
-        payment_info: '￥15'
-      },{
-        haul_method: '外卖',
-        shop_name: '合肥尚澤大都會店',
-        pay_status: '已完成',
-        goods: [{
-          id: "15996445868596547",
-          home_avatar: '../../static/images_t/orderForm/shop2.png',
-          goods_name: '多肉芒芒甘露',
-          norm: '正常,标准甜',
-          goods_num: 1,
-          goods_price: 15
-        },],
-        created_at: '2020-08-18 12:14',
-        payment_info: '￥15'
-      },
-      ],
-      oneSelfOrder:[],
-      takeawayOrder:[],
+      currentOrderForm:{data:[],page:1},
+      historyOrderForm:{data:[],page:1},
+      oneSelfOrder:[],//自提订单
+      takeawayOrder:[],//外卖订单
+      invoiceData:[],//未开发票订单
     }
   },
   computed:{
@@ -183,35 +90,55 @@ export default {
     * 将外卖订单和自提订单分割出来
     * 根据展示板块动态切换传递给展示组件的数据
     * */
-    sliceOrder(){
+    sliceOrder() {
       this.takeawayOrder = [];
       this.oneSelfOrder = [];
-      this.historyData.forEach((item)=>{
-        if(item.haul_method === '外卖'){
+      this.invoiceData = [];
+      this.historyOrderForm.data.forEach((item) => {
+        if (item.haul_method === '外卖') {
           this.takeawayOrder.push(item)
-        }else{
+        } else {
           this.oneSelfOrder.push(item)
         }
+        //分离未开发票订单
+        if (item.invoice_status === '1') {
+          this.invoiceData.push(item)
+        }
       });
-      if(this.historyType === 'oneself'){
+      if (this.historyType === 'oneself') {
         return this.oneSelfOrder
       }
       return this.takeawayOrder
     },
   },
-  mounted() {
-      api.orderForm()
-    },
+  async mounted() {
+    this.currentOrderForm.data =await this.requestOrder()
+    //如果没有接收到数据则展示订单为空
+    this.empty = !this.currentOrderForm.data || !this.currentOrderForm.data.length;
+  },
   methods: {
-    toggleFeat(feat) {
+    //请求数据，已经有数据后不再请求
+    async requestOrder() {
+      return (await orderForm({
+        token: '临时测试用',
+        type: this.activeFeat === 'history' ? 2 : 1,
+        page: this.activeFeat === 'history' ? this.historyOrderForm.page : this.currentOrderForm.page,
+      })).data;
+    },
+
+    async toggleFeat(feat) {
+      this.activeFeat = feat;
       if(feat === 'history'){
         this.headNavText = '英國城探秘'
-        this.headNAVIcon = ''
+        this.headNAVIcon = '';
+        //第一页的数据只请求一次
+        if(!this.historyOrderForm.data.length){
+          this.historyOrderForm.data = await this.requestOrder()
+        }
       }else{
         this.headNavText = '想對你說'
         this.headNAVIcon = 'email'
       }
-      this.activeFeat = feat;
     },
     navDescription() {
       uni.navigateTo({
@@ -222,7 +149,7 @@ export default {
    * 跳转至订单结算页面
    * */
     orderPayment(g) {
-      getApp().globalData.goodsPaymeny = g.order.goods;
+      getApp().globalData.goodsPaymeny = g.order;
       console.log(g);
       uni.navigateTo({
         url: '/pages/orderPayment/orderPayment',
@@ -238,11 +165,12 @@ export default {
 
 <style lang="scss" scoped>
 uni-page-body{
-  min-height: 100%;background-color: $order-bg;
+  min-height: 100%;
+  background-color: $main-bg;
 }
 .order_form {
   width: 100%;
-  background-color: $order-bg;
+  background-color: $main-bg;
   min-height: 100%;
 
   .head_feat {
@@ -281,7 +209,7 @@ uni-page-body{
     flex-direction: column;
     align-items: center;
     margin-top: 228rpx;
-    background-color: $order-bg;
+    background-color: $main-bg;
 
     .empty_img {
       width: 264rpx;
@@ -316,7 +244,7 @@ uni-page-body{
 
   .order_detail,
   .order_history {
-    padding: 128rpx $order-spacing-base $order-spacing-lg $order-spacing-base;
+    padding: 128rpx $spacing-base $spacing-lg $spacing-base;
   }
 
   .order_history {
