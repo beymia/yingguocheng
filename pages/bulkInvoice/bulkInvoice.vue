@@ -3,23 +3,26 @@
       <view v-for="(invoice,index) in invoiceData"
             :key="index"
             class="invoice_container">
-        <invoice :selectAll = "isSelectAll" @invoice-change="invoiceChange" :invoice="invoice"></invoice>
+        <invoice :invoice="invoice"></invoice>
       </view>
       <view class="invoice_foot">
         <view class="invoice_content">
-          <view @click="selectAll" class="select_all">
+          <view class="select_all">
             <label>
-              <radio :checked="isSelectAll" color="#17A1FF">全選</radio>
+              <radio color="#17A1FF">全選</radio>
             </label>
           </view>
           <view class="select_count">
-            <text>共￥{{invoiceAmount}}</text>
-            <text>{{invoiceCount}}个订单</text>
+            <text>共￥16.14</text>
+            <text>1个订单</text>
           </view>
-          <view @click="navInvoiceInfo"
+          <navigator
+              open-type="navigate"
+              url="/pages/invoiceInfo/invoiceInfo"
+              hover-class="none"
               class="next_stop">
             <text>下壹步</text>
-          </view>
+          </navigator>
         </view>
       </view>
     <view class="empty"></view>
@@ -35,81 +38,39 @@ export default {
       isSelectAll:false,
       invoiceData: [
         {
-          amount: '16.14',
+          amount: '￥ 16.14',
           orderNumber: '**************337',
           orderDate: '2020-08-13 12:14'
         },
         {
-          amount: '16.14',
+          amount: '￥ 16.14',
           orderNumber: '**************337',
           orderDate: '2020-08-13 12:14'
         },
         {
-          amount: '16.14',
+          amount: '￥ 16.14',
           orderNumber: '**************337',
           orderDate: '2020-08-13 12:14'
         },
         {
-          amount: '16.14',
+          amount: '￥ 16.14',
           orderNumber: '**************337',
           orderDate: '2020-08-13 12:14'
         },
         {
-          amount: '16.14',
+          amount: '￥ 16.14',
           orderNumber: '**************337',
           orderDate: '2020-08-13 12:14'
         },
         {
-          amount: '16.14',
+          amount: '￥ 16.14',
           orderNumber: '**************337',
           orderDate: '2020-08-13 12:14'
         }
-      ],
-      invoiceAmount:0,
-      invoiceCount:0,
+      ]
     }
   },
-  methods: {
-    invoiceChange(e) {
-      /*
-      * 发票条目发生改变时触发，
-      * 增加或减少发票的总金额和总数量
-      * */
-      let amount = parseFloat(e.detail.value[0]);
-      if (amount) {
-        this.invoiceAmount += amount;
-        this.invoiceCount++;
-      } else {
-        this.invoiceAmount -= parseFloat(e.target.dataset.amount)
-        this.invoiceCount--;
-      }
-    },
-    /*
-    * 选中所有的发票条目，
-    * 计算总金额和总数量，
-    * 取消全选则全部归0
-    * */
-    selectAll() {
-      this.isSelectAll = !this.isSelectAll
-      if (this.isSelectAll) {
-        this.invoiceData.forEach((item) => {
-          this.invoiceAmount += parseFloat(item.amount)
-          this.invoiceCount = this.invoiceData.length
-        })
-      } else {
-        this.invoiceCount = 0;
-        this.invoiceAmount = 0
-      }
-    },
-    /*
-    * 跳转至发票详情页，并传递发票总金额
-    * */
-    navInvoiceInfo() {
-      uni.navigateTo({
-        url: '/pages/invoiceInfo/invoiceInfo?invoiceAmount=' + this.invoiceAmount
-      })
-    }
-  },
+  methods: {},
   components: {
     invoice
   }

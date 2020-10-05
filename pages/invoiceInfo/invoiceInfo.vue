@@ -2,7 +2,7 @@
 	<view class="invoice_info">
 		<view class="invoice_content">
 			<form action="">
-				<invoiceSelect :invoiceAmount="invoiceAmount"></invoiceSelect>
+				<invoiceSelect></invoiceSelect>
 			</form>
 		</view>
 		<view class="tips">
@@ -23,13 +23,8 @@
 	import invoiceSelect from "../../components-lk/invoiceSelect/invoiceSelect";
 	export default {
 		data() {
-			return {
-			  invoiceAmount:0,
-      }
+			return {}
 		},
-    onLoad(options){
-		  this.invoiceAmount = options.invoiceAmount
-    },
 		methods: {},
 		components: {
 			invoiceSelect

@@ -3,16 +3,16 @@
 		<view v-for="(order,index) in orderFormData"
           :key="index"
           class="order_form_content"
-          @click="orderPayment(order,index)">
+          @click="$emit('order-click')">
 			<view class="order_shop">
 				<view class="order_receiving">
-					<text>{{order.haul_method}}</text>
+					<text>{{order.receiving}}</text>
 				</view>
 				<view class="order_shop_name">
-					<text>{{order.shop_name}}</text>
+					<text>{{order.shop}}</text>
 				</view>
 				<view class="order_progress">
-					<text>{{order.pay_status}}</text>
+					<text>{{order.progress}}</text>
 				</view>
 			</view>
 			<view class="order_goods_container">
@@ -20,32 +20,32 @@
               :key="goodsIndex"
               class="order_goods">
 					<view class="goods_img">
-						<image :src="goods.home_avatar"></image>
+						<image :src="goods.img"></image>
 					</view>
 					<view class="goods_description">
 						<view class="goods_name">
-							<text>{{goods.goods_name}}</text>
+							<text>{{goods.name}}</text>
 						</view>
 						<view v-if="!goods.tableware" class="goods_feature">
-							<text class="goods_straw">{{goods.norm}},</text>
-<!--							<text class="goods_type">{{goods.type}},</text>-->
-<!--							<text class="goods_size">{{goods.size}},</text>-->
-<!--							<text class="goods_sugar">{{goods.sugar}}</text>-->
+							<text class="goods_straw">{{goods.straw}},</text>
+							<text class="goods_type">{{goods.type}},</text>
+							<text class="goods_size">{{goods.size}},</text>
+							<text class="goods_sugar">{{goods.sugar}}</text>
 						</view>
 						<view v-else class="goods_tableware">
 							<text>{{goods.tableware}}</text>
 						</view>
 					</view>
 					<view class="single_count">
-						<text>x {{goods.goods_num}}</text>
+						<text>x {{goods.count}}</text>
 					</view>
 				</view>
 				<view class="order_goods_foot">
 					<view class="order_goods_date">
-						<text>{{order.created_at}}</text>
+						<text>{{order.date}}</text>
 					</view>
 					<view class="order_goods_amount">
-						<text>共{{order.goods.length}}件商品 合計：{{order.payment_info}}</text>
+						<text>共{{order.totalCount}}件商品 合計：{{order.totalAmount}}</text>
 					</view>
 				</view>
 			</view>
@@ -55,28 +55,13 @@
 
 <script>
 	export default {
-	  data(){
-	    return {
-	      orderAmount:0
-      }
-    },
 		props: {
 			orderFormData: {
 				type: Array,
 				required: true
 			}
-		},
-    methods:{
-	    /*
-	    * 跳转至订单支付页，已经支付过的订单不做处理
-	    * */
-	    orderPayment(order,index){
-        if(order.pay_status === '待支付'){
-          this.$emit('order-click',{order,index})
-        }
-      }
-    }
-  }
+		}
+	}
 </script>
 
 <style lang="scss" scoped>

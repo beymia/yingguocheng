@@ -59,13 +59,6 @@
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
         }
-        ,{
-            "path" : "pages/discount/discount",
-            "style" : {
-							"navigationBarTitleText": "優惠券",
-							"navigationBarBackgroundColor": "#FFFFFF"
-						}
-        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

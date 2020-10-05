@@ -54,21 +54,24 @@
 				<view class="list_title">
 					<text>商品列表</text>
 				</view>
-				<view v-for="(goods,index) in goodsData" :key="index" class="goods_detail">
+				<view class="goods_detail">
 					<view class="goods_img">
-						<image :src="goods.home_avatar"></image>
+						<image src="../../static/images_t/orderForm/shop.png"></image>
 					</view>
 					<view class="goods_info">
 						<view class="goods_name">
-							<text>{{goods.goods_name}}</text>
+							<text>多肉芒芒甘露</text>
 						</view>
 						<view class="goods_extra_info">
-              <text class="goods_straw">{{goods.norm}},</text>
+							<text>常規吸管，</text>
+							<text>冰沙(推薦)，</text>
+							<text>標準杯(500ml)，</text>
+							<text> 正常(推薦）</text>
 						</view>
 					</view>
 					<view class="goods_amount">
-						<text>￥{{goods.goods_price}}</text>
-						<text>x{{goods.goods_num}}</text>
+						<text>￥27</text>
+						<text>x1</text>
 					</view>
 				</view>
 			</view>
@@ -78,7 +81,7 @@
             <text>配送費</text>
           </view>
           <view class="right">
-            <text>￥{{deliveryFee}}</text>
+            <text>￥5</text>
           </view>
         </view>
 				<view class="service1">
@@ -91,26 +94,26 @@
 							<text>保冷保暖，鎖住新鮮口感</text>
 						</view>
 					</view>
-					<view @click="addAttachFee" class="right">
+					<view @click="isAttach = !isAttach" class="right">
 						<label>
-							<text>￥{{attachFee}}</text>
+							<text>￥1.5</text>
 							<radio :checked="isAttach" color="#17A1FF" />
 						</label>
 					</view>
 				</view>
 				<view class="service2">
 					<view class="left">
-						<text>優惠券</text><text>券</text>
+						<text>優惠券</text>
+						<image></image>
 					</view>
 					<view class="right">
-						<view>
-              <text v-if="!discountCount">暫無可用</text>
-              <text @click="navDiscount" style="color:#17A1FF;" v-if="discountCount&&!discountAmount">一個可用</text>
-              <uni-icons @click="navDiscount" v-if="!discountAmount" style="display: inline-block;vertical-align: middle" type="arrowright" size="35" color="#999999"></uni-icons>
+						<view @click="isDiscount = !isDiscount" v-if="isDiscount">
+              <text>暫無可用</text>
+              <uni-icons style="display: inline-block;vertical-align: middle" type="arrowright" size="35" color="#999999"></uni-icons>
             </view>
-            <view v-if="discountAmount" class="discount">
-              <view>【{{discountAmount}}元抵用券】-￥{{discountAmount}}</view>
-              <image @click="cancelUseCoupon" src="../../static/images/orderPayment/discount.png"></image>
+            <view v-else class="discount">
+              <view>【8元抵用券】-￥8</view>
+              <image @click="isDiscount = !isDiscount" src="../../static/images/orderPayment/discount.png"></image>
             </view>
           </view>
 				</view>
@@ -119,19 +122,17 @@
 						<text>備註</text>
 					</view>
 					<view @click="isRemarks = !isRemarks"  class="right">
-						<text v-if="remarksData.noContact">無接觸配送，</text>
-            <text v-if="remarksData.paper">纸巾，</text>
-            <text v-if="remarksData.sugar">糖包</text>
+						<text>不打包</text>
             <uni-icons style="display: inline-block;vertical-align: middle" type="arrowright" size="35" color="#999999"></uni-icons>
 					</view>
-          <view v-if="isRemarks" class="remarks">
-            <remarks :remarks="remarksData" @close-remarks="closeRemarks"></remarks>
+          <view class="remarks">
+            <remarks></remarks>
           </view>
 				</view>
 			</view>
 			<view class="count_amount">
-				<text>共{{goodsData.length}}件商品，小計</text>
-				<text>￥{{totalAmount}}</text>
+				<text>共1件商品，小計</text>
+				<text>￥27</text>
 			</view>
 		</view>
 		<!--支付方式-->
@@ -146,7 +147,7 @@
 		<view class="payment_foot">
 			<view class="payment_amount">
 				<text>合計</text>
-				<text>￥{{totalAmount}}</text>
+				<text>￥27</text>
 			</view>
 			<view class="payment_btn">
 				<button plain>支付</button>
@@ -158,90 +159,34 @@
 
 <script>
 import remarks from "../../components-lk/remarks/remarks";
-
-export default {
-  data() {
-    return {
-      receivingMethod: 'oneself',
-      otherPeople: 5,
-      isAttach: false,
-      attachFee: 1.5,
-      discountCount: 1,
-      userPhone: '',
-      isRemarks: false,
-      remarksData: {},
-      discountAmount: 0,
-      deliveryFee: 5,
-      totalAmount: 0,
-      goodsPrice: 0,
-      goodsData: [],
-    }
-  },
-  onLoad() {
-    this.goodsData = getApp().globalData.goodsPaymeny;
-    this.goodsData.forEach((item) => {
-      this.totalAmount += item.goods_price
-    })
-  },
-  onShow() {
-    /*
-    * 页面展示时从全局对象中获取优惠券的金额
-    * */
-    this.discountAmount = getApp().globalData.coupon;
-  },
-  onUnload() {
-    /*
-    * 页面卸载时清空优惠券金额
-    * */
-    getApp().globalData.coupon = 0;
-  },
-  methods: {
-    toggleReceiving(method) {
-      this.receivingMethod = method;
-      if (method === 'otherPeople') {
-        this.otherPeople = 5;
-        this.totalAmount += this.otherPeople
-      } else {
-        this.otherPeople ? this.totalAmount -= this.otherPeople : null;
-        this.otherPeople = 0;
+	export default {
+		data() {
+			return {
+				receivingMethod: 'oneself',
+				isAttach: false,
+        isDiscount:false,
+        userPhone:'213321123211',
+        isRemarks:false
+			}
+		},
+		methods: {
+			toggleReceiving(method) {
+				this.receivingMethod = method
+			},
+      autoFill(){
+        this.userPhone = '17756041449'
       }
-    },
-    autoFill() {
-      this.userPhone = '17756041449'
-    },
-    closeRemarks(remarks) {
-      this.isRemarks = false;
-      this.remarksData = remarks
-    },
-    navDiscount() {
-      uni.navigateTo({
-        url: '/pages/discount/discount'
-      })
-    },
-    cancelUseCoupon() {
-      this.discountCount = 1;
-      this.discountAmount = 0;
-    },
-    addAttachFee() {
-      this.isAttach = !this.isAttach;
-      this.isAttach ? this.totalAmount += this.attachFee : this.totalAmount -= this.attachFee
+		},
+    components:{
+		  remarks
     }
-  },
-  watch: {
-    discountAmount(newAmount, oldAmount) {
-      newAmount = parseFloat(newAmount);
-      oldAmount = parseFloat(oldAmount)
-      newAmount ? this.totalAmount -= newAmount : this.totalAmount += oldAmount;
-    },
-  },
-  components: {
-    remarks
-  }
-}
+	}
 </script>
 
 <style lang="scss" scoped>
-
+uni-page-body{
+  height: 100%;
+}
 	.order_payment {
 		width: 100%;
 		height: 100%;
@@ -401,7 +346,7 @@ export default {
 
 			.list_detail {
 				width: 100%;
-				min-height: 220rpx;
+				height: 220rpx;
 				border-bottom: 1rpx solid rgba(204, 204, 204, .4);
 				display: flex;
 				flex-direction: column;
@@ -419,7 +364,6 @@ export default {
 					display: flex;
 					flex-wrap: nowrap;
 					align-items: center;
-          position: relative;
 
 					.goods_img {
 						margin-right: 20rpx;
@@ -432,8 +376,6 @@ export default {
 					}
 
 					.goods_info {
-            align-self: center;
-
 						.goods_name {
 							font-size: $font-size-base;
 							font-weight: $font-weight-lg;
@@ -442,12 +384,12 @@ export default {
 						}
 
 						.goods_extra_info {
+							flex-shrink: 0;
 							height: 60rpx;
 							font-size: $font-size-sm - 2rpx;
 							color: $font-color3;
 							display: flex;
-              flex-direction: row;
-              flex-wrap: wrap;
+							flex-wrap: wrap;
 						}
 					}
 
@@ -458,9 +400,6 @@ export default {
 						flex-direction: column;
 						justify-content: space-between;
 						text-align: right;
-            margin-left: 86rpx;
-            position: absolute;
-            right: 0;
 
 						text:nth-child(1) {
 							font-size: $font-size-lg + 2rpx;
@@ -563,33 +502,15 @@ export default {
         }
         .service2{
           min-height: 46rpx;
-
-          .left{
-          position: relative;
-            text:nth-child(2){
-              width: 30rpx;
-              height: 30rpx;
-              background: $main-color;
-              border-radius: 4rpx;
-              font-size: $font-size-sm - 4rpx;
-              color: #ffffff;
-              text-align: center;
-              line-height: 30rpx;
-              position: absolute;
-              left: 82rpx;
-            }
-          }
-
           .right{
             .discount{
-              min-width: 254rpx;
+              width: 254rpx;
               display: flex;
               justify-content: space-between;
               align-items: center;
-              text-align: center;
 
               view {
-                min-width: 214rpx;
+                width: 214rpx;
                 height: 46rpx;
                 border: 2rpx solid $main-color;
                 border-radius: 23px;
@@ -598,7 +519,6 @@ export default {
                 line-height: 42rpx;
                 text-align: center;
                 box-sizing: border-box;
-                margin-right: 10rpx;
               }
 
               image{

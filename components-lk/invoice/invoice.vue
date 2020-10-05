@@ -1,21 +1,17 @@
 <template>
-  <view class="invoice">
-    <checkbox-group
-        :data-amount="invoice.amount" @change="handlerChange" class="invoice_box">
-      <label>
-        <checkbox :checked="selectAll"
-                  @click.stop.prevent
-                  :value="invoice.amount"
-                  class="invoice_content">
-          <view>
-            <text>開票金額：￥{{ invoice.amount }}</text>
-            <text>訂單號：{{ invoice.orderNumber }}</text>
-            <text>下單時間：{{ invoice.orderDate }}</text>
-          </view>
-        </checkbox>
-      </label>
-    </checkbox-group>
-  </view>
+	<view class="invoice">
+		<checkbox-group class="invoice_box">
+			<label>
+				<checkbox class="invoice_content">
+					<view>
+						<text>開票金額：{{ invoice.amount }}</text>
+						<text>訂單號：{{ invoice.orderNumber }}</text>
+						<text>下單時間：{{ invoice.orderDate }}</text>
+					</view>
+				</checkbox>
+			</label>
+		</checkbox-group>
+	</view>
 </template>
 
 <script>
@@ -24,17 +20,8 @@
 			invoice: {
 				type: [Array, Object],
 				required: true
-			},
-      selectAll:{
-			  type:Boolean,
-        default:false
-      }
-		},
-    methods:{
-		  handlerChange(e){
-        this.$emit('invoice-change',e)
-      }
-    }
+			}
+		}
 	}
 </script>
 
