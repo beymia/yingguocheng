@@ -111,20 +111,6 @@
   			background-color: rgba($color: $main-color, $alpha: 0.6);
   		}
   	}
-  	/* 
-  	&[type='default'] {
-  		color: $text-color-grey !important;
-  		border: 2rpx solid #ccc !important;
-  		background-color: $bg-color-white;
-  	}
   	
-  	&[type='info'] {
-  		background-color: #343434;
-  		color: $bg-color-white !important;
-  		
-  		&.button-hover, &[disabled] {
-  			background-color: rgba($color: #343434, $alpha: 0.6);
-  		}
-  	} */
   }
 </style>

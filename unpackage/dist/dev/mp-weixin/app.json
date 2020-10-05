@@ -3,13 +3,14 @@
     "pages/home/home",
     "pages/index/index",
     "pages/order/order",
+    "pages/userAdress/userAdress",
+    "pages/addUserAdress/addUserAdress",
     "pages/orderForm/orderForm",
     "pages/my/my",
     "pages/bulkInvoice/bulkInvoice",
     "pages/wantTell/wantTell",
     "pages/invoiceInfo/invoiceInfo",
-    "pages/orderPayment/orderPayment",
-    "pages/discount/discount"
+    "pages/orderPayment/orderPayment"
   ],
   "subPackages": [],
   "window": {
@@ -50,6 +51,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap73.json"
+  "usingComponents": {}
 }

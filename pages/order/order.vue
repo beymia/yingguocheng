@@ -161,7 +161,7 @@
 		/>
 		<!-- 购物车栏 end -->
 		<!-- 休息中 start -->
-		<rest :is_rest="is_rest" opening_hours=""></rest>
+		<rest opening_hours=""></rest>
 		<!-- 休息中 end -->
 	</view>
 </template>
@@ -208,7 +208,6 @@
 				good:{},
 				goodModalVisible:false,
 				cart:[],
-				is_rest:true
 			
 			}
 		},
@@ -255,8 +254,16 @@
 				})
 			},
 			order_type_tap(e){
-			
-				this.order_type_current=e.currentTarget.dataset.index;
+				let tabIndex=e.currentTarget.dataset.index
+				this.order_type_current=tabIndex;
+				console.log(tabIndex)
+				if(tabIndex == 1){
+					console.log('weoufowjfj')
+					uni.navigateTo({
+						url:"/pages/userAdress/userAdress"
+					})
+				}
+				
 			},
 			menu_Tap(id){
 				this.menu_id_current=id;
