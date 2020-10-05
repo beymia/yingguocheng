@@ -1,5 +1,5 @@
 <template>
-	<uni-popup ref="popup_cart" type="bottom" @change="change">
+	<uni-popup ref="popup_cart" type="bottom" @change="change" maskClick>
 		<view class="cart-popup">
 			<view class="header">
 				<!-- <view class="order-type">

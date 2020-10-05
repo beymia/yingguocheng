@@ -19,6 +19,18 @@
 			}
 		},
 		{
+			"path": "pages/userAdress/userAdress",
+			"style": {
+				"navigationBarTitleText": "收貨地址"
+			}
+		},
+		{
+			"path": "pages/addUserAdress/addUserAdress",
+			"style": {
+				"navigationBarTitleText": "添加地址"
+			}
+		},
+		{
 			"path": "pages/orderForm/orderForm",
 			"style": {
 				"navigationBarTitleText": "英国城",

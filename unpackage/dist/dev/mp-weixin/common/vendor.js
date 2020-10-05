@@ -1935,7 +1935,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 123:
+/***/ 116:
 /*!***********************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
   \***********************************************************************************************************************/
@@ -8121,7 +8121,7 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 229:
+/***/ 236:
 /*!***********************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/popup.js ***!
   \***********************************************************************************************************************/
@@ -8129,7 +8129,7 @@ internalMixin(Vue);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 230));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 237));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -8156,7 +8156,7 @@ var config = {
 
 /***/ }),
 
-/***/ 230:
+/***/ 237:
 /*!*************************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/message.js ***!
   \*************************************************************************************************************************/
@@ -9109,14 +9109,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 
 /***/ }),
 
-/***/ 52:
+/***/ 45:
 /*!********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api.js ***!
   \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ajax = __webpack_require__(/*! ./ajax */ 53);
+var ajax = __webpack_require__(/*! ./ajax */ 46);
 
 
 var orderForm = function orderForm() {return ajax('/orderrm', {});};
@@ -9126,7 +9126,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 53:
+/***/ 46:
 /*!*********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax.js ***!
   \*********************************************************************************************************/

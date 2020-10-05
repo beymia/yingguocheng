@@ -9,27 +9,38 @@
 
 <script>
 	export default{
+		data(){
+			return {
+				is_rest:false
+			}
+		},
 		props:{
 			opening_hours:{
 				type:String,
-				default:"周壹至周日 10:00-22:00"
+				default: "周壹至周日 10:00-22:00"
 			},
-			is_rest:{
-				type:[String,Boolean],
-				default:false
-			}
 		},
-		created() {
-			this.$refs["rest_popup"].open();
+		mounted() {
+			console.log(this.is_rest)
+			if(this.is_rest){
+				this.$refs["rest_popup"].open();
+			}
+				
+			
 		},
 		watch:{
 			is_rest(val){
 				if(val){
+					console.log(11111111111111111)
 					this.$refs["rest_popup"].open();
 				}else{
+					console.log(222222222222)
 					this.$refs["rest_popup"].close();
 				}
 			}
+		},
+		methods:{
+			
 		}
 	}
 </script>

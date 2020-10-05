@@ -3,6 +3,8 @@
     "pages/home/home",
     "pages/index/index",
     "pages/order/order",
+    "pages/userAdress/userAdress",
+    "pages/addUserAdress/addUserAdress",
     "pages/orderForm/orderForm",
     "pages/my/my",
     "pages/bulkInvoice/bulkInvoice",
@@ -50,6 +52,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap47.json"
+  "usingComponents": {}
 }

@@ -5,7 +5,7 @@
 				<template v-if="bagIconVisible">
 					<view class="detail-action" @tap="details">
 						<image src="/static/images/order/icon_shopping_bag.png" class="shopbag-btn"></image>
-						<view class="badge">{{ cartNum }}</view>
+						<view class="badge">{{ cart_checked_num }}</view>
 					</view>
 				</template>
 				<template v-else>
@@ -46,6 +46,9 @@ export default {
 	computed: {
 		cartNum() { //计算购物车总数
 			return this.cart.reduce((acc, cur) => acc + cur.number, 0)
+		},
+		cart_checked_num(){//计算选中商品数
+			return this.cart.filter(item => item.is_checked).reduce((acc, cur) => acc + cur.number, 0)
 		},
 		cartPrice() {	//计算购物车总价
 			return this.cart.filter(item => item.is_checked).reduce((acc, cur) => acc + cur.number * (cur.truePrice || cur.price), 0)
