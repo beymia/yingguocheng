@@ -8322,7 +8322,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 var ajax = __webpack_require__(/*! ./ajax */ 43);
 
 
-var orderForm = function orderForm() {return ajax('/orderForm', {});};
+var orderForm = function orderForm() {return ajax('/orderrm', {});};
 
 module.exports = {
   orderForm: orderForm };
