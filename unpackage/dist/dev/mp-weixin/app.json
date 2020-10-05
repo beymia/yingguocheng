@@ -10,7 +10,12 @@
     "pages/bulkInvoice/bulkInvoice",
     "pages/wantTell/wantTell",
     "pages/invoiceInfo/invoiceInfo",
-    "pages/orderPayment/orderPayment"
+    "pages/orderPayment/orderPayment",
+    "pages/discount/discount",
+    "pages/pointsMall/pointsMall",
+    "pages/wallet/wallet",
+    "pages/planetMember/planetMember",
+    "pages/customerService/customerService"
   ],
   "subPackages": [],
   "window": {
