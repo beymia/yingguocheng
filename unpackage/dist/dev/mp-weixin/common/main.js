@@ -89,6 +89,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 {
+  globalData: {
+    goodsPayment: {}, //訂單信息，訂單頁修改，結算頁獲取
+    coupon: 0, //優惠券金額，
+    userToken: null //用戶token信息，獲取後存儲在本地storage中
+  },
   onLaunch: function onLaunch() {
     console.log('App Launch');
   },

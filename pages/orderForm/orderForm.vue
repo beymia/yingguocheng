@@ -32,6 +32,9 @@
       </view>
     </view>
 
+    <!--登录提示框-->
+    <loginBox v-if="loginBox" @close-login-box="loginBox = false"></loginBox>
+
     <!-- 当前订单展示頁面 -->
     <view v-else-if="!empty&&activeFeat==='current'" class="order_detail">
       <orderDetail @order-click="orderPayment" :orderFormData="currentOrderForm.data"></orderDetail>
@@ -69,6 +72,8 @@
 <script>
 import headNav from '../../components-lk/headNav/headNav.vue'
 import orderDetail from '../../components-lk/orderDetail/orderDetail.vue'
+import loginBox from "../../components-lk/loginBox/loginBox";
+
 import {orderForm} from '../../request/api'
 export default {
   data() {
@@ -83,6 +88,7 @@ export default {
       oneSelfOrder:[],//自提订单
       takeawayOrder:[],//外卖订单
       invoiceData:[],//未开发票订单
+      loginBox:false,
     }
   },
   computed:{
@@ -115,12 +121,14 @@ export default {
     this.currentOrderForm.data =await this.requestOrder()
     //如果没有接收到数据则展示订单为空
     this.empty = !this.currentOrderForm.data || !this.currentOrderForm.data.length;
+
+    this.loginBox = !(getApp().globalData.userToken);
   },
   methods: {
     //请求数据，已经有数据后不再请求
     async requestOrder() {
       return (await orderForm({
-        token: '临时测试用',
+        // token: '临时测试用',
         type: this.activeFeat === 'history' ? 2 : 1,
         page: this.activeFeat === 'history' ? this.historyOrderForm.page : this.currentOrderForm.page,
       })).data;
@@ -139,6 +147,9 @@ export default {
         this.headNavText = '想對你說'
         this.headNAVIcon = 'email'
       }
+      uni.navigateTo({
+        url: '/pages/checkCode/checkCode?phone=' + '15660088912'
+      })
     },
     navDescription() {
       uni.navigateTo({
@@ -149,7 +160,7 @@ export default {
    * 跳转至订单结算页面
    * */
     orderPayment(g) {
-      getApp().globalData.goodsPaymeny = g.order;
+      getApp().globalData.goodsPayment = g.order;
       console.log(g);
       uni.navigateTo({
         url: '/pages/orderPayment/orderPayment',
@@ -158,7 +169,8 @@ export default {
   },
   components: {
     headNav,
-    orderDetail
+    orderDetail,
+    loginBox
   }
 }
 </script>

@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniNavBar: function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 104))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 162))
   },
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 111))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 169))
   }
 }
 var render = function() {
@@ -348,7 +348,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var actions = function actions() {__webpack_require__.e(/*! require.ensure | pages/order/components/actions/actions */ "pages/order/components/actions/actions").then((function () {return resolve(__webpack_require__(/*! ./components/actions/actions.vue */ 119));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notice = function notice() {__webpack_require__.e(/*! require.ensure | pages/order/components/notice/notice */ "pages/order/components/notice/notice").then((function () {return resolve(__webpack_require__(/*! ./components/notice/notice.vue */ 126));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var CartBar = function CartBar() {__webpack_require__.e(/*! require.ensure | pages/order/components/cartbar/cartbar */ "pages/order/components/cartbar/cartbar").then((function () {return resolve(__webpack_require__(/*! ./components/cartbar/cartbar.vue */ 133));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ProductModal = function ProductModal() {__webpack_require__.e(/*! require.ensure | pages/order/components/product-modal/product-modal */ "pages/order/components/product-modal/product-modal").then((function () {return resolve(__webpack_require__(/*! ./components/product-modal/product-modal.vue */ 140));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Search = function Search() {__webpack_require__.e(/*! require.ensure | pages/order/components/search/search */ "pages/order/components/search/search").then((function () {return resolve(__webpack_require__(/*! ./components/search/search.vue */ 147));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var rest = function rest() {__webpack_require__.e(/*! require.ensure | pages/order/components/rest/rest */ "pages/order/components/rest/rest").then((function () {return resolve(__webpack_require__(/*! ./components/rest/rest.vue */ 154));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var actions = function actions() {__webpack_require__.e(/*! require.ensure | pages/order/components/actions/actions */ "pages/order/components/actions/actions").then((function () {return resolve(__webpack_require__(/*! ./components/actions/actions.vue */ 177));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notice = function notice() {__webpack_require__.e(/*! require.ensure | pages/order/components/notice/notice */ "pages/order/components/notice/notice").then((function () {return resolve(__webpack_require__(/*! ./components/notice/notice.vue */ 184));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var CartBar = function CartBar() {__webpack_require__.e(/*! require.ensure | pages/order/components/cartbar/cartbar */ "pages/order/components/cartbar/cartbar").then((function () {return resolve(__webpack_require__(/*! ./components/cartbar/cartbar.vue */ 191));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ProductModal = function ProductModal() {__webpack_require__.e(/*! require.ensure | pages/order/components/product-modal/product-modal */ "pages/order/components/product-modal/product-modal").then((function () {return resolve(__webpack_require__(/*! ./components/product-modal/product-modal.vue */ 198));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Search = function Search() {__webpack_require__.e(/*! require.ensure | pages/order/components/search/search */ "pages/order/components/search/search").then((function () {return resolve(__webpack_require__(/*! ./components/search/search.vue */ 205));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var rest = function rest() {__webpack_require__.e(/*! require.ensure | pages/order/components/rest/rest */ "pages/order/components/rest/rest").then((function () {return resolve(__webpack_require__(/*! ./components/rest/rest.vue */ 212));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -388,8 +388,7 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
       goods_scrollTop: 0,
       good: {},
       goodModalVisible: false,
-      cart: [],
-      is_rest: true };
+      cart: [] };
 
 
   },
@@ -436,8 +435,16 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
       });
     },
     order_type_tap: function order_type_tap(e) {
+      var tabIndex = e.currentTarget.dataset.index;
+      this.order_type_current = tabIndex;
+      console.log(tabIndex);
+      if (tabIndex == 1) {
+        console.log('weoufowjfj');
+        uni.navigateTo({
+          url: "/pages/userAdress/userAdress" });
 
-      this.order_type_current = e.currentTarget.dataset.index;
+      }
+
     },
     menu_Tap: function menu_Tap(id) {
       this.menu_id_current = id;

@@ -185,7 +185,7 @@ export default {
     }
   },
   onLoad() {
-    this.goodsData = getApp().globalData.goodsPaymeny;
+    this.goodsData = getApp().globalData.goodsPayment;
     this.receivingMethod = this.goodsData.haul_method;
     console.log(this.receivingMethod);
     //计算订单总金额

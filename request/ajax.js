@@ -9,6 +9,7 @@ function ajax(url, data = {}, method = 'get', header) {
       method,
       header:method==='post'?{'Content-type':'application/json'}:{},
       success(result) {
+        if(result.statusCode!==200)reject(result)
         resolve(result.data)
       },
       fail(err) {

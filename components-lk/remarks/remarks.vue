@@ -1,47 +1,53 @@
 <template>
   <view class="remarks_container">
-      <view class="remarks_content">
-        <view class="remarks_head">
-          <text>訂單備註</text>
-          <uni-icons @click="$emit('close-remarks',0)" class="clear_remarks" type="clear" size="44" color="#D0D0D0"></uni-icons>
+    <popUpLayer>
+      <template>
+        <view class="remarks_content">
+          <view class="remarks_head">
+            <text>訂單備註</text>
+            <uni-icons @click="$emit('close-remarks',0)" class="clear_remarks" type="clear" size="44"
+                       color="#D0D0D0"></uni-icons>
+          </view>
+          <view class="remarks_options">
+            <view class="option">
+              <view class="options_title">
+                <text>無接觸配送：</text>
+              </view>
+              <view class="options_btn">
+                <button @click="selectRemarks('noContact',0)" :class="{'selected':!noContact}" plain>不需要</button>
+                <button @click="selectRemarks('noContact',1)" :class="{'selected':noContact}" plain>需要</button>
+              </view>
+            </view>
+            <view class="option">
+              <view class="options_title">
+                <text>纸巾：</text>
+              </view>
+              <view class="options_btn">
+                <button @click="selectRemarks('paper',0)" :class="{'selected':!paper}" plain>不需要</button>
+                <button @click="selectRemarks('paper',1)" :class="{'selected':paper}" plain>需要</button>
+              </view>
+            </view>
+            <view class="option">
+              <view class="options_title">
+                <text>糖包：</text>
+              </view>
+              <view class="options_btn">
+                <button @click="selectRemarks('sugar',0)" :class="{'selected':!sugar}" plain>不需要</button>
+                <button @click="selectRemarks('sugar',1)" :class="{'selected':sugar}" plain>需要</button>
+              </view>
+            </view>
+          </view>
         </view>
-        <view class="remarks_options">
-          <view class="option">
-            <view class="options_title">
-              <text>無接觸配送：</text>
-            </view>
-            <view class="options_btn">
-              <button @click="selectRemarks('noContact',0)" :class="{'selected':!noContact}" plain>不需要</button>
-              <button @click="selectRemarks('noContact',1)" :class="{'selected':noContact}" plain>需要</button>
-            </view>
-          </view>
-          <view class="option">
-            <view class="options_title">
-              <text>纸巾：</text>
-            </view>
-            <view class="options_btn">
-              <button @click="selectRemarks('paper',0)" :class="{'selected':!paper}" plain>不需要</button>
-              <button @click="selectRemarks('paper',1)" :class="{'selected':paper}" plain>需要</button>
-            </view>
-          </view>
-          <view class="option">
-            <view class="options_title">
-              <text>糖包：</text>
-            </view>
-            <view class="options_btn">
-              <button @click="selectRemarks('sugar',0)" :class="{'selected':!sugar}" plain>不需要</button>
-              <button @click="selectRemarks('sugar',1)" :class="{'selected':sugar}" plain>需要</button>
-            </view>
-          </view>
+        <view @click="$emit('close-remarks',{noContact,paper,sugar})" class="remarks_confirm">
+          <button plain>確定</button>
         </view>
-      </view>
-    <view @click="$emit('close-remarks',{noContact,paper,sugar})" class="remarks_confirm">
-      <button plain>確定</button>
-    </view>
+      </template>
+    </popUpLayer>
   </view>
 </template>
 
 <script>
+import popUpLayer from "../popUpLayer/popUpLayer";
 export default {
   name: "remarks",
   data() {
@@ -66,6 +72,9 @@ export default {
     selectRemarks(t, v) {
       this[t] = v;
     },
+  },
+  components:{
+    popUpLayer
   }
 }
 </script>
@@ -93,20 +102,11 @@ button {
 }
   .remarks_container{
     width: 100%;
-    height:100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,.5);
-    z-index: 999;
 
     .remarks_content{
-      width: 100%;
+      width: 100vw;
       height: 630rpx;
       background:#FFFFFF;
-      position: absolute;
-      bottom: 0;
-      left: 0;
       border-radius: 20rpx 20rpx 0rpx 0rpx;
       overflow: hidden;
 

@@ -1935,7 +1935,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 116:
+/***/ 174:
 /*!*********************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-icons/icons.js ***!
   \*********************************************************************************/
@@ -8121,7 +8121,38 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 251:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 329:
 /*!*********************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/popup.js ***!
   \*********************************************************************************/
@@ -8129,7 +8160,7 @@ internalMixin(Vue);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 252));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 330));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -8156,7 +8187,18 @@ var config = {
 
 /***/ }),
 
-/***/ 252:
+/***/ 33:
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ 34);
+
+/***/ }),
+
+/***/ 330:
 /*!***********************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/message.js ***!
   \***********************************************************************************/
@@ -8191,48 +8233,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       this.childrenMsg.close();
     }
   } }), _created$created$meth);exports.default = _default;
-
-/***/ }),
-
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 33:
-/*!**********************************************************!*\
-  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! regenerator-runtime */ 34);
 
 /***/ }),
 
@@ -9109,7 +9109,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 
 /***/ }),
 
-/***/ 45:
+/***/ 61:
 /*!******************************************************************!*\
   !*** C:/Users/Administrator/Desktop/yingguocheng/request/api.js ***!
   \******************************************************************/
@@ -9117,15 +9117,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.userSpace = exports.orderForm = void 0;var ajax = __webpack_require__(/*! ./ajax */ 46);
+Object.defineProperty(exports, "__esModule", { value: true });exports.login = exports.verifyCode = exports.sendCheckCode = exports.userSpace = exports.orderForm = void 0;var ajax = __webpack_require__(/*! ./ajax */ 62);
 
 //开发环境下需要开启本地后端服务，生产环境需要替换api地址,测试地址不适用于
 var orderForm = function orderForm(data) {return ajax('http://localhost:3000/orderForm', data, 'post');};exports.orderForm = orderForm;
 var userSpace = function userSpace(data) {return ajax('http://localhost:3000/userspace', data, 'post');};exports.userSpace = userSpace;
+var sendCheckCode = function sendCheckCode(data) {return ajax('http://localhost:3000/sendcheckcode', data, 'post');};exports.sendCheckCode = sendCheckCode;
+var verifyCode = function verifyCode(data) {return ajax('http://localhost:3000/verifycode', data, 'post');};exports.verifyCode = verifyCode;
+var login = function login(data) {return ajax('http://localhost:3000/login', data, 'post');};exports.login = login;
 
 /***/ }),
 
-/***/ 46:
+/***/ 62:
 /*!*******************************************************************!*\
   !*** C:/Users/Administrator/Desktop/yingguocheng/request/ajax.js ***!
   \*******************************************************************/
@@ -9143,6 +9146,7 @@ function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefine
       method: method,
       header: method === 'post' ? { 'Content-type': 'application/json' } : {},
       success: function success(result) {
+        if (result.statusCode !== 200) reject(result);
         resolve(result.data);
       },
       fail: function fail(err) {

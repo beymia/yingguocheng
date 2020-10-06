@@ -15,7 +15,9 @@
     "pages/pointsMall/pointsMall",
     "pages/wallet/wallet",
     "pages/planetMember/planetMember",
-    "pages/customerService/customerService"
+    "pages/customerService/customerService",
+    "pages/login/login",
+    "pages/checkCode/checkCode"
   ],
   "subPackages": [],
   "window": {
