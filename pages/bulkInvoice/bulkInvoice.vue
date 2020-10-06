@@ -1,27 +1,27 @@
 <template>
   <view class="bulk_invoice">
-      <view v-for="(invoice,index) in invoiceData"
-            :key="index"
-            class="invoice_container">
-        <invoice :selectAll = "isSelectAll" @invoice-change="invoiceChange" :invoice="invoice"></invoice>
-      </view>
-      <view class="invoice_foot">
-        <view class="invoice_content">
-          <view @click="selectAll" class="select_all">
-            <label>
-              <radio :checked="isSelectAll" color="#17A1FF">全選</radio>
-            </label>
-          </view>
-          <view class="select_count">
-            <text>共￥{{invoiceAmount}}</text>
-            <text>{{invoiceCount}}个订单</text>
-          </view>
-          <view @click="navInvoiceInfo"
+    <view v-for="(invoice,index) in invoiceData"
+          :key="index"
+          class="invoice_container">
+      <invoice :selectAll="clickSelectAll" @invoice-change="invoiceChange" :invoice="invoice"></invoice>
+    </view>
+    <view class="invoice_foot">
+      <view class="invoice_content">
+        <view @click="selectAll" class="select_all">
+          <label>
+            <radio :checked="isSelectAll" color="#17A1FF">全選</radio>
+          </label>
+        </view>
+        <view class="select_count">
+          <text>共￥{{ invoiceAmount }}</text>
+          <text>{{ invoiceCount }}个订单</text>
+        </view>
+        <view @click="navInvoiceInfo"
               class="next_stop">
-            <text>下壹步</text>
-          </view>
+          <text>下壹步</text>
         </view>
       </view>
+    </view>
     <view class="empty"></view>
   </view>
 </template>
@@ -32,42 +32,16 @@ import invoice from './../../components-lk/invoice/invoice'
 export default {
   data() {
     return {
-      isSelectAll:false,
-      invoiceData: [
-        {
-          amount: '16.14',
-          orderNumber: '**************337',
-          orderDate: '2020-08-13 12:14'
-        },
-        {
-          amount: '16.14',
-          orderNumber: '**************337',
-          orderDate: '2020-08-13 12:14'
-        },
-        {
-          amount: '16.14',
-          orderNumber: '**************337',
-          orderDate: '2020-08-13 12:14'
-        },
-        {
-          amount: '16.14',
-          orderNumber: '**************337',
-          orderDate: '2020-08-13 12:14'
-        },
-        {
-          amount: '16.14',
-          orderNumber: '**************337',
-          orderDate: '2020-08-13 12:14'
-        },
-        {
-          amount: '16.14',
-          orderNumber: '**************337',
-          orderDate: '2020-08-13 12:14'
-        }
-      ],
-      invoiceAmount:0,
-      invoiceCount:0,
+      isSelectAll: false,
+      invoiceData: [],
+      invoiceAmount: 0,
+      invoiceCount: 0,
+      clickSelectAll:false
     }
+  },
+  onLoad(options) {
+    console.log(options);
+    this.invoiceData = JSON.parse(options.invoice)
   },
   methods: {
     invoiceChange(e) {
@@ -83,6 +57,7 @@ export default {
         this.invoiceAmount -= parseFloat(e.target.dataset.amount)
         this.invoiceCount--;
       }
+      this.isSelectAll = this.invoiceCount === this.invoiceData.length
     },
     /*
     * 选中所有的发票条目，
@@ -90,10 +65,11 @@ export default {
     * 取消全选则全部归0
     * */
     selectAll() {
-      this.isSelectAll = !this.isSelectAll
+      this.isSelectAll = !this.isSelectAll;
+      this.clickSelectAll = this.isSelectAll
       if (this.isSelectAll) {
         this.invoiceData.forEach((item) => {
-          this.invoiceAmount += parseFloat(item.amount)
+          this.invoiceAmount += item.payment_info
           this.invoiceCount = this.invoiceData.length
         })
       } else {
@@ -105,9 +81,17 @@ export default {
     * 跳转至发票详情页，并传递发票总金额
     * */
     navInvoiceInfo() {
-      uni.navigateTo({
-        url: '/pages/invoiceInfo/invoiceInfo?invoiceAmount=' + this.invoiceAmount
-      })
+      if(this.invoiceAmount){
+        uni.navigateTo({
+          url: '/pages/invoiceInfo/invoiceInfo?invoiceAmount=' + this.invoiceAmount
+        })
+      }else{
+        uni.showToast({
+          title:'没有选择订单',
+          icon:'none',
+          duration:2000
+        })
+      }
     }
   },
   components: {
@@ -117,20 +101,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+uni-page-body{
+  height: 100%;
+}
 .bulk_invoice {
   width: 100%;
-  background: $order-bg;
+  height: 100%;
+  background:$main-bg;
 
   .empty{
     width: 100%;
     height: 130rpx;
-    background: $order-bg;
+    background: $main-bg;
   }
 
   .invoice_container{
     width: 100%;
-    padding:$order-spacing-lg $order-spacing-base 0 $order-spacing-base;
+    padding:$spacing-lg $spacing-base 0 $spacing-base;
     box-sizing: border-box;
   }
   .invoice_foot{
@@ -155,13 +142,13 @@ export default {
       view:nth-child(1){
         font-size: $font-size-sm;
         color: $font-color1;
-        margin-left: $order-spacing-base;
+        margin-left: $spacing-base;
       }
       view:nth-child(2){
         flex: 1;
         text-align: right;
         line-height: inherit;
-        padding: 20rpx $order-spacing-lg 17rpx 0;
+        padding: 20rpx $spacing-lg 17rpx 0;
         box-sizing: border-box;
         color: $font-color1;
 

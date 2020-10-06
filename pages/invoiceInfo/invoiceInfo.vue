@@ -45,20 +45,20 @@
 	.invoice_info {
 		width: 100%;
 		height: 100%;
-		background: $order-bg;
-		padding: $order-spacing-lg $order-spacing-base;
+		background: $main-bg;
+		padding: $spacing-lg $spacing-base;
 		box-sizing: border-box;
 
 		.invoice_content {
 			width: 100%;
 			background: #FFFFFF;
 			border-radius: 20rpx;
-			padding: 0 $order-spacing-base;
+			padding: 0 $spacing-base;
 			box-sizing: border-box;
 		}
 
 		.tips {
-			margin-top: $order-spacing-lg + 2rpx;
+			margin-top: $spacing-lg + 2rpx;
 			font-size: $font-size-sm - 2rpx;
 			color: $font-color3;
 			box-sizing: border-box;
@@ -83,7 +83,7 @@
 
 		/* #ifndef H5*/
 		.tips {
-			padding: 0 $order-spacing-lg;
+			padding: 0 $spacing-lg;
 		}
 
 		/* #endif*/
@@ -94,7 +94,7 @@
 			position: fixed;
 			left: 0;
 			bottom: 50rpx;
-			margin-left: $order-spacing-base;
+			margin-left: $spacing-base;
 
 			.submit_btn {
 				height: 100%;

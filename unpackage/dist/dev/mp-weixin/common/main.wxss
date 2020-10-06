@@ -26,8 +26,13 @@
 /* 透明度 */
 /* 文章场景相关 */
 /*通用字体属性*/
+<<<<<<< HEAD
 /*订单页的margin或者padding值*/
 /*订单页默认整体的背景色*/
+=======
+/*margin或者padding值*/
+/*默认整体的背景色*/
+>>>>>>> 4015056c24913f954a976513d3e7e194f9e55099
 /*默认的局部主题色*/
 /* 解决头条小程序组件内引入字体不生效的问题 */
 .page {
@@ -46,7 +51,11 @@
   font-family: 'PingFang SC', 'Microsoft Yahei';
 }
 .container {
+<<<<<<< HEAD
   width: 702rpx;
+=======
+  width: 702 rpx;
+>>>>>>> 4015056c24913f954a976513d3e7e194f9e55099
   height: 100%;
   margin: 0 auto;
   -webkit-box-sizing: border-box;
@@ -61,14 +70,24 @@ page {
   height: 100%;
 }
 checkbox .wx-checkbox-input {
+<<<<<<< HEAD
   width: 42rpx !important;
   height: 42rpx !important;
+=======
+  width: 42 rpx !important;
+  height: 42 rpx !important;
+>>>>>>> 4015056c24913f954a976513d3e7e194f9e55099
   -webkit-border-radius: 50%;
           border-radius: 50%;
 }
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+<<<<<<< HEAD
   width: 46rpx !important;
   height: 46rpx !important;
+=======
+  width: 46 rpx !important;
+  height: 46 rpx !important;
+>>>>>>> 4015056c24913f954a976513d3e7e194f9e55099
   -webkit-border-radius: 50%;
           border-radius: 50%;
   background: #17A1FF;
@@ -76,18 +95,18 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   border: none;
 }
 radio .wx-radio-input {
-  width: 34rpx !important;
-  height: 34rpx !important;
+  width: 34 rpx !important;
+  height: 34 rpx !important;
   padding: 0 !important;
 }
 progress .wx-progress-bar {
-  height: 30rpx !important;
-  -webkit-border-radius: 15rpx !important;
-          border-radius: 15rpx !important;
+  height: 30 rpx !important;
+  -webkit-border-radius: 15 rpx !important;
+          border-radius: 15 rpx !important;
 }
 progress .wx-progress-inner-bar {
-  -webkit-border-radius: 15rpx !important;
-          border-radius: 15rpx !important;
+  -webkit-border-radius: 15 rpx !important;
+          border-radius: 15 rpx !important;
 }
 .align-items-center {
   -webkit-box-align: center;
@@ -104,9 +123,9 @@ uni-page-body, uni-view, uni-scroll-view, uni-text, uni-image, uni-textarea, uni
           box-sizing: border-box;
 }
 button {
-  font-size: 26rpx;
-  -webkit-border-radius: 4rpx;
-          border-radius: 4rpx;
+  font-size: 26 rpx;
+  -webkit-border-radius: 4 rpx;
+          border-radius: 4 rpx;
   margin: 0;
 }
 button:after {
@@ -117,7 +136,7 @@ button[type='primary'] {
 }
 button[type='primary'][plain] {
   background-color: #FFFFFF;
-  border: 2rpx solid #17A1FF;
+  border: 2 rpx solid #17A1FF;
   color: #17A1FF;
 }
 button[type='primary'].button-hover {

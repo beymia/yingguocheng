@@ -39,7 +39,7 @@
 		.coupon {
 			width: 100%;
 			height: 230rpx;
-			margin-bottom: $order-spacing-lg;
+			margin-bottom: $spacing-lg;
 			background: #fefefe;
 			border-radius: 10rpx 10rpx 0rpx 0rpx;
 			box-sizing: border-box;

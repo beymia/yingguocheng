@@ -16,7 +16,7 @@
 				</view>
 			</view>
 			<view class="order_goods_container">
-				<view v-for="(goods,goodsIndex) in (order.goods)"
+				<view v-for="(goods,goodsIndex) in (order.goods_data)"
               :key="goodsIndex"
               class="order_goods">
 					<view class="goods_img">
@@ -45,7 +45,7 @@
 						<text>{{order.created_at}}</text>
 					</view>
 					<view class="order_goods_amount">
-						<text>共{{order.goods.length}}件商品 合計：{{order.payment_info}}</text>
+						<text>共{{order.goods_data.length}}件商品 合計：{{order.payment_info}}</text>
 					</view>
 				</view>
 			</view>
@@ -85,7 +85,7 @@
 		flex-direction: column;
 		align-items: center;
 		box-sizing: border-box;
-		background-color: $order-bg;
+		background-color: $main-bg;
 		width: 100%;
 
 		.order_form_content {
@@ -93,9 +93,9 @@
 			min-height: 335rpx;
 			background: #ffffff;
 			border-radius: 20rpx;
-			padding:0 $order-spacing-lg;
+			padding:0 $spacing-lg;
 			box-sizing: border-box;
-			margin-top: $order-spacing-lg;
+			margin-top: $spacing-lg;
 		}
 
 		.order_shop {
@@ -141,14 +141,14 @@
 		}
 
 		.order_goods_container {
-			padding: $order-spacing-lg 0;
+			padding: $spacing-lg 0;
 			box-sizing: border-box;
 			font-weight: $font-weight-base;
 			color: $font-color3;
 
 			.order_goods {
 				display: flex;
-				margin-bottom: $order-spacing-lg;
+				margin-bottom: $spacing-lg;
 
 				.goods_description {
 					flex-grow: 1;

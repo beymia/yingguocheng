@@ -80,7 +80,7 @@ export default {
 		}
 
 		.discount_content {
-			padding: 150rpx $order-spacing-base 0 $order-spacing-base;
+			padding: 150rpx $spacing-base 0 $spacing-base;
 			width: 100%;
 			min-height: 100%;
 			box-sizing: border-box;
