@@ -7,7 +7,51 @@
   <component name="ChangeListManager">
     <list default="true" id="199f51b9-0775-4020-aca0-617acadb18c7" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/yingguocheng.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/yingguocheng.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/main.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/discountModule/discountModule.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/discountModule/discountModule.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/headNav/headNav.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/headNav/headNav.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/invoice/invoice.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/invoice/invoice.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/invoiceSelect/invoiceSelect.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/invoiceSelect/invoiceSelect.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/list-cell/list-cell.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/list-cell/list-cell.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/loginBox/loginBox.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/loginBox/loginBox.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/orderDetail/orderDetail.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/orderDetail/orderDetail.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/popUpLayer/popUpLayer.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/popUpLayer/popUpLayer.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/remarks/remarks.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk/remarks/remarks.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-icons/uni-icons.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-icons/uni-icons.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-link/uni-link.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-link/uni-link.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-nav-bar/uni-nav-bar.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-nav-bar/uni-nav-bar.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-popup/uni-popup.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-popup/uni-popup.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-status-bar/uni-status-bar.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-status-bar/uni-status-bar.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-swipe-action-item/uni-swipe-action-item.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-swipe-action-item/uni-swipe-action-item.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-transition/uni-transition.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-transition/uni-transition.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/addUserAdress/addUserAdress.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/addUserAdress/addUserAdress.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/bulkInvoice/bulkInvoice.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/bulkInvoice/bulkInvoice.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/checkCode/checkCode.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/checkCode/checkCode.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/customerService/customerService.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/customerService/customerService.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/discount/discount.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/discount/discount.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/home/home.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/home/home.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/invoiceInfo/invoiceInfo.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/invoiceInfo/invoiceInfo.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/login/login.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/login/login.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/giftPack.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/giftPack.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/options.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/options.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/userInfo.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/userInfo.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/my.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/my.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/actions/actions.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/actions/actions.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/cart-popup/cart-popup.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/cart-popup/cart-popup.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/cartbar/cartbar.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/cartbar/cartbar.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/modal/modal.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/modal/modal.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/notice/notice.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/notice/notice.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/product-modal/product-modal.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/product-modal/product-modal.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/rest/rest.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/rest/rest.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/search/search.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components/search/search.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/order.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/order.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/orderForm/orderForm.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/orderForm/orderForm.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/orderPayment/orderPayment.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/orderPayment/orderPayment.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/userAdress/userAdress.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/userAdress/userAdress.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/wantTell/wantTell.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/wantTell/wantTell.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +149,7 @@
       <workItem from="1601947271787" duration="26261000" />
       <workItem from="1602032094563" duration="95000" />
       <workItem from="1602032227084" duration="24887000" />
-      <workItem from="1602065533776" duration="2278000" />
+      <workItem from="1602065533776" duration="2451000" />
     </task>
     <task id="LOCAL-00001" summary="用户页面和订单结算页面结构完成">
       <created>1601287204618</created>
@@ -205,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602067702045</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="2">
+      <created>1602067827992</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1602067827992</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -397,10 +448,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="43" key="VCS.ChangeListViewerDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602063997200" />
-    <state x="452" y="183" key="Vcs.Push.Dialog.v2" timestamp="1602067712209">
+    <state x="452" y="183" key="Vcs.Push.Dialog.v2" timestamp="1602067834297">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="183" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602067712209" />
+    <state x="452" y="183" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602067834297" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1602064744382">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

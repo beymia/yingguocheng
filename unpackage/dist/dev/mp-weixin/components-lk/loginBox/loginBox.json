@@ -1,7 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "pop-up-layer": "/components-lk/popUpLayer/popUpLayer"
-  }
-}

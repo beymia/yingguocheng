@@ -1,1 +1,0 @@
-<uni-popup vue-id="19809494-1" type="bottom" data-ref="rest_popup" class="data-v-62af7550 vue-ref" bind:__l="__l" vue-slots="{{['default']}}"><view class="rest data-v-62af7550"><text class="text1 data-v-62af7550">本店已休息</text><text class="text2 data-v-62af7550">{{"本店營業時間："+opening_hours}}</text></view></uni-popup>
