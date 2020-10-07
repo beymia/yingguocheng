@@ -29,6 +29,12 @@
 /*margin或者padding值*/
 /*默认整体的背景色*/
 /*默认的局部主题色*/
+.border.data-v-40acf8e8 {
+  border-top: 1px solid #CCCCCC;
+  opacity: 0.5;
+  width: 690rpx;
+  margin-left: 30rpx;
+}
 .address-form.data-v-40acf8e8 {
   margin-top: 20rpx;
 }
@@ -71,5 +77,7 @@
 .save-btn button.data-v-40acf8e8 {
   width: 100%;
   font-size: 36rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
 

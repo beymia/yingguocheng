@@ -904,7 +904,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1936,9 +1936,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 174:
-/*!*********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-icons/icons.js ***!
-  \*********************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7601,7 +7601,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7622,14 +7622,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7714,7 +7714,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8121,6 +8121,132 @@ internalMixin(Vue);
 
 /***/ }),
 
+/***/ 229:
+/*!***********************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-swipe-action-item/mpwxs.js ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      position: [],
+      button: {},
+      btn: "[]" };
+
+  },
+  // computed: {
+  // 	pos() {
+  // 		return JSON.stringify(this.position)
+  // 	},
+  // 	btn() {
+  // 		return JSON.stringify(this.button)
+  // 	}
+  // },
+  watch: {
+    button: {
+      handler: function handler(newVal) {
+        this.btn = JSON.stringify(newVal);
+      },
+      deep: true },
+
+    show: function show(newVal) {
+      if (this.autoClose) return;
+      if (!this.button) {
+        this.init();
+        return;
+      }
+      this.button.show = newVal;
+    },
+    leftOptions: function leftOptions() {
+      this.init();
+    },
+    rightOptions: function rightOptions() {
+      this.init();
+    } },
+
+  created: function created() {
+    if (this.swipeaction.children !== undefined) {
+      this.swipeaction.children.push(this);
+    }
+  },
+  mounted: function mounted() {
+    this.init();
+  },
+  beforeDestroy: function beforeDestroy() {var _this = this;
+    this.swipeaction.children.forEach(function (item, index) {
+      if (item === _this) {
+        _this.swipeaction.children.splice(index, 1);
+      }
+    });
+  },
+  methods: {
+    init: function init() {var _this2 = this;
+      clearTimeout(this.swipetimer);
+      this.swipetimer = setTimeout(function () {
+        _this2.getButtonSize();
+      }, 50);
+    },
+    closeSwipe: function closeSwipe(e) {
+      if (!this.autoClose) return;
+      this.swipeaction.closeOther(this);
+    },
+
+    change: function change(e) {
+      this.$emit('change', e.open);
+      var show = this.button.show;
+      if (show !== e.open) {
+        this.button.show = e.open;
+      }
+
+    },
+
+    appTouchStart: function appTouchStart(e) {var
+
+      clientX =
+      e.changedTouches[0].clientX;
+      this.clientX = clientX;
+      this.timestamp = new Date().getTime();
+    },
+    appTouchEnd: function appTouchEnd(e, index, item, position) {var
+
+      clientX =
+      e.changedTouches[0].clientX;
+      // fixed by xxxx 模拟点击事件，解决 ios 13 点击区域错位的问题
+      var diff = Math.abs(this.clientX - clientX);
+      var time = new Date().getTime() - this.timestamp;
+      if (diff < 40 && time < 300) {
+        this.$emit('click', {
+          content: item,
+          index: index,
+          position: position });
+
+      }
+    },
+    getButtonSize: function getButtonSize() {var _this3 = this;
+      var views = uni.createSelectorQuery().in(this);
+      views.
+      selectAll('.uni-swipe_button-group').
+      boundingClientRect(function (data) {
+        var show = 'none';
+        if (_this3.autoClose) {
+          show = 'none';
+        } else {
+          show = _this3.show;
+        }
+        _this3.button = {
+          data: data,
+          show: show };
+
+      }).
+      exec();
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -8152,41 +8278,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 329:
-/*!*********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/popup.js ***!
-  \*********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 330));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-// 定义 type 类型:弹出类型：top/bottom/center
-var config = {
-  // 顶部弹出
-  top: 'top',
-  // 底部弹出
-  bottom: 'bottom',
-  // 居中弹出
-  center: 'center',
-  // 消息提示
-  message: 'top',
-  // 对话框
-  dialog: 'center',
-  // 分享
-  share: 'bottom' };var _default =
-
-
-{
-  data: function data() {
-    return {
-      config: config };
-
-  },
-  mixins: [_message.default] };exports.default = _default;
-
-/***/ }),
-
 /***/ 33:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
@@ -8195,44 +8286,6 @@ var config = {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! regenerator-runtime */ 34);
-
-/***/ }),
-
-/***/ 330:
-/*!***********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/message.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _created$created$meth;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_created$created$meth = {
-  created: function created() {
-    if (this.type === 'message') {
-      // 获取自组件对象
-      this.maskShow = false;
-      this.children = null;
-    }
-  } }, _defineProperty(_created$created$meth, "created", function created()
-{
-  if (this.type === 'message') {
-    // 不显示遮罩
-    this.maskShow = false;
-    // 获取子组件对象
-    this.childrenMsg = null;
-  }
-}), _defineProperty(_created$created$meth, "methods",
-{
-  customOpen: function customOpen() {
-    if (this.childrenMsg) {
-      this.childrenMsg.open();
-    }
-  },
-  customClose: function customClose() {
-    if (this.childrenMsg) {
-      this.childrenMsg.close();
-    }
-  } }), _created$created$meth);exports.default = _default;
 
 /***/ }),
 
@@ -8281,6 +8334,79 @@ if (hadRuntime) {
   }
 }
 
+
+/***/ }),
+
+/***/ 344:
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/popup.js ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 345));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+// 定义 type 类型:弹出类型：top/bottom/center
+var config = {
+  // 顶部弹出
+  top: 'top',
+  // 底部弹出
+  bottom: 'bottom',
+  // 居中弹出
+  center: 'center',
+  // 消息提示
+  message: 'top',
+  // 对话框
+  dialog: 'center',
+  // 分享
+  share: 'bottom' };var _default =
+
+
+{
+  data: function data() {
+    return {
+      config: config };
+
+  },
+  mixins: [_message.default] };exports.default = _default;
+
+/***/ }),
+
+/***/ 345:
+/*!*************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/message.js ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _created$created$meth;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_created$created$meth = {
+  created: function created() {
+    if (this.type === 'message') {
+      // 获取自组件对象
+      this.maskShow = false;
+      this.children = null;
+    }
+  } }, _defineProperty(_created$created$meth, "created", function created()
+{
+  if (this.type === 'message') {
+    // 不显示遮罩
+    this.maskShow = false;
+    // 获取子组件对象
+    this.childrenMsg = null;
+  }
+}), _defineProperty(_created$created$meth, "methods",
+{
+  customOpen: function customOpen() {
+    if (this.childrenMsg) {
+      this.childrenMsg.open();
+    }
+  },
+  customClose: function customClose() {
+    if (this.childrenMsg) {
+      this.childrenMsg.close();
+    }
+  } }), _created$created$meth);exports.default = _default;
 
 /***/ }),
 
@@ -9017,9 +9143,9 @@ if (hadRuntime) {
 /***/ }),
 
 /***/ 36:
-/*!***********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/order/data.js ***!
-  \***********************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/pages/order/data.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9099,9 +9225,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 /***/ }),
 
 /***/ 4:
-/*!**************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages.json ***!
-  \**************************************************************/
+/*!****************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/pages.json ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9110,11 +9236,55 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
 /***/ }),
 
 /***/ 61:
-/*!******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/api.js ***!
-  \******************************************************************/
+/*!********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
+<<<<<<< HEAD
 /***/ (function(module, exports) {
+=======
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.login = exports.verifyCode = exports.sendCheckCode = exports.userSpace = exports.orderForm = void 0;var ajax = __webpack_require__(/*! ./ajax */ 62);
+
+//开发环境下需要开启本地后端服务，生产环境需要替换api地址,测试地址不适用于
+var orderForm = function orderForm(data) {return ajax('http://localhost:3000/orderForm', data, 'post');};exports.orderForm = orderForm;
+var userSpace = function userSpace(data) {return ajax('http://localhost:3000/userspace', data, 'post');};exports.userSpace = userSpace;
+var sendCheckCode = function sendCheckCode(data) {return ajax('http://localhost:3000/sendcheckcode', data, 'post');};exports.sendCheckCode = sendCheckCode;
+var verifyCode = function verifyCode(data) {return ajax('http://localhost:3000/verifycode', data, 'post');};exports.verifyCode = verifyCode;
+var login = function login(data) {return ajax('http://localhost:3000/login', data, 'post');};exports.login = login;
+
+/***/ }),
+
+/***/ 62:
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {/*
+* 简易封装模拟测试请求
+* */
+function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'get';var header = arguments.length > 3 ? arguments[3] : undefined;
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: url,
+      data: data,
+      method: method,
+      header: method === 'post' ? { 'Content-type': 'application/json' } : {},
+      success: function success(result) {
+        if (result.statusCode !== 200) reject(result);
+        resolve(result.data);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+>>>>>>> 0b7bc04d26e2b216ea39b398fd04718504db1cec
 
 throw new Error("Module build failed (from ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js):\nError: ENOENT: no such file or directory, open 'C:\\Users\\Administrator\\Desktop\\yingguocheng\\request\\api.js'");
 

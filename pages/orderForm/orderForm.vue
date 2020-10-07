@@ -95,7 +95,7 @@ export default {
     * 根据展示板块动态切换传递给展示组件的数据
     * 訂單數據為空直接返回，不做處理
     * */
-    sliceOrder() {
+    sliceOrder() {u
       if (!this.historyOrderForm.data || !this.historyOrderForm.data.length) return
       this.takeawayOrder = [];
       this.oneSelfOrder = [];

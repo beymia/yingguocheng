@@ -1,57 +1,63 @@
 <template>
-	<view class="container">
+	<view class="page">
 		<view class="address-form">
 			<list-cell padding="30rpx">
 				<view class="form-item">
-					<view class="label">联系人</view>
-					<input type="text" v-model="form.name" placeholder="请填写收货人的姓名" placeholder-class="placeholder"/>
+					<view class="label">聯繫人</view>
+					<input type="text" v-model="form.name" placeholder="請填寫收貨人的姓名" placeholder-class="placeholder"/>
 				</view>
 			</list-cell>
+			<view class="border"></view>
 			<list-cell padding="30rpx">
 				<view class="form-item">
 					<view class="label">性别</view>
 					<view class="radio" @tap="form.gender = !form.gender">
-						<image :src="form.gender ? '/static/images/common/gouxuankuang.png' : '/static/images/common/round-black-selected.png'"></image>
+						<image :src="form.gender ? '/static/images/addUserAdress/round-black-selected.png' : '/static/images/addUserAdress/gouxuankuang.png' "></image>
 						<view>先生</view>
 					</view>
 					<view class="radio" @tap="form.gender = !form.gender">
-						<image :src="!form.gender ? '/static/images/common/gouxuankuang.png' : '/static/images/common/round-black-selected.png'"></image>
+						<image :src="!form.gender ? '/static/images/addUserAdress/round-black-selected.png' : '/static/images/addUserAdress/gouxuankuang.png'"></image>
 						<view>女士</view>
 					</view>
 				</view>
 			</list-cell>
+			<view class="border"></view>
 			<list-cell padding="30rpx">
 				<view class="form-item">
-					<view class="label">手机号</view>
-					<input type="text" v-model="form.phone" placeholder="请填写收货手机号码" placeholder-class="placeholder"/>
+					<view class="label">手機號</view>
+					<input type="number" maxlength="11" v-model="form.phone" placeholder="請填寫收貨手機號碼" placeholder-class="placeholder"/>
 				</view>
 			</list-cell>
+			<view class="border"></view>
 			<list-cell padding="30rpx">
 				<view class="form-item">
-					<view class="label">收货地址</view>
-					<input type="text" @tap="chooseLocation" v-model="form.address" placeholder="点击选择" placeholder-class="placeholder"/>
-					<image src="/static/images/common/icon_jump_black3.png" class="jump-icon"></image>
+					<view class="label">收貨地址</view>
+					<input type="text" @tap="chooseLocation" v-model="form.address" placeholder="點擊選擇" placeholder-class="placeholder"/>
+					<image src="/static/images/addUserAdress/icon_jump_black3.png" class="jump-icon"></image>
 				</view>
 			</list-cell>
+			<view class="border"></view>
 			<list-cell padding="30rpx">
 				<view class="form-item">
 					<view class="label">门牌号</view>
 					<input type="text" v-model="form.description" placeholder="例:B座6楼606室" placeholder-class="placeholder"/>
 				</view>
 			</list-cell>
+			<view class="border"></view>
 			
 			<list-cell padding="30rpx" last>
 				<view class="form-item">
 					<view class="radio" @tap="form.is_default = !form.is_default">
-						<image :src="!form.is_default ? '/static/images/common/gouxuankuang.png' : '/static/images/common/round-black-selected.png'"></image>
+						<image :src="form.is_default ? '/static/images/addUserAdress/round-black-selected.png' : '/static/images/addUserAdress/gouxuankuang.png'  "></image>
 						<view>设为默认地址</view>
 					</view>
 				</view>
 			</list-cell>
+			<view class="border"></view>
 		</view>
 		
 		<view class="save-btn">
-			<button type="info">保存</button>
+			<button type="primary" @tap="save">保存</button>
 		</view>
 	</view>
 </template>
@@ -67,10 +73,10 @@
 			return {
 				form: {
 					name: '',
-					gender: 0,
+					gender: true,
 					phone: '',
 					description: '',
-					is_default: 0,
+					is_default: true,
 					complete_address: '',
 					address: '',
 					latitude: '',
@@ -78,10 +84,12 @@
 				}
 			}
 		},
-		onLoad({id}) {
-			if(id) {
-				this.form = this.$store.state.addresses.find(item => item.id == id)
+		onLoad(options) {
+			if(options.edit) {
+				this.form=getApp().globalData.userAddresses.find(item =>item.id == getApp().globalData.edit_address_id);
 			}
+		},
+		onUnload() {
 		},
 		methods: {
 			chooseLocation() {
@@ -89,12 +97,19 @@
 					success: res => {
 						const {errMsg, address, latitude, longitude, name} = res
 						if(errMsg === "chooseLocation:ok") {
+							console.log(res)
 							this.form = Object.assign(
 								this.form, 
 								{complete_address: address, latitude, longitude, address: name},
 							)
 						}
 					}
+				})
+			},
+			save(){
+				console.log(getApp().globalData.userAddresses)
+				uni.navigateBack({
+					delta:1
 				})
 			}
 		}
@@ -103,6 +118,12 @@
 </script>
 
 <style lang="scss" scoped>
+	.border{
+		border-top: 1px solid #CCCCCC;
+		opacity: 0.5;
+		width: 690rpx;
+		margin-left: 30rpx;
+	}
 .address-form {
 	margin-top: 20rpx;
 	
@@ -143,6 +164,7 @@
 	button {
 		width: 100%;
 		font-size: 36rpx;
+		border-radius: 10rpx;
 	}
 }
 </style>

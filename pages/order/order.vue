@@ -208,6 +208,7 @@
 				good:{},
 				goodModalVisible:false,
 				cart:[],
+				localAdress:{}
 			
 			}
 		},

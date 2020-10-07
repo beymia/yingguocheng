@@ -4,7 +4,11 @@
     "ignore": []
   },
   "setting": {
+<<<<<<< HEAD
     "urlCheck": false,
+=======
+    "urlCheck": true,
+>>>>>>> 0b7bc04d26e2b216ea39b398fd04718504db1cec
     "es6": true,
     "enhance": false,
     "postcss": true,
@@ -20,7 +24,11 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
+<<<<<<< HEAD
     "compileHotReLoad": true,
+=======
+    "compileHotReLoad": false,
+>>>>>>> 0b7bc04d26e2b216ea39b398fd04718504db1cec
     "useMultiFrameRuntime": false,
     "useApiHook": false,
     "babelSetting": {

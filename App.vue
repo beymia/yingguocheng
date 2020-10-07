@@ -3,6 +3,7 @@ export default {
   globalData: {
     goodsPayment: {},//訂單信息，訂單頁修改，結算頁獲取
     coupon: 0,//優惠券金額，
+<<<<<<< HEAD
     userToken: 'null',
     /*
     * userToken 用戶登錄成功後服務器返回
@@ -12,6 +13,12 @@ export default {
     * 如果用戶手動退出登錄，需要將token清空
     * 並且刪除本地storage中的token值
     * */
+=======
+    userToken: null,//用戶token信息，獲取後存儲在本地storage中
+	userAddresses:[],//用户收货地址
+	edit_address_id:{},//当前编辑的收货地址id
+	choosed_address:{},//用户选择的地址
+>>>>>>> 0b7bc04d26e2b216ea39b398fd04718504db1cec
   },
   onLaunch: function () {
     // this.globalData.userToken=uni.getStorageSync('token')
