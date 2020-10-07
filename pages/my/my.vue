@@ -24,7 +24,9 @@
 				<options @handler-click="navFitPage"></options>
 			</view>
 		</view>
-		<view class="empty"></view>
+		<!-- #ifdef H5-->
+    <view class="empty"></view>
+    <!-- #endif-->
 	</view>
 </template>
 
@@ -40,13 +42,16 @@
 	export default {
 		data() {
 			return {
-				userInfo: {}
+				userInfo: {},
 			}
 		},
-		async mounted() {
-			this.userInfo = (await this.requestUserInfo()).data
-			console.log(this.userInfo);
-		},
+    async mounted() {
+      this.userToken = getApp().globalData.userToken;
+      console.log(this.userToken);
+      if (this.userToken) {
+        this.userInfo = (await this.requestUserInfo()).data
+      }
+    },
 		methods: {
 			//请求用户信息
 			async requestUserInfo() {
@@ -54,10 +59,16 @@
 					token: '测试使用'
 				})
       },
-      //跳转至积分商城
-      navFitPage(page) {
+      //跳转至對應的頁面
+      navFitPage(aims) {
+        let {page, v} = aims;
+        switch (page) {
+          case 'pointsMall':
+            this.query = 'integral';
+            break;
+        }
         uni.navigateTo({
-          url: `/pages/${page}/${page}`
+          url: `/pages/${page}/${page}?${this.query}=${v}`,
         })
       }
     },
@@ -84,7 +95,7 @@
 
 	.profile {
 		width: 100%;
-		min-height: 100%;
+    padding-bottom: $spacing-lg;
 		background-color: $main-bg;
 
 		.profile_head {
@@ -124,10 +135,12 @@
 			padding: 0 $spacing-base;
 			box-sizing: border-box;
 			position: relative;
-			top: -100rpx;
+
+
 
 			.profile_info {
-				@include container(390rpx);
+				@include container(390rpx - $spacing-lg);
+        border-radius: 0 0 30rpx 30rpx;
 			}
 
 			.open_package {
@@ -135,13 +148,14 @@
 			}
 
 			.fun_list {
-				@include container(590rpx)
+				@include container(590rpx);
+        margin-bottom: 0;
 			}
 		}
 
 		.empty {
 			width: 100%;
-			height: 1rpx;
+			height: 100rpx;
 		}
 	}
 </style>

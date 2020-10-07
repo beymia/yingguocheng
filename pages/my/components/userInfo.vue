@@ -8,7 +8,7 @@
 			<view class="name_vip">
 				<view class="name">
 					<text>{{ user.user_name }}</text>
-					<text>LV.{{ user.level }}</text>
+					<text v-if="user.level">LV.{{ user.level }}</text>
 				</view>
 				<view class="privilege">
 					<text>{{user.level_title}}</text>
@@ -21,25 +21,25 @@
 		</view>
 
 		<view class="empty_border"></view>
-		<!--用户资产信息-->
-		<view class="user_assets">
-			<view @click="$emit('handler-click','pointsMall')">
-				<text>{{ user.integral }}</text>
-				<text>積分商城</text>
-			</view>
-			<view @click="$emit('handler-click','discount')">
-				<text>{{ user.ticket_num }}</text>
-				<text>優惠券</text>
-			</view>
-			<view @click="$emit('handler-click','wallet')">
-				<text>{{ user.balance }}</text>
-				<text>錢包</text>
-			</view>
-			<view>
-				<text>0</text>
-				<text>奶茶有禮</text>
-			</view>
-		</view>
+    <!--用户资产信息-->
+    <view class="user_assets">
+      <view @click="$emit('handler-click',{page:'pointsMall',v:user.integral})">
+        <text>{{ user.integral || 0 }}</text>
+        <text>積分商城</text>
+      </view>
+      <view @click="$emit('handler-click',{page:'discount',v:user.ticket_num})">
+        <text>{{ user.ticket_num || 0 }}</text>
+        <text>優惠券</text>
+      </view>
+      <view @click="$emit('handler-click',{page:'wallet',v:user.balance})">
+        <text>{{ user.balance || '0.00' }}</text>
+        <text>錢包</text>
+      </view>
+      <view>
+        <text>0</text>
+        <text>奶茶有禮</text>
+      </view>
+    </view>
 	</view>
 </template>
 
@@ -59,7 +59,7 @@
 	.user_info {
 		width: 100%;
 		height: 100%;
-		padding: $spacing-lg + 10rpx $spacing-lg;
+		padding:0 $spacing-lg + 10rpx $spacing-lg $spacing-lg;
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
@@ -73,6 +73,7 @@
 				width: 144rpx;
 				height: 144rpx;
 				border-radius: 50%;
+        background-color: $main-color;
 			}
 
 			.name_vip {

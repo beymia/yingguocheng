@@ -166,7 +166,8 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
       phone: '',
       verificationCode: '',
       isFocus: 0,
-      timer: 200 };
+      timer: 200,
+      wxCode: '' };
 
   },
   onLoad: function onLoad(options) {
@@ -176,6 +177,12 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
       duration: 2000,
       icon: 'none' });
 
+  },
+  onHide: function onHide() {
+    this.loginError();
+  },
+  onUnload: function onUnload() {
+    this.loginError();
   },
   mounted: function mounted() {var _this = this;
     this.countDown = setInterval(function () {
@@ -197,26 +204,60 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
   methods: {
     inputCode: function inputCode(e) {
       this.verificationCode = e.detail.value;
+    },
+    loginError: function loginError() {
+      this.verificationCode = '';
+      uni.hideLoading();
+      uni.showToast({
+        title: '出現了錯誤',
+        duration: 2000,
+        icon: 'none' });
+
     } },
 
   watch: {
-    verificationCode: function verificationCode(value) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.prev = 0;if (!(
+    verificationCode: function verificationCode(value) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var self;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                self = _this2;_context2.prev = 1;if (!(
 
-                value.length === 5)) {_context.next = 8;break;}
+                value.length === 5)) {_context2.next = 8;break;}
                 uni.showLoading({
-                  title: '正在登錄中' });_context.next = 5;return (
+                  title: '正在登錄中' });
 
-                  (0, _api.verifyCode)());case 5:_context.next = 7;return (
-
-                  (0, _api.login)());case 7:
-                uni.hideLoading();case 8:_context.next = 13;break;case 10:_context.prev = 10;_context.t0 = _context["catch"](0);
+                //驗證驗證碼
+                _context2.next = 6;return (0, _api.verifyCode)({ mobile: self.phone, code: self.verificationCode });case 6:_context2.next = 8;return (
 
 
-                uni.showToast({
-                  title: '出現了錯誤',
-                  duration: 2000,
-                  icon: 'none' });case 13:case "end":return _context.stop();}}}, _callee, null, [[0, 10]]);}))();
 
+                  wx.login({
+                    success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(e) {var result;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!
+                                e.code) {_context.next = 16;break;}_context.prev = 1;_context.next = 4;return (
+
+
+                                  (0, _api.login)({ mobile: self.phone, code: e.code }));case 4:result = _context.sent;
+                                //將token賦值給全局對象並且存入本地storage中
+                                getApp().globalData.userToken = result.token;
+                                uni.setStorageSync('token', result.token);
+                                uni.switchTab({
+                                  url: '/pages/home/home',
+                                  success: function success() {
+                                    //跳轉成功清除定時器，倒計時清零
+                                    clearInterval(self.countDown);
+                                    self.timer = 0;
+                                  } });
+
+                                uni.hideLoading();_context.next = 14;break;case 11:_context.prev = 11;_context.t0 = _context["catch"](1);
+
+                                self.loginError();case 14:_context.next = 17;break;case 16:
+
+
+                                self.loginError();case 17:case "end":return _context.stop();}}}, _callee, null, [[1, 11]]);}));function success(_x) {return _success.apply(this, arguments);}return success;}() }));case 8:_context2.next = 13;break;case 10:_context2.prev = 10;_context2.t0 = _context2["catch"](1);
+
+
+
+
+
+
+                self.loginError();case 13:case "end":return _context2.stop();}}}, _callee2, null, [[1, 10]]);}))();
 
     } },
 

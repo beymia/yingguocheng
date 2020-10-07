@@ -161,6 +161,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var userInfo = function userInfo() {__webpack_require__.e(/*! require.ensure | pages/my/components/userInfo */ "pages/my/components/userInfo").then((function () {return resolve(__webpack_require__(/*! ./components/userInfo */ 247));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var giftPack = function giftPack() {__webpack_require__.e(/*! require.ensure | pages/my/components/giftPack */ "pages/my/components/giftPack").then((function () {return resolve(__webpack_require__(/*! ./components/giftPack */ 254));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var options = function options() {__webpack_require__.e(/*! require.ensure | pages/my/components/options */ "pages/my/components/options").then((function () {return resolve(__webpack_require__(/*! ./components/options */ 261));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
@@ -175,9 +177,12 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
       userInfo: {} };
 
   },
-  mounted: function mounted() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                _this.requestUserInfo());case 2:_this.userInfo = _context.sent.data;
-              console.log(_this.userInfo);case 4:case "end":return _context.stop();}}}, _callee);}))();
+  mounted: function mounted() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              _this.userToken = getApp().globalData.userToken;
+              console.log(_this.userToken);if (!
+              _this.userToken) {_context.next = 6;break;}_context.next = 5;return (
+                _this.requestUserInfo());case 5:_this.userInfo = _context.sent.data;case 6:case "end":return _context.stop();}}}, _callee);}))();
+
   },
   methods: {
     //请求用户信息
@@ -186,10 +191,16 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
                     token: '测试使用' }));case 2:return _context2.abrupt("return", _context2.sent);case 3:case "end":return _context2.stop();}}}, _callee2);}))();
 
     },
-    //跳转至积分商城
-    navFitPage: function navFitPage(page) {
+    //跳转至對應的頁面
+    navFitPage: function navFitPage(aims) {var
+      page = aims.page,v = aims.v;
+      switch (page) {
+        case 'pointsMall':
+          this.query = 'integral';
+          break;}
+
       uni.navigateTo({
-        url: "/pages/".concat(page, "/").concat(page) });
+        url: "/pages/".concat(page, "/").concat(page, "?").concat(this.query, "=").concat(v) });
 
     } },
 

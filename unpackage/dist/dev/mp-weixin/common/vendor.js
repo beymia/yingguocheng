@@ -9114,50 +9114,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.menu_list 
   !*** C:/Users/Administrator/Desktop/yingguocheng/request/api.js ***!
   \******************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.login = exports.verifyCode = exports.sendCheckCode = exports.userSpace = exports.orderForm = void 0;var ajax = __webpack_require__(/*! ./ajax */ 62);
-
-//开发环境下需要开启本地后端服务，生产环境需要替换api地址,测试地址不适用于
-var orderForm = function orderForm(data) {return ajax('http://localhost:3000/orderForm', data, 'post');};exports.orderForm = orderForm;
-var userSpace = function userSpace(data) {return ajax('http://localhost:3000/userspace', data, 'post');};exports.userSpace = userSpace;
-var sendCheckCode = function sendCheckCode(data) {return ajax('http://localhost:3000/sendcheckcode', data, 'post');};exports.sendCheckCode = sendCheckCode;
-var verifyCode = function verifyCode(data) {return ajax('http://localhost:3000/verifycode', data, 'post');};exports.verifyCode = verifyCode;
-var login = function login(data) {return ajax('http://localhost:3000/login', data, 'post');};exports.login = login;
-
-/***/ }),
-
-/***/ 62:
-/*!*******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/ajax.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(uni) {/*
-* 简易封装模拟测试请求
-* */
-function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'get';var header = arguments.length > 3 ? arguments[3] : undefined;
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      url: url,
-      data: data,
-      method: method,
-      header: method === 'post' ? { 'Content-type': 'application/json' } : {},
-      success: function success(result) {
-        if (result.statusCode !== 200) reject(result);
-        resolve(result.data);
-      },
-      fail: function fail(err) {
-        reject(err);
-      } });
-
-  });
-}
-
-module.exports = ajax;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Users\\Administrator\\Desktop\\yingguocheng\\request\\api.js: Identifier 'convert' has already been declared (10:13)\n\n   8 | export const login = (data) => ajax('http://localhost:3000/login', data, 'post')\n   9 | export const convert = (data) => ajax('http://localhost:3000/pointsmall', data, 'post')\n> 10 | export const convert = (data) => ajax('http://localhost:3000/pointsmall', data, 'post')\n     |              ^\n  11 | \n    at Object._raise (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:746:17)\n    at Object.raiseWithData (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:739:17)\n    at Object.raise (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:733:17)\n    at ScopeHandler.checkRedeclarationInScope (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:4793:12)\n    at ScopeHandler.declareName (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:4759:12)\n    at Object.checkLVal (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:9261:22)\n    at Object.parseVarId (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:11837:10)\n    at Object.parseVar (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:11812:12)\n    at Object.parseVarStatement (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:11624:10)\n    at Object.parseStatementContent (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:11223:21)\n    at Object.parseStatement (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:11156:17)\n    at Object.parseExportDeclaration (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:12365:17)\n    at Object.maybeParseExportDeclaration (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:12321:31)\n    at Object.parseExport (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:12251:29)\n    at Object.parseStatementContent (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:11260:27)\n    at Object.parseStatement (D:\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:11156:17)");
 
 /***/ })
 

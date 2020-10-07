@@ -99,9 +99,12 @@
   z-index: -1;
 }
 .check_code .code_input .empty_input.data-v-41958032 {
-  width: 100%;
+  width: calc(100% + 200rpx);
   position: absolute;
   opacity: 0;
+  z-index: 999;
+  background-color: pink;
+  margin-left: -200rpx;
 }
 .check_code .code_timer.data-v-41958032 {
   height: 33rpx;

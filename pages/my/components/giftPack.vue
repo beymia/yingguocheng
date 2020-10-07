@@ -102,9 +102,8 @@
 
 			.package_top,
 			.package_bottom {
-				flex: 1;
 				display: flex;
-				justify-content: space-between;
+				align-items: flex-end;
 
 				.items {
 					flex: 1;
@@ -117,6 +116,7 @@
 							width: 46rpx;
 							height: 47rpx;
 							vertical-align: middle;
+              margin-bottom: 10rpx;
 						}
 					}
 

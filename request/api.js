@@ -6,3 +6,5 @@ export const userSpace = (data) => ajax('http://localhost:3000/userspace', data,
 export const sendCheckCode = (data) => ajax('http://localhost:3000/sendcheckcode', data, 'post')
 export const verifyCode = (data) => ajax('http://localhost:3000/verifycode', data, 'post')
 export const login = (data) => ajax('http://localhost:3000/login', data, 'post')
+export const convert = (data) => ajax('http://localhost:3000/pointsmall', data, 'post')
+export const convert = (data) => ajax('http://localhost:3000/pointsmall', data, 'post')

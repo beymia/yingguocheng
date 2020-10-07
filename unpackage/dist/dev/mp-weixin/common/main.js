@@ -92,9 +92,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   globalData: {
     goodsPayment: {}, //訂單信息，訂單頁修改，結算頁獲取
     coupon: 0, //優惠券金額，
-    userToken: null //用戶token信息，獲取後存儲在本地storage中
-  },
+    userToken: 'null'
+    /*
+                      * userToken 用戶登錄成功後服務器返回
+                      * 根據token判斷用戶是否為登錄狀態
+                      * 獲取到之後立即賦值，並且存入本地storage中
+                      * 應用初次加載時從本地storage中獲取，
+                      * 如果用戶手動退出登錄，需要將token清空
+                      * 並且刪除本地storage中的token值
+                      * */ },
+
   onLaunch: function onLaunch() {
+    // this.globalData.userToken=uni.getStorageSync('token')
     console.log('App Launch');
   },
   onShow: function onShow() {

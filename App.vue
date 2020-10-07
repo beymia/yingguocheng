@@ -3,9 +3,18 @@ export default {
   globalData: {
     goodsPayment: {},//訂單信息，訂單頁修改，結算頁獲取
     coupon: 0,//優惠券金額，
-    userToken: null,//用戶token信息，獲取後存儲在本地storage中
+    userToken: 'null',
+    /*
+    * userToken 用戶登錄成功後服務器返回
+    * 根據token判斷用戶是否為登錄狀態
+    * 獲取到之後立即賦值，並且存入本地storage中
+    * 應用初次加載時從本地storage中獲取，
+    * 如果用戶手動退出登錄，需要將token清空
+    * 並且刪除本地storage中的token值
+    * */
   },
   onLaunch: function () {
+    // this.globalData.userToken=uni.getStorageSync('token')
     console.log('App Launch');
   },
   onShow: function () {
@@ -38,7 +47,7 @@ export default {
 }
 
 .container {
-  width: 702 rpx;
+  width: 702rpx;
   height: 100%;
   margin: 0 auto;
   box-sizing: border-box;
@@ -57,14 +66,14 @@ page {
 }
 
 checkbox .wx-checkbox-input {
-  width: 42 rpx !important;
-  height: 42 rpx !important;
+  width: 42rpx !important;
+  height: 42rpx !important;
   border-radius: 50%;
 }
 
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
-  width: 46 rpx !important;
-  height: 46 rpx !important;
+  width: 46rpx !important;
+  height: 46rpx !important;
   border-radius: 50%;
   background: #17A1FF;
   color: #fff !important;
@@ -72,18 +81,18 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 }
 
 radio .wx-radio-input {
-  width: 34 rpx !important;
-  height: 34 rpx !important;
+  width: 34rpx !important;
+  height: 34rpx !important;
   padding: 0 !important;
 }
 
 progress .wx-progress-bar {
-  height: 30 rpx !important;
-  border-radius: 15 rpx !important;
+  height: 30rpx !important;
+  border-radius: 15rpx !important;
 }
 
 progress .wx-progress-inner-bar {
-  border-radius: 15 rpx !important;
+  border-radius: 15rpx !important;
 }
 
 /* #endif */
@@ -100,8 +109,8 @@ uni-page-body, uni-view, uni-scroll-view, uni-text, uni-image, uni-textarea, uni
 }
 
 button {
-  font-size: 26 rpx;
-  border-radius: 4 rpx;
+  font-size: 26rpx;
+  border-radius: 4rpx;
   margin: 0;
 
   &:after {
@@ -113,7 +122,7 @@ button {
 
     &[plain] {
       background-color: #FFFFFF;
-      border: 2 rpx solid $main-color;;
+      border: 2rpx solid $main-color;;
       color: $main-color;
     }
 
