@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c65bad67-1e82-44ec-a7da-d4edb28225f0" name="默认的" comment="初步實現登錄">
+      <change afterPath="$PROJECT_DIR$/static/images_t/pointsMall/package_img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/runtime.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/runtime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/vendor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-icons/uni-icons.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-icons/uni-icons.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-icons/uni-icons.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-icons/uni-icons.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-icons/uni-icons.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-icons/uni-icons.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-link/uni-link.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-link/uni-link.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-link/uni-link.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-link/uni-link.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-link/uni-link.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-link/uni-link.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-nav-bar/uni-nav-bar.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-nav-bar/uni-nav-bar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-nav-bar/uni-nav-bar.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-nav-bar/uni-nav-bar.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-nav-bar/uni-nav-bar.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-nav-bar/uni-nav-bar.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-status-bar/uni-status-bar.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-status-bar/uni-status-bar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-status-bar/uni-status-bar.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-status-bar/uni-status-bar.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-status-bar/uni-status-bar.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/components/uni-status-bar/uni-status-bar.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/addUserAdress/addUserAdress.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/addUserAdress/addUserAdress.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/addUserAdress/addUserAdress.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/addUserAdress/addUserAdress.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/addUserAdress/addUserAdress.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/addUserAdress/addUserAdress.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/checkCode/checkCode.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/checkCode/checkCode.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/checkCode/checkCode.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/checkCode/checkCode.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/checkCode/checkCode.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/checkCode/checkCode.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/customerService/customerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/customerService/customerService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/customerService/customerService.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/customerService/customerService.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/customerService/customerService.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/customerService/customerService.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/home/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/home/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/home/home.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/home/home.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/home/home.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/home/home.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/index/index.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/login/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/login/login.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/login/login.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/login/login.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/login/login.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/giftPack.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/giftPack.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/giftPack.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/giftPack.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/options.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/options.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/options.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/options.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/options.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/options.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/userInfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/userInfo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/userInfo.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/userInfo.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/userInfo.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/components/userInfo.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/my.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/my.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/my.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/my.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/order/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/order/order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/order/order.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/order/order.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/order/order.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/order/order.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/orderForm/orderForm.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/orderForm/orderForm.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/planetMember/planetMember.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/planetMember/planetMember.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/planetMember/planetMember.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/planetMember/planetMember.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/pointsMall/pointsMall.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/pointsMall/pointsMall.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/pointsMall/pointsMall.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/pointsMall/pointsMall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/userAdress/userAdress.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/userAdress/userAdress.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/userAdress/userAdress.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/userAdress/userAdress.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/userAdress/userAdress.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/userAdress/userAdress.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/wallet/wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/wallet/wallet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/wallet/wallet.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/wallet/wallet.json" afterDir="false" />
+    </list>
+    <list id="813de611-0955-417c-84cb-be0ac5dbc7a5" name="初步實現登錄" comment="" />
+    <list id="f0dc7782-aece-4d78-b896-f55bc772f3fd" name="在进行Update之前于 2020/10/7 0007 17:35 取消提交了变更 [默认的]" comment="">
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/sitemap.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/sitemap31.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/static/images_t/pointsMall/package_img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/orderForm/orderForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/orderForm/orderForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/main.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/vendor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/common/vendor.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-icons/uni-icons.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-icons/uni-icons.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-link/uni-link.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-link/uni-link.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-nav-bar/uni-nav-bar.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-nav-bar/uni-nav-bar.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-status-bar/uni-status-bar.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-status-bar/uni-status-bar.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/addUserAdress/addUserAdress.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/addUserAdress/addUserAdress.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/checkCode/checkCode.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/checkCode/checkCode.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/customerService/customerService.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/customerService/customerService.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/home/home.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/home/home.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/index/index.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/login/login.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/login/login.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/giftPack.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/giftPack.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/options.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/options.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/userInfo.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/components/userInfo.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/my.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/my/my.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/order.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/order.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/orderForm/orderForm.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/orderForm/orderForm.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/pointsMall/pointsMall.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/pointsMall/pointsMall.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/userAdress/userAdress.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/userAdress/userAdress.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/main.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/common/main.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/my.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/my/my.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/orderForm/orderForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/orderForm/orderForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/orderForm/orderForm.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/orderForm/orderForm.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/pointsMall/pointsMall.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/pages/pointsMall/pointsMall.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/mp-weixin/project.config.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/master" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="bobo" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
+  </component>
+  <component name="ProjectId" id="1i56r8xuBjHQyi5wOrbYxhna2SJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="新增" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/.gitignore" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.12.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.11.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/在进行Update之前于_2020_10_7_0007_17_35_取消提交了变更_[默认的].patch" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="Shelf.Project.Settings" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.2.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="mock.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/request/mock.js" working-dir="$PROJECT_DIR$/request">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.mock.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager">
+    <option name="remove_strategy" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c65bad67-1e82-44ec-a7da-d4edb28225f0" name="默认的" comment="" />
+      <changelist id="" name="在进行Update之前于 2020/10/7 0007 17:35 取消提交了变更 [默认的]" comment="" />
+      <changelist id="813de611-0955-417c-84cb-be0ac5dbc7a5" name="初步實現登錄" comment="" />
+      <changelist id="f0dc7782-aece-4d78-b896-f55bc772f3fd" name="在进行Update之前于 2020/10/7 0007 17:35 取消提交了变更 [默认的]" comment="" />
+      <created>1601185301817</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601185301817</updated>
+      <workItem from="1601185302867" duration="22000" />
+      <workItem from="1601186016786" duration="15208000" />
+      <workItem from="1601201457465" duration="317000" />
+      <workItem from="1601254653839" duration="10796000" />
+      <workItem from="1601272688091" duration="1615000" />
+      <workItem from="1601275185498" duration="2639000" />
+      <workItem from="1601280963799" duration="3896000" />
+      <workItem from="1601285037198" duration="2744000" />
+      <workItem from="1601340612886" duration="29051000" />
+      <workItem from="1601426886729" duration="30033000" />
+      <workItem from="1601859236333" duration="585000" />
+      <workItem from="1601860041169" duration="2688000" />
+      <workItem from="1601862748395" duration="27157000" />
+      <workItem from="1601945706481" duration="798000" />
+      <workItem from="1601947271787" duration="26261000" />
+      <workItem from="1602032094563" duration="95000" />
+      <workItem from="1602032227084" duration="24887000" />
+    </task>
+    <task id="LOCAL-00001" summary="用户页面和订单结算页面结构完成">
+      <created>1601287204618</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1601287204618</updated>
+    </task>
+    <task id="LOCAL-00002" summary="订单结算样式完成">
+      <created>1601374791828</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1601374791828</updated>
+    </task>
+    <task id="LOCAL-00003" summary="基本交互完成">
+      <created>1601461339181</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1601461339181</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Revert &quot;基本交互完成&quot;&#10;&#10;This reverts commit fe78afa1">
+      <created>1601861093402</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1601861093402</updated>
+    </task>
+    <task id="LOCAL-00005" summary="基本交互完成">
+      <created>1601862777316</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1601862777316</updated>
+    </task>
+    <task id="LOCAL-00006" summary="用户页面样式&amp;路由">
+      <created>1601895967956</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1601895967956</updated>
+    </task>
+    <task id="LOCAL-00007" summary="用户页面样式&amp;路由">
+      <created>1601896226163</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1601896226163</updated>
+    </task>
+    <task id="LOCAL-00008" summary="初步實現登錄">
+      <created>1601979484747</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1601979484747</updated>
+    </task>
+    <task id="LOCAL-00009" summary="初步實現登錄">
+      <created>1602063761232</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1602063761232</updated>
+    </task>
+    <task id="LOCAL-00010" summary="初步實現登錄">
+      <created>1602064045733</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1602064045733</updated>
+    </task>
+    <task id="LOCAL-00011" summary="初步實現登錄">
+      <created>1602064480333</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1602064480333</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/Administrator/Desktop/yingguocheng/pages/my/components" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="用户页面和订单结算页面结构完成" />
+    <MESSAGE value="订单结算样式完成" />
+    <MESSAGE value="Revert &quot;基本交互完成&quot;&#10;&#10;This reverts commit fe78afa1" />
+    <MESSAGE value="基本交互完成" />
+    <MESSAGE value="用户页面样式&amp;路由" />
+    <MESSAGE value="初步實現登錄" />
+    <option name="LAST_COMMIT_MESSAGE" value="初步實現登錄" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="907" y="56" key="#JavaScript" timestamp="1601461446172">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="907" y="56" key="#JavaScript/0.0.1920.1040@0.0.1920.1040" timestamp="1601461446172" />
+    <state x="971" y="296" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601187301634">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="971" y="296" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1601187301634" />
+    <state x="732" y="36" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1602063834605">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="732" y="36" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602063834605" />
+    <state x="976" y="343" key="#其他文件类型" timestamp="1601188045722">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="976" y="343" key="#其他文件类型/0.0.1920.1040@0.0.1920.1040" timestamp="1601188045722" />
+    <state x="523" y="0" key="CommitChangelistDialog2" timestamp="1602064128042">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="523" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1602064128042" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1602065250859">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602065250859" />
+    <state x="687" y="216" key="FileChooserDialogImpl" timestamp="1602064352554">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="687" y="216" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602064352554" />
+    <state width="1867" height="323" key="GridCell.Tab.0.bottom" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.0.center" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.0.left" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.0.right" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.1.bottom" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.1.center" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.1.left" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.1.right" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.2.bottom" timestamp="1601867020592">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020592" />
+    <state width="1867" height="323" key="GridCell.Tab.2.center" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.2.left" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.2.right" timestamp="1601867020591">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020591" />
+    <state width="1867" height="323" key="GridCell.Tab.3.bottom" timestamp="1601867020592">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020592" />
+    <state width="1867" height="323" key="GridCell.Tab.3.center" timestamp="1601867020592">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020592" />
+    <state width="1867" height="323" key="GridCell.Tab.3.left" timestamp="1601867020592">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020592" />
+    <state width="1867" height="323" key="GridCell.Tab.3.right" timestamp="1601867020592">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1867" height="323" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601867020592" />
+    <state x="666" y="195" key="IDE.errors.dialog" timestamp="1601459645072">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="666" y="195" key="IDE.errors.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601459645072" />
+    <state x="184" y="86" key="MergeDialog" timestamp="1602065362298">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="86" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602065362298" />
+    <state x="497" y="214" key="MultipleFileMergeDialog" timestamp="1601896119893">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="497" y="214" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601896119893" />
+    <state x="619" y="46" key="RollbackChangesDialog" timestamp="1602065266725">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="619" y="46" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602065266725" />
+    <state x="382" y="54" key="SettingsEditor" timestamp="1602063966947">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="382" y="54" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1602063966947" />
+    <state x="92" y="92" width="1736" height="856" key="ShowDiffWithBranchDialog" timestamp="1601201774685">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="ShowDiffWithBranchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601201774685" />
+    <state x="707" y="43" key="VCS.ChangeListViewerDialog" timestamp="1602063997200">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="707" y="43" key="VCS.ChangeListViewerDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602063997200" />
+    <state x="452" y="183" key="Vcs.Push.Dialog.v2" timestamp="1602064501707">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="452" y="183" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602064501707" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1602064744382">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602064744382" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1601878997823">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601878997823" />
+    <state x="740" y="415" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602064169068">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="415" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1602064169068" />
+    <state x="555" y="115" width="743" height="690" key="find.popup" timestamp="1601948411782">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="555" y="115" width="743" height="690" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601948411782" />
+    <state x="714" y="399" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1601859796924">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="714" y="399" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601859796924" />
+    <state x="702" y="382" key="git4idea.ui.GitResetDialog" timestamp="1601860785015">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="702" y="382" key="git4idea.ui.GitResetDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601860785015" />
+    <state x="695" y="257" key="git4idea.ui.GitUnstashDialog" timestamp="1602064678893">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="695" y="257" key="git4idea.ui.GitUnstashDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602064678893" />
+    <state x="999" y="239" key="run.anything.popup" timestamp="1601285646268">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="999" y="239" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601285646268" />
+    <state x="916" y="349" key="scopes" timestamp="1601188062167">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="916" y="349" key="scopes/0.0.1920.1040@0.0.1920.1040" timestamp="1601188062167" />
+    <state x="1019" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1602062875853">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1019" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1602062875853" />
+    <state x="398" y="197" key="vcs.ApplyPatchDifferentiatedDialog" timestamp="1602065343411">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="398" y="197" key="vcs.ApplyPatchDifferentiatedDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602065343411" />
+  </component>
+</project>

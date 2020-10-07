@@ -13,7 +13,7 @@
       </view>
     </view>
 
-    <!-- 無訂單展示的页面 lk-->
+    <!-- 無訂單展示的页面 用戶沒有登錄，或者登錄後訂單數據為空時展示-->
     <view v-if="empty" class="empty_order">
       <view class="empty_img">
         <image src="../../static/images_t/orderForm/orderFormEmpty.png"></image>
@@ -28,12 +28,7 @@
                    url="/pages/order/order">去點單
         </navigator>
       <!-- 測試 -->
-      <view @click="empty=false" style="width: 100%;height: 60rpx;background-color: pink; text-align: center;">有值页面
       </view>
-    </view>
-
-    <!--登录提示框-->
-    <loginBox v-if="loginBox" @close-login-box="loginBox = false"></loginBox>
 
     <!-- 当前订单展示頁面 -->
     <view v-else-if="!empty&&activeFeat==='current'" class="order_detail">
@@ -66,6 +61,9 @@
         <orderDetail :orderFormData="sliceOrder"></orderDetail>
       </view>
     </view>
+
+  <!--登录提示框-->
+  <loginBox v-if="!loginBox" @close-login-box="loginBox = true"></loginBox>
   </view>
 </template>
 
@@ -81,7 +79,7 @@ export default {
       headNavText: '想對你說',
       headNAVIcon: 'email',
       activeFeat: 'current',
-      empty: false,
+      empty: true,
       historyType: 'takeaway',
       currentOrderForm:{data:[],page:1},
       historyOrderForm:{data:[],page:1},
@@ -95,8 +93,10 @@ export default {
     /*
     * 将外卖订单和自提订单分割出来
     * 根据展示板块动态切换传递给展示组件的数据
+    * 訂單數據為空直接返回，不做處理
     * */
     sliceOrder() {
+      if (!this.historyOrderForm.data || !this.historyOrderForm.data.length) return
       this.takeawayOrder = [];
       this.oneSelfOrder = [];
       this.invoiceData = [];
@@ -117,18 +117,35 @@ export default {
       return this.takeawayOrder
     },
   },
-  async mounted() {
-    this.currentOrderForm.data =await this.requestOrder()
-    //如果没有接收到数据则展示订单为空
-    this.empty = !this.currentOrderForm.data || !this.currentOrderForm.data.length;
 
-    this.loginBox = !(getApp().globalData.userToken);
+  //頁面每次展示都重新獲取本地storage中的token值
+  onShow(){
+    this.loginBox = getApp().globalData.userToken;
   },
+
+  async mounted() {
+    this.loginBox = getApp().globalData.userToken;
+    //用戶登錄成功時再去獲取訂單信息
+    if(this.loginBox){
+      try{
+        this.currentOrderForm.data =await this.requestOrder()
+        //如果没有接收到数据则展示订单为空
+        this.empty = !this.currentOrderForm.data || !this.currentOrderForm.data.length;
+      }catch (e){
+        uni.showToast({
+          title:'訂單獲取失敗',
+          duration:2000,
+          icon:'none'
+        })
+      }
+    }
+  },
+
   methods: {
     //请求数据，已经有数据后不再请求
     async requestOrder() {
       return (await orderForm({
-        // token: '临时测试用',
+        token: '临时测试用',
         type: this.activeFeat === 'history' ? 2 : 1,
         page: this.activeFeat === 'history' ? this.historyOrderForm.page : this.currentOrderForm.page,
       })).data;
@@ -147,10 +164,8 @@ export default {
         this.headNavText = '想對你說'
         this.headNAVIcon = 'email'
       }
-      uni.navigateTo({
-        url: '/pages/checkCode/checkCode?phone=' + '15660088912'
-      })
     },
+
     navDescription() {
       uni.navigateTo({
         url: '/pages/wantTell/wantTell'
@@ -161,7 +176,6 @@ export default {
    * */
     orderPayment(g) {
       getApp().globalData.goodsPayment = g.order;
-      console.log(g);
       uni.navigateTo({
         url: '/pages/orderPayment/orderPayment',
       })

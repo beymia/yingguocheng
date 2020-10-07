@@ -98,7 +98,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var g0 =
-    !_vm.loginBox &&
+    !_vm.empty &&
     !(!_vm.empty && _vm.activeFeat === "current") &&
     !_vm.empty &&
     _vm.activeFeat === "history"
@@ -107,19 +107,15 @@ var render = function() {
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      _vm.empty = false
-    }
-
-    _vm.e1 = function($event) {
-      _vm.loginBox = false
-    }
-
-    _vm.e2 = function($event) {
       _vm.historyType = "oneself"
     }
 
-    _vm.e3 = function($event) {
+    _vm.e1 = function($event) {
       _vm.historyType = "takeaway"
+    }
+
+    _vm.e2 = function($event) {
+      _vm.loginBox = true
     }
   }
 
@@ -238,8 +234,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var headNav = function headNav() {__webpack_require__.e(/*! require.ensure | components-lk/headNav/headNav */ "components-lk/headNav/headNav").then((function () {return resolve(__webpack_require__(/*! ../../components-lk/headNav/headNav.vue */ 226));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var orderDetail = function orderDetail() {__webpack_require__.e(/*! require.ensure | components-lk/orderDetail/orderDetail */ "components-lk/orderDetail/orderDetail").then((function () {return resolve(__webpack_require__(/*! ../../components-lk/orderDetail/orderDetail.vue */ 233));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var loginBox = function loginBox() {__webpack_require__.e(/*! require.ensure | components-lk/loginBox/loginBox */ "components-lk/loginBox/loginBox").then((function () {return resolve(__webpack_require__(/*! ../../components-lk/loginBox/loginBox */ 240));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
@@ -247,7 +241,7 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
       headNavText: '想對你說',
       headNAVIcon: 'email',
       activeFeat: 'current',
-      empty: false,
+      empty: true,
       historyType: 'takeaway',
       currentOrderForm: { data: [], page: 1 },
       historyOrderForm: { data: [], page: 1 },
@@ -261,8 +255,10 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
     /*
               * 将外卖订单和自提订单分割出来
               * 根据展示板块动态切换传递给展示组件的数据
+              * 訂單數據為空直接返回，不做處理
               * */
     sliceOrder: function sliceOrder() {var _this = this;
+      if (!this.historyOrderForm.data || !this.historyOrderForm.data.length) return;
       this.takeawayOrder = [];
       this.oneSelfOrder = [];
       this.invoiceData = [];
@@ -283,18 +279,35 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
       return this.takeawayOrder;
     } },
 
-  mounted: function mounted() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                _this2.requestOrder());case 2:_this2.currentOrderForm.data = _context.sent;
-              //如果没有接收到数据则展示订单为空
-              _this2.empty = !_this2.currentOrderForm.data || !_this2.currentOrderForm.data.length;
 
-              _this2.loginBox = !getApp().globalData.userToken;case 5:case "end":return _context.stop();}}}, _callee);}))();
+  //頁面每次展示都重新獲取本地storage中的token值
+  onShow: function onShow() {
+    this.loginBox = getApp().globalData.userToken;
   },
+
+  mounted: function mounted() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              _this2.loginBox = getApp().globalData.userToken;
+              //用戶登錄成功時再去獲取訂單信息
+              if (!_this2.loginBox) {_context.next = 12;break;}_context.prev = 2;_context.next = 5;return (
+
+                _this2.requestOrder());case 5:_this2.currentOrderForm.data = _context.sent;
+              //如果没有接收到数据则展示订单为空
+              _this2.empty = !_this2.currentOrderForm.data || !_this2.currentOrderForm.data.length;_context.next = 12;break;case 9:_context.prev = 9;_context.t0 = _context["catch"](2);
+
+              uni.showToast({
+                title: '訂單獲取失敗',
+                duration: 2000,
+                icon: 'none' });case 12:case "end":return _context.stop();}}}, _callee, null, [[2, 9]]);}))();
+
+
+
+  },
+
   methods: {
     //请求数据，已经有数据后不再请求
     requestOrder: function requestOrder() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
                   (0, _api.orderForm)({
-                    // token: '临时测试用',
+                    token: '临时测试用',
                     type: _this3.activeFeat === 'history' ? 2 : 1,
                     page: _this3.activeFeat === 'history' ? _this3.historyOrderForm.page : _this3.currentOrderForm.page }));case 2:return _context2.abrupt("return", _context2.sent.
                 data);case 3:case "end":return _context2.stop();}}}, _callee2);}))();
@@ -311,12 +324,10 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
 
 
                 _this4.headNavText = '想對你說';
-                _this4.headNAVIcon = 'email';case 12:
-
-                uni.navigateTo({
-                  url: '/pages/checkCode/checkCode?phone=' + '15660088912' });case 13:case "end":return _context3.stop();}}}, _callee3);}))();
+                _this4.headNAVIcon = 'email';case 12:case "end":return _context3.stop();}}}, _callee3);}))();
 
     },
+
     navDescription: function navDescription() {
       uni.navigateTo({
         url: '/pages/wantTell/wantTell' });
@@ -327,7 +338,6 @@ var _api = __webpack_require__(/*! ../../request/api */ 61);function _interopReq
        * */
     orderPayment: function orderPayment(g) {
       getApp().globalData.goodsPayment = g.order;
-      console.log(g);
       uni.navigateTo({
         url: '/pages/orderPayment/orderPayment' });
 
