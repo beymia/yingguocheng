@@ -5,6 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.automator" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-popup" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-transition" />
@@ -17,6 +18,8 @@
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/wantTell" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/components-lk" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/components/uni-popup" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/components/uni-swipe-action" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/components/uni-swipe-action-item" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/components/uni-transition" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/bulkInvoice" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/discount" />
@@ -24,9 +27,14 @@
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/order/components" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/orderPayment" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/wantTell" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/icon" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/images/addUserAdress" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/images/home" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/images/my" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/images/orderForm" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/images/orderPayment" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/images/userAdress" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/images_t/home" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/images_t/my" />
       <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static/images_t/orderForm" />
     </content>
