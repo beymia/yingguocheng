@@ -4,6 +4,9 @@ export default {
     goodsPayment: {},//訂單信息，訂單頁修改，結算頁獲取
     coupon: 0,//優惠券金額，
     userToken: null,//用戶token信息，獲取後存儲在本地storage中
+	userAddresses:[],//用户收货地址
+	edit_address_id:{},//当前编辑的收货地址id
+	choosed_address:{},//用户选择的地址
   },
   onLaunch: function () {
     console.log('App Launch');

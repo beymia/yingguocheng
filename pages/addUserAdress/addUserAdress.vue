@@ -57,7 +57,7 @@
 		</view>
 		
 		<view class="save-btn">
-			<button type="primary" >保存</button>
+			<button type="primary" @tap="save">保存</button>
 		</view>
 	</view>
 </template>
@@ -73,10 +73,10 @@
 			return {
 				form: {
 					name: '',
-					gender: 1,
+					gender: true,
 					phone: '',
 					description: '',
-					is_default: 0,
+					is_default: true,
 					complete_address: '',
 					address: '',
 					latitude: '',
@@ -86,8 +86,10 @@
 		},
 		onLoad(options) {
 			if(options.edit) {
-				uni.$on("edit_address",address =>{this.form=Object.assign({},address);this.form.fzszwx=Math.random();console.log(333333);console.log(this.form);console.log(44444444);});
+				this.form=getApp().globalData.userAddresses.find(item =>item.id == getApp().globalData.edit_address_id);
 			}
+		},
+		onUnload() {
 		},
 		methods: {
 			chooseLocation() {
@@ -95,12 +97,19 @@
 					success: res => {
 						const {errMsg, address, latitude, longitude, name} = res
 						if(errMsg === "chooseLocation:ok") {
+							console.log(res)
 							this.form = Object.assign(
 								this.form, 
 								{complete_address: address, latitude, longitude, address: name},
 							)
 						}
 					}
+				})
+			},
+			save(){
+				console.log(getApp().globalData.userAddresses)
+				uni.navigateBack({
+					delta:1
 				})
 			}
 		}

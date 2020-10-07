@@ -1,33 +1,41 @@
 <template>
 	<view class="page address_con">
 		<view class="content">
-			<view class="zwdz" v-if="!addresses.length">
+			<view class="zwdz" v-if="!userAddresses.length">
 				<image src="/static/images/userAdress/zwdz.png" mode=""></image>
 				<text>暫無地址信息</text>
 				<text>請點擊底部按鈕添加地址</text>
 			</view>
-			<scroll-view scroll-y="true">
-				<view class="item" v-for="(address,index) in addresses" :key="index" @tap="choose(address)">
-					<view class="info">
-						<view class="adress">
-							{{address.address}} {{address.complete_address}}
+			<scroll-view scroll-y="true" style="height: 100%;">
+				<uni-swipe-action  >
+					<uni-swipe-action-item class="mt30" v-for="(address,index) in userAddresses" :key="index">
+						<view class="itemx" >
+							<view class="info" @tap.stop="choose(address)">
+								<view class="adress">
+									{{address.address}} {{address.complete_address}}
+								</view>
+								<view class="other">
+									<view class="is_default" v-if="address.is_default">
+										默認地址
+									</view>
+									<view class="name">
+										{{address.name}}{{(address.gender == undefined || "") ? "":(address.gender? "先生":"女士") }}
+									</view>
+									<view class="phone">
+										{{address.phone}}
+									</view>
+								</view>
+							</view>
+							<view class="edit">
+								<image src="/static/images/userAdress/edit.png" mode="" @tap.stop="edit(address.id)"></image>
+							</view>
 						</view>
-						<view class="other">
-							<view class="is_default" v-if="address.is_default">
-								默認地址
-							</view>
-							<view class="name">
-								{{address.name}}{{address.gender ? "先生":"女士"}}
-							</view>
-							<view class="phone">
-								{{address.phone}}
-							</view>
-						</view>
-					</view>
-					<view class="edit">
-						<image src="/static/images/userAdress/edit.png" mode="" @tap.stop="edit(address)"></image>
-					</view>
-				</view>
+						<template v-slot:right>
+							<view class="slot-button" @tap="delete_address(address.id)"><text class="slot-button-text">删除</text></view>
+						</template>
+					</uni-swipe-action-item>
+				</uni-swipe-action>
+				
 			</scroll-view>
 		</view>
 		
@@ -38,7 +46,7 @@
 				<image src="/static/images/userAdress/wx.jpg" mode=""></image>
 				<text>微信導入</text>
 			</button>
-			<button type="default" class="add_adress">
+			<button type="default" class="add_adress" @tap="add">
 				<image src="/static/images/userAdress/add.jpg" mode=""></image>
 				<text>添加地址</text>
 			</button>
@@ -55,7 +63,7 @@
 		},
 		data() {
 			return {
-				addresses: [
+				userAddresses: [
 					{
 					"id": 1,
 					"user_id": 1,
@@ -77,7 +85,7 @@
 					"description": "B棟306室",
 					"is_default": 0
 				},{
-					"id": 1,
+					"id": 3,
 					"user_id": 1,
 					"name": "張三",
 					"phone": "18666610100",
@@ -87,7 +95,7 @@
 					"description": "M13",
 					"is_default": 1
 				},{
-					"id": 2,
+					"id": 4,
 					"user_id": 1,
 					"name": "李四",
 					"phone": "13220589546",
@@ -97,7 +105,7 @@
 					"description": "B棟306室",
 					"is_default": 0
 				},{
-					"id": 1,
+					"id": 5,
 					"user_id": 1,
 					"name": "張三",
 					"phone": "18666610100",
@@ -107,7 +115,28 @@
 					"description": "M13",
 					"is_default": 1
 				},{
-					"id": 2,
+					"id": 6,
+					"user_id": 1,
+					"name": "李四",
+					"phone": "13220589546",
+					"gender": 1,
+					"address": "某個地區",
+					"complete_address": "經開區蓮花路與丹霞路交叉口",
+					"description": "B棟306室",
+					"is_default": 0
+				},
+				{
+					"id": 7,
+					"user_id": 1,
+					"name": "張三",
+					"phone": "18666610100",
+					"gender": 0,
+					"address": "蓮花智谷創業園",
+					"complete_address": "經開區蓮花路與丹霞路交叉口",
+					"description": "M13",
+					"is_default": 1
+				},{
+					"id": 8,
 					"user_id": 1,
 					"name": "李四",
 					"phone": "13220589546",
@@ -123,6 +152,9 @@
 		computed: {
 			// ...mapState(['addresses'])
 		},
+		onLoad() {
+			getApp().globalData.userAddresses=this.userAddresses;
+		},
 		methods: {
 			// ...mapMutations(['SET_ADDRESS', 'SET_ORDER_TYPE']),
 			add() {
@@ -130,8 +162,8 @@
 					url: '/pages/addUserAdress/addUserAdress'
 				})
 			},
-			edit(address) {
-				uni.$emit("edit_address",address)
+			edit(id) {
+				getApp().globalData.edit_address_id = id;
 				uni.navigateTo({
 					url: '/pages/addUserAdress/addUserAdress?edit=true'
 				})
@@ -146,15 +178,31 @@
 			},
 			wxdr(){
 				uni.chooseAddress({
-					success(res) {
-							console.log(res)
+					success:res=>{
+						let {errMsg,userName,telNumber,provinceName,cityName,countyName,detailInfo} = res
+						if(errMsg == "chooseAddress:ok") {
+							let new_address={name:userName,complete_address:cityName+countyName,address:"",description:detailInfo,phone:telNumber}
+							this.userAddresses.push(new_address)
+							console.log(new_address.gender)
+						}
 					}
+					
 				})
+			},
+			delete_address(id){
+				var t=this.userAddresses.splice(this.userAddresses.findIndex(item => item.id == id),1)
+				if(t){
+					uni.showToast({
+					    title: '删除成功',
+					    duration: 1000,
+						icon:"none",
+					});
+				}
+				
+				
 			}
 		},
-		onUnload() {
-			
-		}
+		 
 	}
 </script>
 
@@ -191,13 +239,34 @@
 				margin-bottom: 10rpx;
 			}
 		}
-		.item{
+		.slot-button {
+			/* #ifndef APP-NVUE */
+			display: flex;
+			height: 100%;
+			/* #endif */
+			flex: 1;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			padding: 0 40rpx;
+			background-color: #ff5a5f;
+			margin-left: 2px;
+		}
+		
+		.slot-button-text {
+			color: #ffffff;
+			font-size: 14px;
+		}
+		.mt30{
+			margin-top: 30rpx;
+		}
+		.itemx{
 			box-sizing: border-box;
 			width: 702rpx;
 			height: 150rpx;
 			background: #ffffff;
 			border-radius: 20rpx;
-			margin-top: 30rpx; 
+			// margin-top: 30rpx; 
 			margin-left: 24rpx;
 			display: flex;
 			align-items: center;
@@ -255,7 +324,6 @@
 		background-color: #F5F5F5;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
 		height: 120rpx;
 		box-sizing: border-box;
 		padding: 20rpx 30rpx;
@@ -271,6 +339,8 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			margin-right: 30rpx;
+			flex: 1;
 			image{
 				width: 40rpx;
 				height: 37rpx;
@@ -285,6 +355,7 @@
 		.add_adress{
 			width: 320rpx;
 			height: 78rpx;
+			flex: 1;
 			background: #17a1ff;
 			border-radius: 10rpx;
 			display: flex;

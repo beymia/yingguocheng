@@ -80,7 +80,7 @@ export default {
 		clear() {
 			uni.showModal({
 			    content: '清空购物袋',
-				confirmColor: '#DBA871',
+				confirmColor: '#17A1FF',
 			    success: res => {
 			        if (res.confirm) {
 						this.$emit('clear')
