@@ -22,13 +22,13 @@
         <text>您今天還沒有下單</text>
         <text>快去選擇一杯喜歡的茶吧</text>
       </view>
-        <navigator class="go_order"
-                   hover-class="none"
-                   open-type="switchTab"
-                   url="/pages/order/order">去點單
-        </navigator>
+      <navigator class="go_order"
+                 hover-class="none"
+                 open-type="switchTab"
+                 url="/pages/order/order">去點單
+      </navigator>
       <!-- 測試 -->
-      </view>
+    </view>
 
     <!-- 当前订单展示頁面 -->
     <view v-else-if="!empty&&activeFeat==='current'" class="order_detail">
@@ -62,8 +62,8 @@
       </view>
     </view>
 
-  <!--登录提示框-->
-  <loginBox v-if="!loginBox" @close-login-box="loginBox = true"></loginBox>
+    <!--登录提示框-->
+    <loginBox v-if="!loginBox" @close-login-box="loginBox = true"></loginBox>
   </view>
 </template>
 
@@ -73,6 +73,7 @@ import orderDetail from '../../components-lk/orderDetail/orderDetail.vue'
 import loginBox from "../../components-lk/loginBox/loginBox";
 
 import {orderForm} from '../../request/api'
+
 export default {
   data() {
     return {
@@ -81,22 +82,22 @@ export default {
       activeFeat: 'current',
       empty: true,
       historyType: 'takeaway',
-      currentOrderForm:{data:[],page:1},
-      historyOrderForm:{data:[],page:1},
-      oneSelfOrder:[],//自提订单
-      takeawayOrder:[],//外卖订单
-      invoiceData:[],//未开发票订单
-      loginBox:false,
+      currentOrderForm: {data: [], page: 1},
+      historyOrderForm: {data: [], page: 1},
+      oneSelfOrder: [],//自提订单
+      takeawayOrder: [],//外卖订单
+      invoiceData: [],//未开发票订单
+      loginBox: false,
     }
   },
-  computed:{
+  computed: {
     /*
     * 将外卖订单和自提订单分割出来
     * 根据展示板块动态切换传递给展示组件的数据
     * 訂單數據為空直接返回，不做處理
     * */
-    sliceOrder() {u
-      if (!this.historyOrderForm.data || !this.historyOrderForm.data.length) return
+    sliceOrder() {
+      if (!this.historyOrderForm.data || !this.historyOrderForm.data.length) return []
       this.takeawayOrder = [];
       this.oneSelfOrder = [];
       this.invoiceData = [];
@@ -119,29 +120,34 @@ export default {
   },
 
   //頁面每次展示都重新獲取本地storage中的token值
-  onShow(){
-    this.loginBox = getApp().globalData.userToken;
+  onShow() {
+    this.getOrderForm()
   },
 
-  async mounted() {
-    this.loginBox = getApp().globalData.userToken;
-    //用戶登錄成功時再去獲取訂單信息
-    if(this.loginBox){
-      try{
-        this.currentOrderForm.data =await this.requestOrder()
-        //如果没有接收到数据则展示订单为空
-        this.empty = !this.currentOrderForm.data || !this.currentOrderForm.data.length;
-      }catch (e){
-        uni.showToast({
-          title:'訂單獲取失敗',
-          duration:2000,
-          icon:'none'
-        })
-      }
-    }
+  mounted() {
+    console.log('mounted')
+    this.getOrderForm()
   },
 
   methods: {
+    //獲取數據
+    async getOrderForm() {
+      this.loginBox = getApp().globalData.userToken;
+      //用戶登錄成功時再去獲取訂單信息
+      if (this.loginBox) {
+        try {
+          this.currentOrderForm.data = await this.requestOrder()
+          //如果没有接收到数据则展示订单为空
+          this.empty = !this.currentOrderForm.data || !this.currentOrderForm.data.length;
+        } catch (e) {
+          uni.showToast({
+            title: '訂單獲取失敗',
+            duration: 2000,
+            icon: 'none'
+          })
+        }
+      }
+    },
     //请求数据，已经有数据后不再请求
     async requestOrder() {
       return (await orderForm({
@@ -153,14 +159,14 @@ export default {
 
     async toggleFeat(feat) {
       this.activeFeat = feat;
-      if(feat === 'history'){
+      if (feat === 'history') {
         this.headNavText = '英國城探秘'
         this.headNAVIcon = '';
         //第一页的数据只请求一次
-        if(!this.historyOrderForm.data.length){
+        if (!this.historyOrderForm.data.length) {
           this.historyOrderForm.data = await this.requestOrder()
         }
-      }else{
+      } else {
         this.headNavText = '想對你說'
         this.headNAVIcon = 'email'
       }
@@ -254,18 +260,18 @@ uni-page-body{
       color: $font-color3;
     }
 
-      .go_order {
-        width: 360rpx;
-        height: 78rpx;
-        border-radius: 6rpx;
-        background: $main-color;
-        font-size:  $font-size-base;
-        font-weight: $font-weight-base;
-        text-align: center;
-        line-height: 78rpx;
-        color: #ffffff;
-        border: none;
-      }
+    .go_order {
+      width: 360rpx;
+      height: 78rpx;
+      border-radius: 6rpx;
+      background: $main-color;
+      font-size:  $font-size-base;
+      font-weight: $font-weight-base;
+      text-align: center;
+      line-height: 78rpx;
+      color: #ffffff;
+      border: none;
+    }
   }
 
   .order_detail,

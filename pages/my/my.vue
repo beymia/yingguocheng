@@ -47,7 +47,6 @@
 		},
     async mounted() {
       this.userToken = getApp().globalData.userToken;
-      console.log(this.userToken);
       if (this.userToken) {
         this.userInfo = (await this.requestUserInfo()).data
       }
@@ -61,6 +60,15 @@
       },
       //跳转至對應的頁面
       navFitPage(aims) {
+			  if(!this.userToken){
+			   uni.showToast({
+           title:'還沒有登錄',
+           duration:2000,
+           icon:'none'
+         })
+
+			    return
+        }
         let {page, v} = aims;
         switch (page) {
           case 'pointsMall':

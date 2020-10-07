@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var invoice = function invoice() {__webpack_require__.e(/*! require.ensure | components-lk/invoice/invoice */ "components-lk/invoice/invoice").then((function () {return resolve(__webpack_require__(/*! ./../../components-lk/invoice/invoice */ 268));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var invoice = function invoice() {__webpack_require__.e(/*! require.ensure | components-lk/invoice/invoice */ "components-lk/invoice/invoice").then((function () {return resolve(__webpack_require__(/*! ./../../components-lk/invoice/invoice */ 283));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -172,7 +172,6 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onLoad: function onLoad(options) {
-    console.log(options);
     this.invoiceData = JSON.parse(options.invoice);
   },
   methods: {

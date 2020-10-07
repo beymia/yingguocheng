@@ -72,7 +72,7 @@ export default {
           mobile: this.phone
         })
         uni.hideLoading()
-        /*手机号正确，跳转至验证码接收也*/
+        /*手机号正确，跳转至验证码接收頁*/
         uni.navigateTo({
           url: '/pages/checkCode/checkCode?phone=' + this.phone
         })

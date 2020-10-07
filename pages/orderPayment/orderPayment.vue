@@ -187,7 +187,6 @@ export default {
   onLoad() {
     this.goodsData = getApp().globalData.goodsPayment;
     this.receivingMethod = this.goodsData.haul_method;
-    console.log(this.receivingMethod);
     //计算订单总金额
     this.goodsData.goods_data.forEach((item) => {
       this.totalAmount += parseFloat(item.goods_price)

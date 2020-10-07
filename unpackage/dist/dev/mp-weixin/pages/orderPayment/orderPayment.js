@@ -64,7 +64,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var remarks = function remarks() {__webpack_require__.e(/*! require.ensure | components-lk/remarks/remarks */ "components-lk/remarks/remarks").then((function () {return resolve(__webpack_require__(/*! ../../components-lk/remarks/remarks */ 282));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var remarks = function remarks() {__webpack_require__.e(/*! require.ensure | components-lk/remarks/remarks */ "components-lk/remarks/remarks").then((function () {return resolve(__webpack_require__(/*! ../../components-lk/remarks/remarks */ 297));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -253,7 +253,6 @@ __webpack_require__.r(__webpack_exports__);
   onLoad: function onLoad() {var _this = this;
     this.goodsData = getApp().globalData.goodsPayment;
     this.receivingMethod = this.goodsData.haul_method;
-    console.log(this.receivingMethod);
     //计算订单总金额
     this.goodsData.goods_data.forEach(function (item) {
       _this.totalAmount += parseFloat(item.goods_price);

@@ -40,7 +40,6 @@ export default {
     }
   },
   onLoad(options) {
-    console.log(options);
     this.invoiceData = JSON.parse(options.invoice)
   },
   methods: {

@@ -35,7 +35,7 @@ export default {
       verificationCode: '',
       isFocus: 0,
       timer: 200,
-      wxCode:'',
+      wxCode: '',
     }
   },
   onLoad(options) {
@@ -46,18 +46,21 @@ export default {
       icon: 'none'
     })
   },
-  onHide(){
-    this.loginError()
+  onHide() {
+    this.verificationCode = '';
+    uni.hideLoading();
+    clearInterval(this.countDown)
   },
-  onUnload(){
-    this.loginError()
+  onUnload() {
+    this.verificationCode = '';
+    uni.hideLoading();
+    clearInterval(this.countDown)
   },
   mounted() {
     this.countDown = setInterval(() => {
       let self = this;
       self.timer--;
       if (self.timer === 0) {
-        console.log(self.timer);
         uni.showToast({
           title: '已重發',
           duration: 2000,
@@ -73,7 +76,7 @@ export default {
     inputCode(e) {
       this.verificationCode = e.detail.value
     },
-    loginError(){
+    loginError() {
       this.verificationCode = '';
       uni.hideLoading();
       uni.showToast({
@@ -92,36 +95,36 @@ export default {
             title: '正在登錄中',
           })
           //驗證驗證碼
-          await verifyCode({mobile:self.phone,code:self.verificationCode})
+          await verifyCode({mobile: self.phone, code: self.verificationCode})
 
           /* #ifdef MP-WEIXIN*/
           //此處獲取微信code
-           await wx.login({
-              success:async function(e){
-                if(e.code){
-                  try{
-                    //開始登錄
-                    let result = await login({mobile: self.phone, code: e.code})
-                    //將token賦值給全局對象並且存入本地storage中
-                    getApp().globalData.userToken = result.token;
-                    uni.setStorageSync('token',result.token)
-                    uni.switchTab({
-                      url:'/pages/home/home',
-                      success(){
-                        //跳轉成功清除定時器，倒計時清零
-                        clearInterval(self.countDown);
-                        self.timer = 0;
-                      }
-                    })
-                    uni.hideLoading()
-                  }catch (e){
-                    self.loginError()
-                  }
-                }else{
+          await wx.login({
+            success: async function (e) {
+              if (e.code) {
+                try {
+                  //開始登錄
+                  let result = await login({mobile: self.phone, code: e.code})
+                  //將token賦值給全局對象並且存入本地storage中
+                  getApp().globalData.userToken = result.token;
+                  uni.setStorageSync('token', result.token)
+                  uni.switchTab({
+                    url: '/pages/home/home',
+                    success() {
+                      //跳轉成功清除定時器，倒計時清零
+                      clearInterval(self.countDown);
+                      self.timer = 0;
+                    }
+                  })
+                  uni.hideLoading()
+                } catch (e) {
                   self.loginError()
                 }
+              } else {
+                self.loginError()
               }
-            })
+            }
+          })
           /* #endif*/
         }
       } catch (e) {

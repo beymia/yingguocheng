@@ -61,7 +61,6 @@ export default {
     this.token = getApp().globalData.userToken
     if (!this.token) return;
     this.convertList = await this.getConvertList(2)
-    console.log(this.convertList);
   },
   methods: {
     async getConvertList(type) {

@@ -58,10 +58,5 @@
       }
     ]
   },
-  "usingComponents": {},
-<<<<<<< HEAD
-  "sitemapLocation": "sitemap31.json"
-=======
-  "sitemapLocation": "sitemap.json"
->>>>>>> 0b7bc04d26e2b216ea39b398fd04718504db1cec
+  "usingComponents": {}
 }
