@@ -129,11 +129,19 @@ var render = function() {
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      _vm.is_notice = false
+      _vm.showSearch = true
     }
 
     _vm.e1 = function($event) {
+      _vm.is_notice = false
+    }
+
+    _vm.e2 = function($event) {
       _vm.is_notice = true
+    }
+
+    _vm.e3 = function($event) {
+      _vm.showSearch = false
     }
   }
 
@@ -348,6 +356,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var actions = function actions() {__webpack_require__.e(/*! require.ensure | pages/order/components/actions/actions */ "pages/order/components/actions/actions").then((function () {return resolve(__webpack_require__(/*! ./components/actions/actions.vue */ 177));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notice = function notice() {__webpack_require__.e(/*! require.ensure | pages/order/components/notice/notice */ "pages/order/components/notice/notice").then((function () {return resolve(__webpack_require__(/*! ./components/notice/notice.vue */ 184));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var CartBar = function CartBar() {__webpack_require__.e(/*! require.ensure | pages/order/components/cartbar/cartbar */ "pages/order/components/cartbar/cartbar").then((function () {return resolve(__webpack_require__(/*! ./components/cartbar/cartbar.vue */ 191));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ProductModal = function ProductModal() {__webpack_require__.e(/*! require.ensure | pages/order/components/product-modal/product-modal */ "pages/order/components/product-modal/product-modal").then((function () {return resolve(__webpack_require__(/*! ./components/product-modal/product-modal.vue */ 198));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Search = function Search() {__webpack_require__.e(/*! require.ensure | pages/order/components/search/search */ "pages/order/components/search/search").then((function () {return resolve(__webpack_require__(/*! ./components/search/search.vue */ 205));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var rest = function rest() {__webpack_require__.e(/*! require.ensure | pages/order/components/rest/rest */ "pages/order/components/rest/rest").then((function () {return resolve(__webpack_require__(/*! ./components/rest/rest.vue */ 212));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
@@ -389,6 +398,7 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
       good: {},
       goodModalVisible: false,
       cart: [],
+      showSearch: false,
       localAdress: {} };
 
 

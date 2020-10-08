@@ -196,6 +196,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 {
   components: {
     listCell: listCell },
@@ -304,7 +307,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       getApp().globalData.edit_address_id = id;
       uni.navigateTo({
-        url: '/pages/addUserAdress/addUserAdress?edit=true' });
+        url: '/pages/addUserAdress/addUserAdress?is_edit=true' });
 
     },
     choose: function choose(address) {

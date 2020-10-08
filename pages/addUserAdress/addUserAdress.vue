@@ -72,6 +72,7 @@
 		data() {
 			return {
 				form: {
+					id:'',
 					name: '',
 					gender: true,
 					phone: '',
@@ -81,11 +82,16 @@
 					address: '',
 					latitude: '',
 					longitude: '',
-				}
+				},
+				is_edit:false
 			}
 		},
 		onLoad(options) {
-			if(options.edit) {
+			if(options.is_edit) {
+				this.is_edit=true;
+				uni.setNavigationBarTitle({
+				    title: '修改地址'
+				});
 				this.form=getApp().globalData.userAddresses.find(item =>item.id == getApp().globalData.edit_address_id);
 			}
 		},

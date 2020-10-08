@@ -6,7 +6,7 @@
 				<view style="height: 35px;line-height: 35px;border-radius: 18px;border: 1px solid #eaeaea;margin-left: 24rpx;padding: 0 15px;display: flex;align-self: center;">
 					<text style="font-size: 17px;color: #666666;" >拼</text>
 					<text style="width: 29px;font-size: 17px;text-align: center;color: #EAEAEA;">|</text>
-					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;" ></icon>
+					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;" @tap="showSearch=true"></icon>
 				</view>
 			</block>
 		</uni-nav-bar>
@@ -163,6 +163,7 @@
 		<!-- 休息中 start -->
 		<rest opening_hours=""></rest>
 		<!-- 休息中 end -->
+		<search :show="showSearch" :categories="menu_list" @hide="showSearch=false" @choose="showProductDetailModal" ></search>
 	</view>
 </template>
 
@@ -208,6 +209,7 @@
 				good:{},
 				goodModalVisible:false,
 				cart:[],
+				showSearch:false,
 				localAdress:{}
 			
 			}
