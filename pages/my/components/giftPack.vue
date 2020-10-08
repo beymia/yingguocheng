@@ -2,7 +2,8 @@
 	<view class="gift_pack">
 		<view class="package_head">
 			<text>開通禮包</text>
-			<text>更多</text>
+      <text class="package_title" v-if="title">{{title}}</text>
+			<text v-else>更多</text>
 		</view>
 		<view class="package_content">
 			<view class="package_top">
@@ -63,14 +64,19 @@
 					</view>
 				</view>
 			</view>
-
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		name: "giftPack"
+		name: "giftPack",
+    props:{
+		  title:{
+		    type:[String,Number],
+        default:0
+      }
+    }
 	}
 </script>
 
@@ -92,6 +98,20 @@
 			display: flex;
 			justify-content: space-between;
 			font-size: $font-size-base;
+      align-items: flex-start;
+
+      text{
+        display: inline-block;
+        height: 40rpx;
+        line-height: 40rpx;
+      }
+
+      .package_title{
+        font-size: $font-size-sm - 2rpx;
+        color: $font-color3;
+        margin-right: auto;
+        margin-left: 10rpx;
+      }
 		}
 
 		.package_content {
