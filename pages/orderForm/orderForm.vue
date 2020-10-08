@@ -13,7 +13,7 @@
       </view>
     </view>
 
-    <!-- 無訂單展示的页面 lk-->
+    <!-- 無訂單展示的页面 用戶沒有登錄，或者登錄後訂單數據為空時展示-->
     <view v-if="empty" class="empty_order">
       <view class="empty_img">
         <image src="../../static/images_t/orderForm/orderFormEmpty.png"></image>
@@ -22,18 +22,13 @@
         <text>您今天還沒有下單</text>
         <text>快去選擇一杯喜歡的茶吧</text>
       </view>
-        <navigator class="go_order"
-                   hover-class="none"
-                   open-type="switchTab"
-                   url="/pages/order/order">去點單
-        </navigator>
+      <navigator class="go_order"
+                 hover-class="none"
+                 open-type="switchTab"
+                 url="/pages/order/order">去點單
+      </navigator>
       <!-- 測試 -->
-      <view @click="empty=false" style="width: 100%;height: 60rpx;background-color: pink; text-align: center;">有值页面
-      </view>
     </view>
-
-    <!--登录提示框-->
-    <loginBox v-if="loginBox" @close-login-box="loginBox = false"></loginBox>
 
     <!-- 当前订单展示頁面 -->
     <view v-else-if="!empty&&activeFeat==='current'" class="order_detail">
@@ -66,6 +61,9 @@
         <orderDetail :orderFormData="sliceOrder"></orderDetail>
       </view>
     </view>
+
+    <!--登录提示框-->
+    <loginBox v-if="!loginBox" @close-login-box="loginBox = true"></loginBox>
   </view>
 </template>
 
@@ -75,28 +73,31 @@ import orderDetail from '../../components-lk/orderDetail/orderDetail.vue'
 import loginBox from "../../components-lk/loginBox/loginBox";
 
 import {orderForm} from '../../request/api'
+
 export default {
   data() {
     return {
       headNavText: '想對你說',
       headNAVIcon: 'email',
       activeFeat: 'current',
-      empty: false,
+      empty: true,
       historyType: 'takeaway',
-      currentOrderForm:{data:[],page:1},
-      historyOrderForm:{data:[],page:1},
-      oneSelfOrder:[],//自提订单
-      takeawayOrder:[],//外卖订单
-      invoiceData:[],//未开发票订单
-      loginBox:false,
+      currentOrderForm: {data: [], page: 1},
+      historyOrderForm: {data: [], page: 1},
+      oneSelfOrder: [],//自提订单
+      takeawayOrder: [],//外卖订单
+      invoiceData: [],//未开发票订单
+      loginBox: false,
     }
   },
-  computed:{
+  computed: {
     /*
     * 将外卖订单和自提订单分割出来
     * 根据展示板块动态切换传递给展示组件的数据
+    * 訂單數據為空直接返回，不做處理
     * */
     sliceOrder() {
+      if (!this.historyOrderForm.data || !this.historyOrderForm.data.length) return []
       this.takeawayOrder = [];
       this.oneSelfOrder = [];
       this.invoiceData = [];
@@ -117,18 +118,40 @@ export default {
       return this.takeawayOrder
     },
   },
-  async mounted() {
-    this.currentOrderForm.data =await this.requestOrder()
-    //如果没有接收到数据则展示订单为空
-    this.empty = !this.currentOrderForm.data || !this.currentOrderForm.data.length;
 
-    this.loginBox = !(getApp().globalData.userToken);
+  //頁面每次展示都重新獲取本地storage中的token值
+  onShow() {
+    this.getOrderForm()
   },
+
+  mounted() {
+    console.log('mounted')
+    this.getOrderForm()
+  },
+
   methods: {
+    //獲取數據
+    async getOrderForm() {
+      this.loginBox = getApp().globalData.userToken;
+      //用戶登錄成功時再去獲取訂單信息
+      if (this.loginBox) {
+        try {
+          this.currentOrderForm.data = await this.requestOrder()
+          //如果没有接收到数据则展示订单为空
+          this.empty = !this.currentOrderForm.data || !this.currentOrderForm.data.length;
+        } catch (e) {
+          uni.showToast({
+            title: '訂單獲取失敗',
+            duration: 2000,
+            icon: 'none'
+          })
+        }
+      }
+    },
     //请求数据，已经有数据后不再请求
     async requestOrder() {
       return (await orderForm({
-        // token: '临时测试用',
+        token: '临时测试用',
         type: this.activeFeat === 'history' ? 2 : 1,
         page: this.activeFeat === 'history' ? this.historyOrderForm.page : this.currentOrderForm.page,
       })).data;
@@ -136,21 +159,19 @@ export default {
 
     async toggleFeat(feat) {
       this.activeFeat = feat;
-      if(feat === 'history'){
+      if (feat === 'history') {
         this.headNavText = '英國城探秘'
         this.headNAVIcon = '';
         //第一页的数据只请求一次
-        if(!this.historyOrderForm.data.length){
+        if (!this.historyOrderForm.data.length) {
           this.historyOrderForm.data = await this.requestOrder()
         }
-      }else{
+      } else {
         this.headNavText = '想對你說'
         this.headNAVIcon = 'email'
       }
-      uni.navigateTo({
-        url: '/pages/checkCode/checkCode?phone=' + '15660088912'
-      })
     },
+
     navDescription() {
       uni.navigateTo({
         url: '/pages/wantTell/wantTell'
@@ -161,7 +182,6 @@ export default {
    * */
     orderPayment(g) {
       getApp().globalData.goodsPayment = g.order;
-      console.log(g);
       uni.navigateTo({
         url: '/pages/orderPayment/orderPayment',
       })
@@ -240,18 +260,18 @@ uni-page-body{
       color: $font-color3;
     }
 
-      .go_order {
-        width: 360rpx;
-        height: 78rpx;
-        border-radius: 6rpx;
-        background: $main-color;
-        font-size:  $font-size-base;
-        font-weight: $font-weight-base;
-        text-align: center;
-        line-height: 78rpx;
-        color: #ffffff;
-        border: none;
-      }
+    .go_order {
+      width: 360rpx;
+      height: 78rpx;
+      border-radius: 6rpx;
+      background: $main-color;
+      font-size:  $font-size-base;
+      font-weight: $font-weight-base;
+      text-align: center;
+      line-height: 78rpx;
+      color: #ffffff;
+      border: none;
+    }
   }
 
   .order_detail,

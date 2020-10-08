@@ -15,7 +15,7 @@
 			<text class="items_dec"></text>
 			<uni-icons style="display: inline-block;vertical-align: middle" type="arrowright" size="30" color="#cccccc"></uni-icons>
 		</view>
-		<view @click="$emit('handler-click','customerService')" class="fun_items">
+		<view class="fun_items">
 			<text class="items_name">聯系客服</text>
 			<text class="items_dec"></text>
 			<uni-icons style="display: inline-block;vertical-align: middle" type="arrowright" size="30" color="#cccccc"></uni-icons>

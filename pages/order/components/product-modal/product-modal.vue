@@ -89,7 +89,6 @@
 					this.productData.materials.forEach(({values}) => {
 						values.forEach(value => {
 							if(value.is_selected) {
-								console.log(value)
 								truePrice += Number(value.price || 0);
 								materials.push(value.name)
 							}

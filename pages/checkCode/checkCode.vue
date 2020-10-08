@@ -11,22 +11,22 @@
       <view class="code_input">
         <label v-for="(code,index) in 5" :key="index">
           <input class="input_content"
-              disabled
-              maxlength="1"
-              v-model="verificationCode[index]"
-              type="number">
+                 disabled
+                 maxlength="1"
+                 v-model="verificationCode[index]"
+                 type="text">
         </label>
-        <input focus @input="inputCode" maxlength="5" class="empty_input" type="text">
+        <input focus @input="inputCode" v-model="verificationCode" maxlength="5" class="empty_input" type="text">
       </view>
       <view class="code_timer">
-        <text>{{timer}}秒後重發</text>
+        <text>{{ timer }}秒後重發</text>
       </view>
     </view>
   </view>
 </template>
 
 <script>
-import {verifyCode,login} from "../../request/api";
+import {login, verifyCode} from "../../request/api";
 
 export default {
   data() {
@@ -34,57 +34,101 @@ export default {
       phone: '',
       verificationCode: '',
       isFocus: 0,
-      timer:200
+      timer: 200,
+      wxCode: '',
     }
   },
   onLoad(options) {
     this.phone = options.phone;
     uni.showToast({
-      title:'驗證碼已經發送',
-      duration:2000,
-      icon:'none'
+      title: '驗證碼已經發送',
+      duration: 2000,
+      icon: 'none'
     })
   },
+  onHide() {
+    this.verificationCode = '';
+    uni.hideLoading();
+    clearInterval(this.countDown)
+  },
+  onUnload() {
+    this.verificationCode = '';
+    uni.hideLoading();
+    clearInterval(this.countDown)
+  },
   mounted() {
-    this.countDown = setInterval(()=>{
+    this.countDown = setInterval(() => {
       let self = this;
       self.timer--;
-      if(self.timer === 0){
-        console.log(self.timer);
+      if (self.timer === 0) {
         uni.showToast({
-          title:'已重發',
-          duration:2000,
-          icon:'none',
-          success(){
+          title: '已重發',
+          duration: 2000,
+          icon: 'none',
+          success() {
             self.timer = 200
           }
         })
       }
-    },1000)
+    }, 1000)
   },
   methods: {
     inputCode(e) {
       this.verificationCode = e.detail.value
+    },
+    loginError() {
+      this.verificationCode = '';
+      uni.hideLoading();
+      uni.showToast({
+        title: '出現了錯誤',
+        duration: 2000,
+        icon: 'none'
+      })
     }
   },
-  watch:{
-   async verificationCode(value){
-      try{
-        if(value.length===5){
+  watch: {
+    async verificationCode(value) {
+      let self = this;
+      try {
+        if (value.length === 5) {
           uni.showLoading({
-            title:'正在登錄中',
+            title: '正在登錄中',
           })
-          await verifyCode()
+          //驗證驗證碼
+          await verifyCode({mobile: self.phone, code: self.verificationCode})
+
+          /* #ifdef MP-WEIXIN*/
           //此處獲取微信code
-          await login()
-          uni.hideLoading()
+          await wx.login({
+            success: async function (e) {
+              if (e.code) {
+                try {
+                  //開始登錄
+                  let result = await login({mobile: self.phone, code: e.code})
+                  //將token賦值給全局對象並且存入本地storage中
+                  getApp().globalData.userToken = result.token;
+                  uni.setStorageSync('token', result.token)
+                  uni.switchTab({
+                    url: '/pages/home/home',
+                    success() {
+                      //跳轉成功清除定時器，倒計時清零
+                      clearInterval(self.countDown);
+                      self.timer = 0;
+                    }
+                  })
+                  uni.hideLoading()
+                } catch (e) {
+                  self.loginError()
+                }
+              } else {
+                self.loginError()
+              }
+            }
+          })
+          /* #endif*/
         }
-      }catch (e){
-        uni.showToast({
-          title:'出現了錯誤',
-          duration:2000,
-          icon:'none'
-        })
+      } catch (e) {
+        self.loginError()
       }
     }
   },
@@ -142,18 +186,22 @@ export default {
     display: flex;
     justify-content: space-between;
 
-      .input_content{
-        width: 80rpx;
-        height: 1rpx;
-        border-bottom: 1rpx solid #cccccc;
-        text-align: center;
-        z-index: -1;
-      }
+    .input_content{
+      width: 80rpx;
+      height: 1rpx;
+      border-bottom: 1rpx solid #cccccc;
+      text-align: center;
+      z-index: -1;
+    }
 
     .empty_input{
-      width: 100%;
+      width: calc(100% + 200rpx);
       position: absolute;
       opacity: 0;
+      z-index: 999;
+      background-color: pink;
+      margin-left: -200rpx;
+
     }
   }
 
