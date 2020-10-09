@@ -120,7 +120,13 @@
         "navigationBarTitleText": ""
       }
     }
-  ],
+        ,{
+            "path" : "pages/pintuan/pintuan",
+            "style" : {
+				"navigationBarTitleText": "拼单"
+			}
+        }
+    ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",

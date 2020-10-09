@@ -5,11 +5,11 @@
 				<view class="left">
 					
 				</view>
-				<view class="left">
+				<view class="text">
 					請選擇壹種拼單方式
 				</view>
 				<view class="right">
-					<image src="/static/images/order/close.png" mode=""></image>
+					<image src="/static/images/order/close.png" mode="" @tap="closePintuan"></image>
 				</view>
 			</view>
 			<view class="biaoyu">
@@ -24,7 +24,7 @@
 				<view class="">群收款、更便捷</view>
 			</view>
 			<view class="bordrline"></view>
-			<view class="choose_type">
+			<view class="choose_type" @tap="choose_type(2)">
 				<view class="icon_ziqu">
 					<image src="/static/images/order/pintuan_ziqu.png" mode=""></image>
 				</view>
@@ -32,7 +32,8 @@
 					門店自取
 				</view>
 			</view>
-			<view class="choose_type">
+			<view class="bordrline"></view>
+			<view class="choose_type" @tap="choose_type(1)">
 				<view class="icon_waimai">
 					<image src="/static/images/order/pintuan_waimai.png" mode=""></image>
 				</view>
@@ -46,6 +47,45 @@
 </template>
 
 <script>
+	export default{
+		props:{
+			show:{
+				type:Boolean,
+				default:false
+			}
+		},
+		watch:{
+			show:{
+				handler(newVal) {
+					if (newVal) {
+						this.open()
+					} else {
+						this.close()
+					}
+				},
+				// immediate: true
+			}
+		},
+		data(){
+			return{
+				
+			}
+		},
+		methods:{
+			open(){
+				this.$refs.pintuan.open();
+			},
+			close(){
+				this.$refs.pintuan.close();
+			},
+			closePintuan(){
+				this.$emit("closePintuan")
+			},
+			choose_type(type){
+				$emit("choose_type",type)
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -54,6 +94,7 @@
 		border-radius: 20rpx 20rpx 0px 0px;
 		padding: 0 24rpx 116rpx 24rpx;
 		box-sizing: border-box;
+		overflow: hidden;
 		.title{
 			display: flex;
 			justify-content: center;
@@ -66,6 +107,8 @@
 				font-size: 32rpx;
 				font-weight: bold;
 				color: #333333;
+				flex: 1;
+				text-align: center;
 			}
 			.right{
 				width: 44rpx;
@@ -94,11 +137,10 @@
 		.bordrline{
 			height: 1px;
 			opacity: 0.5;
-			border: 1px solid #cccccc;
+			border-top: 1px solid #cccccc;
 		}
 		.choose_type{
 			display: flex;
-			justify-content: center;
 			align-items: center;
 			height: 120rpx;
 			font-size: 28rpx;

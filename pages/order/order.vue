@@ -4,7 +4,7 @@
 		<uni-nav-bar :title="title" statusBar style="">
 			<block slot="left">
 				<view style="height: 35px;line-height: 35px;border-radius: 18px;border: 1px solid #eaeaea;margin-left: 24rpx;padding: 0 15px;display: flex;align-self: center;">
-					<text style="font-size: 17px;color: #666666;" >拼</text>
+					<text style="font-size: 17px;color: #666666;" @tap="showPintuan=true">拼</text>
 					<text style="width: 29px;font-size: 17px;text-align: center;color: #EAEAEA;">|</text>
 					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;" @tap="showSearch=true"></icon>
 				</view>
@@ -39,13 +39,13 @@
 					
 				</view>
 				<view class="right">
-					<view data-index='0'  class="order_type " :class="order_type_current==0?order_type_selected:''" @tap="order_type_tap">
+					<view   class="order_type " :class="order_type_current==2?order_type_selected:''" @tap="order_type_tap(2)">
 						自取
 					</view>
-					<view data-index='1' class="order_type " :class="order_type_current==1?order_type_selected:''" @tap="order_type_tap">
+					<view  class="order_type " :class="order_type_current==1?order_type_selected:''" @tap="order_type_tap(1)">
 						外賣
 					</view>
-					<view data-index='2' class="order_type " :class="order_type_current==2?order_type_selected:''" @tap="order_type_tap">
+					<view  class="order_type " :class="order_type_current==3?order_type_selected:''" @tap="order_type_tap(3)">
 						堂食
 					</view>
 				</view>
@@ -163,7 +163,12 @@
 		<!-- 休息中 start -->
 		<rest opening_hours=""></rest>
 		<!-- 休息中 end -->
+		<!-- 搜索页面start -->
 		<search :show="showSearch" :categories="menu_list" @hide="showSearch=false" @choose="showProductDetailModal" ></search>
+		<!-- 搜索页面end -->
+		<!-- 拼团 -->
+		<pintuan :show="showPintuan" @closePintuan="showPintuan = false" @choose_type="choose_pintuan_type"></pintuan>
+		<!-- 拼团end -->
 	</view>
 </template>
 
@@ -171,18 +176,20 @@
 	import {menu_list} from './data.js';
 	import actions from './components/actions/actions.vue'
 	import notice from './components/notice/notice.vue'
-	import CartBar from './components/cartbar/cartbar.vue'
-	import ProductModal from './components/product-modal/product-modal.vue'
-	import Search from './components/search/search.vue'
+	import cartBar from './components/cartbar/cartbar.vue'
+	import productModal from './components/product-modal/product-modal.vue'
+	import search from './components/search/search.vue'
 	import rest from './components/rest/rest.vue'
+	import pintuan from './components/pintuan/pintuan.vue'
 	export default{
 		components:{
 			actions,
 			notice,
-			ProductModal,
-			CartBar,
-			Search,
-			rest
+			productModal,
+			cartBar,
+			search,
+			rest,
+			pintuan
 			},
 		data() {
 			return {
@@ -201,7 +208,7 @@
 				menu_list,
 				//下面都是静态默认值
 				order_type_selected:'order_type_selected',
-				order_type_current:0,
+				order_type_current:2,
 				title:'英国城',
 				is_notice:false,
 				menu_id_current:1,
@@ -210,7 +217,9 @@
 				goodModalVisible:false,
 				cart:[],
 				showSearch:false,
-				localAdress:{}
+				localAdress:{},
+				is_rest:false,
+				showPintuan:false
 			
 			}
 		},
@@ -256,12 +265,9 @@
 					}).exec()
 				})
 			},
-			order_type_tap(e){
-				let tabIndex=e.currentTarget.dataset.index
-				this.order_type_current=tabIndex;
-				console.log(tabIndex)
-				if(tabIndex == 1){
-					console.log('weoufowjfj')
+			order_type_tap(type){
+				this.order_type_current=type;
+				if(type == 1){
 					uni.navigateTo({
 						url:"/pages/userAdress/userAdress"
 					})
@@ -367,6 +373,11 @@
 				}else{
 					this.cart.find(item => item.id==id).is_checked= false;
 			}
+		},
+		choose_pintuan_type(type){
+			uni.navigateTo({
+				url:"/pages/pintuan/pintuan?type="+type
+			})
 		}
 	},
 }

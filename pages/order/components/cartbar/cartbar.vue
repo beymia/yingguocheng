@@ -32,7 +32,7 @@
 import cartPopup from '../cart-popup/cart-popup.vue'
 
 export default {
-	name: 'CartBar',
+	name: 'cartBar',
 	components: {
 		// uniTransition,
 		cartPopup

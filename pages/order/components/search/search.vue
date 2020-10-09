@@ -59,7 +59,7 @@
 <script>
 	import uniTransition from '@/components/uni-transition/uni-transition.vue'
 	export default {
-		name: 'Search',
+		name: 'search',
 		components: {
 			uniTransition
 		},

@@ -18,7 +18,7 @@
 
 <script>
 	export default {
-		name: 'Actions',
+		name: 'actions',
 		props: {
 			number: {
 				type: Number,

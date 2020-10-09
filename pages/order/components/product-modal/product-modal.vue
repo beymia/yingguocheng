@@ -50,14 +50,14 @@
 </template>
 
 <script>
-	import Modal from '../modal/modal.vue'
-	import Actions from '../actions/actions.vue'
+	import modal from '../modal/modal.vue'
+	import actions from '../actions/actions.vue'
 	
 	export default {
-		name: 'ProductModal',
+		name: 'productModal',
 		components: {
-			Modal,
-			Actions
+			modal,
+			actions
 		},
 		props: {
 			visible: {

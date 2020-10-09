@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniNavBar: function() {
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 162))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 168))
   },
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 169))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 175))
   }
 }
 var render = function() {
@@ -129,19 +129,27 @@ var render = function() {
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      _vm.showSearch = true
+      _vm.showPintuan = true
     }
 
     _vm.e1 = function($event) {
-      _vm.is_notice = false
+      _vm.showSearch = true
     }
 
     _vm.e2 = function($event) {
-      _vm.is_notice = true
+      _vm.is_notice = false
     }
 
     _vm.e3 = function($event) {
+      _vm.is_notice = true
+    }
+
+    _vm.e4 = function($event) {
       _vm.showSearch = false
+    }
+
+    _vm.e5 = function($event) {
+      _vm.showPintuan = false
     }
   }
 
@@ -357,7 +365,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var actions = function actions() {__webpack_require__.e(/*! require.ensure | pages/order/components/actions/actions */ "pages/order/components/actions/actions").then((function () {return resolve(__webpack_require__(/*! ./components/actions/actions.vue */ 177));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notice = function notice() {__webpack_require__.e(/*! require.ensure | pages/order/components/notice/notice */ "pages/order/components/notice/notice").then((function () {return resolve(__webpack_require__(/*! ./components/notice/notice.vue */ 184));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var CartBar = function CartBar() {__webpack_require__.e(/*! require.ensure | pages/order/components/cartbar/cartbar */ "pages/order/components/cartbar/cartbar").then((function () {return resolve(__webpack_require__(/*! ./components/cartbar/cartbar.vue */ 191));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ProductModal = function ProductModal() {__webpack_require__.e(/*! require.ensure | pages/order/components/product-modal/product-modal */ "pages/order/components/product-modal/product-modal").then((function () {return resolve(__webpack_require__(/*! ./components/product-modal/product-modal.vue */ 198));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Search = function Search() {__webpack_require__.e(/*! require.ensure | pages/order/components/search/search */ "pages/order/components/search/search").then((function () {return resolve(__webpack_require__(/*! ./components/search/search.vue */ 205));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var rest = function rest() {__webpack_require__.e(/*! require.ensure | pages/order/components/rest/rest */ "pages/order/components/rest/rest").then((function () {return resolve(__webpack_require__(/*! ./components/rest/rest.vue */ 212));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var actions = function actions() {__webpack_require__.e(/*! require.ensure | pages/order/components/actions/actions */ "pages/order/components/actions/actions").then((function () {return resolve(__webpack_require__(/*! ./components/actions/actions.vue */ 183));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notice = function notice() {__webpack_require__.e(/*! require.ensure | pages/order/components/notice/notice */ "pages/order/components/notice/notice").then((function () {return resolve(__webpack_require__(/*! ./components/notice/notice.vue */ 190));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var cartBar = function cartBar() {__webpack_require__.e(/*! require.ensure | pages/order/components/cartbar/cartbar */ "pages/order/components/cartbar/cartbar").then((function () {return resolve(__webpack_require__(/*! ./components/cartbar/cartbar.vue */ 197));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var productModal = function productModal() {__webpack_require__.e(/*! require.ensure | pages/order/components/product-modal/product-modal */ "pages/order/components/product-modal/product-modal").then((function () {return resolve(__webpack_require__(/*! ./components/product-modal/product-modal.vue */ 204));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var search = function search() {__webpack_require__.e(/*! require.ensure | pages/order/components/search/search */ "pages/order/components/search/search").then((function () {return resolve(__webpack_require__(/*! ./components/search/search.vue */ 211));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var rest = function rest() {__webpack_require__.e(/*! require.ensure | pages/order/components/rest/rest */ "pages/order/components/rest/rest").then((function () {return resolve(__webpack_require__(/*! ./components/rest/rest.vue */ 218));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pintuan = function pintuan() {__webpack_require__.e(/*! require.ensure | pages/order/components/pintuan/pintuan */ "pages/order/components/pintuan/pintuan").then((function () {return resolve(__webpack_require__(/*! ./components/pintuan/pintuan.vue */ 225));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 
 
 
@@ -368,10 +382,11 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
   components: {
     actions: actions,
     notice: notice,
-    ProductModal: ProductModal,
-    CartBar: CartBar,
-    Search: Search,
-    rest: rest },
+    productModal: productModal,
+    cartBar: cartBar,
+    search: search,
+    rest: rest,
+    pintuan: pintuan },
 
   data: function data() {
     return {
@@ -390,7 +405,7 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
       menu_list: _data.menu_list,
       //下面都是静态默认值
       order_type_selected: 'order_type_selected',
-      order_type_current: 0,
+      order_type_current: 2,
       title: '英国城',
       is_notice: false,
       menu_id_current: 1,
@@ -399,7 +414,9 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
       goodModalVisible: false,
       cart: [],
       showSearch: false,
-      localAdress: {} };
+      localAdress: {},
+      is_rest: false,
+      showPintuan: false };
 
 
   },
@@ -445,12 +462,9 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
         }).exec();
       });
     },
-    order_type_tap: function order_type_tap(e) {
-      var tabIndex = e.currentTarget.dataset.index;
-      this.order_type_current = tabIndex;
-      console.log(tabIndex);
-      if (tabIndex == 1) {
-        console.log('weoufowjfj');
+    order_type_tap: function order_type_tap(type) {
+      this.order_type_current = type;
+      if (type == 1) {
         uni.navigateTo({
           url: "/pages/userAdress/userAdress" });
 
@@ -556,6 +570,11 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
       } else {
         this.cart.find(function (item) {return item.id == id;}).is_checked = false;
       }
+    },
+    choose_pintuan_type: function choose_pintuan_type(type) {
+      uni.navigateTo({
+        url: "/pages/pintuan/pintuan?type=" + type });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

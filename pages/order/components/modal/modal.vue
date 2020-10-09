@@ -30,7 +30,7 @@
 
 <script>
 	export default {
-		name: "Modal",
+		name: "modal",
 		props: {
 			//是否显示
 			show: {
