@@ -7,7 +7,8 @@
     <view class="items">
       <view class="list_item"
             v-for="(option,index) in list"
-            :key="index">
+            :key="index"
+            @click="$emit('options-click',{page:option.title})">
         <text class="title">{{ option.title }}</text>
         <text v-if="option.summary" class="summary">{{ option.summary }}</text>
         <text v-if="option.right" class="right">{{ option.right }}</text>

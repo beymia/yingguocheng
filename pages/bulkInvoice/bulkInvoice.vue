@@ -2,19 +2,30 @@
   <view class="bulk_invoice">
     <view v-for="(invoice,index) in invoiceData"
           :key="index"
+          @click="invoiceChange(index)"
           class="invoice_container">
-      <invoice :selectAll="clickSelectAll" @invoice-change="invoiceChange" :invoice="invoice"></invoice>
+        <view class="invoice_content">
+          <view class="img">
+            <image v-if="!invoice.check" src="../../static/images_t/bulkInvoice/select_false.png"></image>
+            <image v-else="invoice.check" src="../../static/images_t/bulkInvoice/select_true.png"></image>
+          </view>
+          <view class="info">
+            <text>開票金額：￥{{ invoice.payment_info }}</text>
+            <text>訂單號：{{ invoice.id }}</text>
+            <text>下單時間：{{ invoice.created_at }}</text>
+          </view>
+        </view>
     </view>
     <view class="invoice_foot">
       <view class="invoice_content">
-        <view @click="selectAll" class="select_all">
-          <label>
-            <radio :checked="isSelectAll" color="#17A1FF">全選</radio>
-          </label>
+        <view @click="clickSelectAll" class="select_all">
+          <image v-if="!selectAll" src="../../static/images_t/bulkInvoice/select_false.png"></image>
+          <image v-else="selectAll" src="../../static/images_t/bulkInvoice/select_true.png"></image>
+          <text>全選</text>
         </view>
         <view class="select_count">
-          <text>共￥{{ invoiceAmount }}</text>
-          <text>{{ invoiceCount }}个订单</text>
+          <text>共￥{{ amount || '' }}</text>
+          <text>{{ count || '' }}个订单</text>
         </view>
         <view @click="navInvoiceInfo"
               class="next_stop">
@@ -27,62 +38,50 @@
 </template>
 
 <script>
-import invoice from './../../components-lk/invoice/invoice'
 
 export default {
   data() {
     return {
-      isSelectAll: false,
       invoiceData: [],
-      invoiceAmount: 0,
-      invoiceCount: 0,
-      clickSelectAll:false
+      amount:0,
+      count:0,
+      selectAll:false
     }
   },
   onLoad(options) {
     this.invoiceData = JSON.parse(options.invoice)
   },
   methods: {
-    invoiceChange(e) {
-      /*
-      * 发票条目发生改变时触发，
-      * 增加或减少发票的总金额和总数量
-      * */
-      let amount = parseFloat(e.detail.value[0]);
-      if (amount) {
-        this.invoiceAmount += amount;
-        this.invoiceCount++;
-      } else {
-        this.invoiceAmount -= parseFloat(e.target.dataset.amount)
-        this.invoiceCount--;
-      }
-      this.isSelectAll = this.invoiceCount === this.invoiceData.length
-    },
-    /*
-    * 选中所有的发票条目，
-    * 计算总金额和总数量，
-    * 取消全选则全部归0
-    * */
-    selectAll() {
-      this.isSelectAll = !this.isSelectAll;
-      this.clickSelectAll = this.isSelectAll
-      if (this.isSelectAll) {
-        this.invoiceData.forEach((item) => {
-          this.invoiceAmount += item.payment_info
-          this.invoiceCount = this.invoiceData.length
-        })
-      } else {
-        this.invoiceCount = 0;
-        this.invoiceAmount = 0
+    invoiceChange(i) {
+      this.$set(this.invoiceData[i], 'check', !this.invoiceData[i].check)
+      if(this.invoiceData[i].check){
+        this.count++;
+        this.amount +=  parseFloat(this.invoiceData[i].payment_info)
+      }else{
+        this.count--;
+        this.amount -= parseFloat(this.invoiceData[i].payment_info)
       }
     },
-    /*
-    * 跳转至发票详情页，并传递发票总金额
-    * */
+
+    clickSelectAll(e) {
+      this.amount = 0;
+      this.count = 0;
+      this.selectAll = !this.selectAll;
+      this.invoiceData.forEach((item) => {
+        if (this.selectAll) {item.check = true;
+          this.amount += parseFloat(item.payment_info)
+          this.count = this.invoiceData.length
+        } else {
+          item.check = false
+        }
+      })
+    },
+
+    // 跳转至发票详情页，并传递发票总金额
     navInvoiceInfo() {
-      if(this.invoiceAmount){
+      if(this.amount){
         uni.navigateTo({
-          url: '/pages/invoiceInfo/invoiceInfo?invoiceAmount=' + this.invoiceAmount
+          url: '/pages/invoiceInfo/invoiceInfo?invoiceAmount=' + this.amount
         })
       }else{
         uni.showToast({
@@ -93,19 +92,27 @@ export default {
       }
     }
   },
-  components: {
-    invoice
+  watch:{
+    count(value){
+      this.selectAll = value === this.invoiceData.length;
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-uni-page-body{
-  height: 100%;
+
+image{
+  display: inline-block;
+  width: 46rpx;
+  height: 46rpx;
+  vertical-align: middle;
+  margin:  0 $spacing-lg;
 }
+
 .bulk_invoice {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   background:$main-bg;
 
   .empty{
@@ -118,6 +125,26 @@ uni-page-body{
     width: 100%;
     padding:$spacing-lg $spacing-base 0 $spacing-base;
     box-sizing: border-box;
+
+    .invoice_content{
+      width: 100%;
+      height: 200rpx;
+      background-color: #FFFFFF;
+      border-radius: 20rpx;
+      display: flex;
+      align-items: center;
+      padding: $spacing-lg 0;
+      box-sizing: border-box;
+
+      .info{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: $font-size-sm;
+        color: $font-color1;
+      }
+    }
   }
   .invoice_foot{
     width: 750rpx;
@@ -141,7 +168,10 @@ uni-page-body{
       view:nth-child(1){
         font-size: $font-size-sm;
         color: $font-color1;
-        margin-left: $spacing-base;
+
+        image{
+          margin-right: 10rpx;
+        }
       }
       view:nth-child(2){
         flex: 1;

@@ -30,15 +30,18 @@
         <text class="options">每月28號會員日消費額外贈送5%積分</text>
         <text class="icon">特权</text>
       </view>
-      <view class="other">
-        <button plain>查看其他等級權益</button>
-        <uni-icons class="arrow_right"
-                   style="display: inline-block;vertical-align: middle;"
-                   type="arrowright"
-                   size="26"
-                   color="#333333">
-        </uni-icons>
-      </view>
+
+      <!--剔除此功能-->
+<!--      <view class="other">-->
+<!--        <button plain>查看其他等級權益</button>-->
+<!--        <uni-icons class="arrow_right"-->
+<!--                   style="display: inline-block;vertical-align: middle;"-->
+<!--                   type="arrowright"-->
+<!--                   size="26"-->
+<!--                   color="#333333">-->
+<!--        </uni-icons>-->
+<!--      </view>-->
+
     </view>
 
     <!--底部-->
@@ -177,7 +180,7 @@ export default {
   .center{
     @include container(470rpx);
 
-    .other{
+  /*  .other{
       height: 28rpx;
       align-self: center;
 
@@ -194,7 +197,7 @@ export default {
       .arrow_right {
         line-height: 34rpx;
       }
-    }
+    }*/
   }
 
   .bottom{

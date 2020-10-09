@@ -2,9 +2,12 @@
   <view class="wallet">
     <view class="container">
       <view class="head">
-        <text>可用余額</text>
-        <text>{{ amount }}</text>
-        <text>立即充值</text>
+        <text class="balance">可用余額</text>
+        <view>
+          <text class="symbol">￥</text>
+          <text class="amount">{{ amount }}</text>
+        </view>
+        <text @click="navRecharge" class="btn">立即充值</text>
       </view>
       <view class="options">
         <optionsList :list="options"></optionsList>
@@ -39,7 +42,13 @@ export default {
   onLoad(options) {
     this.amount = options.wallet;
   },
-  methods: {},
+  methods: {
+    navRecharge(){
+      uni.navigateTo({
+        url:"/pages/recharge/recharge"
+      })
+    }
+  },
   components: {
     optionsList
   }
@@ -67,22 +76,30 @@ export default {
     align-items: center;
     margin-bottom: 154rpx;
 
-    text:nth-child(1){
+    .balance{
       font-size: $font-size-lg;
       font-weight: $font-weight-lg;
       color: $font-color1;
     }
-    text:nth-child(2){
+    .symbol{
+      font-size: $font-size-lg;
+      font-weight: $font-weight-lg;
+      color: $font-color1;
+    }
+    .amount{
       font-size: 60rpx;
       font-weight: $font-weight-lg;
       color: $font-color1;
     }
-    text:nth-child(3){
+    .btn{
+      display: inline-block;
       width: 320rpx;
       height: 80rpx;
       background: $main-color;
       font-size: $font-size-base;
       color: #ffffff;
+      text-align: center;
+      line-height: 80rpx;
     }
   }
 

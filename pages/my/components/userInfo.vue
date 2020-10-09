@@ -35,10 +35,6 @@
         <text>{{ user.balance || '0.00' }}</text>
         <text>錢包</text>
       </view>
-      <view>
-        <text>0</text>
-        <text>奶茶有禮</text>
-      </view>
     </view>
 	</view>
 </template>

@@ -15,13 +15,13 @@
         <userInfo @handler-click="navFitPage" :user="userInfo "></userInfo>
       </view>
       <!-- 开通礼包 -->
-      <view @click="navFitPage('planetMember')" class="open_package">
+      <view @click="navFitPage({page:'joinMember'})" class="open_package">
         <giftPack></giftPack>
       </view>
 
       <!-- 功能列表 -->
       <view class="fun_list">
-        <options @handler-click="navFitPage"></options>
+        <optionsList @options-click="navFitPage" :list="options"></optionsList>
       </view>
     </view>
     <!-- #ifdef H5-->
@@ -37,7 +37,7 @@ import {
 
 import userInfo from "./components/userInfo";
 import giftPack from "./components/giftPack";
-import options from "./components/options";
+import optionsList from "../../components-lk/optionsList/optionsList";
 
 const APP = getApp().globalData;
 
@@ -45,6 +45,27 @@ export default {
   data() {
     return {
       userInfo: {},
+      options: [{
+        title: '會員碼',
+        summary: '門店掃碼積分、奶茶錢包和奶茶有禮支付',
+        icon: 'arrowright'
+      }, {
+        title: '兌換中心',
+        summary: '兌換星球會員、優惠券和禮品卡',
+        icon: 'arrowright'
+      }, {
+        title: '星球封面',
+        icon: 'arrowright'
+      }, {
+        title: '聯系客服',
+        icon: 'arrowright'
+      }, {
+        title: '消息中心',
+        icon: 'arrowright'
+      }, {
+        title: '更多',
+        icon: 'arrowright'
+      }]
     }
   },
   async mounted() {
@@ -64,13 +85,14 @@ export default {
     },
     //跳转至對應的頁面
     navFitPage(aims) {
+      console.log(aims);
+      //用户没有登录不做处理
       if (!this.userToken) {
         uni.showToast({
           title: '還沒有登錄',
           duration: 2000,
           icon: 'none'
         })
-
         return
       }
       let {page, v} = aims;
@@ -79,13 +101,31 @@ export default {
           this.query = 'integral';
           break;
         case 'wallet':
-          this.query = 'wallet'
+          this.query = 'wallet';
+          break;
+        case '會員碼':
+          // TODO 非頁面
+          break;
+        case '兌換中心':
+          // TODO 非頁面
+          break;
+        case '星球封面':
+          page = 'planetCover';
+          break;
+        case '聯系客服':
+          page = 'customerService';
+          break;
+        case '消息中心':
+          page = '';
+          break;
+        case '更多':
+          page = '';
+          break;
       }
-
-      if(page==='wallet'){
-        if(!(APP.userInfo.has_pwd)){
+      if (page === 'wallet') {
+        if (!(APP.userInfo.has_pwd)) {
           uni.navigateTo({
-            url:'/pages/setPassword/setPassword'
+            url: '/pages/setPassword/setPassword'
           })
           return;
         }
@@ -98,7 +138,7 @@ export default {
   components: {
     userInfo,
     giftPack,
-    options
+    optionsList
   }
 }
 </script>
@@ -106,7 +146,7 @@ export default {
 <style lang="scss" scoped>
 @mixin container($h) {
   width: 100%;
-  min-height: $h;
+  height: $h;
   background: #ffffff;
   border-radius: 30rpx;
   margin-bottom: 30rpx;
@@ -173,9 +213,10 @@ uni-page-body {
     .fun_list {
       @include container(590rpx);
       margin-bottom: 0;
+      padding: 0 $spacing-lg;
+      box-sizing: border-box;
     }
   }
-
   .empty {
     width: 100%;
     height: 100rpx;

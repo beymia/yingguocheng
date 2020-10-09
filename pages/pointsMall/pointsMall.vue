@@ -6,9 +6,9 @@
         <text>可用積分</text>
         <text>{{ integral }}</text>
         <view class="spend">
-          <text>積分明細</text>
+          <text @click="navPage('pointsDetails')">積分明細</text>
           <view class="empty"></view>
-          <text>兌換記錄</text>
+          <text @click="navPage('exchangeRecord')">兌換記錄</text>
         </view>
       </view>
       <view class="integral_img">
@@ -75,6 +75,13 @@ export default {
     async getConvertList() {
       return (await convert({token: this.token, type: this.active === 'GO' ? 2 : 1})).data
     },
+    //
+    navPage(page){
+      console.log(1);
+      uni.navigateTo({
+        url:`/pages/${page}/${page}`
+      })
+    }
   },
   watch: {
     async active(value) {

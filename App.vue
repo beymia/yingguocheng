@@ -59,7 +59,7 @@ image {
 /* #ifdef APP-PLUS ||MP-WEIXIN */
 
 page {
-  min-height: 100%;
+  height: 100%;
 }
 
 checkbox .wx-checkbox-input {
@@ -130,3 +130,4 @@ button {
 
 }
 </style>
+

@@ -4,7 +4,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": false,
     "postcss": true,
@@ -20,7 +20,7 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
+    "compileHotReLoad": true,
     "useMultiFrameRuntime": false,
     "useApiHook": false,
     "babelSetting": {
@@ -35,8 +35,8 @@
     "packNpmRelationList": []
   },
   "compileType": "miniprogram",
-  "libVersion": "2.13.1",
-  "appid": "touristappid",
+  "libVersion": "",
+  "appid": "wx6649b38f7d246546",
   "projectname": "yingguocheng",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},

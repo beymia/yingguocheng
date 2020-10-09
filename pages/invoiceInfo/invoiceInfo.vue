@@ -2,7 +2,7 @@
 	<view class="invoice_info">
 		<view class="invoice_content">
 			<form action="">
-				<invoiceSelect :invoiceAmount="invoiceAmount"></invoiceSelect>
+				<invoiceSelect @user-email="userFill" :invoiceAmount="invoiceAmount"></invoiceSelect>
 			</form>
 		</view>
 		<view class="tips">
@@ -13,7 +13,7 @@
 				<text>應國家稅務局總局要求，您若開具增值稅普通發票，須同時提供企業擡頭及納稅人識別號，否則將無法用於企業報銷。</text>
 			</view>
 		</view>
-		<view class="invoice_submit">
+		<view @click="invoicing" class="invoice_submit">
 			<button class="submit_btn" plain>提交申請</button>
 		</view>
 	</view>
@@ -25,12 +25,47 @@
 		data() {
 			return {
 			  invoiceAmount:0,
+        email:'',
+        type:1,
+        lookUp:1
       }
 		},
     onLoad(options){
 		  this.invoiceAmount = options.invoiceAmount
     },
-		methods: {},
+		methods: {
+      invoicing() {
+        let reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        this.$nextTick(() => {
+          if (!(reg.test(this.email))) {
+            uni.showToast({
+              title: '邮箱格式错误',
+              icon: 'none',
+              duration: 2000
+            })
+            return;
+          }
+          if (this.type && this.lookUp) {
+            uni.showLoading({
+              title: '申請中'
+            })
+            return;
+          }
+          uni.showToast({
+            title: '缺少必要選項',
+            icon: 'none',
+            duration: 2000
+          })
+        })
+      },
+      userFill(fill) {
+        if (fill) {
+          this.email = fill.email;
+         this.type = fill.type;
+         this.lookUp = fill.lookUp;
+       }
+      }
+    },
 		components: {
 			invoiceSelect
 		}
