@@ -42,10 +42,13 @@
 		
 		<view class="footer">
 			<!-- <button type="info" @tap="add">+添加地址</button> -->
+			<!-- #ifdef MP-WEIXIN -->
 			<button type="default" class="wxdr" @tap="wxdr">
 				<image src="/static/images/userAdress/wx.jpg" mode=""></image>
 				<text>微信導入</text>
 			</button>
+			<!-- #endif -->
+			
 			<button type="default" class="add_adress" @tap="add">
 				<image src="/static/images/userAdress/add.jpg" mode=""></image>
 				<text>添加地址</text>
@@ -165,7 +168,7 @@
 			edit(id) {
 				getApp().globalData.edit_address_id = id;
 				uni.navigateTo({
-					url: '/pages/addUserAdress/addUserAdress?edit=true'
+					url: '/pages/addUserAdress/addUserAdress?is_edit=true'
 				})
 			},
 			choose(address) {

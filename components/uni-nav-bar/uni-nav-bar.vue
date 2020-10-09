@@ -184,7 +184,8 @@
 		/* #ifndef APP-NVUE */
 		display: flex;
 		/* #endif */
-		width: 150rpx;
+		 /* width: 150rpx; 以下为修改后的宽度 */
+		 width: 220rpx;
 		justify-content: flex-start;
 	}
 
