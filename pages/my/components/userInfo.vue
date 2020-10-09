@@ -11,8 +11,8 @@
 					<text v-if="user.level">LV.{{ user.level }}</text>
 				</view>
 				<view class="privilege">
-					<text>{{user.level_title}}</text>
-					<view class="level_title">
+					<text @click="$emit('handler-click',{page:'joinMember'})">{{user.level_title}}</text>
+					<view @click="$emit('handler-click',{page:'joinMember'})" class="level_title">
 						<text>成為騎士會員享雙倍積分</text>
 						<uni-icons style="display: inline-block;vertical-align: middle" type="arrowright" size="18" color="#333333"></uni-icons>
 					</view>
@@ -34,10 +34,6 @@
       <view @click="$emit('handler-click',{page:'wallet',v:user.balance})">
         <text>{{ user.balance || '0.00' }}</text>
         <text>錢包</text>
-      </view>
-      <view>
-        <text>0</text>
-        <text>奶茶有禮</text>
       </view>
     </view>
 	</view>

@@ -14,10 +14,15 @@
     "pages/discount/discount",
     "pages/pointsMall/pointsMall",
     "pages/wallet/wallet",
-    "pages/planetMember/planetMember",
     "pages/customerService/customerService",
     "pages/login/login",
     "pages/checkCode/checkCode",
+    "pages/joinMember/joinMember",
+    "pages/setPassword/setPassword",
+    "pages/recharge/recharge",
+    "pages/pointsDetails/pointsDetails",
+    "pages/exchangeRecord/exchangeRecord",
+    "pages/planetCover/planetCover",
     "pages/pintuan/pintuan"
   ],
   "subPackages": [],
@@ -59,6 +64,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap53.json"
+  "usingComponents": {}
 }

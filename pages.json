@@ -95,13 +95,6 @@
       }
     },
     {
-      "path": "pages/planetMember/planetMember",
-      "style": {
-        "navigationBarTitleText": "開通星球會員",
-        "navigationBarBackgroundColor": "#FFFFFF"
-      }
-    },
-    {
       "path": "pages/customerService/customerService",
       "style": {
         "navigationStyle": "custom"
@@ -118,6 +111,46 @@
       "path": "pages/checkCode/checkCode",
       "style": {
         "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/joinMember/joinMember",
+      "style": {
+        "navigationBarTitleText": "開通星球會員",
+        "navigationBarBackgroundColor": "#FFFFFF"
+      }
+    },
+    {
+      "path": "pages/setPassword/setPassword",
+      "style": {
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/recharge/recharge",
+      "style": {
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/pointsDetails/pointsDetails",
+      "style": {
+        "navigationBarTitleText": "積分明細",
+        "navigationBarBackgroundColor": "#FFFFFF"
+      }
+    },
+    {
+      "path": "pages/exchangeRecord/exchangeRecord",
+      "style": {
+        "navigationBarTitleText": "兌換記錄",
+        "navigationBarBackgroundColor": "#FFFFFF"
+      }
+    },
+    {
+      "path": "pages/planetCover/planetCover",
+      "style": {
+        "navigationBarTitleText": "星球封面",
+        "navigationBarBackgroundColor": "#FFFFFF"
       }
     }
         ,{

@@ -7,3 +7,6 @@ export const sendCheckCode = (data) => ajax('http://localhost:3000/sendcheckcode
 export const verifyCode = (data) => ajax('http://localhost:3000/verifycode', data, 'post')
 export const login = (data) => ajax('http://localhost:3000/login', data, 'post')
 export const convert = (data) => ajax('http://localhost:3000/pointsmall', data, 'post')
+export const joinmember = (data) => ajax('http://localhost:3000/joinmember', data, 'post')
+export const discount = (data) => ajax('http://localhost:3000/discount', data, 'post')
+export const setPwd = (data) => ajax('http://localhost:3000/setpassword', data, 'post')

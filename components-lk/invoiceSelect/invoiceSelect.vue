@@ -15,12 +15,12 @@
 		<view class="invoice_items invoice_method">
 			<radio-group class="invoice_title">
 				<text>開票方式</text>
-				<label class="invoice_radio">
-					<radio color="#17A1FF" value="type" />
+				<label @click="toggleInvoice('type',2)" class="invoice_radio">
+					<radio :checked="type ===2" color="#17A1FF" value="type" />
 					<text class="incoive_radio_text">商品類別</text>
 				</label>
-				<label class="invoice_radio">
-					<radio color="#17A1FF" value="detail" />
+				<label @click="toggleInvoice('type',1)" class="invoice_radio">
+					<radio :checked="type ===1" color="#17A1FF" value="detail" />
 					<text class="incoive_radio_text">商品明細</text>
 				</label>
 			</radio-group>
@@ -28,12 +28,12 @@
 		<view class="invoice_items invoice_look">
 			<radio-group class="invoice_title">
 				<text>發票擡頭</text>
-				<label class="invoice_radio">
-					<radio color="#17A1FF" value="personal" />
+				<label @click="toggleInvoice('lookUp',2)" class="invoice_radio">
+					<radio :checked="lookUp ===2" color="#17A1FF" value="personal" />
 					<text class="incoive_radio_text">個人</text>
 				</label>
-				<label class="invoice_radio">
-					<radio color="#17A1FF" value="unit" />
+				<label @click="toggleInvoice('lookUp',1)" class="invoice_radio">
+					<radio :checked="lookUp ===1" color="#17A1FF" value="unit" />
 					<text class="incoive_radio_text">單位</text>
 				</label>
 			</radio-group>
@@ -41,30 +41,42 @@
 		<view class="invoice_items invoice_email">
 			<label class="invoice_title">
 				<text>郵箱地址</text>
-				<input type="text" placeholder="（必填）">
+				<input @change="verifyEmail" v-model="email" type="text" placeholder="（必填）">
 			</label>
 		</view>
-
 	</view>
 </template>
 
 <script>
 	export default {
 		name: "invoiceSelect",
+    data(){
+		  return {
+        type:1,
+        lookUp:1,
+        email:'',
+      }
+    },
     props:{
-		  /*
-		  * 接收发票总金额，如果不是数字类型，或者转换数字类型失败直接报错
-		  * */
+		  //接收发票总金额，如果不是数字类型，或者转换数字类型失败直接报错
       invoiceAmount:{
         type:[Number,String],
         required:true,
-        validator:function(value){
+        validator: function (value) {
           value = parseFloat(value)
-         return typeof value === 'number'
+          return typeof value === 'number'
         }
       }
+    },
+    methods:{
+      toggleInvoice(t,v){
+        this[t] =v;
+      },
+      verifyEmail() {
+        this.$emit('user-email', {email: this.email, type: this.type, lookUp: this.lookUp})
+      }
     }
-	}
+  }
 </script>
 
 <style scoped lang="scss">
