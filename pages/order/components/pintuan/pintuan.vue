@@ -82,7 +82,7 @@
 				this.$emit("closePintuan")
 			},
 			choose_type(type){
-				$emit("choose_type",type)
+				this.$emit("choose_type",type)
 			}
 		}
 	}
