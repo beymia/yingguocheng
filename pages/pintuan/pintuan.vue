@@ -9,11 +9,11 @@
 						{{shop_info.shop_name}}
 					</view>
 					<view class="type">
-						{{type == 1 ? "外卖":"自取"}}
+						{{type == 1 ? "外賣":"自取"}}
 					</view>
 				</view>
 				<view class="distance">
-					距离您{{trans_distance}}
+					距離您{{trans_distance}}
 				</view>
 				<view class="biaoyu">
 					快來叫上好友壹起喝奶茶吧~
@@ -23,16 +23,16 @@
 						取消拼单
 					</button>
 					<button class="invite">
-						邀请好友
+						邀請好友
 					</button>
 				</view>
 			</view>
-			
+			<!-- 拼单详情开始 -->
 			<view class="detail">
 				<view class="title">
 					拼單詳情
 				</view>
-				<scroll-view scroll-y="true" class="order">
+				<view  class="order">
 					<view class="order_item" v-for="(item,index) in pintuan_info">
 						<view class="user_info">
 							<view class="left">
@@ -58,15 +58,54 @@
 								</view>
 							</view>
 						</view>
-						<view class="user_order">
-							
+						<view class="user_order" v-if="item.goods_data">
+							<view class="bordrline"></view>
+							<view class="good" v-for="(itemc,indexc) in item.goods_data">
+								<view class="icon">
+									<image :src="itemc.home_avatar" mode=""></image>
+								</view>
+								<view class="intro">
+									<view class="good_name_price">
+										<view class="good_name">
+											{{itemc.goods_name}}
+										</view>
+										<view class="good_price">
+											￥{{itemc.goods_price}}
+										</view>
+									</view>
+									<view class="good_materials_number">
+										<view class="materials">
+											{{itemc.goods_norm}}
+										</view>
+										<view class="number">
+											x{{itemc.goods_num}}
+										</view>
+									</view>
+								</view>
+							</view>
 						</view>
 					</view>
-				</scroll-view>
+				</view>
 				
 				
 			</view>
-			
+			<!-- 拼单详情结束 -->
+			<!-- 结算开始 -->
+			<view class="jiesuan">
+				<view class="left">
+					<view class="left_top">
+						<text class="price">￥143</text>
+						<text class="my_pirce">(我点￥143)</text>
+					</view>
+					<view class="tip">
+						如有商品參與優惠/活動，請結算實付金額為準
+					</view>
+				</view>
+				<view class="right">
+					結算
+				</view>
+			</view>
+			<!-- 结算结束 -->
 	</view>
 </template>
 
@@ -119,6 +158,11 @@
 </script>
 
 <style lang="scss" scoped>
+	.bordrline{
+		height: 1px;
+		opacity: 0.5;
+		border-top: 1px solid #cccccc;
+	}
 	.shop_info{
 		margin-top: 40rpx;
 		padding: 0 24rpx;
@@ -141,7 +185,7 @@
 				font-size: 22rpx;
 				color: #333333;
 				background: #f2f2f2;
-				padding: 4rpx 3rpx;
+				padding: 6rpx 10rpx;
 			}
 		}
 		.distance{
@@ -159,6 +203,7 @@
 			justify-content: flex-end;
 			margin-bottom: 50rpx;
 			.pindan_cancel{
+				white-space: nowrap;
 				width: 160rpx;
 				height: 64rpx;
 				background: #ffffff;
@@ -180,8 +225,7 @@
 	}
 	.detail{
 		background-color: #F5F5F5;
-		flex: 1;
-		overflow: hidden;
+		padding-bottom: 200rpx;
 		.title{
 			height: 100rpx;
 			line-height: 100rpx;
@@ -202,7 +246,6 @@
 					align-items: center;
 					.left{
 						display: flex;
-						justify-content: center;
 						align-items: center;
 						.user_icon{
 							width: 52rpx;
@@ -213,6 +256,7 @@
 							font-size: 28rpx;
 							color: #333333;
 							margin-right: 10rpx;
+							max-width: 280rpx;
 						}
 						.is_me{
 							width: 30rpx;
@@ -266,7 +310,6 @@
 					}
 				}
 				.user_order{
-					border-top: 1px solid #CCCCCC;
 					.good{
 						display: flex;
 						justify-content: center;
@@ -282,9 +325,32 @@
 							.good_name_price{
 								display: flex;
 								justify-content: space-between;
-								
 								color: #333333;
 								font-size: 28rpx;
+								.good_name{
+									width: 400rpx;
+									white-space: nowrap;
+									overflow: hidden;
+									text-overflow: ellipsis;
+									margin-bottom: 10rpx;
+								}
+								.good_price{
+									
+								}
+							}
+							.good_materials_number{
+								display: flex;
+								justify-content: space-between;
+								align-items: flex-start;
+								.materials{
+									width: 400rpx;
+									font-size: 20rpx;
+									color: #999999;
+								}
+								.number{
+									color: #999999;
+									font-size: 26rpx;
+								}
 							}
 						}
 					}
@@ -293,5 +359,46 @@
 			
 		}
 	}
-
+	
+	.jiesuan{
+		width: 100%;
+		height: 100rpx;
+		display: flex;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		.left{
+			flex: 1;
+			background-color: #FFFFFF;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			padding: 10rpx 0 10rpx 24rpx;
+			.left_top{
+				.price{
+					color: #333333;
+					font-size: 30rpx;
+					margin-right: 16rpx;
+				}
+				.my_pirce{
+					color: #333333;
+					font-size: 28rpx;
+				}
+			}
+			.tip{
+				color: #E46A68;
+				font-size: 20rpx;
+			}
+		}
+		
+		.right{
+			background-color: $main-color;
+			color: #FFFFFF;
+			width: 200rpx;
+			line-height: 100rpx;
+			height: 100rpx;
+			text-align: center;
+		}
+		
+	}
 </style>

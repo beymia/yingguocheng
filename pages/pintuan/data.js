@@ -5,7 +5,7 @@ var pintuan_info=[
 					"goods_id": "15996445868165929",
 					"goods_norm": "少冰,标准甜",
 					"goods_num": "1",
-					"home_avatar": "http://host.dot_img.com/uploads/202009/10/159970097881117.jpg",
+					"home_avatar": "/static/images_t/order/drmmgl.png",
 					"goods_name": "多肉葡萄冰棒",
 					"goods_price": "15.00"
 				},
@@ -13,7 +13,7 @@ var pintuan_info=[
 					"goods_id": "15996445868596547",
 					"goods_norm": "正常,少甜",
 					"goods_num": "1",
-					"home_avatar": "http://host.dot_img.com/uploads/202009/10/159970097881117.jpg",
+					"home_avatar": "/static/images_t/order/lcghl.png",
 					"goods_name": "多肉瓜瓜冻",
 					"goods_price": "15.00"
 				}

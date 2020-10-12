@@ -39,13 +39,13 @@
 					
 				</view>
 				<view class="right">
-					<view   class="order_type " :class="order_type_current==2?order_type_selected:''" @tap="order_type_tap(2)">
+					<view   class="order_type " :class="orderType==2?'order_type_selected':''" @tap="order_type_tap(2)">
 						自取
 					</view>
-					<view  class="order_type " :class="order_type_current==1?order_type_selected:''" @tap="order_type_tap(1)">
+					<view  class="order_type " :class="orderType==1?'order_type_selected':''" @tap="order_type_tap(1)">
 						外賣
 					</view>
-					<view  class="order_type " :class="order_type_current==3?order_type_selected:''" @tap="order_type_tap(3)">
+					<view  class="order_type " :class="orderType==3?'order_type_selected':''" @tap="order_type_tap(3)">
 						堂食
 					</view>
 				</view>
@@ -173,6 +173,7 @@
 </template>
 
 <script>
+	import {mapState, mapMutations} from 'vuex'
 	import {menu_list} from './data.js';
 	import actions from './components/actions/actions.vue'
 	import notice from './components/notice/notice.vue'
@@ -208,7 +209,7 @@
 				menu_list,
 				//下面都是静态默认值
 				order_type_selected:'order_type_selected',
-				order_type_current:2,
+				orderType:2,
 				title:'英国城',
 				is_notice:false,
 				menu_id_current:1,
@@ -225,7 +226,7 @@
 		},
 		async onLoad() {
 			uni.request({
-			    url: 'https://host.dot_api.com/classify/list', //仅为示例，并非真实接口地址。
+			    url: 'http://host.dot_api.com/classify/list', //仅为示例，并非真实接口地址。
 			    data: {
 			    },
 			    header: {
@@ -241,6 +242,7 @@
 			this.$nextTick(() => this.calcSize())
 		},
 		computed:{
+			...mapState(['orderType']),
 			productCartNum(id) {	//计算单个饮品添加到购物车的数量
 				return id => this.cart.reduce((acc, cur) => {
 						if(cur.id === id) {
@@ -251,6 +253,7 @@
 			}
 		},
 		methods:{
+			...mapMutations(['SET_ORDER_TYPE']),
 			calcSize() {
 				let h = 0
 				
@@ -266,11 +269,12 @@
 				})
 			},
 			order_type_tap(type){
-				this.order_type_current=type;
 				if(type == 1){
 					uni.navigateTo({
 						url:"/pages/userAdress/userAdress"
 					})
+				}else{
+					this.SET_ORDER_TYPE(type)
 				}
 				
 			},
@@ -375,8 +379,11 @@
 			}
 		},
 		choose_pintuan_type(type){
+			if(type == this.orderType){
+				
+			}
 			uni.navigateTo({
-				url:"/pages/pintuan/pintuan?type="+type
+				url:"/pages/pintuan/pintuan"
 			})
 		}
 	},
