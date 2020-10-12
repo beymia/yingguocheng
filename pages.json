@@ -186,7 +186,11 @@
         "navigationBarBackgroundColor": "#FFFFFF"
       }
     }
-  ],
+      ,{
+            "path" : "pages/chooseShop/chooseShop",
+            "style" : {}
+        }
+    ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
