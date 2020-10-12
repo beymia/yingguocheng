@@ -143,11 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-<<<<<<< HEAD
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var listCell = function listCell() {__webpack_require__.e(/*! require.ensure | components-lk/list-cell/list-cell */ "components-lk/list-cell/list-cell").then((function () {return resolve(__webpack_require__(/*! @/components-lk/list-cell/list-cell.vue */ 247));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
-=======
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var listCell = function listCell() {__webpack_require__.e(/*! require.ensure | components-lk/list-cell/list-cell */ "components-lk/list-cell/list-cell").then((function () {return resolve(__webpack_require__(/*! @/components-lk/list-cell/list-cell.vue */ 256));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
->>>>>>> 7535e272a840d2ed0ff99eca5a8a928e5a3f25b4
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var listCell = function listCell() {__webpack_require__.e(/*! require.ensure | components-lk/list-cell/list-cell */ "components-lk/list-cell/list-cell").then((function () {return resolve(__webpack_require__(/*! @/components-lk/list-cell/list-cell.vue */ 302));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

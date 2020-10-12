@@ -5,12 +5,24 @@
         <text class="balance">可用余額</text>
         <view>
           <text class="symbol">￥</text>
-          <text class="amount">{{ amount }}</text>
+          <text class="amount">{{ amount||'0' }}</text>
         </view>
-        <text @click="navRecharge" class="btn">立即充值</text>
+        <text @click="navRecharge({page:'recharge'})" class="btn">立即充值</text>
       </view>
       <view class="options">
-        <optionsList :list="options"></optionsList>
+        <optionsList @options-click="navRecharge" :list="options"></optionsList>
+      </view>
+    </view>
+    <view v-if="rechargePwd"
+          class="recharge_pwd">
+      <view>充值交易密碼</view>
+      <view>
+        <text>短信驗證碼將發送到已綁定的手機</text>
+        <view>{{}}</view>
+      </view>
+      <view class="btn">
+        <button></button>
+        <button></button>
       </view>
     </view>
   </view>
@@ -31,21 +43,56 @@ export default {
         title: '消費記錄',
         icon: 'arrowright'
       }, {
-        title: '修改交易密碼',
-        icon: 'arrowright'
-      }, {
         title: '重置交易密碼',
         icon: 'arrowright'
-      },]
+      },],
+      rechargePwd:false,
+      phone:''
     }
   },
   onLoad(options) {
     this.amount = options.wallet;
+    this.originPhone = getApp().globalData.userInfo.mobile;
+    this.phone = this.originPhone.replace(/\d/g, function (value, index) {
+      if (index >= 3 && index <= 7) {
+        return 'x'
+      } else {
+        return value
+      }
+    })
   },
   methods: {
-    navRecharge(){
+    navRecharge(v){
+      let {page} = v;
+      switch (page){
+        case '消費記錄':
+          page = 'expensesRecord';
+          break;
+          case '掃碼支付':
+            page = 'memberCode';
+            break;
+            case '重置交易密碼':
+              uni.showModal({
+                title:'重置交易密碼',
+                content:'短信驗證碼將發送已綁定手機\n'+this.phone,
+                success(o){
+                  //點擊確定進入重置密碼頁面
+                  if(o.confirm){
+                    uni.showLoading({
+                      title:'正在發送驗證碼'
+                    })
+                    uni.navigateTo({
+                      url:'/pages/checkCode/checkCode?change=1',
+                      success(){
+                        uni.hideLoading()
+                      }
+                    })
+                  }
+                }
+              })
+      }
       uni.navigateTo({
-        url:"/pages/recharge/recharge"
+        url:  `/pages/${page}/${page}`
       })
     }
   },

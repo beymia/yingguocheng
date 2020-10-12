@@ -94,17 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniNavBar: function() {
-<<<<<<< HEAD
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 168))
+    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 223))
   },
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 175))
-=======
-    return __webpack_require__.e(/*! import() | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-nav-bar/uni-nav-bar.vue */ 184))
-  },
-  uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 191))
->>>>>>> 7535e272a840d2ed0ff99eca5a8a928e5a3f25b4
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 230))
   }
 }
 var render = function() {
@@ -372,17 +365,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-<<<<<<< HEAD
 
 
 
 
 
-var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var actions = function actions() {__webpack_require__.e(/*! require.ensure | pages/order/components/actions/actions */ "pages/order/components/actions/actions").then((function () {return resolve(__webpack_require__(/*! ./components/actions/actions.vue */ 183));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notice = function notice() {__webpack_require__.e(/*! require.ensure | pages/order/components/notice/notice */ "pages/order/components/notice/notice").then((function () {return resolve(__webpack_require__(/*! ./components/notice/notice.vue */ 190));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var cartBar = function cartBar() {__webpack_require__.e(/*! require.ensure | pages/order/components/cartbar/cartbar */ "pages/order/components/cartbar/cartbar").then((function () {return resolve(__webpack_require__(/*! ./components/cartbar/cartbar.vue */ 197));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var productModal = function productModal() {__webpack_require__.e(/*! require.ensure | pages/order/components/product-modal/product-modal */ "pages/order/components/product-modal/product-modal").then((function () {return resolve(__webpack_require__(/*! ./components/product-modal/product-modal.vue */ 204));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var search = function search() {__webpack_require__.e(/*! require.ensure | pages/order/components/search/search */ "pages/order/components/search/search").then((function () {return resolve(__webpack_require__(/*! ./components/search/search.vue */ 211));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var rest = function rest() {__webpack_require__.e(/*! require.ensure | pages/order/components/rest/rest */ "pages/order/components/rest/rest").then((function () {return resolve(__webpack_require__(/*! ./components/rest/rest.vue */ 218));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pintuan = function pintuan() {__webpack_require__.e(/*! require.ensure | pages/order/components/pintuan/pintuan */ "pages/order/components/pintuan/pintuan").then((function () {return resolve(__webpack_require__(/*! ./components/pintuan/pintuan.vue */ 225));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _vuex = __webpack_require__(/*! vuex */ 188);
+var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var actions = function actions() {__webpack_require__.e(/*! require.ensure | pages/order/components/actions/actions */ "pages/order/components/actions/actions").then((function () {return resolve(__webpack_require__(/*! ./components/actions/actions.vue */ 238));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notice = function notice() {__webpack_require__.e(/*! require.ensure | pages/order/components/notice/notice */ "pages/order/components/notice/notice").then((function () {return resolve(__webpack_require__(/*! ./components/notice/notice.vue */ 245));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var cartBar = function cartBar() {__webpack_require__.e(/*! require.ensure | pages/order/components/cartbar/cartbar */ "pages/order/components/cartbar/cartbar").then((function () {return resolve(__webpack_require__(/*! ./components/cartbar/cartbar.vue */ 252));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var productModal = function productModal() {__webpack_require__.e(/*! require.ensure | pages/order/components/product-modal/product-modal */ "pages/order/components/product-modal/product-modal").then((function () {return resolve(__webpack_require__(/*! ./components/product-modal/product-modal.vue */ 259));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var search = function search() {__webpack_require__.e(/*! require.ensure | pages/order/components/search/search */ "pages/order/components/search/search").then((function () {return resolve(__webpack_require__(/*! ./components/search/search.vue */ 266));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var rest = function rest() {__webpack_require__.e(/*! require.ensure | pages/order/components/rest/rest */ "pages/order/components/rest/rest").then((function () {return resolve(__webpack_require__(/*! ./components/rest/rest.vue */ 273));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pintuan = function pintuan() {__webpack_require__.e(/*! require.ensure | pages/order/components/pintuan/pintuan */ "pages/order/components/pintuan/pintuan").then((function () {return resolve(__webpack_require__(/*! ./components/pintuan/pintuan.vue */ 280));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
-=======
-var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var actions = function actions() {__webpack_require__.e(/*! require.ensure | pages/order/components/actions/actions */ "pages/order/components/actions/actions").then((function () {return resolve(__webpack_require__(/*! ./components/actions/actions.vue */ 199));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notice = function notice() {__webpack_require__.e(/*! require.ensure | pages/order/components/notice/notice */ "pages/order/components/notice/notice").then((function () {return resolve(__webpack_require__(/*! ./components/notice/notice.vue */ 206));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var CartBar = function CartBar() {__webpack_require__.e(/*! require.ensure | pages/order/components/cartbar/cartbar */ "pages/order/components/cartbar/cartbar").then((function () {return resolve(__webpack_require__(/*! ./components/cartbar/cartbar.vue */ 213));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ProductModal = function ProductModal() {__webpack_require__.e(/*! require.ensure | pages/order/components/product-modal/product-modal */ "pages/order/components/product-modal/product-modal").then((function () {return resolve(__webpack_require__(/*! ./components/product-modal/product-modal.vue */ 220));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Search = function Search() {__webpack_require__.e(/*! require.ensure | pages/order/components/search/search */ "pages/order/components/search/search").then((function () {return resolve(__webpack_require__(/*! ./components/search/search.vue */ 227));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var rest = function rest() {__webpack_require__.e(/*! require.ensure | pages/order/components/rest/rest */ "pages/order/components/rest/rest").then((function () {return resolve(__webpack_require__(/*! ./components/rest/rest.vue */ 234));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
->>>>>>> 7535e272a840d2ed0ff99eca5a8a928e5a3f25b4
 
 
 
@@ -416,7 +406,7 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
       menu_list: _data.menu_list,
       //下面都是静态默认值
       order_type_selected: 'order_type_selected',
-      order_type_current: 2,
+      orderType: 2,
       title: '英国城',
       is_notice: false,
       menu_id_current: 1,
@@ -433,7 +423,7 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
   },
   onLoad: function onLoad() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
               uni.request({
-                url: 'https://host.dot_api.com/classify/list', //仅为示例，并非真实接口地址。
+                url: 'http://host.dot_api.com/classify/list', //仅为示例，并非真实接口地址。
                 data: {},
 
                 header: {
@@ -448,7 +438,8 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
 
               _this.$nextTick(function () {return _this.calcSize();});case 2:case "end":return _context.stop();}}}, _callee);}))();
   },
-  computed: {
+  computed: _objectSpread(_objectSpread({},
+  (0, _vuex.mapState)(['orderType'])), {}, {
     productCartNum: function productCartNum(id) {var _this2 = this; //计算单个饮品添加到购物车的数量
       return function (id) {return _this2.cart.reduce(function (acc, cur) {
           if (cur.id === id) {
@@ -456,9 +447,10 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
           }
           return acc;
         }, 0);};
-    } },
+    } }),
 
-  methods: {
+  methods: _objectSpread(_objectSpread({},
+  (0, _vuex.mapMutations)(['SET_ORDER_TYPE'])), {}, {
     calcSize: function calcSize() {
       var h = 0;
 
@@ -474,11 +466,12 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
       });
     },
     order_type_tap: function order_type_tap(type) {
-      this.order_type_current = type;
       if (type == 1) {
         uni.navigateTo({
           url: "/pages/userAdress/userAdress" });
 
+      } else {
+        this.SET_ORDER_TYPE(type);
       }
 
     },
@@ -583,10 +576,13 @@ var _data = __webpack_require__(/*! ./data.js */ 36);function _interopRequireDef
       }
     },
     choose_pintuan_type: function choose_pintuan_type(type) {
-      uni.navigateTo({
-        url: "/pages/pintuan/pintuan?type=" + type });
+      if (type == this.orderType) {
 
-    } } };exports.default = _default;
+      }
+      uni.navigateTo({
+        url: "/pages/pintuan/pintuan" });
+
+    } }) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

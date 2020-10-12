@@ -35,6 +35,10 @@
         <text>{{ user.balance || '0.00' }}</text>
         <text>錢包</text>
       </view>
+      <view @click="$emit('handler-click',{page:'milkTeaGift'})">
+        <text>0</text>
+        <text>奶茶有裡</text>
+      </view>
     </view>
 	</view>
 </template>

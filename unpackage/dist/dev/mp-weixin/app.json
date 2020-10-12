@@ -22,8 +22,12 @@
     "pages/recharge/recharge",
     "pages/pointsDetails/pointsDetails",
     "pages/exchangeRecord/exchangeRecord",
-    "pages/planetCover/planetCover",
-    "pages/pintuan/pintuan"
+    "pages/pintuan/pintuan",
+    "pages/memberCode/memberCode",
+    "pages/milkTeaGift/milkTeaGift",
+    "pages/expensesRecord/expensesRecord",
+    "pages/more/more",
+    "pages/profile/profile"
   ],
   "subPackages": [],
   "window": {

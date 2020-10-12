@@ -48,7 +48,7 @@ export default {
 
 .recharge{
   width: 100%;
-  min-height: 100vh;
+  min-height:93vh;
   background-color: $main-bg;
   padding: $spacing-lg $spacing-base 0 $spacing-base;
   box-sizing: border-box;

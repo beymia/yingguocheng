@@ -1,31 +1,36 @@
 <template>
-  <view class="record">
-      <view class="content" v-for="(d,index) in spliceData" :key="index">
-        <view class="head">{{ d.name }}</view>
-        <view class="details">
-          <view v-for="(p,i) in d.data"
-                :key="p.id"
-                :class="['item',i!== d.data.length-1?'borderBottom':'']">
+  <view class="points_details">
+    <view class="content" v-for="(d,index) in spliceData" :key="index">
+      <view class="head">{{ d.name }}</view>
+      <view class="details">
+        <view v-for="(p,i) in d.data"
+              :key="p.id"
+              :class="['item',i!== d.data.length-1?'borderBottom':'']">
+          <view>
             <view>
-              <view>
-                <text>{{ p.goods_name }}</text>
-              </view>
-              <view>
-                <text>{{ p.created_at }}</text>
-              </view>
+              <text>当前：{{ p.current_price }}</text>
+              <text>剩余：{{ p.consume_price }}</text>
             </view>
             <view>
-              <text>{{'-' + p.barter_integral}}
-              </text>
+              <text>{{ p.created_at }}</text>
             </view>
+          </view>
+          <view>
+            <text>{{
+                p.consume_status === '充值'
+                    ? '+' + p.surplus_price
+                    : '-' + p.surplus_price
+              }}
+            </text>
           </view>
         </view>
       </view>
+    </view>
   </view>
 </template>
 
 <script>
-import {record} from "../../request/api";
+import {expensesRecord} from "../../request/api";
 
 export default {
   data() {
@@ -34,17 +39,15 @@ export default {
       page:1
     }
   },
-  async mounted(){
+  async mounted() {
     this.token = getApp().globalData.userToken;
-    this.record = (await record({
-      token:this.token,
-      page:this.page,
+    this.record = (await expensesRecord({
+      token: this.token,
+      page: this.page,
     }))
-    console.log(this.record);
   },
   computed: {
     spliceData() {
-      if(!this.record) return ;
       let spliceObj = {},
           temp = []
       this.record.forEach((item, index) => {
@@ -66,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.record {
+.points_details {
   width: 100%;
   min-height: 100vh;
   background-color: $main-bg;

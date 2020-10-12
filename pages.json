@@ -147,19 +147,46 @@
       }
     },
     {
-      "path": "pages/planetCover/planetCover",
+      "path": "pages/pintuan/pintuan",
       "style": {
-        "navigationBarTitleText": "星球封面",
+        "navigationBarTitleText": "拼单"
+      }
+    },
+    {
+      "path": "pages/memberCode/memberCode",
+      "style": {
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/milkTeaGift/milkTeaGift",
+      "style": {
+        "navigationBarTitleText": "奶茶有禮",
+        "navigationBarBackgroundColor": "#FFFFFF"
+      }
+    },
+    {
+      "path": "pages/expensesRecord/expensesRecord",
+      "style": {
+        "navigationBarTitleText": "消費記錄",
+        "navigationBarBackgroundColor": "#FFFFFF"
+      }
+    },
+    {
+      "path": "pages/more/more",
+      "style": {
+        "navigationBarTitleText": "更多",
+        "navigationBarBackgroundColor": "#FFFFFF"
+      }
+    },
+    {
+      "path": "pages/profile/profile",
+      "style": {
+        "navigationBarTitleText": "個人資料",
         "navigationBarBackgroundColor": "#FFFFFF"
       }
     }
-        ,{
-            "path" : "pages/pintuan/pintuan",
-            "style" : {
-				"navigationBarTitleText": "拼单"
-			}
-        }
-    ],
+  ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",

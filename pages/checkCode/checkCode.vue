@@ -9,14 +9,14 @@
         <text>已將驗證碼發送至{{ phone }}</text>
       </view>
       <view class="code_input">
-        <label v-for="(code,index) in 5" :key="index">
+        <label v-for="(code,index) in 6" :key="index">
           <input class="input_content"
                  disabled
                  maxlength="1"
                  v-model="verificationCode[index]"
                  type="text">
         </label>
-        <input focus @input="inputCode" v-model="verificationCode" maxlength="5" class="empty_input" type="text">
+        <input focus @input="inputCode" v-model="verificationCode" maxlength="6" class="empty_input" type="text">
       </view>
       <view class="code_timer">
         <text>{{ timer }}秒後重發</text>
@@ -27,7 +27,7 @@
 
 <script>
 import {login, verifyCode} from "../../request/api";
-
+const APP = getApp().globalData;
 export default {
   data() {
     return {
@@ -39,7 +39,9 @@ export default {
     }
   },
   onLoad(options) {
-    this.phone = options.phone;
+
+    this.phone = APP.userInfo.mobile;
+    this.change = options.change;
     uni.showToast({
       title: '驗證碼已經發送',
       duration: 2000,
@@ -92,41 +94,67 @@ export default {
       try {
         if (value.length === 5) {
           uni.showLoading({
-            title: '正在登錄中',
+            title: this.change?'請稍後':'正在登錄中',
           })
-          //驗證驗證碼
-          await verifyCode({mobile: self.phone, code: self.verificationCode})
 
+          //TODO change有值則跳轉到設置交易密碼頁面
+          if(this.change){
+            try{
+               // await verifyCode({mobile: self.phone, code: self.verificationCode})
+              uni.hideLoading()
+              uni.redirectTo({
+                url:'/pages/setPassword/setPassword',
+              })
+            }catch (e){
+              uni.showToast({
+                title:'驗證碼錯誤',
+                icon:'none',
+                duration:2000
+              })
+            }
+            return;
+          }
+          //TODO驗證驗證碼 改為後端驗證，修改交密碼須前段調用
+          // await verifyCode({mobile: self.phone, code: self.verificationCode})
+
+          //TODO 此處獲取微信code
           /* #ifdef MP-WEIXIN*/
-          //此處獲取微信code
           await wx.login({
             success: async function (e) {
               if (e.code) {
-                try {
-                  //開始登錄
-                  let result = await login({mobile: self.phone, code: e.code})
-                  //將token賦值給全局對象並且存入本地storage中
-                  getApp().globalData.userToken = result.token;
-                  uni.setStorageSync('token', result.token)
-                  uni.switchTab({
-                    url: '/pages/home/home',
-                    success() {
-                      //跳轉成功清除定時器，倒計時清零
-                      clearInterval(self.countDown);
-                      self.timer = 0;
-                    }
-                  })
-                  uni.hideLoading()
-                } catch (e) {
-                  self.loginError()
-                }
+                self.wxCode = e.code;
+                console.log(e.code);
               } else {
                 self.loginError()
               }
             }
           })
           /* #endif*/
+
+          try {
+            //開始登錄
+            let result = await login({
+              mobile: self.phone,
+              sms_code: self.verificationCode,
+              code: self.wxCode
+            })
+            //將token賦值給全局對象並且存入本地storage中
+            APP.userToken = result.token;
+            uni.setStorageSync('token', result.token)
+            uni.switchTab({
+              url: '/pages/home/home',
+              success() {
+                //跳轉成功清除定時器，倒計時清零
+                clearInterval(self.countDown);
+                self.timer = 0;
+              }
+            })
+            uni.hideLoading()
+          } catch (e) {
+            self.loginError()
+          }
         }
+
       } catch (e) {
         self.loginError()
       }

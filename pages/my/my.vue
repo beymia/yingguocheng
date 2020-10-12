@@ -24,6 +24,10 @@
         <optionsList @options-click="navFitPage" :list="options"></optionsList>
       </view>
     </view>
+
+    <!--兌換中心-->
+    <view></view>
+
     <!-- #ifdef H5-->
     <view class="empty"></view>
     <!-- #endif-->
@@ -53,10 +57,12 @@ export default {
         title: '兌換中心',
         summary: '兌換星球會員、優惠券和禮品卡',
         icon: 'arrowright'
-      }, {
-        title: '星球封面',
-        icon: 'arrowright'
-      }, {
+      },
+      //   {
+      //   title: '星球封面',
+      //   icon: 'arrowright'
+      // },
+        {
         title: '聯系客服',
         icon: 'arrowright'
       }, {
@@ -105,13 +111,19 @@ export default {
           break;
         case '會員碼':
           // TODO 非頁面
+            page = 'memberCode';
+            this.query = 'user';
+            APP.userInfo = this.userInfo
           break;
         case '兌換中心':
           // TODO 非頁面
+          this.query = 'integral';
+          page = 'pointsMall'
+          v = this.userInfo.integral
           break;
-        case '星球封面':
-          page = 'planetCover';
-          break;
+          // case '星球封面':
+          //   page = 'planetCover';
+        //   break;
         case '聯系客服':
           page = 'customerService';
           break;
@@ -119,7 +131,7 @@ export default {
           page = '';
           break;
         case '更多':
-          page = '';
+          page = 'more';
           break;
       }
       if (page === 'wallet') {
@@ -132,6 +144,9 @@ export default {
       }
       uni.navigateTo({
         url: `/pages/${page}/${page}?${this.query}=${v}`,
+        complete(e){
+          console.log(e);
+        }
       })
     }
   },
@@ -199,8 +214,6 @@ uni-page-body {
     box-sizing: border-box;
     position: relative;
 
-
-
     .profile_info {
       @include container(390rpx - $spacing-lg);
       border-radius: 0 0 30rpx 30rpx;
@@ -211,7 +224,7 @@ uni-page-body {
     }
 
     .fun_list {
-      @include container(590rpx);
+      @include container(500rpx);
       margin-bottom: 0;
       padding: 0 $spacing-lg;
       box-sizing: border-box;

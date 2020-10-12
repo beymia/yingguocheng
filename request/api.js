@@ -10,3 +10,8 @@ export const convert = (data) => ajax('http://localhost:3000/pointsmall', data, 
 export const joinmember = (data) => ajax('http://localhost:3000/joinmember', data, 'post')
 export const discount = (data) => ajax('http://localhost:3000/discount', data, 'post')
 export const setPwd = (data) => ajax('http://localhost:3000/setpassword', data, 'post')
+export const qrCode = (data) => ajax('http://localhost:3000/qrcode', data, 'post')
+export const pointsDetails = (data) => ajax('http://localhost:3000/pointsdetails', data, 'post')
+export const record = (data) => ajax('http://localhost:3000/record', data, 'post')
+export const expensesRecord = (data) => ajax('http://localhost:3000/expensesrecord', data, 'post')
+export const changeCode = (data) => ajax('http://localhost:3000/changecode', data, 'post')

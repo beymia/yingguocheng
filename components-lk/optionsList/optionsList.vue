@@ -4,8 +4,9 @@
       <slot name="head"></slot>
     </view>
 
-    <view class="items">
-      <view class="list_item"
+    <view :style="{'height':height||'100%'}" class="items">
+      <view :class="['list_item',border?'border-bottom':'']"
+            :style="{'height':height||'100%'}"
             v-for="(option,index) in list"
             :key="index"
             @click="$emit('options-click',{page:option.title})">
@@ -46,6 +47,14 @@ export default {
     foot: {
       type: Boolean,
       default: false
+    },
+    border:{
+      type:Boolean,
+      default:false,
+    },
+    height:{
+      type:String,
+      default:''
     }
   }
 }
@@ -68,6 +77,10 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        &.border-bottom{
+          border-bottom: 1rpx solid #cccccc;
+        }
 
         .title{
           font-size: $font-size-base;
