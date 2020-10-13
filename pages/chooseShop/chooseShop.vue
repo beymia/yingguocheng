@@ -236,14 +236,18 @@
 		</view>
 		<!-- 常用結束 -->
 		<!-- 搜索页面start -->
-		<search :show="showSearch" :categories="menu_list" @hide="showSearch=false" @choose="search_choose" ></search>
+		<search :show="showSearch" :categories="shopList" @hide="showSearch=false" @choose="search_choose" ></search>
 		<!-- 搜索页面end -->
 	</view>
 </template>
 
 <script>
 	import {mapState, mapMutations} from 'vuex'
+	import search from './components/search/search.vue'
 	export default {
+		components:{
+			search
+		},
 		data() {
 			return {
 				is_xzmd:true,
@@ -254,7 +258,7 @@
 			};
 		},
 		computed:{
-			...mapState(["choosedShopId"])
+			...mapState(["choosedShopId","shopList"])
 		},
 		onLoad() {
 			console.log(111111111)
@@ -265,7 +269,7 @@
 			})
 		},
 		methods:{
-			...mapMutations(["SET_CHOOSED_SHOP_ID"]),
+			...mapMutations(["SET_CHOOSED_SHOP_ID","SET_SHOP_LIST"]),
 			search_choose(shop_id){
 				
 			}

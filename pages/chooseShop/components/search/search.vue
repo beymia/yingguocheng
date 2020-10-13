@@ -5,51 +5,31 @@
 				<view class="search-input">
 					<image src="/static/images/order/search-icon.png" class="search-icon"></image>
 					<input class="s_input" type="text" v-model="keyword" 
-							placeholder="冷萃桂花綠" 
+							placeholder="" 
 							placeholder-class="placeholder" @input="handleKeywordInput">
 				    <image v-if="keyword" src="/static/images/order/image-delete.png" class="close-icon" @tap="clear" />
 				</view>
 				<view class="ml-30" @tap="hide">取消</view>
 			</view>
 			<scroll-view class="result" scroll-y>
-				<template v-if="!result.length">
-					<view class="section">
-						<view class="header">
-							<view class="title">历史搜索</view>
-							<view class="subtitle" @tap="clearHistory">
-								<image src="/static/images/order/delete.png"></image>
-								<view>清除</view>
-							</view>
-						</view>
-						<view class="list">
-							<view class="item" v-for="(item, index) in historySearch" :key="index" @tap="handleChoose(item)">
-								{{ item.name }}
-							</view>
-						</view>
-					</view>
-					<view class="section">
-						<view class="header">
-							<view class="title">热门推荐</view>
-						</view>
-						<view class="list">
-							<view class="item" v-for="(item, index) in hotSearch" :key="index" @tap="handleChoose(item)">
-								<view class="name">{{ item.name }}</view>
-								<!-- <image v-if="item.nameImage" :src="item.nameImage" class="name-image"></image> -->
-							</view>
-						</view>
-					</view>
-				</template>
-				<template v-else>
-					<view class="wrapper" style="padding: 0 30rpx 30rpx 0;">
-						<view class="product" v-for="(item, index) in result" :key="index" @tap="handleChoose(item, true)">
+				<view class="wrapper" style="padding: 0 0 30rpx 24rpx;">
+					
+						<!-- <view class="product" v-for="(item, index) in result" :key="index" @tap="handleChoose(item, true)">
 							<view class="d-flex align-items-center">
 								<image :src="item.imgurl" class="pro-image"/>
 								<view class="pro-name">{{ item.name }}</view>
 							</view>
 							<view class="pro-price">￥{{ item.price }}</view>
+						</view> -->
+						<view v-if="result.length" class="shop_item" v-for="(item, index) in result" :key="index" @tap="handleChoose(item, true)">
+							<view class="shop_name">
+								{{item.shop_name}}
+							</view>
+							<view class="shop_address">
+								{{item.shop_address}}
+							</view>
 						</view>
 					</view>
-				</template>
 			</scroll-view>
 			</view>
 		</view>
@@ -84,33 +64,13 @@
 					// // #ifndef MP-WEIXIN
 					// top: "calc(var(--status-bar-height) + 44px)",
 					// // #endif
+					top: 0,
 					left: 0,
 					bottom: 0,
 					backgroundColor: '#fff',
 					zIndex: 997
 				},
-				hotSearch: [
-					{id:5,name:'黑糖波波希臘酸奶',price:19,is_single:true,isHot:false,labels:['含乳、燕麥、南瓜子仁'],materials:[],description:'黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/htbbxlsn.png'},
-					{id:6,name:'冷萃桂花綠',price:9,is_single:true,isHot:false,labels:['含茶'],materials:[],description:'冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/lcghl.png'},
-					{id:7,name:'NFC桃桃汁',price:25,is_single:true,isHot:false,labels:'',materials:[],description:'非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/nfcttz.png'},
-					{id:8,name:'多肉芒芒甘露',price:27,is_single:true,isHot:true,labels:['含乳制品、茶'],materials:[],description:'冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/drmmgl.png'}
-				],
-				historySearch: [
-					{id:1,name:'黑糖波波希臘酸奶',price:19,is_single:false,isHot:false,labels:['可做热饮','含乳、燕麥、南瓜子仁'],materials:[{"group_name": "餐具需要","values": [{"id": 1289,"name": "需要餐具","price": "1","is_selected": false},{"id": 1289,"name": "不需要壹次性餐具","price": "0","is_selected": false}]}],description:'黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/htbbxlsn.png'},
-					{id:2,name:'冷萃桂花綠',price:9,is_single:false,isHot:false,labels:['可做热饮','含茶'],
-					materials:[
-						{"group_name": "餐具需要","values": [{"id": 1289,"name": "需要餐具","price": "1","is_selected": false},{"id": 1289,"name": "不需要壹次性餐具","price": "0","is_selected": false}]},
-						{"group_name": "狀態","values": [{"id": 1289,"name": "冰沙（推薦）","price": "1","is_selected": false,"is_exclusive": true},{"id": 1289,"name": "熱","price": "1","is_selected": false},{"id": 1289,"name": "溫","price": "1","is_selected": false}]},
-						{"group_name": "杯型","values": [{"id": 1289,"name": "標準杯（500ml）","price": "1","is_selected": false,"is_exclusive": true},{"id": 1289,"name": "加大MAX杯（670ml）","price": "1","is_selected": false,"is_exclusive": true}]},
-						{"group_name": "冰量","values": [{"id": 1289,"name": "正常（推薦）","price": "1","is_selected": false,"is_exclusive": true},{"id": 1289,"name": "少冰","price": "1","is_selected": false,"is_exclusive": true},{"id": 1289,"name": "少少冰","price": "1","is_selected": false,"is_exclusive": true}]}
-						],description:'冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/lcghl.png'},
-					{id:3,name:'NFC桃桃汁',price:25,is_single:false,isHot:false,labels:'',materials:[],description:'非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/nfcttz.png'},
-					{id:4,name:'多肉芒芒甘露',price:27,is_single:true,isHot:true,labels:['可做热饮','含乳制品、茶'],materials:[],description:'冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/drmmgl.png'},
-					{id:5,name:'黑糖波波希臘酸奶',price:19,is_single:true,isHot:false,labels:['含乳、燕麥、南瓜子仁'],materials:[],description:'黑糖脆波波與希臘酸奶靈感碰撞，酸奶部分無糖。選用100%生牛乳發酵，零添加我配附件哦机文件',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/htbbxlsn.png'},
-					{id:6,name:'冷萃桂花綠',price:9,is_single:true,isHot:false,labels:['含茶'],materials:[],description:'冷萃茶不用等待叫號，可直接向店員出示後領取。細嫩茶芽與桂花壹同於冷露中为;为人家放假未发觉',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/lcghl.png'},
-					{id:7,name:'NFC桃桃汁',price:25,is_single:true,isHot:false,labels:'',materials:[],description:'非濃縮還原，0脂肪，0添加劑，純粹鮮榨，不添加壹滴水。甜美水蜜桃鮮榨',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/nfcttz.png'},
-					{id:8,name:'多肉芒芒甘露',price:27,is_single:true,isHot:true,labels:['含乳制品、茶'],materials:[],description:'冷/熱500ml 冷670ml 人氣top2經典茫茫與楊枝甘露的靈感碰撞，精選清幽綠茶',images:['/static/images_t/order/htbbxlsn_large.png','/static/images_t/order/drmmgl_large.png'],imgurl:'/static/images_t/order/drmmgl.png'}
-				],
+				
 				keyword: '',
 				result: []
 			}
@@ -118,8 +78,8 @@
 		async created() {
 			/* this.hotSearch = await this.$api('hotSearch')
 			this.historySearch = await this.$api('historySearch') */
-			var statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
-			this.tranStyles.top= statusBarHeight + 44 +"px";
+			/* var statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
+			this.tranStyles.top= statusBarHeight + 44 +"px"; */
 		},
 		methods: {
 			hide() {
@@ -152,14 +112,16 @@
 				}
 				
 				let result = []
-				this.categories.forEach(category => {
-					category.goods_list.forEach(good => {
-						if(good.name.indexOf(value) > -1) {
-							result.push(good)
+				let second_result = []
+				this.categories.forEach(shop => {
+					
+						if(shop.shop_name.indexOf(value) > -1) {
+							result.push(shop)
+						}else if(shop.shop_address.indexOf(value) > -1){
+							second_result.push(shop)
 						}
-					})
 				})
-				setTimeout(() => this.result = result, 300)
+				setTimeout(() => this.result = result.concat(second_result), 300)
 			},
 			clearHistory(){
 				this.historySearch=[]
@@ -282,9 +244,25 @@
 	.result {
 		height: calc(100vh - 120rpx);
 		/* #ifdef H5 */
-		height: calc(100vh - 120rpx - 100rpx);
+		height: calc(100vh - 120rpx - 100rpx );
 		/* #endif */
 		overflow: hidden;
+		
+		.shop_item{
+			border-bottom: 0.5px solid rgba(200, 199, 204, 0.6);
+			padding: 10rpx 0;
+			.shop_name{
+				color: #333333;
+				font-size: 28rpx;
+				font-weight: bold;
+				line-height: 40rpx;
+			}
+			.shop_address{
+				color: #999999;
+				font-size: 24rpx;
+				line-height: 32rpx;
+			}
+		}
 		
 		.product {
 			padding: 20rpx 0;
