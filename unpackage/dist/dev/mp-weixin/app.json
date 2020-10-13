@@ -1,72 +1,76 @@
 {
-  "pages": [
-    "pages/home/home",
-    "pages/index/index",
-    "pages/order/order",
-    "pages/userAdress/userAdress",
-    "pages/addUserAdress/addUserAdress",
-    "pages/orderForm/orderForm",
-    "pages/my/my",
-    "pages/bulkInvoice/bulkInvoice",
-    "pages/wantTell/wantTell",
-    "pages/invoiceInfo/invoiceInfo",
-    "pages/orderPayment/orderPayment",
-    "pages/discount/discount",
-    "pages/pointsMall/pointsMall",
-    "pages/wallet/wallet",
-    "pages/customerService/customerService",
-    "pages/login/login",
-    "pages/checkCode/checkCode",
-    "pages/joinMember/joinMember",
-    "pages/setPassword/setPassword",
-    "pages/recharge/recharge",
-    "pages/pointsDetails/pointsDetails",
-    "pages/exchangeRecord/exchangeRecord",
-    "pages/pintuan/pintuan",
-    "pages/memberCode/memberCode",
-    "pages/milkTeaGift/milkTeaGift",
-    "pages/expensesRecord/expensesRecord",
-    "pages/more/more",
-    "pages/profile/profile"
-  ],
-  "subPackages": [],
-  "window": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#FFFFFF",
-    "backgroundColor": "#FFFFFF"
-  },
-  "tabBar": {
-    "color": "#C6C6C6",
-    "selectedColor": "#17A1FF",
-    "borderStyle": "white",
-    "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/home/home",
-        "iconPath": "static/icon/home.png",
-        "selectedIconPath": "static/icon/home_selected.png",
-        "text": "首頁"
-      },
-      {
-        "pagePath": "pages/order/order",
-        "iconPath": "static/icon/home.png",
-        "selectedIconPath": "static/icon/order_slected.png",
-        "text": "點單"
-      },
-      {
-        "pagePath": "pages/orderForm/orderForm",
-        "iconPath": "static/icon/orderForm.png",
-        "selectedIconPath": "static/icon/orderForm_selected.png",
-        "text": "訂單"
-      },
-      {
-        "pagePath": "pages/my/my",
-        "iconPath": "static/icon/my.png",
-        "selectedIconPath": "static/icon/my_selected.png",
-        "text": "我的"
-      }
-    ]
-  },
-  "usingComponents": {}
+	"pages": [
+		"pages/home/home",
+		"pages/index/index",
+		"pages/order/order",
+		"pages/userAdress/userAdress",
+		"pages/addUserAdress/addUserAdress",
+		"pages/orderForm/orderForm",
+		"pages/my/my",
+		"pages/bulkInvoice/bulkInvoice",
+		"pages/wantTell/wantTell",
+		"pages/invoiceInfo/invoiceInfo",
+		"pages/orderPayment/orderPayment",
+		"pages/discount/discount",
+		"pages/pointsMall/pointsMall",
+		"pages/wallet/wallet",
+		"pages/customerService/customerService",
+		"pages/login/login",
+		"pages/checkCode/checkCode",
+		"pages/joinMember/joinMember",
+		"pages/setPassword/setPassword",
+		"pages/recharge/recharge",
+		"pages/pointsDetails/pointsDetails",
+		"pages/exchangeRecord/exchangeRecord",
+		"pages/pintuan/pintuan",
+		"pages/memberCode/memberCode",
+		"pages/milkTeaGift/milkTeaGift",
+		"pages/expensesRecord/expensesRecord",
+		"pages/more/more",
+		"pages/profile/profile",
+		"pages/chooseShop/chooseShop"
+	],
+	"subPackages": [],
+	"window": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	"tabBar": {
+		"color": "#C6C6C6",
+		"selectedColor": "#17A1FF",
+		"borderStyle": "white",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/home/home",
+				"iconPath": "static/icon/home.png",
+				"selectedIconPath": "static/icon/home_selected.png",
+				"text": "首頁"
+			},
+			{
+				"pagePath": "pages/order/order",
+				"iconPath": "static/icon/home.png",
+				"selectedIconPath": "static/icon/order_slected.png",
+				"text": "點單"
+			},
+			{
+				"pagePath": "pages/orderForm/orderForm",
+				"iconPath": "static/icon/orderForm.png",
+				"selectedIconPath": "static/icon/orderForm_selected.png",
+				"text": "訂單"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/icon/my.png",
+				"selectedIconPath": "static/icon/my_selected.png",
+				"text": "我的"
+			}
+		]
+	},
+	"usingComponents": {
+		"no-more-data": "/components-lk/noMoreData/noMoreData"
+	},
+	"sitemapLocation": "sitemap24.json"
 }

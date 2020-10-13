@@ -5,13 +5,14 @@ export default {
     coupon: 0,//優惠券金額，
     userToken: null,//用戶token
     userInfo:{},//用户基本信息
+		phone:'',//用戶手機號
     userAddresses: [],//用户收货地址
     edit_address_id: {},//当前编辑的收货地址id
     choosed_address: {},//用户选择的地址
   },
   onLaunch: function () {
     // TODO 生產環境取消注釋
-    // this.globalData.userToken=uni.getStorageSync('token')
+    this.globalData.userToken=uni.getStorageSync('token')
     console.log('App Launch');
   },
   onShow: function () {

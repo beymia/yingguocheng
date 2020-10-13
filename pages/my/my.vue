@@ -75,25 +75,31 @@ export default {
     }
   },
   async mounted() {
-    APP.userToken = '測試使用';
-    this.userToken = APP.userToken;
-    if (this.userToken) {
-      this.userInfo = (await this.requestUserInfo()).data;
-      APP.userInfo = this.userInfo;
+    try{
+      uni.showLoading({
+        title:'請稍後'
+      })
+			this.token = APP.userToken
+      if (this.token) {
+        this.userInfo = (await userSpace()).data;
+        APP.userInfo = this.userInfo;
+      }
+      uni.hideLoading()
+    }catch (e){
+      uni.hideLoading()
+      uni.showToast({
+        title:'需要登錄',
+        icon:'none',
+        duration:2000
+      })
     }
   },
   methods: {
-    //请求用户信息
-    async requestUserInfo() {
-      return await userSpace({
-        token: '测试使用'
-      })
-    },
     //跳转至對應的頁面
     navFitPage(aims) {
       console.log(aims);
       //用户没有登录不做处理
-      if (!this.userToken) {
+      if (!this.token) {
         uni.showToast({
           title: '還沒有登錄',
           duration: 2000,

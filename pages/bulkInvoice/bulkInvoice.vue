@@ -45,7 +45,7 @@ export default {
       invoiceData: [],
       amount:0,
       count:0,
-      selectAll:false
+      selectAll:false,
     }
   },
   onLoad(options) {
@@ -57,10 +57,13 @@ export default {
       if(this.invoiceData[i].check){
         this.count++;
         this.amount +=  parseFloat(this.invoiceData[i].payment_info)
+        this.orderId.push(this.invoiceData[i].id)
       }else{
         this.count--;
         this.amount -= parseFloat(this.invoiceData[i].payment_info)
+        this.orderId.splice(this.orderId.indexOf(this.invoiceData[i].id),1)
       }
+      console.log(this.orderId);
     },
 
     clickSelectAll(e) {
@@ -70,18 +73,21 @@ export default {
       this.invoiceData.forEach((item) => {
         if (this.selectAll) {item.check = true;
           this.amount += parseFloat(item.payment_info)
-          this.count = this.invoiceData.length
+          this.count = this.invoiceData.length;
+          this.orderId.push(item.id)
         } else {
-          item.check = false
+          item.check = false;
+          this.orderId = [];
         }
       })
+      console.log(this.orderId)
     },
 
     // 跳转至发票详情页，并传递发票总金额
     navInvoiceInfo() {
       if(this.amount){
         uni.navigateTo({
-          url: '/pages/invoiceInfo/invoiceInfo?invoiceAmount=' + this.amount
+          url: `/pages/invoiceInfo/invoiceInfo?invoiceAmount=${this.amount}&id=${this.orderId.join(',')}`
         })
       }else{
         uni.showToast({

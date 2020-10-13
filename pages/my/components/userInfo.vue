@@ -12,7 +12,9 @@
 				</view>
 				<view class="privilege">
 					<text @click="$emit('handler-click',{page:'joinMember'})">{{user.level_title}}</text>
-					<view @click="$emit('handler-click',{page:'joinMember'})" class="level_title">
+					<view v-if="user.level_title === '普通會員'"
+                @click="$emit('handler-click',{page:'joinMember'})"
+                class="level_title">
 						<text>成為騎士會員享雙倍積分</text>
 						<uni-icons style="display: inline-block;vertical-align: middle" type="arrowright" size="18" color="#333333"></uni-icons>
 					</view>

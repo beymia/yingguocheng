@@ -1,6 +1,10 @@
 <template>
   <view class="points_details">
-    <view class="content" v-for="(d,index) in spliceData" :key="index">
+    <noMoreData v-if="!spliceData||spliceData.length===0"></noMoreData>
+    <view v-else
+          class="content"
+          v-for="(d,index) in spliceData"
+          :key="index">
       <view class="head">{{ d.name }}</view>
       <view class="details">
         <view v-for="(p,i) in d.data"

@@ -1,13 +1,23 @@
 const ajax = require('./ajax')
 
 //开发环境下需要开启本地后端服务，生产环境需要替换api地址,测试地址不适用于
-export const orderForm = (data) => ajax('http://localhost:3000/orderForm', data, 'post')
-export const userSpace = (data) => ajax('http://localhost:3000/userspace', data, 'post')
-export const sendCheckCode = (data) => ajax('http://localhost:3000/sendcheckcode', data, 'post')
-export const verifyCode = (data) => ajax('http://localhost:3000/verifycode', data, 'post')
-export const login = (data) => ajax('http://localhost:3000/login', data, 'post')
-export const convert = (data) => ajax('http://localhost:3000/pointsmall', data, 'post')
-export const joinmember = (data) => ajax('http://localhost:3000/joinmember', data, 'post')
+
+
+//订单详情
+export const orderForm = (data) => ajax('/user/order', data, 'post',1)
+//用户信息
+export const userSpace = (data) => ajax('/user/user-info', data, 'post',1)
+//发送验证码
+export const sendCheckCode = (data) => ajax('/sms/login-sms', data, 'post')
+//效验验证码
+export const verifyCode = (data) => ajax('/sms/verify-sms', data, 'post')
+//登录&注册
+export const login = (data) => ajax('/login/login', data, 'post')
+//积分商城
+export const convert = (data) => ajax('/convert/list', data, 'post')
+//开通会员
+export const joinMember = (data) => ajax('/account/service-pay', data, 'post')
+
 export const discount = (data) => ajax('http://localhost:3000/discount', data, 'post')
 export const setPwd = (data) => ajax('http://localhost:3000/setpassword', data, 'post')
 export const qrCode = (data) => ajax('http://localhost:3000/qrcode', data, 'post')

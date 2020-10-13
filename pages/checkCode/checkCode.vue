@@ -39,8 +39,7 @@ export default {
     }
   },
   onLoad(options) {
-
-    this.phone = APP.userInfo.mobile;
+    this.phone = APP.phone;
     this.change = options.change;
     uni.showToast({
       title: '驗證碼已經發送',
@@ -92,7 +91,7 @@ export default {
     async verificationCode(value) {
       let self = this;
       try {
-        if (value.length === 5) {
+        if (value.length === 6) {
           uni.showLoading({
             title: this.change?'請稍後':'正在登錄中',
           })
@@ -115,7 +114,7 @@ export default {
             return;
           }
           //TODO驗證驗證碼 改為後端驗證，修改交密碼須前段調用
-          // await verifyCode({mobile: self.phone, code: self.verificationCode})
+           await verifyCode({mobile: self.phone, code: self.verificationCode})
 
           //TODO 此處獲取微信code
           /* #ifdef MP-WEIXIN*/
@@ -133,12 +132,23 @@ export default {
 
           try {
             //開始登錄
-            let result = await login({
-              mobile: self.phone,
-              sms_code: self.verificationCode,
-              code: self.wxCode
-            })
+						/* #ifdef MP-WEIXIN  */
+						let result = await login({
+						  mobile: self.phone,
+							sm_code:self.verificationCode,
+							code:self.wxCode
+						})
+						/* #endif */
+						
+            /* #ifndef MP-WEIXIN*/
+						let result = await login({
+						  mobile: self.phone,
+							sm_code:self.verificationCode
+						})
+						/* #endif */
+						
             //將token賦值給全局對象並且存入本地storage中
+						console.log(result)
             APP.userToken = result.token;
             uni.setStorageSync('token', result.token)
             uni.switchTab({

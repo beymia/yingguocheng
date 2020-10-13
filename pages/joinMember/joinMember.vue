@@ -8,7 +8,7 @@
     <view class="center">
       <view>
         <text class="title">每月等級權益</text>
-        <text class="summary">根據購買日期，每月同壹時間發放</text>
+<!--        <text class="summary">根據購買日期，每月同壹時間發放</text>-->
       </view>
       <view>
         <text class="options">優先券</text>
@@ -26,10 +26,10 @@
         <text class="options">整單9折</text>
         <text class="month">x1/月</text>
       </view>
-      <view>
-        <text class="options">每月28號會員日消費額外贈送5%積分</text>
-        <text class="icon">特权</text>
-      </view>
+<!--      <view>-->
+<!--        <text class="options">每月28號會員日消費額外贈送5%積分</text>-->
+<!--        <text class="icon">特权</text>-->
+<!--      </view>-->
 
       <!--剔除此功能-->
 <!--      <view class="other">-->
@@ -63,10 +63,10 @@
         <text class="options">5.28會員日贈飲券</text>
         <text class="month">x1</text>
       </view>
-      <view>
-        <text class="options">積分經驗值漲速翻倍</text>
-        <text class="icon">特权</text>
-      </view>
+<!--      <view>-->
+<!--        <text class="options">積分經驗值漲速翻倍</text>-->
+<!--        <text class="icon">特权</text>-->
+<!--      </view>-->
     </view>
 
     <!--会员协议-->

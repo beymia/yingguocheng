@@ -66,6 +66,9 @@
 				required: true
 			}
 		},
+		mounted() {
+			console.log(this.orderFormData)
+		},
     methods:{
 	    /*
 	    * 跳转至订单支付页，已经支付过的订单不做处理

@@ -68,15 +68,18 @@ export default {
           mask: true,
         })
         //發送驗證碼
-         await sendCheckCode({
+        let code = await sendCheckCode({
           mobile: this.phone
         })
+				console.log(code)
         uni.hideLoading()
         /*手机号正确，跳转至验证码接收頁*/
+				getApp().globalData.phone = this.phone
         uni.navigateTo({
           url: '/pages/checkCode/checkCode?phone=' + this.phone
         })
       } catch (e) {
+				console.log(e)
         uni.hideLoading()
         //驗證碼發送失敗
         uni.showToast({

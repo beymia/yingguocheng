@@ -53,6 +53,9 @@
         },
         "devServer" : {
             "https" : false
+        },
+        "sdkConfigs" : {
+            "maps" : {}
         }
     }
 }

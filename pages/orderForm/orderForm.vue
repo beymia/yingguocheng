@@ -31,12 +31,12 @@
     </view>
 
     <!-- 当前订单展示頁面 -->
-    <view v-else-if="!empty&&activeFeat==='current'" class="order_detail">
+    <view v-if="activeFeat==='current'" class="order_detail">
       <orderDetail @order-click="orderPayment" :orderFormData="currentOrderForm.data"></orderDetail>
     </view>
 
     <!-- 歷史訂單頁面 -->
-    <view v-else-if="!empty&&activeFeat==='history'" class="order_history">
+    <view v-if="activeFeat==='history'" class="order_history">
       <view class="history_head">
         <view class="history_head_content">
           <view>
@@ -63,7 +63,7 @@
     </view>
 
     <!--登录提示框-->
-    <loginBox v-if="!loginBox" @close-login-box="loginBox = true"></loginBox>
+    <loginBox v-if="!loginBoxShow" @close-login-box="loginBoxShow = true"></loginBox>
   </view>
 </template>
 
@@ -73,6 +73,8 @@ import orderDetail from '../../components-lk/orderDetail/orderDetail.vue'
 import loginBox from "../../components-lk/loginBox/loginBox";
 
 import {orderForm} from '../../request/api'
+
+const APP = getApp().globalData
 
 export default {
   data() {
@@ -87,7 +89,7 @@ export default {
       oneSelfOrder: [],//自提订单
       takeawayOrder: [],//外卖订单
       invoiceData: [],//未开发票订单
-      loginBox: false,
+      loginBoxShow: false,
     }
   },
   computed: {
@@ -121,25 +123,34 @@ export default {
 
   //頁面每次展示都重新獲取本地storage中的token值
   onShow() {
-    this.getOrderForm()
+    this.token = APP.userToken;
   },
 
   mounted() {
-    console.log('mounted')
     this.getOrderForm()
   },
 
   methods: {
     //獲取數據
     async getOrderForm() {
-      this.loginBox = getApp().globalData.userToken;
+      this.token = getApp().globalData.userToken;
       //用戶登錄成功時再去獲取訂單信息
-      if (this.loginBox) {
+      if (this.token) {
+        //token有值就隐藏登陆提示框
+        this.loginBoxShow = true;
         try {
-          this.currentOrderForm.data = await this.requestOrder()
+          let result = await this.requestOrder()
+          console.log(result);
+          if (!result) {
+            console.log(1);
+            this.empty = true;
+            return
+          }
           //如果没有接收到数据则展示订单为空
-          this.empty = !this.currentOrderForm.data || !this.currentOrderForm.data.length;
+          this.empty = false;
+          this.activeFeat === 'history' ? this.historyOrderForm = result : this.currentOrderForm = result
         } catch (e) {
+          console.log(e)
           uni.showToast({
             title: '訂單獲取失敗',
             duration: 2000,
@@ -151,7 +162,6 @@ export default {
     //请求数据，已经有数据后不再请求
     async requestOrder() {
       return (await orderForm({
-        token: '临时测试用',
         type: this.activeFeat === 'history' ? 2 : 1,
         page: this.activeFeat === 'history' ? this.historyOrderForm.page : this.currentOrderForm.page,
       })).data;
@@ -177,9 +187,8 @@ export default {
         url: '/pages/wantTell/wantTell'
       })
     },
-    /*
-   * 跳转至订单结算页面
-   * */
+
+    // 跳转至订单结算页面
     orderPayment(g) {
       getApp().globalData.goodsPayment = g.order;
       uni.navigateTo({
@@ -187,6 +196,11 @@ export default {
       })
     },
   },
+
+  watch:{
+    activeFeat(){}
+  },
+
   components: {
     headNav,
     orderDetail,
