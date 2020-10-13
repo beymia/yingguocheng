@@ -7,11 +7,19 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		orderType: 1,
+		choosedShopId:'',
+		shopList:[],
 	},
 	mutations: {
 		SET_ORDER_TYPE(state, orderType) {
 			state.orderType = orderType
 		},
+		SET_CHOOSED_SHOP_ID(state,choosedShopId){
+			state.choosedShopId = choosedShopId
+		},
+		SET_SHOP_LIST(state,shopList){
+			state.shopList = shopList
+		}
 		
 	}
 })

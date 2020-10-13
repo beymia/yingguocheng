@@ -18,7 +18,7 @@
 			
 			<view class="location">
 				<view class="left">
-					<view class="top">
+					<view class="top" @tap="loca_tap">
 						<view class="loca_icon">
 							<image src="../../static/images/order/location.png" mode=""></image>
 						</view>
@@ -209,7 +209,6 @@
 				menu_list,
 				//下面都是静态默认值
 				order_type_selected:'order_type_selected',
-				orderType:2,
 				title:'英国城',
 				is_notice:false,
 				menu_id_current:1,
@@ -226,7 +225,7 @@
 		},
 		async onLoad() {
 			uni.request({
-			    url: 'http://host.dot_api.com/classify/list', //仅为示例，并非真实接口地址。
+			    url: 'http://api.plg.wugee.net/classify/list', //仅为示例，并非真实接口地址。
 			    data: {
 			    },
 			    header: {
@@ -266,6 +265,11 @@
 						h += data.height
 						item.ht = h
 					}).exec()
+				})
+			},
+			loca_tap(){
+				uni.navigateTo({
+					url:"/pages/chooseShop/chooseShop"
 				})
 			},
 			order_type_tap(type){
