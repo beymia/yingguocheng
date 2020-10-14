@@ -38,7 +38,7 @@ export const qrCode = (data) => ajax('/qr-code/user-code', data, 'post', 1)
 export const recharge = (data) => ajax('/account/recharge', data, 'post', 1)
 //会员月度礼包
 export const monthPack = (data) => ajax('/month/park-list', data, 'post', 1)
-//领取礼包
+//领取月度礼包
 export const receivePack = (data) => ajax('/month/receive-park', data, 'post', 1)
 //骑士会员礼包
 export const interestsPark = (data) => ajax('/interests/park-list', data, 'post', 1)

@@ -1,5 +1,5 @@
 <template>
-  <view class="wallet">
+  <view v-if="reRender" class="wallet">
     <view class="container">
       <view class="head">
         <text class="balance">可用余額</text>
@@ -7,10 +7,23 @@
           <text class="symbol">￥</text>
           <text class="amount">{{ amount||'0' }}</text>
         </view>
-        <text @click="navRecharge({page:'recharge'})" class="btn">立即充值</text>
+        <text @click="rechargeBox = true" class="btn">立即充值</text>
       </view>
       <view class="options">
         <optionsList @options-click="navRecharge" :list="options"></optionsList>
+      </view>
+    </view>
+
+    <view v-if="rechargeBox" class="recharge">
+      <view class="content">
+        <view class="title">整數充值</view>
+        <input v-model="rechargeAmount"
+               type="text"
+               placeholder="請輸入充值金額">
+        <view class="btn">
+          <button plain @click="rechargeBox = false">取消</button>
+          <button plain @click="rechargeStart">充值</button>
+        </view>
       </view>
     </view>
   </view>
@@ -18,7 +31,8 @@
 
 <script>
 import optionsList from "../../components-lk/optionsList/optionsList";
-import {sendCheckCode} from '../../request/api'
+import {recharge, sendCheckCode, userSpace} from '../../request/api'
+const APP = getApp().globalData;
 export default {
   data() {
     return {
@@ -35,12 +49,16 @@ export default {
         icon: 'arrowright'
       },],
       rechargePwd:false,
-      phone:''
+      phone:'',
+      rechargeBox:false,
+      rechargeAmount:'',
+      reRender:1,//用戶充值後強制刷新頁面的條件
     }
   },
   onLoad(options) {
-    this.amount = options.wallet;
-    // this.originPhone = getApp().globalData.userInfo.mobile;
+    console.log(1);
+    this.amount = APP.userInfo.balance
+    // this.originPhone = APP.userInfo.mobile;
     //TODO 测试使用手机号，生产环境需要从全局对象中获取
     this.originPhone = '15660088912'
     this.phone = this.originPhone.replace(/\d/g, function (value, index) {
@@ -51,6 +69,8 @@ export default {
       }
     })
   },
+  mounted(){
+    console.log(1);},
   methods: {
    async navRecharge(v){
       let {page} = v;
@@ -100,7 +120,46 @@ export default {
           }
         }
       })
-    }
+    },
+    async rechargeStart(){
+      if(Number(this.rechargeAmount)){
+        this.rechargeBox = false;
+        uni.showLoading({
+          title:'充值中'
+        })
+        try{
+          await recharge({
+            amount:this.rechargeAmount
+          })
+          uni.hideLoading()
+          uni.showToast({
+            title:'充值成功',
+            icon:'none'
+          })
+          this.rechargeAmount = '';
+          this.reRender = 0;
+          //充值成功後從新獲取用戶信息
+          APP.userInfo = (await userSpace())
+          this.reRender = 1;
+        }catch (e) {
+          console.log(e);
+          uni.hideLoading()
+          uni.showToast({
+            title:'出現了錯誤',
+            icon:'none'
+          })
+        }
+      }
+    },
+  },
+  watch:{
+    rechargeAmount(n,o){
+      let newStr = n.slice(o.length),
+          newNum = parseInt(newStr)
+      if(isNaN(newNum)){
+        this.rechargeAmount = '';
+      }
+    },
   },
   components: {
     optionsList
@@ -161,5 +220,68 @@ export default {
     height: 360rpx;
   }
 }
+  .recharge{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.6);
+    z-index: 1000000;
+
+    .content{
+      width: 480rpx;
+      height: 330rpx;
+      background: #ffffff;
+      border-radius: 20rpx;
+      position: absolute;
+      left: 50%;
+      margin-left: - 240rpx;
+      top:50%;
+      margin-top:-330rpx;
+      text-align: center;
+
+      .title{
+        font-size: $font-weight-base;
+        font-weight:$font-weight-lg;
+        color: $font-color1;
+        margin-top: 50rpx;
+      }
+
+     .btn{
+       width: 100%;
+       display: flex;
+       justify-content: space-around;
+       align-items: center;
+        position: absolute;
+       bottom: 48rpx;
+
+       button{
+         border:none;
+         width: 150rpx;
+         height: 58rpx;
+         background: $main-color;
+         border-radius: 4rpx;
+         font-size: $font-size-sm;
+         color: #ffffff;
+         padding: 0;
+       }
+     }
+
+      input{
+        width: 330rpx;
+        height: 54rpx;
+        border: 1rpx solid #cccccc;
+        border-radius: 8rpx;
+        position: absolute;
+        left: 50%;
+        top: 120rpx;
+        transform: translate(-50%,0);
+        padding: 0 10rpx;
+        box-sizing: border-box;
+        text-align: left;
+      }
+    }
+  }
 }
 </style>

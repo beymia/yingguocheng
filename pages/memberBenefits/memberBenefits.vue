@@ -31,23 +31,54 @@
     </view>
     <!--礼包领取-->
     <view class="pack">
-      <view class="month"></view>
-      <view class="knight"></view>
+      <view class="month">
+        <viwe class="title">
+          <text>每月登記權益</text>
+          <text>根據購買日期，每月容易時間領取</text>
+        </viwe>
+      </view>
+      <view class="knight">
+        <view class="title">
+          <text>{{ user.level_title }}權益</text>
+          <text>{{ user.level_title }}有效期內可以使用</text>
+        </view>
+      </view>
     </view>
   </view>
 </template>
 
 <script>
+import {
+  monthPack,
+  receivePack,
+  interestsPark,
+  receiveKnight
+} from "../../request/api";
+
 const APP = getApp().globalData
 export default {
   data() {
     return {
       user:{},
       exProgress:20,
+      month:[],
+      interests:[]
     }
   },
-  mounted(){
+ async mounted(){
     this.user = APP.userInfo;
+      //不相干的兩個請求，同時發送
+      Promise.all([await monthPack(),await interestsPark()])
+          .then(value=>{
+            console.log(value);
+          }).catch(e=>{
+        console.log(e);
+        uni.showToast({
+          title:'出現了錯誤',
+          icon:'none',
+          duration:2000
+        })
+      })
   },
   methods: {}
 }
@@ -122,6 +153,21 @@ export default {
     }
 
 
+  }
+
+  .pack{
+
+    .title{
+      font-size: $font-weight-base;
+      font-weight: $font-weight-lg;
+      color: $font-color1;
+
+      text:nth-child(2){
+        font-size: $font-size-sm -+ 2rpx;
+        font-weight: $font-weight-base;
+        color: $font-color3;
+      }
+    }
   }
 }
 </style>
