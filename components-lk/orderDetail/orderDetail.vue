@@ -20,7 +20,7 @@
               :key="goodsIndex"
               class="order_goods">
 					<view class="goods_img">
-						<image :src="goods.home_avatar"></image>
+						<image :src="'../../static/images_t/orderForm/shop.png'"></image>
 					</view>
 					<view class="goods_description">
 						<view class="goods_name">

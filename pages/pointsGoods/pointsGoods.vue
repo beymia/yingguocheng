@@ -1,7 +1,7 @@
 <template>
   <view class="points_goods">
     <view class="goods_img">
-      <image :src="'../../static/images_t/pointsMall/template.png'"></image>
+      <image :src="'../../static/images_t/pointsMall/goods.png'"></image>
     </view>
     <view class="description">
       <rich-text :nodes="goods.goods_detail" ></rich-text>

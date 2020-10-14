@@ -56,9 +56,12 @@ export default {
     this.verificationCode = '';
     uni.hideLoading();
     clearInterval(this.countDown)
+    console.log('清除定時器');
   },
   mounted() {
+    this.countDown && clearInterval(this.countDown);
     this.countDown = setInterval(() => {
+      console.log('定時器觸發中',this.timer);
       let self = this;
       self.timer--;
       if (self.timer === 0) {

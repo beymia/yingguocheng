@@ -53,6 +53,8 @@ export default {
 	},
 async	mounted() {
 	  try {
+	    let result = uni.getStorageSync('chat');
+	    result && (this.chatList = result)
       this.chatId = (await initChat()).data.room_id;
       let date = new Date(),
           h = (date.getHours() + '').padStart(2, '0'),
@@ -103,9 +105,12 @@ async	mounted() {
 	},
   //页面不可见或者卸载时清楚定时器
   onHide(){
+    console.log(1)
 	  clearInterval(this.timer)
   },
   onUnload(){
+	  //頁面卸載時在聊天記錄存入本地storage
+    uni.setStorageSync('chat',this.chatList)
 	  clearInterval(this.timer)
   },
   watch: {

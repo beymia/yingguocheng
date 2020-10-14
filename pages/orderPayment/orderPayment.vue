@@ -4,7 +4,7 @@
     <view class="order_payment_head">
       <view :class="['name_method',receivingMethod==='自提'?'one_self':'']">
         <view class="shop_name">
-          <text style="display: inline">{{goodsData.shop_name}}</text>
+          <text style="display: inline">{{ goodsData.shop_name }}</text>
           <uni-icons style="display: inline-block;vertical-align: middle" type="arrowright" size="35"
                      color="#333333"></uni-icons>
           <text v-if="receivingMethod === '自提'">距離您3.0km</text>
@@ -166,6 +166,7 @@
 <script>
 import remarks from "../../components-lk/remarks/remarks";
 
+const APP = getApp().globalData;
 export default {
   data() {
     return {
@@ -185,7 +186,7 @@ export default {
     }
   },
   onLoad() {
-    this.goodsData = getApp().globalData.goodsPayment;
+    this.goodsData = APP.goodsPayment;
     this.receivingMethod = this.goodsData.haul_method;
     //计算订单总金额
     this.goodsData.goods_data.forEach((item) => {
@@ -196,13 +197,13 @@ export default {
     /*
     * 页面展示时从全局对象中获取优惠券的金额
     * */
-    this.discountAmount = getApp().globalData.coupon;
+    this.discountAmount = APP.coupon;
   },
   onUnload() {
     /*
     * 页面卸载时清空优惠券金额
     * */
-    getApp().globalData.coupon = 0;
+    APP.coupon = 0;
   },
   methods: {
     toggleReceiving(method) {
@@ -216,7 +217,7 @@ export default {
       }
     },
     autoFill() {
-      this.userPhone = '17756041449'
+      this.userPhone = APP.userInfo.mobile
     },
     closeRemarks(remarks) {
       this.isRemarks = false;
