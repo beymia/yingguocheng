@@ -26,7 +26,7 @@
 				</view>
 			</view>
 			
-			<map v-if="map_show" :latitude="latitude" :longitude="longitude" class="map"></map>
+			<map v-if="map_show" :latitude="choosedShop.latitude ? choosedShop.latitude : latitude" :longitude="choosedShop.longitude ? choosedShop.longitude :longitude" :markers="markers" class="map"></map>
 			
 			<view class="is_hide_map" v-if="map_show" @tap="map_show=false">
 				<text>收起地圖</text>
@@ -38,16 +38,16 @@
 			</view>
 			
 			<scroll-view scroll-y="true" class="shop_list">
-				<view class="shop_item" :class="{active:true}">
+				<view class="shop_item" :class="{active:items.id == choosedShop.id}" v-for="(items,indexs) in (searchShopList ? searchShopList:shopList)" :key="indexs" @tap="shop_tap(items)">
 					<view class="left">
 						<view class="shop_name">
-							合肥天鵝湖萬達店
+							{{items.shop_name}}
 						</view>
 						<view class="order_waisong">
 							<view class="order">
-								<view class="progress" style="width: 10%;"></view>
+								<view class="progress" :style="{width: items.ocp.progress}"></view>
 								<view class="text">
-									3單/5杯製作中
+									{{items.ocp.order}}單/{{items.ocp.cup}}杯製作中
 								</view>
 							</view>
 							<view class="waisong">
@@ -59,7 +59,7 @@
 								<image src="/static/images/order/location.png" mode=""></image>
 							</view>
 							<view class="loca_text">
-								合肥市淮河中路77號百盛商場第1-2層，鋪位號L1-1
+								{{items.shop_address}}
 							</view>
 						</view>
 						<view class="yysj">
@@ -67,69 +67,24 @@
 								<image src="/static/images/order/clock.png" mode=""></image>
 							</view>
 							<view class="yysj_text">
-								營業時間：10:00-22:00
+								營業時間：{{items.work_time}}-{{items.rest_time}}
 							</view>
 						</view>
 					</view>
-					<view class="right">
-						<view class="text1">
+					<view class="right" @tap="order_tap(items)">
+						<view class="text1" >
 							去下單
 						</view>
 						<view class="text2">
-							距離20.9km
+							距離{{items.distance}}km
 						</view>
 					</view>
-					<view class="shop_right_corner">
+					<view class="shop_right_corner" v-if="items.id == choosedShop.id">
 						<image src="/static/images/order/shop_right_corner.png" mode=""></image>
 					</view>
 				</view>
 				
-				<view class="shop_item" :class="{active:true}">
-					<view class="left">
-						<view class="shop_name">
-							合肥天鵝湖萬達店
-						</view>
-						<view class="order_waisong">
-							<view class="order">
-								<view class="progress" style="width: 10%;"></view>
-								<view class="text">
-									3單/5杯製作中
-								</view>
-							</view>
-							<view class="waisong">
-								可外送
-							</view>
-						</view>
-						<view class="location">
-							<view class="loca_icon">
-								<image src="/static/images/order/location.png" mode=""></image>
-							</view>
-							<view class="loca_text">
-								合肥市淮河中路77號百盛商場第1-2層，鋪位號L1-1
-							</view>
-						</view>
-						<view class="yysj">
-							<view class="clock">
-								<image src="/static/images/order/clock.png" mode=""></image>
-							</view>
-							<view class="yysj_text">
-								營業時間：10:00-22:00
-							</view>
-						</view>
-					</view>
-					<view class="right">
-						<view class="text1">
-							去下單
-						</view>
-						<view class="text2">
-							距離20.9km
-						</view>
-					</view>
-					<view class="shop_right_corner">
-						<image src="/static/images/order/shop_right_corner.png" mode=""></image>
-					</view>
-				</view>
-			<view class="nomore">
+			<view class="nomore" v-if="shopList.length">
 				沒有更多了~
 			</view>
 			</scroll-view>
@@ -138,16 +93,16 @@
 		<!-- 常用開始 -->
 		<view class="content_cy" v-if="!is_xzmd">
 			<scroll-view scroll-y="true" class="shop_list">
-				<view class="shop_item" :class="{active:true}">
+				<view class="shop_item" :class="{active:items.id == choosedShop.id}" v-for="(items,indexs) in cyShopList" :key="indexs" @tap="shop_tap(items)">
 					<view class="left">
 						<view class="shop_name">
-							合肥天鵝湖萬達店
+							{{items.shop_name}}
 						</view>
 						<view class="order_waisong">
 							<view class="order">
-								<view class="progress" style="width: 10%;"></view>
+								<view class="progress" :style="{width: items.ocp.progress}"></view>
 								<view class="text">
-									3單/5杯製作中
+									{{items.ocp.order}}單/{{items.ocp.cup}}杯製作中
 								</view>
 							</view>
 							<view class="waisong">
@@ -159,7 +114,7 @@
 								<image src="/static/images/order/location.png" mode=""></image>
 							</view>
 							<view class="loca_text">
-								合肥市淮河中路77號百盛商場第1-2層，鋪位號L1-1
+								{{items.shop_address}}
 							</view>
 						</view>
 						<view class="yysj">
@@ -167,69 +122,24 @@
 								<image src="/static/images/order/clock.png" mode=""></image>
 							</view>
 							<view class="yysj_text">
-								營業時間：10:00-22:00
+								營業時間：{{items.work_time}}-{{items.rest_time}}
 							</view>
 						</view>
 					</view>
-					<view class="right">
-						<view class="text1">
+					<view class="right" @tap="order_tap(items)">
+						<view class="text1" >
 							去下單
 						</view>
 						<view class="text2">
-							距離20.9km
+							距離{{items.distance}}km
 						</view>
 					</view>
-					<view class="shop_right_corner">
+					<view class="shop_right_corner" v-if="items.id == choosedShop.id">
 						<image src="/static/images/order/shop_right_corner.png" mode=""></image>
 					</view>
 				</view>
 				
-				<view class="shop_item" :class="{active:true}">
-					<view class="left">
-						<view class="shop_name">
-							合肥天鵝湖萬達店
-						</view>
-						<view class="order_waisong">
-							<view class="order">
-								<view class="progress" style="width: 10%;"></view>
-								<view class="text">
-									3單/5杯製作中
-								</view>
-							</view>
-							<view class="waisong">
-								可外送
-							</view>
-						</view>
-						<view class="location">
-							<view class="loca_icon">
-								<image src="/static/images/order/location.png" mode=""></image>
-							</view>
-							<view class="loca_text">
-								合肥市淮河中路77號百盛商場第1-2層，鋪位號L1-1
-							</view>
-						</view>
-						<view class="yysj">
-							<view class="clock">
-								<image src="/static/images/order/clock.png" mode=""></image>
-							</view>
-							<view class="yysj_text">
-								營業時間：10:00-22:00
-							</view>
-						</view>
-					</view>
-					<view class="right">
-						<view class="text1">
-							去下單
-						</view>
-						<view class="text2">
-							距離20.9km
-						</view>
-					</view>
-					<view class="shop_right_corner">
-						<image src="/static/images/order/shop_right_corner.png" mode=""></image>
-					</view>
-				</view>
-			<view class="nomore">
+			<view class="nomore" v-if="shopList.length">
 				沒有更多了~
 			</view>
 			</scroll-view>
@@ -255,12 +165,45 @@
 				longitude: 116.39742,
 				map_show:true,
 				showSearch:false,
+				searchShopList:null,
+				order_cup_progress:[],
 			};
 		},
 		computed:{
-			...mapState(["choosedShopId","shopList"])
+			...mapState(["choosedShop","shopList","cyShopList"]),
+			markers(){
+				return [{
+					latitude:this.choosedShop.latitude,
+					longitude:this.choosedShop.longitude,
+					iconPath: '/static/images/order/mark.png',
+					callout:{
+						content:this.choosedShop.shop_name,
+						display:"ALWAYS"
+					}
+					}]
+			}
 		},
 		onLoad() {
+			this.shopList.forEach(item =>{
+				let order= Math.ceil(Math.random() * 15);
+				let cup =0;
+				do{
+					cup = Math.ceil(Math.random() * 4 * order)
+					console.log(order+":"+cup)
+				}while(cup < order)
+				let progress = cup + '%';
+				item.ocp={
+					order:order,
+					cup:cup,
+					progress:progress
+				}
+			})
+			if(this.shopList.length <= 2){
+				this.SET_CY_SHOP_LIST(this.shopList)
+			}else{
+				let cys= [this.shopList[0],this.shopList[1]]
+				this.SET_CY_SHOP_LIST(cys)
+			}
 			console.log(111111111)
 			wx.getLocation({
 				success(res){
@@ -269,9 +212,20 @@
 			})
 		},
 		methods:{
-			...mapMutations(["SET_CHOOSED_SHOP_ID","SET_SHOP_LIST"]),
-			search_choose(shop_id){
+			...mapMutations(["SET_CHOOSED_SHOP","SET_SHOP_LIST","SET_CY_SHOP_LIST"]),
+			search_choose(shop){
+				this.SET_CHOOSED_SHOP(shop)
+				this.searchShopList=[shop];
 				
+			},
+			shop_tap(shop){
+				this.SET_CHOOSED_SHOP(shop);
+			},
+			order_tap(shop){
+				this.SET_CHOOSED_SHOP(shop);
+				uni.switchTab({
+					url:"/pages/order/order"
+				})
 			}
 		}
 	}
@@ -409,7 +363,7 @@
 							width: 100%;
 							font-size: 12rpx;
 							color: #333333;
-							padding-left: 24rpx;
+							padding-left: 12rpx;
 						}
 					}
 					.waisong{

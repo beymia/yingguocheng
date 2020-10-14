@@ -4,7 +4,7 @@
 		<uni-nav-bar :title="title" statusBar style="">
 			<block slot="left">
 				<view style="height: 35px;line-height: 35px;border-radius: 18px;border: 1px solid #eaeaea;margin-left: 24rpx;padding: 0 15px;display: flex;align-self: center;">
-					<text style="font-size: 17px;color: #666666;" @tap="showPintuan=true">拼</text>
+					<text style="font-size: 17px;color: #666666;" @tap="pin_tap">拼</text>
 					<text style="width: 29px;font-size: 17px;text-align: center;color: #EAEAEA;">|</text>
 					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;" @tap="showSearch=true"></icon>
 				</view>
@@ -173,6 +173,7 @@
 </template>
 
 <script>
+	import judgeLogin from '@/util/judgeLogin.js'
 	import {mapState, mapMutations} from 'vuex'
 	import {menu_list} from './data.js';
 	import actions from './components/actions/actions.vue'
@@ -241,7 +242,7 @@
 			this.$nextTick(() => this.calcSize())
 		},
 		computed:{
-			...mapState(['orderType']),
+			...mapState(['orderType','pintuanType']),
 			productCartNum(id) {	//计算单个饮品添加到购物车的数量
 				return id => this.cart.reduce((acc, cur) => {
 						if(cur.id === id) {
@@ -252,7 +253,7 @@
 			}
 		},
 		methods:{
-			...mapMutations(['SET_ORDER_TYPE']),
+			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE']),
 			calcSize() {
 				let h = 0
 				
@@ -266,6 +267,25 @@
 						item.ht = h
 					}).exec()
 				})
+			},
+			pin_tap(){
+				const token = uni.getStorageSync('token');
+				console.log(token)
+				if(token){
+					this.showPintuan = true
+				}else{
+						uni.showModal({
+						    content: '您還沒有登錄，請先登錄',
+						    success: function (res) {
+						        if (res.confirm) {
+									uni.navigateTo({
+										url:'/pages/login/login'
+									})
+						        } else if (res.cancel) {
+						        }
+						    }
+						});
+				}
 			},
 			loca_tap(){
 				uni.navigateTo({
@@ -383,12 +403,18 @@
 			}
 		},
 		choose_pintuan_type(type){
-			if(type == this.orderType){
-				
+			this.showPintuan=false;
+			if(type==1 ){
+				uni.navigateTo({
+					url:"/pages/userAdress/userAdress?from=pintuan"
+				})
+			}else{
+				this.SET_PINTUAN_TYPE(2)
+				uni.navigateTo({
+					url:"/pages/pintuan/pintuan"
+				})
 			}
-			uni.navigateTo({
-				url:"/pages/pintuan/pintuan"
-			})
+			
 		}
 	},
 }

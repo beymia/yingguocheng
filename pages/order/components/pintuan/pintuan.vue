@@ -1,5 +1,5 @@
 <template>
-	<uni-popup ref="pintuan" type="bottom">
+	<uni-popup ref="pintuan" type="bottom" style="z-index: 996;">
 		<view class="pintuan_type">
 			<view class="title">
 				<view class="left">
