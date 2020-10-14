@@ -31,12 +31,12 @@
     </view>
 
     <!-- 当前订单展示頁面 -->
-    <view v-if="activeFeat==='current'" class="order_detail">
+    <view v-if="activeFeat==='current' && currentOrderForm.data.length " class="order_detail">
       <orderDetail @order-click="orderPayment" :orderFormData="currentOrderForm.data"></orderDetail>
     </view>
 
     <!-- 歷史訂單頁面 -->
-    <view v-if="activeFeat==='history'" class="order_history">
+    <view v-if="activeFeat==='history' && historyOrderForm.data.length " class="order_history">
       <view class="history_head">
         <view class="history_head_content">
           <view>
@@ -100,6 +100,7 @@ export default {
     * */
     sliceOrder() {
       if (!this.historyOrderForm.data || !this.historyOrderForm.data.length) return []
+      this.empty = false;
       this.takeawayOrder = [];
       this.oneSelfOrder = [];
       this.invoiceData = [];
@@ -110,7 +111,7 @@ export default {
           this.oneSelfOrder.push(item)
         }
         //分离未开发票订单
-        if (item.invoice_status === '1') {
+        if (item.invoice_status === '2' && item.pay_status === '已完成') {
           this.invoiceData.push(item)
         }
       });
@@ -127,13 +128,14 @@ export default {
   },
 
   mounted() {
+    this.token = APP.userToken;
     this.getOrderForm()
+    this.loginBoxShow = this.token;
   },
 
   methods: {
     //獲取數據
     async getOrderForm() {
-      this.token = getApp().globalData.userToken;
       //用戶登錄成功時再去獲取訂單信息
       if (this.token) {
         //token有值就隐藏登陆提示框
@@ -142,7 +144,6 @@ export default {
           let result = await this.requestOrder()
           console.log(result);
           if (!result) {
-            console.log(1);
             this.empty = true;
             return
           }
@@ -175,10 +176,15 @@ export default {
         //第一页的数据只请求一次
         if (!this.historyOrderForm.data.length) {
           this.historyOrderForm.data = await this.requestOrder()
+        }else{
+          this.empty = false;
         }
       } else {
         this.headNavText = '想對你說'
         this.headNAVIcon = 'email'
+        if(!this.currentOrderForm.data.length){
+          this.empty = true;
+        }
       }
     },
 
@@ -195,10 +201,6 @@ export default {
         url: '/pages/orderPayment/orderPayment',
       })
     },
-  },
-
-  watch:{
-    activeFeat(){}
   },
 
   components: {

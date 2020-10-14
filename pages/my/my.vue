@@ -3,7 +3,7 @@
     <!-- 头部背景 -->
     <view class="profile_head">
       <view class="head_bg">
-        <image mode="widthFix" src="https://ftp.bmp.ovh/imgs/2020/10/8c6c3cfa0054d546.png"></image>
+        <image mode="widthFix" src="../../static/images_t/my/head_bg.png"></image>
       </view>
       <view class="head_logo">
         <text>英国城</text>
@@ -134,19 +134,26 @@ export default {
           page = 'customerService';
           break;
         case '消息中心':
-          page = '';
+          page = 'messageCenter';
           break;
         case '更多':
           page = 'more';
           break;
       }
       if (page === 'wallet') {
-        if (!(APP.userInfo.has_pwd)) {
+        if (!(APP.userInfo.pay_pwd)) {
           uni.navigateTo({
             url: '/pages/setPassword/setPassword'
           })
           return;
         }
+      }
+      //用户已经开通会员时跳转会员权益
+      if(page === 'joinMember' && this.userInfo.level_title !=='普通会员'){
+        uni.navigateTo({
+          url:'/pages/memberBenefits/memberBenefits'
+        })
+        return;
       }
       uni.navigateTo({
         url: `/pages/${page}/${page}?${this.query}=${v}`,

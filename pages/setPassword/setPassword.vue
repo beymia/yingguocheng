@@ -50,11 +50,9 @@ export default {
              title:'请稍后'
            });
            //TODO 生产环境需删除设置的token
-           getApp().globalData.userToken = '1';
            let result = await setPwd({
-             token:getApp().globalData.userToken,
              password:this.pwd,
-             verify_pwd:value
+             veify_pwd:value
            })
            uni.hideLoading()
            uni.redirectTo({

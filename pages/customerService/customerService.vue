@@ -17,101 +17,106 @@
 			</view>
 
 			<!--具體聊天內容-->
-			<view class="detail">
-				<view class="left">
-					<view class="left_item content">
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-						<text>客服</text>
-					</view>
-					<view class="left_item content">
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-						<text>客服</text>
-					</view>
-					<view class="left_item content">
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-						<text>客服</text>
-					</view>
-					<view class="left_item content">
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-						<text>客服</text>
-					</view>
-					<view class="left_item content">
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-						<text>客服</text>
-					</view>
-					<view class="left_item content">
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-						<text>客服</text>
-					</view>
-					<view class="left_item content">
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-						<text>客服</text>
-					</view>
-				</view>
-				<view class="right">
-					<view class="right_item content">
-						<text>用戶</text>
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-					</view>
-					<view class="right_item content">
-						<text>用戶</text>
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-					</view>
-					<view class="right_item content">
-						<text>用戶</text>
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-					</view>
-					<view class="right_item content">
-						<text>用戶</text>
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-					</view>
-					<view class="right_item content">
-						<text>用戶</text>
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-					</view>
-					<view class="right_item content">
-						<text>用戶</text>
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-					</view>
-					<view class="right_item content">
-						<text>用戶</text>
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-					</view>
-					<view class="right_item content">
-						<text>用戶</text>
-						<image src="../../static/images_t/my/user_avatar.png"></image>
-					</view>
-				</view>
+      <view class="detail">
+        <view v-for="(msg,index) in chatList" :key="index">
+          <view :class="[msg.type==='server'?'left':'right']">
+            <view class="left_item content">
+              <text v-if="msg.type==='user'">{{msg.msg}}</text>
+              <image  :src="msg.type==='user'?'../../static/images_t/my/user_avatar.png' : '../../static/images_t/customerService/server.png'"></image>
+              <text v-if="msg.type!=='user'">{{msg.msg}}</text>
+            </view>
+          </view>
+        </view>
 			</view>
 		</view>
 		<!--用戶輸入框-->
 		<view class="user_input">
-			<input type="text" />
-			<button plain>發送</button>
+			<input v-model="userMsg" type="text" />
+			<button @click="sendMessage" plain>發送</button>
 		</view>
 		<view class="empty"></view>
 	</view>
 </template>
 
 <script>
+import {initChat,sendMsg,receiveMsg} from "../../request/api";
+
 export default {
 	data() {
 		return {
 			initTime: 0,
-			record: []
+      chatList:[],
+      chatId:'',
+      userMsg:'',
+      chatStart:false,
 		};
 	},
-	mounted() {
-		let date = new Date(),
-			h = (date.getHours() + '').padStart(2, '0'),
-			m = (date.getMinutes() + '').padStart(2, '0');
-		this.initTime = h + ':' + m;
+async	mounted() {
+	  try {
+      this.chatId = (await initChat()).data.room_id;
+      let date = new Date(),
+          h = (date.getHours() + '').padStart(2, '0'),
+          m = (date.getMinutes() + '').padStart(2, '0');
+      this.initTime = h + ':' + m;
+    }catch (e){
+	    uni.showToast({
+        title:'发生了错误',
+        icon:'none',
+        duration:2000
+      })
+      console.log(e);
+    }
 	},
 	methods: {
+	  //发送用户消息
+   async sendMessage(){
+     //空字符直接返回，不做处理
+     if(!(this.userMsg.trim())) return;
+      this.chatList.push({
+        msg:this.userMsg,
+        type:'user'
+      })
+      try{
+        await sendMsg({
+          msg:this.userMsg,
+          rid:this.chatId
+        })
+        this.userMsg = '';
+        this.chatStart = true;
+      } catch (e){
+        console.log(e);
+        uni.showToast({
+          title:'发生了错误',
+          icon:'none',
+          duration:2000
+        })
+      }
+    },
+    //接收消息
+   async receiveMessage(){
+     let msg = (await receiveMsg()).data.msg
+     return {msg,type:'server'}
+   },
 		toBack() {
 			uni.navigateBack();
-		}
-	}
+		},
+	},
+  //页面不可见或者卸载时清楚定时器
+  onHide(){
+	  clearInterval(this.timer)
+  },
+  onUnload(){
+	  clearInterval(this.timer)
+  },
+  watch: {
+    chatStart(value) {
+      if (value) {
+        this.timer = setInterval(async () => {
+          this.chatList.push(await this.receiveMessage())
+        }, 2000)
+      }
+    }
+  }
 };
 </script>
 
@@ -194,7 +199,6 @@ image {
 		box-sizing: border-box;
 
 		.content {
-			display: inline-block;
 			height: 80rpx;
 			display: flex;
 			align-items: center;

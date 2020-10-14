@@ -1,5 +1,5 @@
 <template>
-  <view class="empty">{{title}}</view>
+  <view :style="{'top': top +'%'}"  class="empty">{{title}}</view>
 </template>
 
 <script>
@@ -9,6 +9,10 @@ export default {
     title:{
       type:String,
       default:'沒有更多的數據了~~~'
+    },
+    top:{
+      type:String,
+      default: '50'
     }
   }
 }
@@ -16,11 +20,9 @@ export default {
 
 <style scoped lang="scss">
 .empty {
-  width: 100vw;
-  height: 90vh;
-  line-height: 60vh;
+  width: 100%;
   position: fixed;
-  top: 0;
+  top: 50%;
   left:0;
   text-align: center;
 }

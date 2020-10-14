@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import {record} from "../../request/api";
+import {exchangeRecord} from "../../request/api";
 
 export default {
   data() {
@@ -39,11 +39,9 @@ export default {
     }
   },
   async mounted(){
-    this.token = getApp().globalData.userToken;
-    this.record = (await record({
-      token:this.token,
+    this.record = (await exchangeRecord({
       page:this.page,
-    }))
+    })).data
     console.log(this.record);
   },
   computed: {

@@ -6,9 +6,9 @@
         <text>可用積分</text>
         <text>{{ integral }}</text>
         <view class="spend">
-          <text @click="navPage('pointsDetails')">積分明細</text>
+          <text @click="navPage({page:'pointsDetails'})">積分明細</text>
           <view class="empty"></view>
-          <text @click="navPage('exchangeRecord')">兌換記錄</text>
+          <text @click="navPage({page:'exchangeRecord'})">兌換記錄</text>
         </view>
       </view>
       <view class="integral_img">
@@ -21,12 +21,14 @@
     <!--積分商品-->
     <view class="integral_goods">
       <view class="head">
-        <text @click="active='GO'" :class="active==='GO'?'active_goods':''">GO會員專區</text>
-        <text @click="active='planet'" :class="active==='planet'?'active_goods':''">星球會員專區</text>
+        <text @click="active='knight'" :class="active==='knight'?'active_goods':''">骑士會員專區</text>
+        <text @click="active='jazz'" :class="active==='jazz'?'active_goods':''">爵士會員專區</text>
       </view>
-        <view class="goods_container">
+      <noMoreData v-if="!convertList.length"></noMoreData>
+        <view v-else class="goods_container">
           <!--商品條目-->
           <view class="goods_item"
+                @click="navPage({page:'pointsGoods',v:goods.id})"
                 v-for="(goods,index) in convertList"
                 :key="index">
             <view class="goods_img">
@@ -54,44 +56,46 @@ export default {
     return {
       integral: 0,
       convertList: [],
-      GOList:[],
-      planetList:[],
-      active: 'GO'
+      knightList:[],
+      jazzList:[],
+      active: 'knight'
     }
   },
   onLoad(options) {
     this.integral = options.integral;
   },
   async mounted() {
-    //TODO: 生產環境需要刪除自定义的用户token
-    getApp().globalData.userToken = '1'
     this.token = getApp().globalData.userToken
     if (!this.token) return;
-    this.GOList = await this.getConvertList()
-    this.convertList = this.GOList
+    this.knightList = await this.getConvertList()
+    this.convertList = this.knightList
   },
   methods: {
     //请求积分商品数据
     async getConvertList() {
-      return (await convert({token: this.token, type: this.active === 'GO' ? 2 : 1})).data
+      let result = (await convert({authority_type: this.active === 'knight' ? 2 : 1})).data
+      if(!result){
+        result = []
+      }
+      return result
     },
     //
-    navPage(page){
-      console.log(1);
+    navPage(p){
+      let {page,v} = p;
       uni.navigateTo({
-        url:`/pages/${page}/${page}`
+        url:`/pages/${page}/${page}?params=${v}`
       })
     }
   },
   watch: {
     async active(value) {
-      if (!this.planetList.length) {
-        this.planetList = await this.getConvertList();
+      if (!this.jazzList.length) {
+        this.jazzList = await this.getConvertList();
       }
-      if(value === 'GO'){
-        this.convertList = this.GOList
-      }else if(value ==='planet'){
-        this.convertList = this.planetList
+      if(value === 'knight'){
+        this.convertList = this.knightList
+      }else if(value ==='jazz'){
+        this.convertList = this.jazzList
       }
     }
   }

@@ -4,7 +4,7 @@
       <template>
         <view class="content">
           <view class="user_info">
-            <image :src="user.user_avatar"></image>
+            <image src="../../static/images_t/my/user_avatar.png"></image>
             <view>{{ user.user_name }}</view>
           </view>
 <!--          <view class="payment">-->
@@ -41,26 +41,24 @@ export default {
   async onLoad() {
     this.user = getApp().globalData.userInfo;
     await this.QRcode();
-    this.timer = setTimeout(async ()=>{
+    this.timer = setInterval(async ()=>{
       await this.QRcode()
       console.log(1);
     },30000)
   },
   methods: {
     async QRcode() {
-      this.qrCodeData = (await qrCode({
-        token: getApp().globalData.userToken
-      })).data
+      this.qrCodeData = (await qrCode({})).data
     },
     usedWallet(){
       this.isWallet = !this.isWallet
     }
   },
   onHide(){
-    clearTimeout(this.timer)
+    clearInterval(this.timer)
   },
   onUnload(){
-    clearTimeout(this.timer)
+    clearInterval(this.timer)
   },
   components: {
     popUpLayer
@@ -91,6 +89,9 @@ image {
       color: #000000;
       margin-bottom: 50rpx;
       margin-top: -75rpx;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
       image{
         width: 130rpx;

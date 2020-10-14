@@ -12,8 +12,8 @@
              :class="['item',i!== d.data.length-1?'borderBottom':'']">
           <view>
             <view>
-              <text>当前：{{ p.current_price }}</text>
-              <text>剩余：{{ p.consume_price }}</text>
+              <text>原有：{{ p.current_price }}</text>
+              <text>剩余：{{ p.surplus_price }}</text>
             </view>
             <view>
               <text>{{ p.created_at }}</text>
@@ -22,8 +22,8 @@
           <view>
             <text>{{
                 p.consume_status === '扣款'
-                    ? '-' + p.surplus_price
-                    : '+' + p.surplus_price
+                    ? '-' + p.consume_price
+                    : '+' + p.consume_price
               }}
             </text>
           </view>
@@ -46,12 +46,13 @@ export default {
   async mounted() {
     this.token = getApp().globalData.userToken;
     this.details = (await pointsDetails({
-      token: this.token,
       page: this.page,
-    }))
+    })).data;
+
   },
   computed: {
     spliceData() {
+      console.log(this.details);
       let spliceObj = {},
           temp = []
       this.details.forEach((item, index) => {

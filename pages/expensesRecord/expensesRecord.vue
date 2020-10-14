@@ -12,7 +12,7 @@
               :class="['item',i!== d.data.length-1?'borderBottom':'']">
           <view>
             <view>
-              <text>当前：{{ p.current_price }}</text>
+              <text>原有：{{ p.current_price }}</text>
               <text>剩余：{{ p.consume_price }}</text>
             </view>
             <view>
@@ -46,9 +46,8 @@ export default {
   async mounted() {
     this.token = getApp().globalData.userToken;
     this.record = (await expensesRecord({
-      token: this.token,
       page: this.page,
-    }))
+    })).data
   },
   computed: {
     spliceData() {

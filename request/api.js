@@ -1,12 +1,11 @@
 const ajax = require('./ajax')
 
-//开发环境下需要开启本地后端服务，生产环境需要替换api地址,测试地址不适用于
-
+//true是请求时携带token，false为不携带
 
 //订单详情
-export const orderForm = (data) => ajax('/user/order', data, 'post',1)
-//用户信息
-export const userSpace = (data) => ajax('/user/user-info', data, 'post',1)
+export const orderForm = (data) => ajax('/user/order', data, 'post', 1)
+//开发票
+export const invoice = (data) => ajax('/invoice-apply/create-apply', data, 'post', 1)
 //发送验证码
 export const sendCheckCode = (data) => ajax('/sms/login-sms', data, 'post')
 //效验验证码
@@ -14,14 +13,43 @@ export const verifyCode = (data) => ajax('/sms/verify-sms', data, 'post')
 //登录&注册
 export const login = (data) => ajax('/login/login', data, 'post')
 //积分商城
-export const convert = (data) => ajax('/convert/list', data, 'post')
+export const convert = (data) => ajax('/convert/list', data, 'post', 1)
+//积分明细
+export const pointsDetails = (data) => ajax('/record/integral-notes', data, 'post', 1)
+//积分兑换记录
+export const exchangeRecord = (data) => ajax('/integral/convert-record', data, 'post', 1)
+//積分商品詳情
+export const pointsGoodsDetail = (data)=>ajax('/convert/detail',data,'post',1)
+//積分兌換禮品
+export const redeemGifts = (data)=>ajax('/convert/convert',data,'post',1)
+//用户信息
+export const userSpace = (data) => ajax('/user/user-info', data, 'post', 1)
 //开通会员
 export const joinMember = (data) => ajax('/account/service-pay', data, 'post')
+//优惠券
+export const discount = (data) => ajax('/ticket/tickets', data, 'post', 1)
+//设置交易密码
+export const setPwd = (data) => ajax('/user/setpwd', data, 'post', 1)
+//消费记录
+export const expensesRecord = (data) => ajax('/record/balance-notes', data, 'post', 1)
+//会员二维码
+export const qrCode = (data) => ajax('/qr-code/user-code', data, 'post', 1)
+//充值钱包
+export const recharge = (data) => ajax('/account/recharge', data, 'post', 1)
+//会员月度礼包
+export const monthPack = (data) => ajax('/month/park-list', data, 'post', 1)
+//领取礼包
+export const receivePack = (data) => ajax('/month/receive-park', data, 'post', 1)
+//骑士会员礼包
+export const interestsPark = (data) => ajax('/interests/park-list', data, 'post', 1)
+//领取骑士会员礼包
+export const receiveKnight = (data) => ajax('', data, 'post', 1)
+//消息中心
+export const msgCenter = (data) => ajax('/msg-center/list', data, 'post', 1)
 
-export const discount = (data) => ajax('http://localhost:3000/discount', data, 'post')
-export const setPwd = (data) => ajax('http://localhost:3000/setpassword', data, 'post')
-export const qrCode = (data) => ajax('http://localhost:3000/qrcode', data, 'post')
-export const pointsDetails = (data) => ajax('http://localhost:3000/pointsdetails', data, 'post')
-export const record = (data) => ajax('http://localhost:3000/record', data, 'post')
-export const expensesRecord = (data) => ajax('http://localhost:3000/expensesrecord', data, 'post')
-export const changeCode = (data) => ajax('http://localhost:3000/changecode', data, 'post')
+//初始化聊天室
+export const initChat = (data) => ajax('/dialog/init-dialog', data, 'post', 1)
+//發送消息
+export const sendMsg = (data) => ajax('/dialog/send-msg', data, 'post', 1)
+//接受消息
+export const receiveMsg = (data) => ajax('/dialog/latest-dialog', data, 'post', 1)
