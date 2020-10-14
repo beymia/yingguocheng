@@ -4,8 +4,7 @@
 		<uni-nav-bar :title="title" statusBar style="" >
 			<block slot="left">
 				<view style="height: 35px;line-height: 35px;border-radius: 18px;border: 1px solid #eaeaea;margin-left: 24rpx;padding: 0 15px;display: flex;align-self: center;">
-					<text style="font-size: 17px;color: #666666;" @tap="pin_tap" v-if="!showSearch">拼</text>
-					<text style="font-size: 17px;color: #666666;" v-else>拼</text>
+					<uni-icons type="arrowleft" size="34" color="#333333"></uni-icons>
 					<text style="width: 29px;font-size: 17px;text-align: center;color: #EAEAEA;">|</text>
 					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;" @tap="showSearch=true"></icon>
 				</view>
@@ -19,12 +18,12 @@
 			
 			<view class="location">
 				<view class="left">
-					<view class="top" @tap="loca_tap">
+					<view class="top" >
 						<view class="loca_icon">
 							<image src="../../static/images/order/location.png" mode=""></image>
 						</view>
 						<view class="shop_adress">{{choosedShop.shop_address.length<=9 ? choosedShop.shop_address:choosedShop.shop_address.substr(0,8)+"..." }}</view>
-						<uni-icons type="arrowright" size="35" color="#333333"></uni-icons>
+						<!-- <uni-icons type="arrowright" size="35" color="#333333"></uni-icons> -->
 					</view>
 					<view class="bottom">
 						<view class="shop_tab_icon">
@@ -39,16 +38,8 @@
 					</view>
 					
 				</view>
-				<view class="right">
-					<view   class="order_type " :class="orderType==2?'order_type_selected':''" @tap="order_type_tap(2)">
-						自取
-					</view>
-					<view  class="order_type " :class="orderType==1?'order_type_selected':''" @tap="order_type_tap(1)">
-						外賣
-					</view>
-					<view  class="order_type " :class="orderType==3?'order_type_selected':''" @tap="order_type_tap(3)">
-						堂食
-					</view>
+				<view class="pintuan_type">
+					{{pintuanType == 1 ? "外賣":"自取"}}
 				</view>
 			</view>
 			<!-- 位置、自取、外卖、堂食end -->
@@ -237,7 +228,7 @@
 			this.$nextTick(() => this.calcSize())
 		},
 		computed:{
-			...mapState(['orderType','pintuanType','choosedShop','choosedAddress']),
+			...mapState(['orderType','pintuanType','choosedShop']),
 			productCartNum(id) {	//计算单个饮品添加到购物车的数量
 				return id => this.cart.reduce((acc, cur) => {
 						if(cur.id === id) {
@@ -248,7 +239,7 @@
 			}
 		},
 		methods:{
-			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE','SET_CHOOSED_SHOP','SET_CHOOSED_ADDRESS']),
+			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE','SET_CHOOSED_SHOP']),
 			calcSize() {
 				let h = 0
 				
@@ -320,7 +311,7 @@
 			handleAddToCart(good) {	//添加到购物车
 			console.log(this.productCartNum());
 				const index = this.cart.findIndex(item => {
-					if(good.materials.length) {
+					if(!good.is_single) {
 						return (item.id == good.id) && (item.materials_text == good.materials_text)
 					} else {
 						return item.id === good.id
@@ -410,40 +401,6 @@
 				})
 			}
 			
-		},
-		pay(price){
-			var app = getApp();
-			var order_info={};
-			var goods =[];
-			var goods_data = [];
-			this.cart.filter(item => item.is_checked==true).forEach(item =>{
-				let good ={};
-				good.id = item.id;
-				good.goods_name = item.name;
-				good.goods_price = item.truePrice;
-				good.home_avatar = item.imgurl;
-				good.norm = item.materials_text;
-				good.norm_id = item.norm_id ? item.norm_id : [];
-				good.goods_num =item.number;
-				goods_data.push(good);
-				
-			})
-			order_info.goods_data = goods_data;
-			order_info.shop_id = this.choosedShop.id
-			order_info.shop_name = this.choosedShop.shop_name
-			order_info.payment_info = price
-			order_info.address_id = this.choosedAddress.id
-			order_info.contact_name = this.choosedAddress.contact_name
-			order_info.contact_sex = this.choosedAddress.contact_sex
-			order_info.contact_phone = this.choosedAddress.contact_phone
-			order_info.contact_address = this.choosedAddress.contact_address
-			order_info.contact_number = this.choosedAddress.contact_number
-			app.globalData.orderInfo = order_info;
-			uni.navigateTo({
-				url:'/pages/orderPayment/orderPayment'
-			})
-			
-			
 		}
 	},
 }
@@ -452,4 +409,10 @@
 
 <style lang="scss" scoped>
 	@import "order.scss";
+	.pintuan_type{
+			font-size: 22rpx;
+			color: #333333;
+			background: #f2f2f2;
+			padding: 6rpx 10rpx;
+	}
 </style>

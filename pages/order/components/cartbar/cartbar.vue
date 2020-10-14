@@ -93,7 +93,7 @@ export default {
 			this.bagIconVisible=true
 		},
 		pay() {
-			this.$emit('pay')
+			this.$emit('pay',this.cartPrice)
 		},
 		popChange(isshow){
 			if(isshow){

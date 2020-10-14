@@ -8,6 +8,7 @@ const store = new Vuex.Store({
 	state: {
 		orderType: 1,
 		pintuanType:2,
+		token:'KbJ3eQFi3+ErJg4sgHvRxzc0Yjk0ODAzNTY2NjhkNTFkYjdjZGNkYmJjM2ZkYjdhNjY3M2ZkMmUyOWU0NGM3OTMxZTRlZWQ4ZjlhOWQ0ZDahZmrINdB5avDmJea/ep06Hunl39st/eQkAe13k7TmIQ==',
 		choosedShop:{
 			"id": "15989536458951855",
 			"shop_name": "天觀商城店",
@@ -19,6 +20,15 @@ const store = new Vuex.Store({
 			"current_order": "0",
 			"current_cups": "0",
 			"distance": 2.24
+		},
+		choosedAddress:{
+			"id": "16007580462028548",
+			"contact_name": "张三",
+			"contact_sex": "先生",
+			"contact_phone": "17714012698",
+			"contact_address": "合肥市蜀山区梅山路107号",
+			"contact_number": "人民政府办公大楼10楼107",
+			"default_status": "1"
 		},
 		shopList:[{
 			"id": "15992871171146972",
@@ -108,6 +118,9 @@ const store = new Vuex.Store({
 		},
 		SET_PINTUAN_TYPE(state,pintuanType){
 			state.pintuanType = pintuanType
+		},
+		SET_CHOOSED_ADDRESS(state,choosedAddress){
+			state.choosedAddress = choosedAddress
 		}
 		
 	}

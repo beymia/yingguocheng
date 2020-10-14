@@ -12,11 +12,11 @@
 				<view class="form-item">
 					<view class="label">性别</view>
 					<view class="radio" @tap="form.gender = !form.gender">
-						<image :src="form.gender ? '/static/images/addUserAdress/round-black-selected.png' : '/static/images/addUserAdress/gouxuankuang.png' "></image>
+						<image :src="form.gender ? '/static/images/userAdress/round-black-selected.png' : '/static/images/userAdress/gouxuankuang.png' "></image>
 						<view>先生</view>
 					</view>
 					<view class="radio" @tap="form.gender = !form.gender">
-						<image :src="!form.gender ? '/static/images/addUserAdress/round-black-selected.png' : '/static/images/addUserAdress/gouxuankuang.png'"></image>
+						<image :src="!form.gender ? '/static/images/userAdress/round-black-selected.png' : '/static/images/userAdress/gouxuankuang.png'"></image>
 						<view>女士</view>
 					</view>
 				</view>
@@ -33,7 +33,7 @@
 				<view class="form-item">
 					<view class="label">收貨地址</view>
 					<input type="text" @tap="chooseLocation" v-model="form.address" placeholder="點擊選擇" placeholder-class="placeholder"/>
-					<image src="/static/images/addUserAdress/icon_jump_black3.png" class="jump-icon"></image>
+					<image src="/static/images/userAdress/icon_jump_black3.png" class="jump-icon"></image>
 				</view>
 			</list-cell>
 			<view class="border"></view>
@@ -48,7 +48,7 @@
 			<list-cell padding="30rpx" last>
 				<view class="form-item">
 					<view class="radio" @tap="form.is_default = !form.is_default">
-						<image :src="form.is_default ? '/static/images/addUserAdress/round-black-selected.png' : '/static/images/addUserAdress/gouxuankuang.png'  "></image>
+						<image :src="form.is_default ? '/static/images/userAdress/round-black-selected.png' : '/static/images/userAdress/gouxuankuang.png'  "></image>
 						<view>设为默认地址</view>
 					</view>
 				</view>

@@ -83,19 +83,22 @@
 		computed: {
 			//获取所选的规格和实际的价格
 			getProductSelectedMaterials() {
-				if(!this.productData.is_single && this.productData.materials) {
+				if(this.productData.materials && this.productData.materials.length) {
 					let materials = [];
 					let truePrice=this.productData.price;
+					let norm_id =[]
 					this.productData.materials.forEach(({values}) => {
 						values.forEach(value => {
 							if(value.is_selected) {
 								truePrice += Number(value.price || 0);
 								materials.push(value.name)
+								norm_id.push(value.id)
 							}
 						})
 					})
 					// this.productData.truePrice=truePrice;
 					this.$set(this.productData,"truePrice",truePrice)
+					this.productData.norm_id = norm_id
 					return materials.length ? materials.join('，') : ''
 				}
 				return ''
