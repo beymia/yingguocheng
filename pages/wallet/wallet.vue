@@ -13,24 +13,12 @@
         <optionsList @options-click="navRecharge" :list="options"></optionsList>
       </view>
     </view>
-    <view v-if="rechargePwd"
-          class="recharge_pwd">
-      <view>充值交易密碼</view>
-      <view>
-        <text>短信驗證碼將發送到已綁定的手機</text>
-        <view>{{}}</view>
-      </view>
-      <view class="btn">
-        <button></button>
-        <button></button>
-      </view>
-    </view>
   </view>
 </template>
 
 <script>
 import optionsList from "../../components-lk/optionsList/optionsList";
-
+import {sendCheckCode} from '../../request/api'
 export default {
   data() {
     return {
@@ -52,7 +40,9 @@ export default {
   },
   onLoad(options) {
     this.amount = options.wallet;
-    this.originPhone = getApp().globalData.userInfo.mobile;
+    // this.originPhone = getApp().globalData.userInfo.mobile;
+    //TODO 测试使用手机号，生产环境需要从全局对象中获取
+    this.originPhone = '15660088912'
     this.phone = this.originPhone.replace(/\d/g, function (value, index) {
       if (index >= 3 && index <= 7) {
         return 'x'
@@ -62,7 +52,7 @@ export default {
     })
   },
   methods: {
-    navRecharge(v){
+   async navRecharge(v){
       let {page} = v;
       switch (page){
         case '消費記錄':
@@ -72,27 +62,43 @@ export default {
             page = 'memberCode';
             break;
             case '重置交易密碼':
-              uni.showModal({
-                title:'重置交易密碼',
-                content:'短信驗證碼將發送已綁定手機\n'+this.phone,
-                success(o){
-                  //點擊確定進入重置密碼頁面
-                  if(o.confirm){
-                    uni.showLoading({
-                      title:'正在發送驗證碼'
-                    })
-                    uni.navigateTo({
-                      url:'/pages/checkCode/checkCode?change=1',
-                      success(){
-                        uni.hideLoading()
-                      }
-                    })
-                  }
-                }
-              })
+           await this.changePayPwd()
       }
       uni.navigateTo({
         url:  `/pages/${page}/${page}`
+      })
+    },
+    changePayPwd(){
+     let self = this;
+      uni.showModal({
+        title: '重置交易密碼',
+        content: '短信驗證碼將發送已綁定手機\n' + this.phone,
+        async success(o) {
+          try {
+            //點擊確定進入重置密碼頁面
+            if (o.confirm) {
+              uni.showLoading({
+                title: '正在發送驗證碼'
+              })
+              //发送验证码
+              let result = await sendCheckCode({mobile: self.originPhone})
+              uni.navigateTo({
+                url: '/pages/checkCode/checkCode?change=1',
+                success() {
+                  uni.hideLoading()
+                }
+              })
+            }
+          } catch (e) {
+            console.log(e);
+            uni.hideLoading();
+            uni.showToast({
+              title: '验证码发送失败',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        }
       })
     }
   },

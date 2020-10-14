@@ -1,7 +1,9 @@
 <template>
   <view class="bulk_invoice">
+    <noMoreData v-if="!invoiceData.length"></noMoreData>
     <view v-for="(invoice,index) in invoiceData"
           :key="index"
+          v-else
           @click="invoiceChange(index)"
           class="invoice_container">
         <view class="invoice_content">
@@ -49,6 +51,7 @@ export default {
     }
   },
   onLoad(options) {
+    console.log(options);
     this.invoiceData = JSON.parse(options.invoice)
   },
   methods: {
@@ -66,12 +69,15 @@ export default {
       console.log(this.orderId);
     },
 
+    //点击选择全部
     clickSelectAll(e) {
       this.amount = 0;
       this.count = 0;
+      this.orderId = [];
       this.selectAll = !this.selectAll;
       this.invoiceData.forEach((item) => {
-        if (this.selectAll) {item.check = true;
+        if (this.selectAll) {
+          item.check = true;
           this.amount += parseFloat(item.payment_info)
           this.count = this.invoiceData.length;
           this.orderId.push(item.id)

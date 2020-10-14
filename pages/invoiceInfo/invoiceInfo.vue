@@ -89,7 +89,9 @@
 </template>
 
 <script>
-	export default {
+import {invoice} from "../../request/api";
+
+export default {
 		data() {
 			return {
 			  invoiceAmount:0,
@@ -105,7 +107,7 @@
       this.orderId = options.id;
     },
 		methods: {
-      invoicing() {
+     async invoicing() {
         let {email, type, lookUp, lookUpContent, identify} = this;
 
         //填寫不完整提示信息,發票抬頭為個人是抬頭內容可以不寫
@@ -120,7 +122,7 @@
 
         //驗證郵箱格式是否正確
         let reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        this.$nextTick(() => {
+        this.$nextTick(async () => {
           if (!(reg.test(this.email))) {
             uni.showToast({
               title: '邮箱格式错误',
@@ -144,7 +146,33 @@
               identify_id: identify
             }
 
+            //个人抬头并且没有个人识别号删除个人识别号字段
+            if(this.lookUp === 2 && !this.lookUpContent){
+              delete invoiceInfoObj.identify_id;
+            }
             //TODO此處申請發票，invoiceInfoObj為傳參對象
+            try{
+              //申请开票，开票成功后跳转到订单页面
+              let result = (await invoice(invoiceInfoObj))
+              uni.hideLoading()
+              uni.showToast({
+                title:'申请成功',
+                icon:'none',
+                duration:2000,
+                success(){
+                  uni.redirectTo({
+                    url:'/pages/orderForm/orderForm'
+                  })
+                }
+              })
+            }catch (e){
+              uni.hideLoading()
+              uni.showToast({
+                title:'出现了错误',
+                icon:'none',
+                duration:2000
+              })
+            }
           }
         })
       },

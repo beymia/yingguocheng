@@ -148,9 +148,8 @@ export default {
 						/* #endif */
 						
             //將token賦值給全局對象並且存入本地storage中
-						console.log(result)
-            APP.userToken = result.token;
-            uni.setStorageSync('token', result.token)
+            APP.userToken = result.data.token;
+            uni.setStorageSync('token',APP.userToken)
             uni.switchTab({
               url: '/pages/home/home',
               success() {

@@ -3,7 +3,7 @@
 		<!--用户的基本信息-->
 		<view class="user_basic">
 			<view class="user_avatar">
-				<image :src="user.user_avatar"></image>
+				<image src="../../../static/images_t/my/user_avatar.png"></image>
 			</view>
 			<view class="name_vip">
 				<view class="name">

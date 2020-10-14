@@ -11,7 +11,7 @@ function ajax(url, data = {}, method = 'GET', h) {
 
 	header['Content-Type'] = 'application/x-www-form-urlencoded'
 
-	let baseURL = 'http://api.plg.wugee.net'
+	let baseURL = '/api'
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: baseURL + url,
@@ -19,7 +19,7 @@ function ajax(url, data = {}, method = 'GET', h) {
 			method,
 			header,
 			success(result) {
-				if (result.statusCode !== 200) reject(result)
+				if (result.statusCode !== 200 || result.data.code === 1001) reject(result)
 				resolve(result.data)
 			},
 			fail(err) {

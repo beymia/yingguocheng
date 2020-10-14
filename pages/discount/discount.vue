@@ -19,6 +19,7 @@
 import discountModule from "../../components-lk/discountModule/discountModule";
 import {discount} from "../../request/api";
 
+const APP = getApp().globalData;
 export default {
   data() {
     return {
@@ -29,36 +30,42 @@ export default {
     }
   },
 
-  async mounted(){
-    console.log(await this.requestDiscount(1));
+  async mounted() {
+    this.token = APP.userToken;
     this.unUsed = await this.requestDiscount(1)
+    this.used = await this.requestDiscount(2)
+    this.fail = await this.requestDiscount(3)
   },
 
   methods: {
     //點擊使用優惠券
     useCoupon(amount) {
-      getApp().globalData.coupon = amount;
-      uni.navigateBack({
-        url: '/pages/orderPayment/orderPayment',
-      })
+      if (this.activeDiscount === 'unUsed') {
+        APP.coupon = amount;
+        uni.navigateBack({
+          url: '/pages/orderPayment/orderPayment',
+        })
+      } else {
+        uni.showToast({
+          title: '无法使用',
+          icon: 'none',
+          duration: 2000
+        })
+      }
     },
 
     //請求優惠券信息
     async requestDiscount(type) {
       try {
-        //TODO 生產環境需要刪除設置的token
-        getApp().globalData.userToken = '1'
-        this.token = getApp().globalData.userToken;
         if (this.token) {
-          return (await discount({
-            token: this.token,
-            type,
-          })).data
-        }else{
+          let result = (await discount({type,})).data
+          !result && (result = [])
+          return result
+        } else {
           uni.showToast({
-            title:'請先登錄',
-            duration:2000,
-            icon:'none'
+            title: '請先登錄',
+            duration: 2000,
+            icon: 'none'
           })
           return []
         }
