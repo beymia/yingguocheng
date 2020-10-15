@@ -14,7 +14,7 @@
     </view>
 
     <!-- 無訂單展示的页面 用戶沒有登錄，或者登錄後訂單數據為空時展示-->
-    <view v-if="empty" class="empty_order">
+    <view v-if="isEmpty" class="empty_order">
       <view class="empty_img">
         <image src="../../static/images_t/orderForm/orderFormEmpty.png"></image>
       </view>
@@ -99,7 +99,6 @@ export default {
     * 訂單數據為空直接返回，不做處理
     * */
     sliceOrder() {
-      if (!this.historyOrderForm.data || !this.historyOrderForm.data.length) return []
       this.empty = false;
       this.takeawayOrder = [];
       this.oneSelfOrder = [];
@@ -120,52 +119,39 @@ export default {
       }
       return this.takeawayOrder
     },
+    isEmpty(){
+      if(this.activeFeat === 'current'){
+        console.log(!(this.currentOrderForm.data.length));
+        return !(this.currentOrderForm.data.length)
+      }else if(this.activeFeat === 'history'){
+        return !(this.historyOrderForm.data.length)
+      }
+    },
   },
 
   //頁面每次展示都重新獲取本地storage中的token值
   onShow() {
-    this.token = APP.userToken;
+    this.loginBoxShow=this.token = APP.userToken;
   },
 
-  mounted() {
-    this.token = APP.userToken;
-    this.getOrderForm()
-    this.loginBoxShow = this.token;
+  async mounted() {
+    this.loginBoxShow=this.token = APP.userToken;
+    try{
+      this.currentOrderForm.data=(await this.requestOrder(1,this.currentOrderForm.page) || [])
+      this.historyOrderForm.data=(await this.requestOrder(2,this.historyOrderForm.page) ||[])
+    }catch (e) {
+      console.log(e);
+      uni.showToast({
+        title:'订单获取失败',
+        icon:'none',
+      })
+    }
   },
 
   methods: {
-    //獲取數據
-    async getOrderForm() {
-      //用戶登錄成功時再去獲取訂單信息
-      if (this.token) {
-        //token有值就隐藏登陆提示框
-        this.loginBoxShow = true;
-        try {
-          let result = await this.requestOrder()
-          console.log(result);
-          if (!result) {
-            this.empty = true;
-            return
-          }
-          //如果没有接收到数据则展示订单为空
-          this.empty = false;
-          this.activeFeat === 'history' ? this.historyOrderForm = result : this.currentOrderForm = result
-        } catch (e) {
-          console.log(e)
-          uni.showToast({
-            title: '訂單獲取失敗',
-            duration: 2000,
-            icon: 'none'
-          })
-        }
-      }
-    },
     //请求数据，已经有数据后不再请求
-    async requestOrder() {
-      return (await orderForm({
-        type: this.activeFeat === 'history' ? 2 : 1,
-        page: this.activeFeat === 'history' ? this.historyOrderForm.page : this.currentOrderForm.page,
-      })).data;
+    async requestOrder(type,page) {
+      return (await orderForm({type, page})).data;
     },
 
     async toggleFeat(feat) {
@@ -174,17 +160,9 @@ export default {
         this.headNavText = '英國城探秘'
         this.headNAVIcon = '';
         //第一页的数据只请求一次
-        if (!this.historyOrderForm.data.length) {
-          this.historyOrderForm.data = await this.requestOrder()
-        }else{
-          this.empty = false;
-        }
       } else {
         this.headNavText = '想對你說'
         this.headNAVIcon = 'email'
-        if(!this.currentOrderForm.data.length){
-          this.empty = true;
-        }
       }
     },
 

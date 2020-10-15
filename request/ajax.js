@@ -11,7 +11,12 @@ function ajax(url, data = {}, method = 'GET', h) {
 
 	header['Content-Type'] = 'application/x-www-form-urlencoded'
 
+	/* #ifndef MP*/
 	let baseURL = '/api'
+	/* #endif*/
+	/* #ifdef MP*/
+	let baseURL = 'http://api.plg.wugee.net/'
+	/* #endif*/
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: baseURL + url,

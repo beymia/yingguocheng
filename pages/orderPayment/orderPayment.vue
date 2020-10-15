@@ -186,6 +186,7 @@ export default {
     }
   },
   onLoad() {
+    console.log(APP.goodsPayment);
     this.goodsData = APP.goodsPayment;
     this.receivingMethod = this.goodsData.haul_method;
     //计算订单总金额

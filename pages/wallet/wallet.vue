@@ -5,7 +5,7 @@
         <text class="balance">可用余額</text>
         <view>
           <text class="symbol">￥</text>
-          <text class="amount">{{ amount||'0' }}</text>
+          <text class="amount">{{ amount || '0' }}</text>
         </view>
         <text @click="rechargeBox = true" class="btn">立即充值</text>
       </view>
@@ -32,6 +32,7 @@
 <script>
 import optionsList from "../../components-lk/optionsList/optionsList";
 import {recharge, sendCheckCode, userSpace} from '../../request/api'
+
 const APP = getApp().globalData;
 export default {
   data() {
@@ -48,11 +49,11 @@ export default {
         title: '重置交易密碼',
         icon: 'arrowright'
       },],
-      rechargePwd:false,
-      phone:'',
-      rechargeBox:false,
-      rechargeAmount:'',
-      reRender:1,//用戶充值後強制刷新頁面的條件
+      rechargePwd: false,
+      phone: '',
+      rechargeBox: false,
+      rechargeAmount: '',
+      reRender: 1,//用戶充值後強制刷新頁面的條件
     }
   },
   onLoad(options) {
@@ -69,27 +70,30 @@ export default {
       }
     })
   },
-  mounted(){
-    console.log(1);},
+  mounted() {
+    console.log(1);
+  },
   methods: {
-   async navRecharge(v){
+    //导航到对应的页面
+    async navRecharge(v) {
       let {page} = v;
-      switch (page){
+      switch (page) {
         case '消費記錄':
           page = 'expensesRecord';
           break;
-          case '掃碼支付':
-            page = 'memberCode';
-            break;
-            case '重置交易密碼':
-           await this.changePayPwd()
+        case '掃碼支付':
+          page = 'memberCode';
+          break;
+        case '重置交易密碼':
+          await this.changePayPwd()
       }
       uni.navigateTo({
-        url:  `/pages/${page}/${page}`
+        url: `/pages/${page}/${page}`
       })
     },
-    changePayPwd(){
-     let self = this;
+    //修改支付密码
+    changePayPwd() {
+      let self = this;
       uni.showModal({
         title: '重置交易密碼',
         content: '短信驗證碼將發送已綁定手機\n' + this.phone,
@@ -121,42 +125,85 @@ export default {
         }
       })
     },
-    async rechargeStart(){
-      if(Number(this.rechargeAmount)){
+    //支付功能
+    async rechargeStart() {
+      let self = this;
+      if (Number(this.rechargeAmount)) {
         this.rechargeBox = false;
-        uni.showLoading({
-          title:'充值中'
-        })
-        try{
-          await recharge({
-            amount:this.rechargeAmount
-          })
-          uni.hideLoading()
-          uni.showToast({
-            title:'充值成功',
-            icon:'none'
-          })
-          this.rechargeAmount = '';
-          this.reRender = 0;
-          //充值成功後從新獲取用戶信息
-          APP.userInfo = (await userSpace())
-          this.reRender = 1;
-        }catch (e) {
+        try {
+          //获取支付信息
+          let orderInfo = (await recharge({
+            amount: this.rechargeAmount
+          })).data;
+          /* #ifndef H5*/
+          try {
+            uni.getProvider({
+              service: 'payment',
+              async success(result) {
+                await self.uniPayment(orderInfo, result)
+              },
+            })
+          } catch (e) {
+            console.log(e);
+            uni.showToast({
+              title: '出现了错误',
+              icon: 'none'
+            })
+          }
+          /* #endif*/
+        } catch (e) {
           console.log(e);
           uni.hideLoading()
           uni.showToast({
-            title:'出現了錯誤',
-            icon:'none'
+            title: '出現了錯誤',
+            icon: 'none'
           })
         }
       }
     },
+    //调用uni-app的通用支付接口
+    async uniPayment(orderInfo, result) {
+      try {
+        let {signType, paySign} = orderInfo
+        uni.requestPayment({
+          provider: result.provider,
+          orderInfo,
+          timeStamp: (Date.parse(new Date())).toString(),
+          nonceStr: Math.random().toString(36).substr(2, 15),
+          package: orderInfo.package,
+          signType,
+          paySign,
+          //支付接口调取成功
+          async success(e) {
+            console.log(e);
+            this.rechargeAmount = '';
+            this.reRender = 0;
+            //充值成功後從新獲取用戶信息
+            APP.userInfo = (await userSpace())
+            this.reRender = 1;
+          },
+          //支付接口调取失败
+          fail(e) {
+            console.log(e);
+            uni.showToast({
+              title: '出现了错误',
+              icon: 'none'
+            })
+          },
+        })
+      } catch (e) {
+        uni.showToast({
+          title: '出现了错误',
+          icon: 'none'
+        })
+      }
+    }
   },
-  watch:{
-    rechargeAmount(n,o){
+  watch: {
+    rechargeAmount(n, o) {
       let newStr = n.slice(o.length),
           newNum = parseInt(newStr)
-      if(isNaN(newNum)){
+      if (isNaN(newNum)) {
         this.rechargeAmount = '';
       }
     },
@@ -174,52 +221,52 @@ export default {
   padding-top: 100rpx;
   box-sizing: border-box;
 
-.container{
-  width: 100%;
-  padding: 0 24rpx;
-  box-sizing: border-box;
-
-  .head{
+  .container{
     width: 100%;
-    height: 174rpx;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 154rpx;
+    padding: 0 24rpx;
+    box-sizing: border-box;
 
-    .balance{
-      font-size: $font-size-lg;
-      font-weight: $font-weight-lg;
-      color: $font-color1;
+    .head{
+      width: 100%;
+      height: 174rpx;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 154rpx;
+
+      .balance{
+        font-size: $font-size-lg;
+        font-weight: $font-weight-lg;
+        color: $font-color1;
+      }
+      .symbol{
+        font-size: $font-size-lg;
+        font-weight: $font-weight-lg;
+        color: $font-color1;
+      }
+      .amount{
+        font-size: 60rpx;
+        font-weight: $font-weight-lg;
+        color: $font-color1;
+      }
+      .btn{
+        display: inline-block;
+        width: 320rpx;
+        height: 80rpx;
+        background: $main-color;
+        font-size: $font-size-base;
+        color: #ffffff;
+        text-align: center;
+        line-height: 80rpx;
+      }
     }
-    .symbol{
-      font-size: $font-size-lg;
-      font-weight: $font-weight-lg;
-      color: $font-color1;
-    }
-    .amount{
-      font-size: 60rpx;
-      font-weight: $font-weight-lg;
-      color: $font-color1;
-    }
-    .btn{
-      display: inline-block;
-      width: 320rpx;
-      height: 80rpx;
-      background: $main-color;
-      font-size: $font-size-base;
-      color: #ffffff;
-      text-align: center;
-      line-height: 80rpx;
+
+    .options {
+      width: 100%;
+      height: 360rpx;
     }
   }
-
-  .options {
-    width: 100%;
-    height: 360rpx;
-  }
-}
   .recharge{
     width: 100vw;
     height: 100vh;
@@ -248,25 +295,25 @@ export default {
         margin-top: 50rpx;
       }
 
-     .btn{
-       width: 100%;
-       display: flex;
-       justify-content: space-around;
-       align-items: center;
+      .btn{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
         position: absolute;
-       bottom: 48rpx;
+        bottom: 48rpx;
 
-       button{
-         border:none;
-         width: 150rpx;
-         height: 58rpx;
-         background: $main-color;
-         border-radius: 4rpx;
-         font-size: $font-size-sm;
-         color: #ffffff;
-         padding: 0;
-       }
-     }
+        button{
+          border:none;
+          width: 150rpx;
+          height: 58rpx;
+          background: $main-color;
+          border-radius: 4rpx;
+          font-size: $font-size-sm;
+          color: #ffffff;
+          padding: 0;
+        }
+      }
 
       input{
         width: 330rpx;

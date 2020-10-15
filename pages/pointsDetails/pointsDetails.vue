@@ -1,6 +1,7 @@
 <template>
   <view class="points_details">
-    <noMoreData v-if="!spliceData||spliceData.length===0"></noMoreData>
+    <noMoreData v-if="spliceData.length===0"></noMoreData>
+
     <view v-else
           class="content"
           v-for="(d,index) in spliceData"
@@ -44,15 +45,24 @@ export default {
     }
   },
   async mounted() {
-    this.token = getApp().globalData.userToken;
-    this.details = (await pointsDetails({
-      page: this.page,
-    })).data;
+    try{
+      this.token = getApp().globalData.userToken;
+      this.details = ((await pointsDetails({
+        page: this.page,
+      })).data || []);
+      console.log(this.details);
+    }catch (e){
+      console.log(e);
+      uni.showToast({
+        title:'出现了错误',
+        icon:'none'
+      })
+    }
 
   },
   computed: {
     spliceData() {
-      console.log(this.details);
+      if(this.details.length === 0) return []
       let spliceObj = {},
           temp = []
       this.details.forEach((item, index) => {

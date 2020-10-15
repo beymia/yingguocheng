@@ -108,6 +108,7 @@ export default {
                 url:'/pages/setPassword/setPassword',
               })
             }catch (e){
+              console.log(e);
               uni.showToast({
                 title:'驗證碼錯誤',
                 icon:'none',

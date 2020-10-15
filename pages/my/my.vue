@@ -31,6 +31,7 @@
     <!-- #ifdef H5-->
     <view class="empty"></view>
     <!-- #endif-->
+    <loginBox v-if="!loginBoxShow" @close-login-box="loginBoxShow = true"></loginBox>
   </view>
 </template>
 
@@ -42,6 +43,7 @@ import {
 import userInfo from "./components/userInfo";
 import giftPack from "./components/giftPack";
 import optionsList from "../../components-lk/optionsList/optionsList";
+import loginBox from "../../components-lk/loginBox/loginBox";
 
 const APP = getApp().globalData;
 
@@ -71,30 +73,41 @@ export default {
       }, {
         title: '更多',
         icon: 'arrowright'
-      }]
+      }],
+      loginBoxShow:false,
     }
   },
   async mounted() {
-    try{
-      uni.showLoading({
-        title:'請稍後'
-      })
-			this.token = APP.userToken
-      if (this.token) {
-        this.userInfo = (await userSpace()).data;
-        APP.userInfo = this.userInfo;
-      }
-      uni.hideLoading()
-    }catch (e){
-      uni.hideLoading()
-      uni.showToast({
-        title:'需要登錄',
-        icon:'none',
-        duration:2000
-      })
+    await this.getUserInfo()
+  },
+  async onShow(){
+   this.loginBoxShow = this.token = APP.userToken;
+    if(this.token&&!this.userInfo.user_name){
+      await this.getUserInfo()
     }
   },
   methods: {
+    //请求用户信息
+   async getUserInfo(){
+     try{
+       uni.showLoading({
+         title:'請稍後'
+       })
+       this.loginBoxShow = this.token = APP.userToken
+       if (this.token) {
+         this.userInfo = (await userSpace()).data;
+         APP.userInfo = this.userInfo;
+       }
+       uni.hideLoading()
+     }catch (e){
+       uni.hideLoading()
+       uni.showToast({
+         title:'需要登錄',
+         icon:'none',
+         duration:2000
+       })
+     }
+    },
     //跳转至對應的頁面
     navFitPage(aims) {
       console.log(aims);
@@ -166,7 +179,8 @@ export default {
   components: {
     userInfo,
     giftPack,
-    optionsList
+    optionsList,
+    loginBox
   }
 }
 </script>

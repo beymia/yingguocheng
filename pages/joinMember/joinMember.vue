@@ -100,7 +100,7 @@
 import giftPack from "../my/components/giftPack";
 import optionsList from "../../components-lk/optionsList/optionsList";
 
-import {joinmember} from "../../request/api";
+import {memberRechargeInfo} from "../../request/api";
 
 export default {
   data() {
@@ -110,7 +110,11 @@ export default {
     }
   },
   async mounted() {
-    this.memberInfo = (await joinmember()).data[0]
+    try{
+      this.memberInfo = (await memberRechargeInfo()).data[0]
+    }catch (e){
+      console.log(e);
+    }
   },
   methods: {},
   components:{

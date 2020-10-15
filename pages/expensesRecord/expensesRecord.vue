@@ -45,9 +45,15 @@ export default {
   },
   async mounted() {
     this.token = getApp().globalData.userToken;
-    this.record = (await expensesRecord({
-      page: this.page,
-    })).data
+    try{
+
+    }catch (e){
+      console.log(e);
+      uni.showToast({
+        title:'出现了错误',
+        icon:'none'
+      })
+    }
   },
   computed: {
     spliceData() {

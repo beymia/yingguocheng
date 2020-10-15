@@ -46,6 +46,8 @@ export const interestsPark = (data) => ajax('/interests/park-list', data, 'post'
 export const receiveKnight = (data) => ajax('', data, 'post', 1)
 //消息中心
 export const msgCenter = (data) => ajax('/msg-center/list', data, 'post', 1)
+//会员充值信息
+export const memberRechargeInfo = (data)=>ajax('/config/recharge-level',data,'post',1)
 
 //初始化聊天室
 export const initChat = (data) => ajax('/dialog/init-dialog', data, 'post', 1)

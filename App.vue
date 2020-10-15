@@ -11,7 +11,7 @@ export default {
     choosed_address: {},//用户选择的地址
   },
   onLaunch: function () {
-    // TODO 生產環境取消注釋
+    // TODO 生產環境取消注釋L
     this.globalData.userToken=uni.getStorageSync('token')
     console.log('App Launch');
   },
