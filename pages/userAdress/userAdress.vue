@@ -27,7 +27,7 @@
 								</view>
 							</view>
 							<view class="edit">
-								<image src="/static/images/userAdress/edit.png" mode="" @tap.stop="edit(address.id)"></image>
+								<image src="/static/images/userAdress/edit.png" mode="" @tap.stop="edit(address)"></image>
 							</view>
 						</view>
 						<template v-slot:right>
@@ -60,6 +60,7 @@
 <script>
 	import {mapState, mapMutations} from 'vuex'
 	import listCell from '@/components-lk/list-cell/list-cell.vue'
+	import {userAddresses,address_delete} from '@/request/api_y.js'
 	
 	export default {
 		components: {
@@ -73,11 +74,34 @@
 		computed: {
 			...mapState(['orderType','choosedAddress','userAddresses']),
 		},
-		onLoad({from}) {
+		async onLoad({from}) {
+			/* const token = uni.getStorageSync('token');
+			if(!token){
+				uni.showModal({
+				    content: '您還沒有登錄，請先登錄',
+				    success: function (res) {
+				        if (res.confirm) {
+							uni.redirectTo({
+								url:'/pages/login/login'
+							})
+				        } else if (res.cancel) {
+							uni.navigateBack({
+								delta:1
+							})
+				        }
+				    }
+				});
+				return
+			}
+			
+			let uddresses = (await userAddresses()).data;
+			this.SET_USER_ADDRESSES(uddresses); */
+			
 			console.log('from:'+from)
 			if(from){
 				this.from = from;
 			}
+			
 		},
 		methods: {
 			...mapMutations(['SET_ORDER_TYPE','SET_CHOOSED_ADDRESS','SET_USER_ADDRESSES']),
@@ -86,8 +110,8 @@
 					url: '/pages/addUserAdress/addUserAdress'
 				})
 			},
-			edit(id) {
-				getApp().globalData.edit_address_id = id;
+			edit(address) {
+				getApp().globalData.edit_address = address;
 				uni.navigateTo({
 					url: '/pages/addUserAdress/addUserAdress?is_edit=true'
 				})
@@ -120,15 +144,17 @@
 					
 				})
 			},
-			delete_address(id){
-				var t=this.userAddresses.splice(this.userAddresses.findIndex(item => item.id == id),1)
-				if(t){
+			async delete_address(id){
+				let code = (await address_delete({address_id:id})).code;
+				if(code == 1000){
+					this.userAddresses.splice(this.userAddresses.findIndex(item => item.id == id),1)
 					uni.showToast({
 					    title: '删除成功',
 					    duration: 1000,
 						icon:"none",
 					});
 				}
+
 				
 				
 			}

@@ -73,7 +73,11 @@
             }
         },
         "sdkConfigs" : {
-            "maps" : {}
+            "maps" : {
+                "qqmap" : {
+                    "key" : "MBTBZ-2PMKR-QARWA-W7MOH-AJ76K-6HB2J"
+                }
+            }
         }
     }
 }

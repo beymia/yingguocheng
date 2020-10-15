@@ -187,6 +187,7 @@
 	import search from './components/search/search.vue'
 	import rest from './components/rest/rest.vue'
 	import pintuan from './components/pintuan/pintuan.vue'
+	import {shop_list,shop_detail,goods_list,goods_detail} from '@/request/api_y.js'
 	export default{
 		components:{
 			actions,
@@ -201,7 +202,6 @@
 			return {
 				menu_list,
 				//下面都是静态默认值
-				order_type_selected:'order_type_selected',
 				title:'英国城',
 				is_notice:false,
 				menu_id_current:1,
@@ -217,10 +217,17 @@
 			}
 		},
 		async onLoad() {
+			 console.log("order onLoad")
+			 await this.init()
+			 console.log(this.spl)
 			this.$nextTick(() => this.calcSize())
 		},
+		onShow() {
+			this.handle_from()
+		},
+		
 		computed:{
-			...mapState(['orderType','pintuanType','choosedShop','choosedAddress']),
+			...mapState(['orderType','pintuanType','choosedShop','choosedAddress','orderFrom','shopList']),
 			contact_number(){
 				console.log(this.choosedAddress)
 				if(this.choosedAddress.contact_number ){
@@ -241,7 +248,10 @@
 				}
 			},
 			notice_list(){
-				return this.choosedShop.detail.scroll_ad
+				if(this.choosedShop){
+					return this.choosedShop.detail.scroll_ad
+				}
+				
 			},
 			productCartNum(id) {	//计算单个饮品添加到购物车的数量
 				return id => this.cart.reduce((acc, cur) => {
@@ -256,7 +266,7 @@
 			}
 		},
 		methods:{
-			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE','SET_CHOOSED_SHOP','SET_CHOOSED_ADDRESS']),
+			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE','SET_CHOOSED_SHOP','SET_CHOOSED_ADDRESS','SET_ORDER_FROM','SET_SHOP_LIST']),
 			calcSize() {
 				let h = 0
 				
@@ -270,6 +280,16 @@
 						item.ht = h
 					}).exec()
 				})
+			},
+			handle_from(){
+				switch(this.orderFrom){
+					case 'home_tssx':
+						let menu = this.menu_list.find(item => item.menu_name == '特色手信')
+						this.menu_id_current=menu.id;
+						this.goods_scrollTop = menu.top+Math.random();
+						this.SET_ORDER_FROM('');
+						break;
+				}
 			},
 			pin_tap(){
 				const token = uni.getStorageSync('token');
@@ -469,6 +489,50 @@
 				url:'/pages/orderPayment/orderPayment'
 			})
 			
+			
+		},
+		async init(){
+			var latitude = 0;
+			var longitude = 0
+			uni.getLocation({
+				type:'gcj02',
+				altitude:true,
+				success: async (res) => {
+					// #ifndef H5
+					latitude = res.latitude
+					longitude = res.longitude
+					// #endif
+					
+					// #ifdef H5
+					//H5下使用騰訊地圖webservice接口
+					let res2 = await new Promise((resolve, reject) => {
+						uni.request({
+							url:'https://apis.map.qq.com/ws/location/v1/ip?key=MBTBZ-2PMKR-QARWA-W7MOH-AJ76K-6HB2J',
+							success(result) {
+								if (result.statusCode !== 200 ) reject(result)
+								resolve(result.data)
+							},
+							fail(err) {
+								reject(err)
+							}
+						})
+					}).catch(e => {})
+					console.log(res2)
+					latitude = res2.result.location.lat
+					longitude = res2.result.location.lng
+					// #endif
+					
+					let spl= (await shop_list({latitude:latitude,longitude:longitude})).data
+					console.log('latitude:'+latitude+'longitude:'+longitude)
+					console.log(spl)
+					this.SET_SHOP_LIST(spl)
+					this.shopList.forEach( async item =>{
+					let shop_detail2=(await shop_detail({shop_id:item.id})).data
+					console.log(shop_detail2)
+					 
+					})
+				}
+			})
 			
 		}
 	},

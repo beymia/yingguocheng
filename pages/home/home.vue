@@ -2,12 +2,12 @@
 	<view class="page">
 		<uni-status-bar></uni-status-bar>
 		<view style="height: 44px;display: flex;justify-content: center;margin-bottom: 30rpx;">
-			<image src="../../static/icon/home_selected.png"  mode="aspectFit"></image>
+			<image :src="home_images.logo[0]"  mode="aspectFit"></image>
 		</view>
 		<view class="container">
 			<!-- 首页轮播图start -->
 			<swiper class="swiper-wrap" :indicator-dots="swiper.dots" :indicator-color="swiper.indicator_color" :indicator-active-color='swiper.indicator_active_color' :autoplay="swiper.autoplay" :circular='swiper.circular' :interval="swiper.interval" :duration="swiper.duration">
-				<swiper-item class="swiper-item" v-for="(item,index) in swiper.images_src">
+				<swiper-item class="swiper-item" v-for="(item,index) in home_images.poster">
 						<image :src="item" mode=""></image>
 				</swiper-item>
 			</swiper>
@@ -112,22 +112,29 @@
 
 <script>
 	import {mapState, mapMutations} from 'vuex'
+	import {home_images} from '@/request/api_y.js'
+	import {userSpace} from '@/request/api.js'
 	export default {
 		data() {
 			return {
 				//以下均为默认值，将在onload时从后台获取新值替换
-				swiper: {dots:false,indicator_color:'',indicator_active_color:'',autoplay:true,circular:true,interval:5000,duration:1000,images_src:['/static/images_t/home/swiper01.png','/static/images_t/home/swiper01.png','/static/images_t/home/swiper01.png']},
+				swiper: {dots:false,indicator_color:'',indicator_active_color:'',autoplay:true,circular:true,interval:5000,duration:1000},
 				integral:0,
+				home_images:{
+					poster:['/static/images_t/home/swiper01.png',
+					'/static/images_t/home/swiper01.png','/static/images_t/home/swiper01.png'],
+					logo:['../../static/icon/home_selected.png']
+				},
 			}
 		},
-		onLoad() {
-			
+		async onLoad() {
+			await this.init()
 		},
 		computed:{
-			...mapState(['orderType','pintuanType','choosedShop','choosedAddress']),
+			...mapState(['orderType','orderFrom']),
 		},
 		methods: {
-			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE','SET_CHOOSED_SHOP','SET_CHOOSED_ADDRESS']),
+			...mapMutations(['SET_ORDER_TYPE','SET_ORDER_FROM']),
 			mdzq(){
 				this.SET_ORDER_TYPE(2)
 				uni.switchTab({
@@ -135,7 +142,7 @@
 				})
 			},
 			waimai(){
-				uni.switchTab({
+				uni.navigateTo({
 					url:'/pages/userAdress/userAdress'
 				})
 			},
@@ -156,6 +163,18 @@
 				})
 			},
 			tssx(){
+				this.SET_ORDER_FROM('home_tssx')
+				uni.switchTab({
+					url:'/pages/order/order'
+				})
+			},
+			async init(){
+				this.home_images = (await home_images({})).data;
+				console.log(this.home_images)
+				const token = uni.getStorageSync('token');
+				if(token){
+					this.integral = (await userSpace({})).data.integral
+				}
 				
 			}
 		}

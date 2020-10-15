@@ -9,6 +9,7 @@ const store = new Vuex.Store({
 		orderType: 2,
 		pintuanType:2,
 		token:'KbJ3eQFi3+ErJg4sgHvRxzc0Yjk0ODAzNTY2NjhkNTFkYjdjZGNkYmJjM2ZkYjdhNjY3M2ZkMmUyOWU0NGM3OTMxZTRlZWQ4ZjlhOWQ0ZDahZmrINdB5avDmJea/ep06Hunl39st/eQkAe13k7TmIQ==',
+		orderFrom:'',
 		choosedAddress:{
 			"id": "16007580462028548",
 			"contact_name": "张三",
@@ -33,7 +34,7 @@ const store = new Vuex.Store({
 						"contact_phone": "1684852698",
 						"contact_address": "合肥市瑶海区",
 						"contact_number": "天悦公园b12",
-						"default_status": "0"
+						"default_status": "2"
 		}],
 		choosedShop:{
 			"id": "15989536458951855",
@@ -154,6 +155,9 @@ const store = new Vuex.Store({
 		},
 		SET_USER_ADDRESSES(state,userAddresses){
 			state.userAddresses = userAddresses
+		},
+		SET_ORDER_FROM(state,orderFrom){
+			state.orderFrom = orderFrom
 		},
 		
 		

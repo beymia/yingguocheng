@@ -20,9 +20,9 @@
 				</template>
 				<view style="display: flex;flex-direction: column;">
 					<view class="price">￥{{ cartPrice }}</view>
-					<template v-if="choosedShop">
-						<text v-if="restMoney" style="font-size: 18rpx;color: #DD524D;">滿￥{{choosedShop.detail.lowest_cost}}起送，還差￥{{restMoney}}元</text>
-						<text v-else style="font-size: 18rpx;color: #6d9fc1;">另需配送費￥{{choosedShop.detail.delivery_cost}}元</text>
+					<template v-if="orderType == 1">
+						<text v-if="restMoney" style="font-size: 18rpx;color: #353535;margin-left: 5px;">滿￥{{choosedShop.detail.lowest_cost}}起送，還差￥{{restMoney}}元</text>
+						<text v-else style="font-size: 18rpx;color: #353535;margin-left: 5px;">另需配送費￥{{choosedShop.detail.delivery_cost}}元</text>
 					</template>
 					
 				</view>
@@ -36,6 +36,7 @@
 
 <script>
 // import uniTransition from '@/components/uni-transition/uni-transition.vue'
+import {mapState, mapMutations} from 'vuex'
 import cartPopup from '../cart-popup/cart-popup.vue'
 
 export default {
@@ -55,6 +56,7 @@ export default {
 		}
 	},
 	computed: {
+		...mapState(['orderType']),
 		cartNum() { //计算购物车总数
 			return this.cart.reduce((acc, cur) => acc + cur.number, 0)
 		},
@@ -98,6 +100,7 @@ export default {
 		}
 	},
 	methods: {
+		...mapMutations(['SET_ORDER_TYPE']),
 		details() {
 			this.$refs['cartPopup'].open()
 			this.bagIconVisible=false

@@ -210,6 +210,16 @@
 					console.log(res)
 				}
 			})
+			console.log("shop onLoad")
+		},
+		onShow() {
+			console.log("shop onShow")
+		},
+		onHide() {
+			console.log("shop onHide")
+		},
+		onUnload() {
+			console.log("shop onUnload")
 		},
 		methods:{
 			...mapMutations(["SET_CHOOSED_SHOP","SET_SHOP_LIST","SET_CY_SHOP_LIST"]),

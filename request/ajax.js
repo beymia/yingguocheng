@@ -31,7 +31,7 @@ function ajax(url, data = {}, method = 'GET', h) {
 				reject(err)
 			}
 		})
-	})
+	}).catch(e => {})
 }
 
 module.exports = ajax
