@@ -63,7 +63,7 @@
 						this.close()
 					}
 				},
-				// immediate: true
+				 // immediate: true
 			}
 		},
 		data(){

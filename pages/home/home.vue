@@ -1,6 +1,9 @@
 <template>
 	<view class="page">
-		
+		<uni-status-bar></uni-status-bar>
+		<view style="height: 44px;display: flex;justify-content: center;margin-bottom: 30rpx;">
+			<image src="../../static/icon/home_selected.png"  mode="aspectFit"></image>
+		</view>
 		<view class="container">
 			<!-- 首页轮播图start -->
 			<swiper class="swiper-wrap" :indicator-dots="swiper.dots" :indicator-color="swiper.indicator_color" :indicator-active-color='swiper.indicator_active_color' :autoplay="swiper.autoplay" :circular='swiper.circular' :interval="swiper.interval" :duration="swiper.duration">
@@ -12,7 +15,7 @@
 			
 			<!-- 主体目录start -->
 			<view class="menu1">
-				<view class="submenu1">
+				<view class="submenu1" @tap="mdzq">
 					<view class="item1">
 						<image src="/static/images/home/cup.png" mode=""></image>
 					</view>
@@ -23,7 +26,7 @@
 						下單免排隊
 					</view>
 				</view>
-				<view class="submenu2">
+				<view class="submenu2" @tap="waimai">
 					<view class="item1">
 						<image src="/static/images/home/motorbike.png" mode=""></image>
 					</view>
@@ -34,7 +37,7 @@
 						無需接觸 送茶到家
 					</view>
 				</view>
-				<view class="submenu3">
+				<view class="submenu3" @tap="tangshi">
 					<view class="item1">
 						<image src="/static/images/home/eatIn.jpg" mode=""></image>
 					</view>
@@ -65,7 +68,7 @@
 					<view class="item1">
 						<image src="../../static/images/home/feature.png" mode=""></image>
 					</view>
-					<view class="item2">
+					<view class="item2" @tap="tssx">
 							特色手信
 					</view>
 				</view>
@@ -83,7 +86,7 @@
 			
 			<!-- 积分start -->
 			<view class="integral">
-				<view class="myIntegral">
+				<view class="myIntegral" @tap='jifen'>
 					<view class="item1">
 						我的積分 {{integral}}
 					</view>
@@ -91,7 +94,7 @@
 						可兌換奶茶券和豐富靈感周邊
 					</view>
 				</view>
-				<view class="memberCode">
+				<view class="memberCode" @tap="huiyuanma">
 					<view class="item1">
 						<image src="../../static/images_t/home/memberCode.png" mode=""></image>
 					</view>
@@ -108,6 +111,7 @@
 </template>
 
 <script>
+	import {mapState, mapMutations} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -116,7 +120,44 @@
 				integral:0,
 			}
 		},
+		onLoad() {
+			
+		},
+		computed:{
+			...mapState(['orderType','pintuanType','choosedShop','choosedAddress']),
+		},
 		methods: {
+			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE','SET_CHOOSED_SHOP','SET_CHOOSED_ADDRESS']),
+			mdzq(){
+				this.SET_ORDER_TYPE(2)
+				uni.switchTab({
+					url:'/pages/order/order'
+				})
+			},
+			waimai(){
+				uni.switchTab({
+					url:'/pages/userAdress/userAdress'
+				})
+			},
+			tangshi(){
+				this.SET_ORDER_TYPE(3)
+				uni.switchTab({
+					url:'/pages/order/order'
+				})
+			},
+			jifen(){
+				uni.navigateTo({
+					url:'/pages/pointsMall/pointsMall'
+				})
+			},
+			huiyuanma(){
+				uni.navigateTo({
+					url:'/pages/memberCode/memberCode'
+				})
+			},
+			tssx(){
+				
+			}
 		}
 	}
 </script>

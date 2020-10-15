@@ -1,14 +1,17 @@
 <template>
-		<view class="rest" v-if="is_rest">
+	<uni-popup ref="rest_popup" type="bottom" >
+		<view class="rest">
 			<text class="text1">本店已休息</text>
 			<text class="text2">本店營業時間：{{opening_hours}}</text>
 		</view>
+	</uni-popup>
 </template>
 
 <script>
 	export default{
 		data(){
 			return {
+				is_rest:false
 			}
 		},
 		props:{
@@ -22,12 +25,23 @@
 			}
 		},
 		mounted() {
-			//  console.log(this.is_rest)
-			// if(this.is_rest){
-			// 	this.$refs["rest_popup"].open();
-			// } 
+			 console.log(this.is_rest)
+			if(this.is_rest){
+				this.$refs["rest_popup"].open();
+			} 
 				
 			
+		},
+		watch:{
+			is_rest(val){
+				if(val){
+					console.log(11111111111111111)
+					this.$refs["rest_popup"].open();
+				}else{
+					console.log(222222222222)
+					this.$refs["rest_popup"].close();
+				}
+			}
 		},
 		methods:{
 			

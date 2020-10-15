@@ -110,7 +110,7 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 1rpx solid rgba($color: #c8c7cc, $alpha: 0.6);
+	border-bottom: 0.5px solid rgba($color: #c8c7cc, $alpha: 0.6);
 	font-size: 24rpx;
 	color: #999999;
 	
@@ -171,9 +171,9 @@ export default {
 				content: ' ';
 				position: absolute;
 				bottom: 0;
-				left: 180rpx;
+				left: 0;
 				right: 0;
-				border-bottom: 1rpx solid rgba($color: #c8c7cc, $alpha: 0.6);
+				border-bottom: 0.5px solid rgba($color: #c8c7cc, $alpha: 0.6);
 			}
 			
 			.left {

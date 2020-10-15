@@ -18,10 +18,17 @@
 						</label>
 					</checkbox-group>
 				</template>
-				
-				<view class="price">￥{{ cartPrice }}</view>
+				<view style="display: flex;flex-direction: column;">
+					<view class="price">￥{{ cartPrice }}</view>
+					<template v-if="choosedShop">
+						<text v-if="restMoney" style="font-size: 18rpx;color: #DD524D;">滿￥{{choosedShop.detail.lowest_cost}}起送，還差￥{{restMoney}}元</text>
+						<text v-else style="font-size: 18rpx;color: #6d9fc1;">另需配送費￥{{choosedShop.detail.delivery_cost}}元</text>
+					</template>
+					
+				</view>
 			</view>
-			<button type="primary" class="right" @tap="pay">结算</button>
+			<button v-if="restMoney" type="primary" class="right" >结算</button>
+			<button v-else type="primary" class="right" @tap="pay">结算</button>
 		</uni-transition>
 		<cart-popup :cart="cart" ref="cartPopup" @add="add" @minus="minus" @clear="clear" @change="popChange" @checkboxChange="checkboxChange"></cart-popup>
 	</view>
@@ -42,6 +49,10 @@ export default {
 			type: Array,
 			default: () => []
 		},
+		choosedShop:{
+			type:Object,
+			default:null
+		}
 	},
 	computed: {
 		cartNum() { //计算购物车总数
@@ -55,7 +66,16 @@ export default {
 		},
 		is_checked_all(){
 			return Boolean(this.cart.length) && !(this.cart.findIndex(item => item.is_checked == false)+1);
+		},
+		restMoney(){
+			let m =Number(this.choosedShop.detail.lowest_cost) - this.cartPrice;
+			if(m <= 0){
+				return 0
+			}else{
+				return m
+			}
 		}
+		
 	},
 	data() {
 		return {

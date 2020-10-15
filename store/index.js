@@ -6,9 +6,35 @@ Vue.use(Vuex)
 //为了方便测试，此处用vuex做全局数据
 const store = new Vuex.Store({
 	state: {
-		orderType: 1,
+		orderType: 2,
 		pintuanType:2,
 		token:'KbJ3eQFi3+ErJg4sgHvRxzc0Yjk0ODAzNTY2NjhkNTFkYjdjZGNkYmJjM2ZkYjdhNjY3M2ZkMmUyOWU0NGM3OTMxZTRlZWQ4ZjlhOWQ0ZDahZmrINdB5avDmJea/ep06Hunl39st/eQkAe13k7TmIQ==',
+		choosedAddress:{
+			"id": "16007580462028548",
+			"contact_name": "张三",
+			"contact_sex": "先生",
+			"contact_phone": "17714012698",
+			"contact_address": "合肥市蜀山区梅山路107号",
+			"contact_number": "人民政府办公大楼10楼107",
+			"default_status": "1"
+		},
+		userAddresses: [{
+						"id": "16007580462028548",
+						"contact_name": "张三",
+						"contact_sex": "先生",
+						"contact_phone": "17714012698",
+						"contact_address": "合肥市蜀山区梅山路107号",
+						"contact_number": "人民政府办公大楼10楼107",
+						"default_status": "1"
+		},{
+						"id": "16007580462028549",
+						"contact_name": "王芳",
+						"contact_sex": "女士",
+						"contact_phone": "1684852698",
+						"contact_address": "合肥市瑶海区",
+						"contact_number": "天悦公园b12",
+						"default_status": "0"
+		}],
 		choosedShop:{
 			"id": "15989536458951855",
 			"shop_name": "天觀商城店",
@@ -19,16 +45,20 @@ const store = new Vuex.Store({
 			"rest_time": "22:0:00",
 			"current_order": "0",
 			"current_cups": "0",
-			"distance": 2.24
-		},
-		choosedAddress:{
-			"id": "16007580462028548",
-			"contact_name": "张三",
-			"contact_sex": "先生",
-			"contact_phone": "17714012698",
-			"contact_address": "合肥市蜀山区梅山路107号",
-			"contact_number": "人民政府办公大楼10楼107",
-			"default_status": "1"
+			"distance": 2.24,
+			"detail":{
+				"id": "15989536458951855",
+				"shop_name": "天觀商城店",
+				"shop_detial": "<p><strong>配送</strong></p>\n<p>满30起送</p>\n<p>配送费5元</p>",
+				"current_order": "0",
+				"current_cups": "0",
+				"delivery_cost": "5",
+				"lowest_cost": "30",
+				"scroll_ad": [
+					"生打椰系列全新上市，生打椰椰奶冻、生打椰椰芒两款可选，快来【当季限定】选购吧~",
+					"生打椰系列全新上市，生打椰椰奶冻、生打椰椰芒两款可选，快来【当季限定】选购吧~",
+					"生打椰系列全新上市，生打椰椰奶冻、生打椰椰芒两款可选，快来【当季限定】选购吧~"
+			]}
 		},
 		shopList:[{
 			"id": "15992871171146972",
@@ -121,7 +151,11 @@ const store = new Vuex.Store({
 		},
 		SET_CHOOSED_ADDRESS(state,choosedAddress){
 			state.choosedAddress = choosedAddress
-		}
+		},
+		SET_USER_ADDRESSES(state,userAddresses){
+			state.userAddresses = userAddresses
+		},
+		
 		
 	}
 })

@@ -23,19 +23,21 @@
 						<view class="loca_icon">
 							<image src="../../static/images/order/location.png" mode=""></image>
 						</view>
-						<view class="shop_adress">{{choosedShop.shop_address.length<=9 ? choosedShop.shop_address:choosedShop.shop_address.substr(0,8)+"..." }}</view>
+						<view v-if="orderType == 1" class="shop_adress">{{contact_number}}</view>
+						<view v-else class="shop_adress">{{ shop_adress}}</view>
 						<uni-icons type="arrowright" size="35" color="#333333"></uni-icons>
 					</view>
 					<view class="bottom">
-						<view class="shop_tab_icon">
+						<view class="shop_tab_icon" @tap="switch_shop">
 							<image src="../../static/images/order/shop_tap.jpg" mode=""></image>
 						</view>
-						<view class="shop_name">
+						<view class="shop_name" @tap="switch_shop">
 							{{choosedShop.shop_name}}
 						</view>
-						<view class="tip_text">
+						<!-- <view class="tip_text">
 							{{choosedShop.tip}}
-						</view>
+						</view> -->
+						
 					</view>
 					
 				</view>
@@ -84,7 +86,7 @@
 		</view>
 		<!-- 头部end-->
 		<!-- 新聞詳情頁開始 -->
-		<notice v-show="is_notice" :news_list="notice_list"></notice>
+		<notice v-show="is_notice" :choosed_shop="choosedShop"></notice>
 		<!-- 新聞詳情頁結束 -->
 		<!-- 点单主体部分start -->
 		<view class="main" v-show="!is_notice">
@@ -129,7 +131,8 @@
 									<view class="">
 										￥{{good.price}}
 									</view>
-									<actions :materials-btn="!good.is_single"
+									<actions v-if="!is_rest"
+											:materials-btn="!!(good.materials && good.materials.length)"
 											@materials="showProductDetailModal(good)" 
 											:number="productCartNum(good.id)"
 											@add="handleAddToCart(good)" 
@@ -145,14 +148,15 @@
 		</view>
 		<!-- 点单主体部分end -->
 		<!-- 商品詳情頁開始 -->
-		<product-modal :product="good"
+		<product-modal  v-if="!is_rest"
+						:product="good"
 						:visible="goodModalVisible" 
 						@cancel="closeProductDetailModal" 
 						@add-to-cart="handleAddToCartInModal" 
 		/>
 		<!-- 商品詳情頁結束 -->
 		<!-- 购物车栏 begin -->
-		<cart-bar v-if="!is_notice && !is_rest" :cart="cart" 
+		<cart-bar v-if="!is_notice && !is_rest" :cart="cart" :choosedShop="choosedShop"
 				  @add="handleAddToCart" 
 				  @minus="handleMinusFromCart"
 				  @clear="clearCart"
@@ -162,7 +166,7 @@
 		/>
 		<!-- 购物车栏 end -->
 		<!-- 休息中 start -->
-		<rest opening_hours=""></rest>
+		<rest :is_rest="is_rest" :opening_hours="opening_hours"></rest>
 		<!-- 休息中 end -->
 		<!-- 搜索页面start -->
 		<search :show="showSearch" :categories="menu_list" @hide="showSearch=false" @choose="showProductDetailModal" ></search>
@@ -195,13 +199,6 @@
 			},
 		data() {
 			return {
-				notice_list:[
-					'多肉玫瓏瓜&玫瓏芒芒甘露新上市，優秀玫瓏瓜，清涼夏日解渴',
-					'歐洲國外冰箱貼法國巴黎挪威英國倫敦新西蘭丹麥匈牙利出國紀念品',
-					'【混合堅果】限時買壹送壹，下單兩件自動減免壹件，快來選購嘗鮮吧~',
-					'生打椰系列全新上市，生打椰椰奶凍、生打椰椰芒2款可選，快來【當季限定】下單嘗鮮吧~',
-					'【混合堅果】限時買壹送壹，下單兩件自動減免壹件，快來選購嘗鮮吧~'
-				],
 				menu_list,
 				//下面都是静态默认值
 				order_type_selected:'order_type_selected',
@@ -220,24 +217,32 @@
 			}
 		},
 		async onLoad() {
-			uni.request({
-			    url: 'http://api.plg.wugee.net/classify/list', //仅为示例，并非真实接口地址。
-			    data: {
-			    },
-			    header: {
-			        'custom-header': 'hello' //自定义请求头信息
-			    },
-			    success: (res) => {
-			        console.log('onload sucess data---:'+res.data);
-			    },
-				complete: (res) => {
-				    console.log(res);
-				}
-			});
 			this.$nextTick(() => this.calcSize())
 		},
 		computed:{
 			...mapState(['orderType','pintuanType','choosedShop','choosedAddress']),
+			contact_number(){
+				console.log(this.choosedAddress)
+				if(this.choosedAddress.contact_number ){
+					if(this.choosedAddress.contact_number.length<=9){
+						return this.choosedAddress.contact_number
+					}else{
+						return this.choosedAddress.contact_number.substr(0,8)+"..."
+					}
+				}
+			},
+			shop_adress(){
+				if(this.choosedShop.shop_address){
+					if(this.choosedShop.shop_address.length<=9){
+						return this.choosedShop.shop_address
+					}else{
+						return this.choosedShop.shop_address.substr(0,8)+"..."
+					}
+				}
+			},
+			notice_list(){
+				return this.choosedShop.detail.scroll_ad
+			},
 			productCartNum(id) {	//计算单个饮品添加到购物车的数量
 				return id => this.cart.reduce((acc, cur) => {
 						if(cur.id === id) {
@@ -245,6 +250,9 @@
 						}
 						return acc
 					}, 0)
+			},
+			opening_hours(){
+				return this.choosedShop.work_time + ' - ' +this.choosedShop.rest_time
 			}
 		},
 		methods:{
@@ -283,6 +291,18 @@
 				}
 			},
 			loca_tap(){
+				if(this.orderType == 1){
+					uni.navigateTo({
+						url:"/pages/userAdress/userAdress"
+					})
+				}else{
+					uni.navigateTo({
+						url:"/pages/chooseShop/chooseShop"
+					})
+				}
+				
+			},
+			switch_shop(){
 				uni.navigateTo({
 					url:"/pages/chooseShop/chooseShop"
 				})
@@ -320,7 +340,7 @@
 			handleAddToCart(good) {	//添加到购物车
 			console.log(this.productCartNum());
 				const index = this.cart.findIndex(item => {
-					if(good.materials.length) {
+					if(good.materials && good.materials.length) {
 						return (item.id == good.id) && (item.materials_text == good.materials_text)
 					} else {
 						return item.id === good.id
@@ -340,7 +360,7 @@
 					number: good.number || 1,
 					//image: good.images[0].url,
 					imgurl:good.imgurl,
-					is_single: good.is_single,
+					// is_single: good.is_single,
 					materials_text: good.materials_text || '',
 					is_checked:true,
 				});
@@ -357,7 +377,7 @@
 			},
 			handleMinusFromCart(good) { //从购物车减商品
 				let index
-				if(good.is_single) {
+				if(good.materials && !good.materials.length) {
 				   index = this.cart.findIndex(item => item.id == good.id)
 				} else {
 				   index = this.cart.findIndex(item => (item.id == good.id) && (item.materials_text == good.materials_text))
@@ -431,6 +451,7 @@
 			order_info.goods_data = goods_data;
 			order_info.shop_id = this.choosedShop.id
 			order_info.shop_name = this.choosedShop.shop_name
+			order_info.distance = this.choosedShop.distance
 			order_info.payment_info = price
 			order_info.address_id = this.choosedAddress.id
 			order_info.contact_name = this.choosedAddress.contact_name
@@ -439,6 +460,8 @@
 			order_info.contact_address = this.choosedAddress.contact_address
 			order_info.contact_number = this.choosedAddress.contact_number
 			app.globalData.orderInfo = order_info;
+			console.log(order_info)
+			alert(order_info)
 			uni.navigateTo({
 				url:'/pages/orderPayment/orderPayment'
 			})

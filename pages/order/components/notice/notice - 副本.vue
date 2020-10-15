@@ -4,7 +4,7 @@
 			<view class="mr60_con">
 				<!-- 新聞列表開始 -->
 					<view class="news_list">
-						<view class="news" v-for="(news,news_index) in choosed_shop.detail.scroll_ad" :key="news_index">
+						<view class="news" v-for="(news,news_index) in news_list" :key="news_index">
 							<view class="icon">
 								<image src="/static/images/order/blueBall.png" mode=""></image>
 							</view>
@@ -19,8 +19,8 @@
 						<view class="title">
 							配送
 						</view>
-						<view class="text" >
-							<rich-text :nodes="choosed_shop.detail.shop_detial"></rich-text>
+						<view class="text" v-for="peisong_info in peisong_infos">
+							{{peisong_info}}
 						</view>
 					</view>
 				<!-- 配送結束 -->
@@ -29,14 +29,8 @@
 						<view class="title">
 							門店
 						</view>
-						<view class="text" >
-							地址：{{choosed_shop.shop_address}}
-						</view>
-						<view class="text" >
-							營業時間：{{choosed_shop.work_time+' - '}}{{choosed_shop.rest_time}}
-						</view>
-						<view class="text" >
-							外賣營業時間：{{choosed_shop.work_time+' - '}}{{choosed_shop.rest_time}}
+						<view class="text" v-for="mendian_info in mendian_infos">
+							{{mendian_info}}
 						</view>
 					</view>
 				<!-- 門店信息結束-->
@@ -51,9 +45,22 @@
 <script>
 	export default{
 		props:{
-			choosed_shop:{
-				type:Object,
-				default:()=>{}
+			news_list:{
+				type: Array,
+				default: []
+			},
+			peisong_infos:{
+				type: Array,
+				default: () => ['滿30起送',
+					'配送費0元（晚上20:00後夜間配送加價）',
+					'由提供配送服務，距門店3000m範圍內起送（配送範圍受地區、天氣等多方因素影響，以實際可配送距離為準）']
+			},
+			mendian_infos:{
+				type:Array,
+				default: () => ['地址：合肥市蜀山區安徽省合肥市經開區',
+							'電話：0551-5666660',
+							'營業時間：10:00~22:00',
+							'外賣營業時間：10:00~22:00']
 			}
 		}
 	}

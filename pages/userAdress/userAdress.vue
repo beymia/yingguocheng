@@ -12,17 +12,17 @@
 						<view class="itemx" >
 							<view class="info" @tap.stop="choose(address)">
 								<view class="adress">
-									{{address.address}} {{address.complete_address}}
+									 <text space="nbsp">{{address.contact_number}}   {{address.contact_address}}</text>  
 								</view>
 								<view class="other">
-									<view class="is_default" v-if="address.is_default">
+									<view class="is_default" v-if="address.default_status">
 										默認地址
 									</view>
 									<view class="name">
-										{{address.name}}{{(address.gender == undefined || "") ? "":(address.gender? "先生":"女士") }}
+										{{address.contact_name}}{{address.contact_sex}}
 									</view>
 									<view class="phone">
-										{{address.phone}}
+										{{address.contact_phone}}
 									</view>
 								</view>
 							</view>
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+	import {mapState, mapMutations} from 'vuex'
 	import listCell from '@/components-lk/list-cell/list-cell.vue'
 	
 	export default {
@@ -66,100 +67,20 @@
 		},
 		data() {
 			return {
-				userAddresses: [
-					{
-					"id": 1,
-					"user_id": 1,
-					"name": "張三",
-					"phone": "18666610100",
-					"gender": 0,
-					"address": "蓮花智谷創業園",
-					"complete_address": "經開區蓮花路與丹霞路交叉口",
-					"description": "M13",
-					"is_default": 1
-				},{
-					"id": 2,
-					"user_id": 1,
-					"name": "李四",
-					"phone": "13220589546",
-					"gender": 1,
-					"address": "某個地區",
-					"complete_address": "經開區蓮花路與丹霞路交叉口",
-					"description": "B棟306室",
-					"is_default": 0
-				},{
-					"id": 3,
-					"user_id": 1,
-					"name": "張三",
-					"phone": "18666610100",
-					"gender": 0,
-					"address": "蓮花智谷創業園",
-					"complete_address": "經開區蓮花路與丹霞路交叉口",
-					"description": "M13",
-					"is_default": 1
-				},{
-					"id": 4,
-					"user_id": 1,
-					"name": "李四",
-					"phone": "13220589546",
-					"gender": 1,
-					"address": "某個地區",
-					"complete_address": "經開區蓮花路與丹霞路交叉口",
-					"description": "B棟306室",
-					"is_default": 0
-				},{
-					"id": 5,
-					"user_id": 1,
-					"name": "張三",
-					"phone": "18666610100",
-					"gender": 0,
-					"address": "蓮花智谷創業園",
-					"complete_address": "經開區蓮花路與丹霞路交叉口",
-					"description": "M13",
-					"is_default": 1
-				},{
-					"id": 6,
-					"user_id": 1,
-					"name": "李四",
-					"phone": "13220589546",
-					"gender": 1,
-					"address": "某個地區",
-					"complete_address": "經開區蓮花路與丹霞路交叉口",
-					"description": "B棟306室",
-					"is_default": 0
-				},
-				{
-					"id": 7,
-					"user_id": 1,
-					"name": "張三",
-					"phone": "18666610100",
-					"gender": 0,
-					"address": "蓮花智谷創業園",
-					"complete_address": "經開區蓮花路與丹霞路交叉口",
-					"description": "M13",
-					"is_default": 1
-				},{
-					"id": 8,
-					"user_id": 1,
-					"name": "李四",
-					"phone": "13220589546",
-					"gender": 1,
-					"address": "某個地區",
-					"complete_address": "經開區蓮花路與丹霞路交叉口",
-					"description": "B棟306室",
-					"is_default": 0
-				},
-				]
+				from:''
 			}
 		},
 		computed: {
-			// ...mapState(['addresses'])
+			...mapState(['orderType','choosedAddress','userAddresses']),
 		},
-		onLoad() {
-			getApp().globalData.userAddresses=this.userAddresses;
+		onLoad({from}) {
+			console.log('from:'+from)
+			if(from){
+				this.from = from;
+			}
 		},
 		methods: {
-			// ...mapMutations(['SET_ADDRESS', 'SET_ORDER_TYPE']),
+			...mapMutations(['SET_ORDER_TYPE','SET_CHOOSED_ADDRESS','SET_USER_ADDRESSES']),
 			add() {
 				uni.navigateTo({
 					url: '/pages/addUserAdress/addUserAdress'
@@ -172,12 +93,19 @@
 				})
 			},
 			choose(address) {
-				/* this.SET_ADDRESS(address)
-				this.SET_ORDER_TYPE('takeout') */
-				uni.$emit('checked_adress',address)
-				uni.switchTab({
-					url: '/pages/order/order'
-				})
+				this.SET_CHOOSED_ADDRESS(address)
+				this.SET_ORDER_TYPE(1)
+				console.log(this.from)
+				if(this.from == 'pintuan'){
+					uni.navigateTo({
+						url:'/pages/pintuan/pintuan'
+					})
+				}else{
+					uni.switchTab({
+						url: '/pages/order/order'
+					})
+				}
+				
 			},
 			wxdr(){
 				uni.chooseAddress({

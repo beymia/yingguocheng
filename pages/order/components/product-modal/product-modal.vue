@@ -36,7 +36,7 @@
 				</view>
 			</view>
 		</scroll-view>
-		<view class="bottom" :style="{height: !productData.is_single ? '250rpx' : '200rpx'}">
+		<view class="bottom" :style="{height: productData.materials && productData.materials.length ? '250rpx' : '200rpx'}">
 			<view class="d-flex align-items-center">
 				<view class="price-and-materials">
 					<view class="price">￥{{ productData.truePrice || productData.price }}</view>
