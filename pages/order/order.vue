@@ -461,7 +461,7 @@
 			order_info.contact_phone = this.choosedAddress.contact_phone
 			order_info.contact_address = this.choosedAddress.contact_address
 			order_info.contact_number = this.choosedAddress.contact_number
-			app.globalData.orderInfo = order_info;
+			app.globalData.goodsPayment = order_info;
 			console.log(order_info)
 			uni.navigateTo({
 				url:'/pages/orderPayment/orderPayment'
