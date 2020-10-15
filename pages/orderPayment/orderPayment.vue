@@ -127,7 +127,7 @@
             </view>
             <view v-if="discountAmount" class="discount">
               <view>【{{ discountAmount }}元抵用券】-￥{{ discountAmount }}</view>
-              <image @click="cancelUseCoupon" src="../../static/images/orderPayment/discount.png"></image>
+              <image @click="discountAmount = 0" src="../../static/images/orderPayment/discount.png"></image>
             </view>
           </view>
         </view>
