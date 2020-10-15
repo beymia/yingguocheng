@@ -452,6 +452,8 @@
 			order_info.shop_id = this.choosedShop.id
 			order_info.shop_name = this.choosedShop.shop_name
 			order_info.distance = this.choosedShop.distance
+			order_info.delivery_cost = this.choosedShop.delivery_cost
+			order_info.lowest_cost = this.choosedShop.lowest_cost
 			order_info.payment_info = price
 			order_info.address_id = this.choosedAddress.id
 			order_info.contact_name = this.choosedAddress.contact_name
@@ -461,7 +463,6 @@
 			order_info.contact_number = this.choosedAddress.contact_number
 			app.globalData.orderInfo = order_info;
 			console.log(order_info)
-			alert(order_info)
 			uni.navigateTo({
 				url:'/pages/orderPayment/orderPayment'
 			})
