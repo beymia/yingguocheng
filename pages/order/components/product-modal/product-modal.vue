@@ -99,6 +99,7 @@
 					// this.productData.truePrice=truePrice;
 					this.$set(this.productData,"truePrice",truePrice)
 					this.productData.norm_id = norm_id
+					console.log(norm_id)
 					return materials.length ? materials.join('，') : ''
 				}
 				return ''

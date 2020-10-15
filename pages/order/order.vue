@@ -360,6 +360,7 @@
 					number: good.number || 1,
 					//image: good.images[0].url,
 					imgurl:good.imgurl,
+					norm_id:good.norm_id,
 					// is_single: good.is_single,
 					materials_text: good.materials_text || '',
 					is_checked:true,
@@ -452,8 +453,8 @@
 			order_info.shop_id = this.choosedShop.id
 			order_info.shop_name = this.choosedShop.shop_name
 			order_info.distance = this.choosedShop.distance
-			order_info.delivery_cost = this.choosedShop.delivery_cost
-			order_info.lowest_cost = this.choosedShop.lowest_cost
+			order_info.delivery_cost = this.choosedShop.detail.delivery_cost
+			order_info.lowest_cost = this.choosedShop.detail.lowest_cost
 			order_info.payment_info = price
 			order_info.address_id = this.choosedAddress.id
 			order_info.contact_name = this.choosedAddress.contact_name
