@@ -96,11 +96,7 @@ export default {
           url: `/pages/invoiceInfo/invoiceInfo?invoiceAmount=${this.amount}&id=${this.orderId.join(',')}`
         })
       }else{
-        uni.showToast({
-          title:'没有选择订单',
-          icon:'none',
-          duration:2000
-        })
+        this.customToast('沒有選擇訂單',false)
       }
     }
   },

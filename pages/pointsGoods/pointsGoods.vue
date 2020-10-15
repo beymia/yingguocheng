@@ -1,7 +1,7 @@
 <template>
   <view class="points_goods">
     <view class="goods_img">
-      <image :src="'../../static/images_t/pointsMall/goods.png'"></image>
+      <image :src="imgSrc + goods.home_avatar"></image>
     </view>
     <view class="description">
       <rich-text :nodes="goods.goods_detail" ></rich-text>
@@ -37,11 +37,7 @@ export default {
        return (await pointsGoodsDetail({goods_id:id})).data
      }catch (e){
        console.log(e);
-       uni.showToast({
-         title:'獲取詳情失敗',
-         duration:2000,
-         icon:'none'
-       })
+       this.customToast('詳情獲取失敗',false)
      }
    },
     async redeemNow(){
@@ -49,26 +45,15 @@ export default {
        //已有積分少於商品積分直接返回
        console.log(APP.userInfo.integral);
        if(APP.userInfo.integral < this.goods.barter_integral) {
-         uni.showToast({
-           title:'積分不足',
-           icon:'none',
-           duration:2000
-         })
+         this.customToast('積分不足',false)
          return
        }
-        await redeemGifts({goods_id:this.goods.id})
-       uni.showToast({
-         title:'成功兌換了',
-         icon:'none',
-         duration:2000
-       })
+       uni.showLoading({title:'兌換中'})
+       await redeemGifts({goods_id:this.goods.id})
+       this.customToast('兌換成功')
      }catch (e){
        console.log(e);
-       uni.showToast({
-         title:'兌換失敗',
-         icon:'none',
-         duration:2000
-       })
+       this.customToast('兌換失敗')
      }
     },
   }

@@ -100,12 +100,7 @@ export default {
        }
        uni.hideLoading()
      }catch (e){
-       uni.hideLoading()
-       uni.showToast({
-         title:'需要登錄',
-         icon:'none',
-         duration:2000
-       })
+       this.customToast('需要登錄',false)
      }
     },
     //跳转至對應的頁面
@@ -113,11 +108,7 @@ export default {
       console.log(aims);
       //用户没有登录不做处理
       if (!this.token) {
-        uni.showToast({
-          title: '還沒有登錄',
-          duration: 2000,
-          icon: 'none'
-        })
+        this.customToast('請先登錄',false)
         return
       }
       let {page, v} = aims;

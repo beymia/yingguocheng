@@ -112,11 +112,7 @@ export default {
 
         //填寫不完整提示信息,發票抬頭為個人是抬頭內容可以不寫
         if (!email || !type || !lookUp || !lookUpContent || (lookUp === 1 && !identify)) {
-          uni.showToast({
-            title:'請填寫完整',
-            icon:'none',
-            duration:2000
-          })
+          this.customToast('請填寫完整',false)
           return;
         }
 
@@ -124,11 +120,7 @@ export default {
         let reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
         this.$nextTick(async () => {
           if (!(reg.test(this.email))) {
-            uni.showToast({
-              title: '邮箱格式错误',
-              icon: 'none',
-              duration: 2000
-            })
+            this.customToast('郵箱格式錯誤',false)
             return;
           }
 
@@ -166,12 +158,7 @@ export default {
                 }
               })
             }catch (e){
-              uni.hideLoading()
-              uni.showToast({
-                title:'出现了错误',
-                icon:'none',
-                duration:2000
-              })
+              this.customToast('出現了錯誤')
             }
           }
         })

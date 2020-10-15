@@ -4,9 +4,18 @@ import store from './store'
 
 //數據為空時展示
 import noMoreData from "./components-lk/noMoreData/noMoreData";
-Vue.component('noMoreData',noMoreData)
 
+Vue.component('noMoreData', noMoreData)
 
+Vue.prototype.imgSrc = 'http://publicfile.wugee.net'
+//通用的提示處理
+Vue.prototype.customToast = function (title = '出現了錯誤', clear= true) {
+  clear && uni.hideLoading()
+  uni.showToast({
+    title,
+    icon: 'none'
+  })
+}
 Vue.config.productionTip = false
 
 App.mpType = 'app'

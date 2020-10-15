@@ -32,7 +32,7 @@
                 v-for="(goods,index) in convertList"
                 :key="index">
             <view class="goods_img">
-              <image :src="'../../static/images_t/pointsMall/goods.png'"></image>
+              <image :src="imgSrc + goods.home_avatar"></image>
             </view>
             <view class="goods_name">
               <text>{{ goods.goods_name }}</text>

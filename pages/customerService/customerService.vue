@@ -61,11 +61,7 @@ async	mounted() {
           m = (date.getMinutes() + '').padStart(2, '0');
       this.initTime = h + ':' + m;
     }catch (e){
-	    uni.showToast({
-        title:'发生了错误',
-        icon:'none',
-        duration:2000
-      })
+      this.customToast('出現了錯誤',false)
       console.log(e);
     }
 	},
@@ -87,11 +83,7 @@ async	mounted() {
         this.chatStart = true;
       } catch (e){
         console.log(e);
-        uni.showToast({
-          title:'发生了错误',
-          icon:'none',
-          duration:2000
-        })
+        this.customToast('出現了錯誤',false)
       }
     },
     //接收消息

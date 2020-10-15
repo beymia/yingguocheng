@@ -5,8 +5,12 @@
         <view class="remarks_content">
           <view class="remarks_head">
             <text>訂單備註</text>
-            <uni-icons @click="$emit('close-remarks',0)" class="clear_remarks" type="clear" size="44"
-                       color="#D0D0D0"></uni-icons>
+            <uni-icons @click="$emit('close-remarks',0)"
+                       class="clear_remarks"
+                       type="clear"
+                       size="44"
+                       color="#D0D0D0">
+            </uni-icons>
           </view>
           <view class="remarks_options">
             <view class="option">
@@ -14,8 +18,8 @@
                 <text>無接觸配送：</text>
               </view>
               <view class="options_btn">
-                <button @click="selectRemarks('noContact',0)" :class="{'selected':!noContact}" plain>不需要</button>
-                <button @click="selectRemarks('noContact',1)" :class="{'selected':noContact}" plain>需要</button>
+                <button @click="selectRemarks('noContact',null)" :class="{'selected':!noContact}" plain>不需要</button>
+                <button @click="selectRemarks('noContact','無接觸配送')" :class="{'selected':noContact}" plain>需要</button>
               </view>
             </view>
             <view class="option">
@@ -23,8 +27,8 @@
                 <text>纸巾：</text>
               </view>
               <view class="options_btn">
-                <button @click="selectRemarks('paper',0)" :class="{'selected':!paper}" plain>不需要</button>
-                <button @click="selectRemarks('paper',1)" :class="{'selected':paper}" plain>需要</button>
+                <button @click="selectRemarks('paper',null)" :class="{'selected':!paper}" plain>不需要</button>
+                <button @click="selectRemarks('paper','纸巾')" :class="{'selected':paper}" plain>需要</button>
               </view>
             </view>
             <view class="option">
@@ -32,8 +36,8 @@
                 <text>糖包：</text>
               </view>
               <view class="options_btn">
-                <button @click="selectRemarks('sugar',0)" :class="{'selected':!sugar}" plain>不需要</button>
-                <button @click="selectRemarks('sugar',1)" :class="{'selected':sugar}" plain>需要</button>
+                <button @click="selectRemarks('sugar',null)" :class="{'selected':!sugar}" plain>不需要</button>
+                <button @click="selectRemarks('sugar','糖包')" :class="{'selected':sugar}" plain>需要</button>
               </view>
             </view>
           </view>
@@ -59,8 +63,8 @@ export default {
   },
   props:{
     remarks:{
-      type:Object,
-      default:()=>{}
+      type:Array,
+      default:()=>[]
     }
   },
   mounted() {

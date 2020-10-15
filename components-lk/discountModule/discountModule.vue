@@ -12,7 +12,7 @@
       </view>
       <view class="use">
         <text>{{ coupon.authority }}</text>
-        <button @click="$emit('use-coupon',coupon.goods_quota)">立即使用</button>
+        <button @click="$emit('use-coupon',coupon)">立即使用</button>
       </view>
     </view>
   </view>

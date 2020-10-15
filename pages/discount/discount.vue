@@ -26,31 +26,35 @@ export default {
       unUsed: [],
       used: [],
       fail: [],
-      activeDiscount: 'unUsed'
+      activeDiscount: 'unUsed',
+      coupon:false,
+    }
+  },
+  async mounted() {
+    if(APP.couponInfo){
+      this.unUsed = APP.couponInfo;
+    }else{
+      this.token = APP.userToken;
+      this.unUsed = await this.requestDiscount(1)
+      this.used = await this.requestDiscount(2)
+      this.fail = await this.requestDiscount(3)
     }
   },
 
-  async mounted() {
-    this.token = APP.userToken;
-    this.unUsed = await this.requestDiscount(1)
-    this.used = await this.requestDiscount(2)
-    this.fail = await this.requestDiscount(3)
+  onHide(){
+    APP.couponInfo = null;
   },
 
   methods: {
     //點擊使用優惠券
-    useCoupon(amount) {
+    useCoupon(coupon) {
       if (this.activeDiscount === 'unUsed') {
-        APP.coupon = amount;
+        APP.coupon = coupon;
         uni.navigateBack({
           url: '/pages/orderPayment/orderPayment',
         })
       } else {
-        uni.showToast({
-          title: '无法使用',
-          icon: 'none',
-          duration: 2000
-        })
+        this.customToast('無法使用',false)
       }
     },
 
@@ -62,11 +66,7 @@ export default {
           !result && (result = [])
           return result
         } else {
-          uni.showToast({
-            title: '請先登錄',
-            duration: 2000,
-            icon: 'none'
-          })
+          this.customToast('請先登錄',false)
           return []
         }
       } catch (e) {

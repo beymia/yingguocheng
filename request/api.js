@@ -19,9 +19,9 @@ export const pointsDetails = (data) => ajax('/record/integral-notes', data, 'pos
 //积分兑换记录
 export const exchangeRecord = (data) => ajax('/integral/convert-record', data, 'post', 1)
 //積分商品詳情
-export const pointsGoodsDetail = (data)=>ajax('/convert/detail',data,'post',1)
+export const pointsGoodsDetail = (data) => ajax('/convert/detail', data, 'post', 1)
 //積分兌換禮品
-export const redeemGifts = (data)=>ajax('/convert/convert',data,'post',1)
+export const redeemGifts = (data) => ajax('/convert/convert', data, 'post', 1)
 //用户信息
 export const userSpace = (data) => ajax('/user/user-info', data, 'post', 1)
 //开通会员
@@ -47,7 +47,16 @@ export const receiveKnight = (data) => ajax('', data, 'post', 1)
 //消息中心
 export const msgCenter = (data) => ajax('/msg-center/list', data, 'post', 1)
 //会员充值信息
-export const memberRechargeInfo = (data)=>ajax('/config/recharge-level',data,'post',1)
+export const memberRechargeInfo = (data) => ajax('/config/recharge-level', data, 'post', 1)
+
+//訂單結算附加服務
+export const paymentAttach = (data) => ajax('/config/attach', data, 'post')
+//創建訂單
+export const createOrder = (data) => ajax('/order/create-order', data, 'post', 1)
+//發起支付
+export const paymentStart = (data) => ajax('/pay/wechat-pay', data, 'post', 1)
+//訂單可用優惠券
+export const usedCoupon = (data) => ajax('/ticket/suit-tickets', data, 'post', 1)
 
 //初始化聊天室
 export const initChat = (data) => ajax('/dialog/init-dialog', data, 'post', 1)
@@ -55,3 +64,12 @@ export const initChat = (data) => ajax('/dialog/init-dialog', data, 'post', 1)
 export const sendMsg = (data) => ajax('/dialog/send-msg', data, 'post', 1)
 //接受消息
 export const receiveMsg = (data) => ajax('/dialog/latest-dialog', data, 'post', 1)
+
+//奶茶有礼列表
+export const milkList = (data) => ajax('/foresee-card/list', data, 'post', 1)
+//我的卡片
+export const myForesee = (data) => ajax('/foresee-card/my-card', data, 'post', 1)
+//购买卡片
+export const buyForesee = (data) => ajax('/foresee-card/pay-card', data, 'post', 1)
+//收送记录
+export const mutualRecord = (data) => ajax('/foresee-card/my-gift', data, 'post', 1)

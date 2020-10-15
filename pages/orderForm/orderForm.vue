@@ -141,10 +141,7 @@ export default {
       this.historyOrderForm.data=(await this.requestOrder(2,this.historyOrderForm.page) ||[])
     }catch (e) {
       console.log(e);
-      uni.showToast({
-        title:'订单获取失败',
-        icon:'none',
-      })
+      this.customToast('訂單獲取失敗',false)
     }
   },
 

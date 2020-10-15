@@ -53,10 +53,7 @@ export default {
       console.log(this.details);
     }catch (e){
       console.log(e);
-      uni.showToast({
-        title:'出现了错误',
-        icon:'none'
-      })
+      this.customToast('出現了錯誤',false)
     }
 
   },

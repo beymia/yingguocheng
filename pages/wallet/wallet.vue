@@ -115,12 +115,7 @@ export default {
             }
           } catch (e) {
             console.log(e);
-            uni.hideLoading();
-            uni.showToast({
-              title: '验证码发送失败',
-              icon: 'none',
-              duration: 2000
-            })
+            this.customToast('驗證碼發送失敗')
           }
         }
       })
@@ -145,69 +140,74 @@ export default {
             })
           } catch (e) {
             console.log(e);
-            uni.showToast({
-              title: '出现了错误',
-              icon: 'none'
-            })
+            this.customToast('出現了錯誤',false)
           }
           /* #endif*/
         } catch (e) {
           console.log(e);
-          uni.hideLoading()
-          uni.showToast({
-            title: '出現了錯誤',
-            icon: 'none'
-          })
+          this.customToast('出現了錯誤')
         }
       }
     },
     //调用uni-app的通用支付接口
     async uniPayment(orderInfo, result) {
+      let self = this;
+      let {signType, paySign,timeStamp,nonceStr} = orderInfo
       try {
-        let {signType, paySign} = orderInfo
         uni.requestPayment({
-          provider: result.provider,
+          provider: result.provider[0],
           orderInfo,
-          timeStamp: (Date.parse(new Date())).toString(),
-          nonceStr: Math.random().toString(36).substr(2, 15),
-          package: orderInfo.package,
+          timeStamp,
+          nonceStr,
+          package:orderInfo.package,
           signType,
           paySign,
           //支付接口调取成功
           async success(e) {
             console.log(e);
-            this.rechargeAmount = '';
-            this.reRender = 0;
+            self.rechargeAmount = '';
+            self.reRender = 0;
             //充值成功後從新獲取用戶信息
             APP.userInfo = (await userSpace())
-            this.reRender = 1;
+            self.reRender = 1;
           },
           //支付接口调取失败
           fail(e) {
             console.log(e);
-            uni.showToast({
-              title: '出现了错误',
-              icon: 'none'
-            })
+            self.customToast('出現了錯誤',false)
           },
         })
+
+        /* #ifdef MP-WEIXIN*/
+        // let {signType, paySign,timeStamp,nonceStr} = orderInfo
+        // wx.requestPayment({
+        //   timeStamp,
+        //   nonceStr,
+        //   package:orderInfo.package,
+        //   signType,
+        //   paySign,
+        //   success (res) {
+        //     console.log(res);
+        //   },
+        //   fail (res) {
+        //     console.log(res);
+        //   }
+        // })
+        /* #endif*/
       } catch (e) {
-        uni.showToast({
-          title: '出现了错误',
-          icon: 'none'
-        })
+        this.customToast('出現了錯誤',false)
       }
     }
   },
-  watch: {
-    rechargeAmount(n, o) {
-      let newStr = n.slice(o.length),
-          newNum = parseInt(newStr)
-      if (isNaN(newNum)) {
-        this.rechargeAmount = '';
-      }
-    },
-  },
+  // watch: {
+  //   rechargeAmount(n, o) {
+  //     let newStr = n.slice(o.length),
+  //         newNum = parseInt(newStr)
+  //     if (isNaN(newNum)) {
+  //       this.rechargeAmount = '';
+  //     }
+  //   },
+  // },
   components: {
     optionsList
   }

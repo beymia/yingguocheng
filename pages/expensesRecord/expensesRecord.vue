@@ -46,13 +46,10 @@ export default {
   async mounted() {
     this.token = getApp().globalData.userToken;
     try{
-
+      this.record = (await expensesRecord({page:this.page})).data
     }catch (e){
       console.log(e);
-      uni.showToast({
-        title:'出现了错误',
-        icon:'none'
-      })
+      this.customToast('出現了錯誤',false)
     }
   },
   computed: {

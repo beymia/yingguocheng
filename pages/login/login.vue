@@ -55,11 +55,7 @@ export default {
       try {
         //手机号错误的处理
         if (this.phone.length !== 11) {
-          uni.showToast({
-            title: '手机号错误',
-            duration: 2000,
-            icon: 'none'
-          })
+          this.customToast('手機號錯誤',false)
           return
         }
 
@@ -71,22 +67,14 @@ export default {
         let code = await sendCheckCode({
           mobile: this.phone
         })
-				console.log(code)
         uni.hideLoading()
         /*手机号正确，跳转至验证码接收頁*/
-				getApp().globalData.phone = this.phone
         uni.navigateTo({
           url: '/pages/checkCode/checkCode?phone=' + this.phone
         })
       } catch (e) {
-				console.log(e)
-        uni.hideLoading()
         //驗證碼發送失敗
-        uni.showToast({
-          title: '出現了錯誤',
-          duration: 2000,
-          icon: 'none'
-        })
+        this.customToast('出現了錯誤')
       }
     },
     changeAreaCode(e) {

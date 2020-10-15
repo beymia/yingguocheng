@@ -29,18 +29,26 @@
         </view>
       </view>
     </view>
+    <view class="cut_off"></view>
     <!--礼包领取-->
     <view class="pack">
       <view class="month">
-        <viwe class="title">
+        <view class="title">
           <text>每月登記權益</text>
           <text>根據購買日期，每月容易時間領取</text>
-        </viwe>
+        </view>
+        <view class="content">
+          <options @recive-start="receiveStart" :list="month"></options>
+        </view>
       </view>
+      <view class="cut_off"></view>
       <view class="knight">
         <view class="title">
           <text>{{ user.level_title }}權益</text>
           <text>{{ user.level_title }}有效期內可以使用</text>
+        </view>
+        <view class="content">
+          <options @recive-start="receiveStart" :list="interests"></options>
         </view>
       </view>
     </view>
@@ -54,7 +62,7 @@ import {
   interestsPark,
   receiveKnight
 } from "../../request/api";
-
+import options from "./components/options";
 const APP = getApp().globalData
 export default {
   data() {
@@ -70,17 +78,46 @@ export default {
       //不相干的兩個請求，同時發送
       Promise.all([await monthPack(),await interestsPark()])
           .then(value=>{
-            console.log(value);
+            this.month=value[0].data;
+            this.interests = value[1].data
+            this.month.forEach((item)=>{
+              item.type='month'
+            })
+            this.interests.forEach((item)=>{
+              item.type='interests'
+            })
           }).catch(e=>{
         console.log(e);
-        uni.showToast({
-          title:'出現了錯誤',
-          icon:'none',
-          duration:2000
-        })
+        this.customToast('出現了錯誤',false)
       })
   },
-  methods: {}
+  methods: {
+   async receiveStart(e){
+     uni.showLoading({
+       title: '領取中'
+     })
+     if (e.type === 'month') {
+       try {
+         await receivePack({park_id: e.id})
+         this.customToast('領取成功')
+       } catch (e) {
+         console.log(e);
+         this.customToast('領取失敗')
+       }
+     } else if (e.type === 'interests') {
+       try {
+         await receiveKnight({park_id: e.id})
+         this.customToast('領取成功')
+       } catch (e) {
+         console.log(e);
+         this.customToast('領取失敗')
+       }
+     }
+   },
+  },
+  components:{
+    options
+  }
 }
 </script>
 
@@ -115,6 +152,7 @@ export default {
     width: 100%;
     height: 280rpx;
     position: relative;
+    margin-bottom: 60rpx;
 
     image{
       width: 110%;
@@ -161,13 +199,21 @@ export default {
       font-size: $font-weight-base;
       font-weight: $font-weight-lg;
       color: $font-color1;
+      margin: 35rpx 0;
 
       text:nth-child(2){
         font-size: $font-size-sm -+ 2rpx;
         font-weight: $font-weight-base;
         color: $font-color3;
+        margin-left: 10rpx;
       }
     }
   }
+}
+.cut_off{
+  width: 100vw;
+  height: $spacing-lg;
+  background-color: #F5F6F8;
+  margin-left: -$spacing-lg;
 }
 </style>

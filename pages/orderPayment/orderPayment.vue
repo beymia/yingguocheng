@@ -2,29 +2,31 @@
   <view class="order_payment">
     <!--头部-->
     <view class="order_payment_head">
-      <view :class="['name_method',receivingMethod==='自提'?'one_self':'']">
+      <view :class="['name_method',goodsData.haul_method===2?'one_self':'']">
         <view class="shop_name">
           <text style="display: inline">{{ goodsData.shop_name }}</text>
-          <uni-icons style="display: inline-block;vertical-align: middle" type="arrowright" size="35"
-                     color="#333333"></uni-icons>
-          <text v-if="receivingMethod === '自提'">距離您3.0km</text>
-          <text v-else>張三(先生) 17756041449</text>
+          <uni-icons style="display: inline-block;vertical-align: middle"
+                     type="arrowright"
+                     size="35"
+                     color="#333333">
+          </uni-icons>
+          <text v-if="goodsData.haul_method === 2">距離您{{ goodsData.distance }}km</text>
+          <text v-else>{{ goodsData.contact_name }}({{ goodsData.contact_sex }}) {{ goodsData.contact_phone }}</text>
         </view>
         <view class="receiving_method">
-          <view @click="toggleReceiving('自提')"
-                :class="['自提',receivingMethod === '自提' ? 'active_method' : '']">
+          <view :class="[goodsData.haul_method === 2 ? 'active_method' : '']">
             <text>自取</text>
           </view>
-          <view @click="toggleReceiving('外卖')"
-                :class="['other_people',receivingMethod === '外卖' ? 'active_method' : '']">
+          <view :class="['other_people',goodsData.haul_method === 1 ? 'active_method' : '']">
             <text>外卖</text>
           </view>
-          <view @click="toggleReceiving('shop')" :class="['shop',receivingMethod === 'shop' ? 'active_method' : '']">
+          <view :class="['shop',goodsData.haul_method === 3 ? 'active_method' : '']">
             <text>堂食</text>
           </view>
         </view>
       </view>
-      <view class="phone" v-if="receivingMethod === '自提'">
+      <!--聯繫電話-->
+      <view class="phone" v-if="goodsData.haul_method === 1">
         <view class="phone_input">
           <label>
             <text>聯系電話</text>
@@ -66,7 +68,7 @@
               <text>{{ goods.goods_name }}</text>
             </view>
             <view class="goods_extra_info">
-              <text class="goods_straw">{{ goods.norm }},</text>
+              <text class="goods_straw">{{ goods.norm }}</text>
             </view>
           </view>
           <view class="goods_amount">
@@ -75,31 +77,34 @@
           </view>
         </view>
       </view>
+      <!--附加服務-->
       <view class="attach_service">
-        <view class="delivery_fee" v-if="receivingMethod==='外卖'">
+        <view class="delivery_fee" v-if="goodsData.haul_method===1">
           <view class="left">
             <text>配送費</text>
           </view>
           <view class="right">
-            <text>￥{{ deliveryFee }}</text>
+            <text>￥{{ goodsData.delivery_cost }}</text>
           </view>
         </view>
         <view class="service1">
-          <view class="left">
-            <view class="left_name">
-              <text>靈感保溫袋</text>
-              <text>推薦選擇</text>
+          <block v-for="attachItem in attach" :key="attachItem.id">
+            <view class="left">
+              <view class="left_name">
+                <text>{{ attachItem.attach_name }}</text>
+                <text>推薦選擇</text>
+              </view>
+              <view class="left_des">
+                <text>保冷保暖，鎖住新鮮口感</text>
+              </view>
             </view>
-            <view class="left_des">
-              <text>保冷保暖，鎖住新鮮口感</text>
+            <view @click="addAttachFee(attachItem.id)" class="right">
+              <label>
+                <text>￥{{ attachItem.attach_price }}</text>
+                <radio :checked="attachArr.indexOf(attachItem.id) !== -1" color="#17A1FF"/>
+              </label>
             </view>
-          </view>
-          <view @click="addAttachFee" class="right">
-            <label>
-              <text>￥{{ attachFee }}</text>
-              <radio :checked="isAttach" color="#17A1FF"/>
-            </label>
-          </view>
+          </block>
         </view>
         <view class="service2">
           <view class="left">
@@ -108,11 +113,17 @@
           </view>
           <view class="right">
             <view>
-              <text v-if="!discountCount">暫無可用</text>
-              <text @click="navDiscount" style="color:#17A1FF;" v-if="discountCount&&!discountAmount">一個可用</text>
-              <uni-icons @click="navDiscount" v-if="!discountAmount"
-                         style="display: inline-block;vertical-align: middle" type="arrowright" size="35"
-                         color="#999999"></uni-icons>
+              <text v-if="!couponInfo.length">暫無可用</text>
+              <text @click="navDiscount"
+                    style="color:#17A1FF;"
+                    v-if="couponInfo.length&&!discountAmount">{{couponInfo.length}}個可用</text>
+              <uni-icons @click="navDiscount"
+                         v-if="!discountAmount"
+                         style="display: inline-block;vertical-align: middle"
+                         type="arrowright"
+                         size="35"
+                         color="#999999">
+              </uni-icons>
             </view>
             <view v-if="discountAmount" class="discount">
               <view>【{{ discountAmount }}元抵用券】-￥{{ discountAmount }}</view>
@@ -120,6 +131,7 @@
             </view>
           </view>
         </view>
+        <!--訂單備註-->
         <view class="service3">
           <view @click="isRemarks = !isRemarks" class="left">
             <text>備註</text>
@@ -128,11 +140,17 @@
             <text v-if="remarksData.noContact">無接觸配送，</text>
             <text v-if="remarksData.paper">纸巾，</text>
             <text v-if="remarksData.sugar">糖包</text>
-            <uni-icons style="display: inline-block;vertical-align: middle" type="arrowright" size="35"
-                       color="#999999"></uni-icons>
+            <uni-icons style="display: inline-block;vertical-align: middle"
+                       type="arrowright"
+                       size="35"
+                       color="#999999">
+            </uni-icons>
           </view>
           <view v-if="isRemarks" class="remarks">
-            <remarks :remarks="remarksData" @close-remarks="closeRemarks"></remarks>
+            <remarks
+                :remarks="remarksArr"
+                @close-remarks="closeRemarks">
+            </remarks>
           </view>
         </view>
       </view>
@@ -142,7 +160,7 @@
       </view>
     </view>
     <!--支付方式-->
-    <view :class="['payment_method',receivingMethod==='自提'?'one_self':'']">
+    <view :class="['payment_method',goodsData.haul_method===1?'one_self':'']">
       <text>支付方式</text>
       <view>
         <image src="../../static/images/orderPayment/weixin_icon.png"></image>
@@ -155,7 +173,7 @@
         <text>合計</text>
         <text>￥{{ totalAmount }}</text>
       </view>
-      <view class="payment_btn">
+      <view @click="startPay" class="payment_btn">
         <button plain>支付</button>
       </view>
     </view>
@@ -165,77 +183,155 @@
 
 <script>
 import remarks from "../../components-lk/remarks/remarks";
+import {createOrder, paymentAttach, usedCoupon} from "../../request/api";
 
 const APP = getApp().globalData;
 export default {
   data() {
     return {
-      receivingMethod: '自提',
-      surcharge: 5,
-      isAttach: false,
-      attachFee: 1.5,
-      discountCount: 1,
       userPhone: '',
       isRemarks: false,
-      remarksData: {},
+      remarksData:{},
+      remarksArr:['無接觸配送','紙巾','糖包'],
       discountAmount: 0,
-      deliveryFee: 5,
-      totalAmount: 0,
       goodsPrice: 0,
       goodsData: [],
+      attach:{},
+      totalAmount:0,
+      attachArr:[],
+      couponInfo:[]
     }
   },
-  onLoad() {
-    console.log(APP.goodsPayment);
+ async onLoad() {
     this.goodsData = APP.goodsPayment;
     this.receivingMethod = this.goodsData.haul_method;
-    //计算订单总金额
-    this.goodsData.goods_data.forEach((item) => {
-      this.totalAmount += parseFloat(item.goods_price)
-    })
-  },
+   this.goods_data = [];
+   this.goodsId = ''
+   //獲取訂單傳參數據
+   this.goodsData.goods_data.forEach((item, index) => {
+     this.goodsId +=item.id;
+     this.goods_data.push({
+       id: item.id,
+       num: item.goods_num,
+       norm: item.norm_id
+     })
+   });
+
+   this.totalAmount = parseFloat(this.goodsData.payment_info)
+
+   try {
+     this.attach = (await paymentAttach()).data
+    let temp = (await usedCoupon({
+       vehicle_method: this.goodsDatahaul_method,
+       goods_id: this.goodsId,
+       total_price: this.totalAmount
+     })).data
+     for (let key in temp){
+       if(temp.hasOwnProperty(key)){
+         this.couponInfo.push(temp[key])
+       }
+     }
+   } catch (e) {
+     console.log(e);
+   }
+ },
   onShow() {
-    /*
-    * 页面展示时从全局对象中获取优惠券的金额
-    * */
-    this.discountAmount = APP.coupon;
+    //页面展示时从全局对象中获取优惠券的金额
+    console.log(APP.coupon.goods_quota  );
+    this.discountAmount = APP.coupon.goods_quota;
   },
   onUnload() {
-    /*
-    * 页面卸载时清空优惠券金额
-    * */
-    APP.coupon = 0;
+   //页面卸载时清空优惠券金额
+    APP.coupon = {};
   },
   methods: {
-    toggleReceiving(method) {
-      this.receivingMethod = method;
-      if (method === '外卖') {
-        this.surcharge = 5;
-        this.totalAmount += this.surcharge
-      } else {
-        this.surcharge ? this.totalAmount -= this.surcharge : null;
-        this.surcharge = 0;
-      }
-    },
+    // toggleReceiving(method) {
+    //   this.receivingMethod = method;
+    //   if (method === '2') {
+    //     this.surcharge = 5;
+    //     this.totalAmount += this.surcharge
+    //   } else {
+    //     this.surcharge ? this.totalAmount -= this.surcharge : null;
+    //     this.surcharge = 0;
+    //   }
+    // },
+    //自動輸入手機號
     autoFill() {
+      console.log(APP.userInfo.mobile);
       this.userPhone = APP.userInfo.mobile
     },
+
+    //訂單備註
     closeRemarks(remarks) {
       this.isRemarks = false;
       this.remarksData = remarks
     },
+    //跳轉至優惠券
     navDiscount() {
+      APP.couponInfo = this.couponInfo;
+      console.log(APP.couponInfo);
       uni.navigateTo({
-        url: '/pages/discount/discount',
+        url: '/pages/discount/discount'
       })
     },
-    cancelUseCoupon() {
-      this.discountCount = 1;
-      this.discountAmount = 0;
+    //使用附加服務
+    addAttachFee(id) {
+      let self = this;
+      self.isAttach = !self.isAttach;
+      self.attach.forEach((item) => {
+        if (item.id === id) {
+          if (self.isAttach) {
+            self.totalAmount += parseFloat(this.attach[0].attach_price);
+            self.attachArr.push(id)
+          } else {
+            self.totalAmount -= parseFloat(this.attach[0].attach_price)
+            self.attachArr.splice(self.attachArr.indexOf(id), 1)
+          }
+        }
+      })
     },
-    addAttachFee() {
-      this.isAttach = !this.isAttach;
-      this.isAttach ? this.totalAmount += this.attachFee : this.totalAmount -= this.attachFee
+    //開始支付
+    startPay() {
+      //創建訂單
+      let {shop_id, shop_name, address_id, haul_method} = this.goodsData;
+      //傳參對象
+      let paramsObj = {
+        shop_id,//訂單id
+        shop_name,
+        address_id,
+        haul_method,
+        goods_data: this.goods_data,
+        remake: '',
+        attach_id: '',
+        ticket_id: APP.coupon.id,
+      }
+      paramsObj.goods_data = JSON.stringify(paramsObj.goods_data)
+      //訂單備註
+      for (let key in this.remarksData) {
+        if (this.remarksData.hasOwnProperty(key)) {
+          if (this.remarksData[key]) {
+            paramsObj.remake += (this.remarksData[key] + ',');
+          }
+        }
+      }
+      if (paramsObj.remake) {
+        paramsObj.remake = paramsObj.remake.substr(0, paramsObj.remake.length - 1);
+      }
+      //附加信息
+      if (this.attachArr.length) {
+        this.attachArr.forEach((item) => {
+          paramsObj.attach_id += item + ',';
+        })
+        paramsObj.attach_id = paramsObj.attach_id.substr(0, paramsObj.attach_id.length - 1);
+      }
+      //選填參數沒有值直接刪除
+      !paramsObj.remake && delete paramsObj.remake
+      !paramsObj.attach_id && delete paramsObj.attach_id
+      !paramsObj.ticket_id && delete paramsObj.ticket_id
+      createOrder(paramsObj).then(value => {
+      }).catch(err => {
+        console.log(err);
+      })
     }
   },
   watch: {

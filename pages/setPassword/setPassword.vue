@@ -59,22 +59,12 @@ export default {
              url:'/pages/wallet/wallet'
            })
          }catch (e){
-           uni.showToast({
-             title:'密码过于简单',
-             duration:2000,
-             icon:'none'
-           })
+           this.customToast('密碼過於簡單')
            this.currentPwd='';
            this.pwd = '';
-           uni.hideLoading()
          }
        }else{
-         uni.showToast({
-           title:'密码不一致',
-           duration:2000,
-           icon:'none'
-         })
-         uni.hideLoading()
+         this.customToast('密碼不一致')
          this.currentPwd = ''
          this.pwd = '';
        }
