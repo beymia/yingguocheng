@@ -75,7 +75,7 @@ export default {
         title: '更多',
         icon: 'arrowright'
       }],
-      loginBoxShow:false,
+      loginBoxShow:false,//false為展示，需注意
     }
   },
   //获取用户信息
@@ -86,7 +86,7 @@ export default {
   /**
    * 页面展示时判断的情况
    * 有 token 没有用户信息，请求接口获取用户信息
-   * token和用户信息都没有站引导用户登录
+   * token没有引导用户登录
    */
   async onShow() {
     if (this.token && this.userInfo.level) return;
