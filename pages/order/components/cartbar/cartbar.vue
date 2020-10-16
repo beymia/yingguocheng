@@ -22,12 +22,12 @@
 					<view class="price">￥{{ cartPrice }}</view>
 					<template v-if="orderType == 1">
 						<text v-if="restMoney" style="font-size: 18rpx;color: #353535;margin-left: 5px;">滿￥{{choosedShop.detail.lowest_cost}}起送，還差￥{{restMoney}}元</text>
-						<text v-else style="font-size: 18rpx;color: #353535;margin-left: 5px;">另需配送費￥{{choosedShop.detail.delivery_cost}}元</text>
+						<text v-else-if="choosedShop.detail.delivery_cost" style="font-size: 18rpx;color: #353535;margin-left: 5px;">另需配送費￥{{choosedShop.detail.delivery_cost}}元</text>
 					</template>
 					
 				</view>
 			</view>
-			<button v-if="restMoney" type="primary" class="right" >结算</button>
+			<button v-if="restMoney && orderType == 1" type="primary" class="right" >结算</button>
 			<button v-else type="primary" class="right" @tap="pay">结算</button>
 		</uni-transition>
 		<cart-popup :cart="cart" ref="cartPopup" @add="add" @minus="minus" @clear="clear" @change="popChange" @checkboxChange="checkboxChange"></cart-popup>
@@ -72,6 +72,7 @@ export default {
 		restMoney(){
 			if(this.choosedShop && this.choosedShop.detail){
 				let m =Number(this.choosedShop.detail.lowest_cost) - this.cartPrice;
+				console.log(m)
 				if(m <= 0){
 					return 0
 				}else{

@@ -59,7 +59,6 @@
 		mounted() {
 			console.log("77777777777")
 			console.log(this.choosed_shop)
-			console.log(this.choosed_shop.detail.scroll_ad)
 		},
 		computed:{
 			scroll_ad(){

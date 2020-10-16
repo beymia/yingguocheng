@@ -75,7 +75,7 @@
 			...mapState(['orderType','choosedAddress','userAddresses']),
 		},
 		async onLoad({from}) {
-			/* const token = uni.getStorageSync('token');
+			const token = uni.getStorageSync('token');
 			if(!token){
 				uni.showModal({
 				    content: '您還沒有登錄，請先登錄',
@@ -95,7 +95,7 @@
 			}
 			
 			let uddresses = (await userAddresses()).data;
-			this.SET_USER_ADDRESSES(uddresses); */
+			this.SET_USER_ADDRESSES(uddresses);
 			
 			console.log('from:'+from)
 			if(from){

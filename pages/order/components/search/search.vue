@@ -116,10 +116,45 @@
 			}
 		},
 		async created() {
-			/* this.hotSearch = await this.$api('hotSearch')
-			this.historySearch = await this.$api('historySearch') */
+			
 			var statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
 			this.tranStyles.top= statusBarHeight + 44 +"px";
+			
+			/* this.hotSearch = await this.$api('hotSearch')
+			this.historySearch = await this.$api('historySearch') */
+			try {
+			    const history_search = uni.getStorageSync('historySearch');
+			    if (history_search) {
+			        this.historySearch = JSON.parse(history_search) 
+			    }else{
+					this.historySearch = []
+				}
+			} catch (e) {
+			    // error
+			}
+			
+			let hotSearch = []
+			this.categories.forEach(category => {
+				category.goods_list.forEach(good => {
+					hotSearch.push(good)
+				})
+			})
+			let l = hotSearch.length
+			if(l > 6){
+				let new_hot = []
+				do{
+					let x = Math.round(Math.random() * l)
+					let g = hotSearch[x]
+					let is =new_hot.find(good=>{
+						good.id == g.id
+					})
+					if(!is){
+						new_hot.push(g)
+					}
+				}while(new_hot.length <= 6) 
+				hotSearch = new_hot
+			}
+			this.hotSearch = hotSearch
 		},
 		methods: {
 			hide() {
@@ -130,17 +165,59 @@
 			handleChoose(item, isSearch = false) {
 				if(isSearch) {
 					this.hide()
+					let i =this.historySearch.findIndex(good=>{
+						return item.id == good.id
+					})
+					if(i==-1){
+						this.historySearch.push(item)
+						let new_h = JSON.stringify(this.historySearch)
+						uni.setStorage({
+							key:"historySearch",
+							data:new_h
+						})
+					}
+					
 					this.$emit('choose', item)
 					return
 				}
+				
+				let h_exis = false
+				let h_find = ''
 				this.categories.forEach(category => {
+					//  const find = category.goods_list.find(good => good.id == item.id)
+					// if(find) {
+					// 	this.hide()
+					// 	this.$emit('choose', find)
+					// 	return
+					// }
 					const find = category.goods_list.find(good => good.id == item.id)
-					if(find) {
-						this.hide()
-						this.$emit('choose', find)
-						return
+					if(find){
+						h_exis = true
+						h_find = find
 					}
+					
+					
 				})
+				if(h_exis){
+					this.hide()
+					this.$emit('choose', h_find)
+					return
+				}else{
+					uni.showToast({
+					    title: '商品已过期',
+					    duration: 1500,
+						icon:"none",
+					});
+					let new_h = this.historySearch.filter(good=>{
+						good.id != item.id
+					})
+					this.historySearch = new_h
+					new_h = JSON.stringify(new_h)
+					uni.setStorage({
+						key:'historySearch',
+						data:new_h
+					})
+				}
 			},
 			handleKeywordInput(e) {
 				//为了方便，这里使用商品列表的数据来筛选结果

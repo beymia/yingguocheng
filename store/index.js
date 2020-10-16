@@ -11,15 +11,15 @@ const store = new Vuex.Store({
 		token:'KbJ3eQFi3+ErJg4sgHvRxzc0Yjk0ODAzNTY2NjhkNTFkYjdjZGNkYmJjM2ZkYjdhNjY3M2ZkMmUyOWU0NGM3OTMxZTRlZWQ4ZjlhOWQ0ZDahZmrINdB5avDmJea/ep06Hunl39st/eQkAe13k7TmIQ==',
 		orderFrom:'',
 		choosedAddress:{
-			"id": "16007580462028548",
+			/* "id": "16007580462028548",
 			"contact_name": "张三",
 			"contact_sex": "先生",
 			"contact_phone": "17714012698",
 			"contact_address": "合肥市蜀山区梅山路107号",
 			"contact_number": "人民政府办公大楼10楼107",
-			"default_status": "1"
+			"default_status": "1" */
 		},
-		userAddresses: [{
+		userAddresses: [/* {
 						"id": "16007580462028548",
 						"contact_name": "张三",
 						"contact_sex": "先生",
@@ -35,9 +35,9 @@ const store = new Vuex.Store({
 						"contact_address": "合肥市瑶海区",
 						"contact_number": "天悦公园b12",
 						"default_status": "2"
-		}],
+		} */],
 		choosedShop:{
-			"id": "15989536458951855",
+			/* "id": "15989536458951855",
 			"shop_name": "天觀商城店",
 			"shop_address": "安徽省合肥市蜀山区芙蓉路291号",
 			"longitude": "117.2359925972313",
@@ -59,9 +59,9 @@ const store = new Vuex.Store({
 					"生打椰系列全新上市，生打椰椰奶冻、生打椰椰芒两款可选，快来【当季限定】选购吧~",
 					"生打椰系列全新上市，生打椰椰奶冻、生打椰椰芒两款可选，快来【当季限定】选购吧~",
 					"生打椰系列全新上市，生打椰椰奶冻、生打椰椰芒两款可选，快来【当季限定】选购吧~"
-			]}
+			]} */
 		},
-		shopList:[{
+		shopList:[/* {
 			"id": "15992871171146972",
 			"shop_name": "合肥百乐门广场店",
 			"shop_address": "安徽省合肥市蜀山区",
@@ -131,7 +131,7 @@ const store = new Vuex.Store({
 			"current_order": "0",
 			"current_cups": "0",
 			"distance": 2.24
-		}],
+		} */],
 		
 	},
 	mutations: {
@@ -139,7 +139,10 @@ const store = new Vuex.Store({
 			state.orderType = orderType
 		},
 		SET_CHOOSED_SHOP(state,choosedShop){
+			console.log(33333333333333333)
+			console.log(choosedShop)
 			state.choosedShop = choosedShop
+			console.log(state.choosedShop)
 		},
 		SET_SHOP_LIST(state,shopList){
 			state.shopList = shopList
