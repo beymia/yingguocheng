@@ -1,7 +1,7 @@
 <template>
   <view class="foresee">
     <view class="head">
-      <!-- TODO 替換圖片鏈接 foresee.worth_price-->
+      <!-- TODO 替換圖片鏈接 foreseeList.worth_price-->
       <image :src="'../../static/images_t/milkTeaGift/img.png'"></image>
     </view>
     <view class="foresee_content">
@@ -21,8 +21,8 @@
         <view class="notice">
           <text class="title">購買須知：</text>
           <text class="content">購買即視為閱讀併同意</text>
-          <text>《使用須知》</text>
-          <text>《奶茶商業預付卡章程》</text>
+          <text class="special">《使用須知》</text>
+          <text class="special">《奶茶商業預付卡章程》</text>
         </view>
       </view>
       <!--支付按鈕-->
@@ -113,6 +113,11 @@ uni-page-body{
         margin-bottom: $spacing-lg;
       }
 
+      .notice{
+        .special{
+          color: $main-color;
+        }
+      }
       .title{
         width: 120rpx;
         font-size: $font-size-sm;

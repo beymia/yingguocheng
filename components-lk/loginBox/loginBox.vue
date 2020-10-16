@@ -41,72 +41,8 @@ export default {
   name: "loginBox",
   methods: {
     navLogin() {
-      /* uni.navigateTo({
-        url:'/pages/login/login'
-       })*/
-
-      //TODO測試使用
-      this.phone = 15660088912
-      let result,
-          self = this;
-      uni.getProvider({
-        service: 'oauth',
-        async success(res) {
-          //小程序登錄
-          if (res.provider[0] === 'weixin') {
-            uni.login({
-              provider: res.provider[0],
-              scopes: 'auth_base',
-              async success(wxCode) {
-                try {
-                  console.log(wxCode);
-                  result = await login({
-                    mobile: self.phone,
-                    code: wxCode.code
-                  })
-
-                  //將token賦值給全局對象並且存入本地storage中
-                  console.log(result);
-                  APP.userToken = result.data.token;
-                  uni.setStorageSync('token', APP.userToken)
-                  uni.switchTab({
-                    url: '/pages/home/home',
-                    success(e) {
-                      console.log(e);
-                    }
-                  })
-                  uni.hideLoading()
-                } catch (e) {
-                  console.log(e);
-                  console.log('登錄出錯')
-                  uni.hideLoading()
-                }
-              }
-            })
-          } else {
-            //h5登錄
-            try {
-              result = await login({
-                mobile: self.phone,
-              })
-            } catch (e) {
-              console.log(e);
-              console.log('登錄錯誤')
-              uni.hideLoading()
-            }
-            //將token賦值給全局對象並且存入本地storage中
-            console.log(result);
-            APP.userToken = result.data.token;
-            uni.setStorageSync('token', APP.userToken)
-            uni.switchTab({
-              url: '/pages/home/home',
-              success(e) {
-                console.log(e);
-              }
-            })
-            uni.hideLoading()
-          }
-        }
+      uni.navigateTo({
+        url: '/pages/login/login'
       })
     }
   },

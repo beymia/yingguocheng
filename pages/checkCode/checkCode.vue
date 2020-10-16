@@ -76,20 +76,33 @@ export default {
     },
     loginError() {
       this.verificationCode = '';
-      uni.hideLoading();
-      this.customToast('出現了錯誤',false)
+      this.customToast('出現了錯誤')
+    },
+    //登录成功，將token賦值給全局對象並且存入本地storage中
+    loginSuccess(result){
+      uni.hideLoading()
+      APP.userToken = result.data.token;
+      uni.setStorageSync('token', APP.userToken)
+      uni.switchTab({
+        url: '/pages/home/home',
+        success() {
+          //跳轉成功清除定時器，倒計時清零
+          clearInterval(this.countDown);
+          this.timer = 0;
+        }
+      })
     }
   },
   watch: {
     async verificationCode(value) {
       let self = this;
-      try {
-        if (value.length === 6) {
-          console.log('驗證碼輸入完成')
-          uni.showLoading({
-            title: this.change ? '請稍後' : '正在登錄中',
-          })
 
+      if (value.length === 6) {
+        console.log('驗證碼輸入完成')
+        uni.showLoading({
+          title: this.change ? '請稍後' : '正在登錄中',
+        })
+        try {
           //TODO change有值則跳轉到設置交易密碼頁面
           if (this.change) {
             try {
@@ -100,19 +113,17 @@ export default {
               })
             } catch (e) {
               console.log(e);
-              this.customToast('驗證碼錯誤',false)
+              this.customToast('驗證碼錯誤', false)
             }
             return;
           }
 
-          //TODO驗證驗證碼 改為後端驗證，修改交密碼須前段調用
+          //TODO驗證驗證碼，
           await verifyCode({mobile: self.phone, code: self.verificationCode})
-
-          console.log('效驗驗證碼成功,小程序開始獲取微信code')
           let result;
           uni.getProvider({
             service: 'oauth',
-           async success(res) {
+            async success(res) {
               //小程序登錄
               if (res.provider[0] === 'weixin') {
                 uni.login({
@@ -124,44 +135,32 @@ export default {
                         mobile: self.phone,
                         code: wxCode.code
                       })
+                      self.loginSuccess(result)
                     } catch (e) {
                       console.log(e);
-                      console.log('登錄出錯')
-                      uni.hideLoading()
+                      console.log('api登錄出錯')
                       self.loginError()
                     }
                   }
                 })
               } else {
                 //h5登錄
-                try{
+                try {
                   result = await login({
                     mobile: self.phone,
                   })
-                }catch (e) {
+                  self.loginSuccess(result)
+                } catch (e) {
                   console.log(e);
                   console.log('登錄錯誤')
-                  uni.hideLoading()
                   self.loginError()
                 }
               }
             }
           })
-          //將token賦值給全局對象並且存入本地storage中
-          APP.userToken = result.data.token;
-          uni.setStorageSync('token', APP.userToken)
-          uni.switchTab({
-            url: '/pages/home/home',
-            success() {
-              //跳轉成功清除定時器，倒計時清零
-              clearInterval(self.countDown);
-              self.timer = 0;
-            }
-          })
-          uni.hideLoading()
+        } catch (e) {
+          self.loginError()
         }
-      } catch (e) {
-        self.loginError()
       }
     }
   },

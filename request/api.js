@@ -66,10 +66,10 @@ export const sendMsg = (data) => ajax('/dialog/send-msg', data, 'post', 1)
 export const receiveMsg = (data) => ajax('/dialog/latest-dialog', data, 'post', 1)
 
 //奶茶有礼列表
-export const milkList = (data) => ajax('/foresee-card/list', data, 'post', 1)
+export const milkList = (data) => ajax('/foreseeList-card/list', data, 'post', 1)
 //我的卡片
-export const myForesee = (data) => ajax('/foresee-card/my-card', data, 'post', 1)
+export const myForesee = (data) => ajax('/foreseeList-card/my-card', data, 'post', 1)
 //购买卡片
-export const buyForesee = (data) => ajax('/foresee-card/pay-card', data, 'post', 1)
+export const buyForesee = (data) => ajax('/foreseeList-card/pay-card', data, 'post', 1)
 //收送记录
-export const mutualRecord = (data) => ajax('/foresee-card/my-gift', data, 'post', 1)
+export const mutualRecord = (data) => ajax('/foreseeList-card/my-gift', data, 'post', 1)

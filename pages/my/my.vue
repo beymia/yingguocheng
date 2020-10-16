@@ -51,7 +51,8 @@ export default {
   data() {
     return {
       userInfo: {},
-      options: [{
+      options: [
+          {
         title: '會員碼',
         summary: '門店掃碼積分、奶茶錢包和奶茶有禮支付',
         icon: 'arrowright'
@@ -77,35 +78,45 @@ export default {
       loginBoxShow:false,
     }
   },
+  //获取用户信息
   async mounted() {
     await this.getUserInfo()
   },
-  async onShow(){
-   this.loginBoxShow = this.token = APP.userToken;
-    if(this.token&&!this.userInfo.user_name){
-      await this.getUserInfo()
-    }
+
+  /**
+   * 页面展示时判断的情况
+   * 有 token 没有用户信息，请求接口获取用户信息
+   * token和用户信息都没有站引导用户登录
+   */
+  async onShow() {
+    if (this.token && this.userInfo.level) return;
+    this.loginBoxShow = !!this.token;
+    !this.userInfo.level && await this.getUserInfo()
   },
   methods: {
     //请求用户信息
    async getUserInfo(){
+     uni.showLoading({
+       title:'請稍後'
+     })
+     this.loginBoxShow = this.token = APP.userToken
+     this.userInfo = APP.userInfo;
      try{
-       uni.showLoading({
-         title:'請稍後'
-       })
-       this.loginBoxShow = this.token = APP.userToken
-       if (this.token) {
+       //token存在静默登录
+       if (this.token ||!this.userInfo.level ) {
+         console.log(123);
          this.userInfo = (await userSpace()).data;
          APP.userInfo = this.userInfo;
+           this.loginBoxShow = true;
        }
        uni.hideLoading()
      }catch (e){
+       this.loginBoxShow = false;
        this.customToast('需要登錄',false)
      }
     },
     //跳转至對應的頁面
     navFitPage(aims) {
-      console.log(aims);
       //用户没有登录不做处理
       if (!this.token) {
         this.customToast('請先登錄',false)
@@ -144,7 +155,9 @@ export default {
           page = 'more';
           break;
       }
+      //跳转至钱包页面，没有支付密码时跳转设置密码页面
       if (page === 'wallet') {
+        console.log(APP.userInfo.pay_pwd);
         if (!(APP.userInfo.pay_pwd)) {
           uni.navigateTo({
             url: '/pages/setPassword/setPassword'
@@ -159,6 +172,7 @@ export default {
         })
         return;
       }
+      //通用的链接跳转
       uni.navigateTo({
         url: `/pages/${page}/${page}?${this.query}=${v}`,
         complete(e){

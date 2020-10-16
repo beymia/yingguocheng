@@ -221,6 +221,20 @@
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
 		}
+        ,{
+            "path" : "pages/buyHistory/buyHistory",
+            "style": {
+            	"navigationBarTitleText": "購買歷史",
+            	"navigationBarBackgroundColor": "#FFFFFF"
+            }
+        }
+        ,{
+            "path" : "pages/mutualHistory/mutualHistory",
+            "style": {
+            	"navigationBarTitleText": "收送歷史",
+            	"navigationBarBackgroundColor": "#FFFFFF"
+            }
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
