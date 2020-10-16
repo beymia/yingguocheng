@@ -67,11 +67,11 @@
 						</view>
 					</swiper-item>
 				</swiper>
-				<view class="nnnnnnnnnnnnnn">
+				<!-- <view class="nnnnnnnnnnnnnn">
 					<view class="mmmmmmmmmm" v-for="(item,index) in notice_list1">
 						{{item}}
 					</view>
-				</view>
+				</view> -->
 				
 				
 					<template v-if="is_notice">
@@ -130,9 +130,10 @@
 										{{label}}
 									</view>
 								</view>
-								<view class="good_des">
+								<!-- <view class="good_des">
 									{{good.description}}
-								</view>
+								</view> -->
+								<rich-text class="good_des" :nodes="good.description"></rich-text>
 								<view class="price">
 									<view class="">
 										￥{{good.price}}
@@ -224,18 +225,139 @@
 		},
 		async onLoad() {
 			
-			 await this.init()
+			var latitude = 0;
+			var longitude = 0
+			uni.getLocation({
+				type:'gcj02',
+				altitude:true,
+				success: async (res) => {
+					// #ifndef H5
+					latitude = res.latitude
+					longitude = res.longitude
+					// #endif
+					
+					
+				}
+			})
+			
+			// #ifdef H5
+			//H5下使用騰訊地圖webservice接口
+			/* let res2 = await new Promise((resolve, reject) => {
+				uni.request({
+					url:'https://apis.map.qq.com/ws/location/v1/ip?key=MBTBZ-2PMKR-QARWA-W7MOH-AJ76K-6HB2J',
+					success(result) {
+						if (result.statusCode !== 200 ) reject(result)
+						resolve(result.data)
+					},
+					fail(err) {
+						reject(err)
+					}
+				})
+			}).catch(e => {}) */
+			this.$jsonp('https://apis.map.qq.com/ws/location/v1/ip',{key:'MBTBZ-2PMKR-QARWA-W7MOH-AJ76K-6HB2J'}).then(res2 =>{
+				console.log(res2)
+			})
+			console.log(res2)
+			latitude = res2.result.location.lat
+			longitude = res2.result.location.lng
+			// #endif
+			
+			let spl= (await shop_list({latitude:latitude,longitude:longitude})).data
+			console.log('latitude:'+latitude+'longitude:'+longitude)
+			console.log(spl)
+			this.SET_SHOP_LIST(spl)
+			this.shopList.sort(function(item1,item2){
+				if(parseInt(item1.distance*100) <= parseInt(item2.distance*100) ){
+					return -1;
+				}else{
+					return 1
+				}
+			})
+			console.log(spl)
+			this.shopList.forEach( async item =>{
+			let shop_detail2=(await shop_detail({shop_id:item.id})).data
+			console.log(shop_detail2)
+			item.detail = shop_detail2
+			})
+			this.SET_CHOOSED_SHOP(this.shopList[0])
+			console.log(this.choosedShop)
+			 //alert(this.choosedShop.id)
+			let menu_list1 = (await goods_list({shop_id:this.choosedShop.id})).data
+			console.log(this.choosedShop)
+			console.log(menu_list1)
+			let goods_promise = []
+			console.log(this.choosedShop) 
+			let menu_list2=[]
+			menu_list1.forEach(item =>{
+				let obj = {};
+				obj.id = item.id
+				obj.icon_url = this.imgSrc + item.home_avatar
+				obj.menu_name = item.classify_name
+				obj.goods_list = []
+				if(item.child && item.child.length){
+					let objc = {}
+					item.child.forEach(itemc =>{
+						objc.id = itemc.id
+						objc.name = itemc.goods_name
+						objc.labels = itemc.goods_label
+						objc.materials =[]
+						objc.description = itemc.goods_detail
+						objc.imgurl = this.imgSrc + itemc.home_avatar
+						objc.price = itemc.goods_price
+						objc.sell_status = itemc.sell_status
+						objc.goods_norm = itemc.goods_norm
+						obj.goods_list.push(objc)
+						goods_promise.push(goods_detail({goods_id:itemc.id}))
+					})
+				}
+				menu_list2.push(obj)
+			})
+			console.log(menu_list2)
+			await Promise.all(goods_promise).then( values =>{
+				console.log(values)
+				let index = 0
+				menu_list2.forEach(item =>{
+						item.goods_list.forEach(itemc =>{
+							let images =[]
+							let materials = []
+							values[index].data.goods_avatar.forEach(itemv=>{
+								images.push(this.imgSrc + itemv)
+							})
+							console.log(values[index].data.goods_norm)
+							values[index].data.goods_norm.forEach(itemn=>{
+								let normobj ={}
+								normobj.group_name = itemn.name
+								normobj.values = []
+								itemn.child.forEach(itemvc=>{
+									let valobj ={}
+									valobj.id = itemvc.id
+									valobj.parent_id = itemvc.parent_id
+									valobj.name = itemvc.value
+									valobj.price = itemvc.price
+									normobj.values.push(valobj)
+								})
+								console.log("fffffffffffff")
+								console.log(normobj)
+								materials.push(normobj)
+								console.log(materials)
+							})
+							itemc.images = images
+							itemc.materials = materials
+						})
+						
+				})
+				console.log(menu_list2)
+			})
+			console.log('bojjijijj')
+			this.menu_list=menu_list2
+			 //await this.init()
 			  console.log("order onLoad")
-			 console.log(this.spl)
 			this.$nextTick(() => this.calcSize())
 		},
-		async onReady() {
-			await this.onLoad
+		 onReady() {
 			 console.log("order onReady")
 		},
-		async onShow() {
-			await this.onLoad
-			await this.onReady
+		 onShow() {
 			console.log("order onShow")
 			this.handle_from()
 			console.log(this.choosedShop)
@@ -266,7 +388,7 @@
 			notice_list1(){
 				if(this.choosedShop&&this.choosedShop.detail){
 					console.log("999999999999999999999999")
-					let r = this.choosedShop.detail
+					let r = this.choosedShop.detail.scroll_ad
 					console.log(r)
 					return r
 				}
@@ -511,7 +633,7 @@
 			
 		},
 		async init(){
-			var latitude = 0;
+			/* var latitude = 0;
 			var longitude = 0
 			uni.getLocation({
 				type:'gcj02',
@@ -560,21 +682,78 @@
 					})
 					this.SET_CHOOSED_SHOP(this.shopList[0])
 					console.log(this.choosedShop)
-					// alert(this.choosedShop.id)
-					let goods_list1 = (await goods_list({shop_id:this.choosedShop.id}))
+					 //alert(this.choosedShop.id)
+					let menu_list1 = (await goods_list({shop_id:this.choosedShop.id})).data
 					console.log(this.choosedShop)
-					console.log(goods_list1)
+					console.log(menu_list1)
 					let goods_promise = []
-					console.log(this.choosedShop)
-					this.menu_list.forEach(item =>{
-						item.child.forEach(item =>{
-							alert(item.id)
-							//goods_promise.push(goods_detail())
-						})
-						
+					console.log(this.choosedShop) 
+					let menu_list2=[]
+					menu_list1.forEach(item =>{
+						let obj = {};
+						obj.id = item.id
+						obj.icon_url = this.imgSrc + item.home_avatar
+						obj.menu_name = item.classify_name
+						obj.goods_list = []
+						if(item.child && item.child.length){
+							let objc = {}
+							item.child.forEach(itemc =>{
+								objc.id = itemc.id
+								objc.name = itemc.goods_name
+								objc.labels = itemc.goods_label
+								objc.materials =[]
+								objc.description = itemc.goods_detail
+								objc.imgurl = this.imgSrc + itemc.home_avatar
+								objc.price = itemc.goods_price
+								objc.sell_status = itemc.sell_status
+								objc.goods_norm = itemc.goods_norm
+								obj.goods_list.push(objc)
+								goods_promise.push(goods_detail({goods_id:itemc.id}))
+							})
+						}
+						menu_list2.push(obj)
 					})
+					console.log(menu_list2)
+					await Promise.all(goods_promise).then( values =>{
+						console.log(values)
+						let index = 0
+						menu_list2.forEach(item =>{
+								item.goods_list.forEach(itemc =>{
+									let images =[]
+									let materials = []
+									values[index].data.goods_avatar.forEach(itemv=>{
+										images.push(this.imgSrc + itemv)
+									})
+									console.log(values[index].data.goods_norm)
+									values[index].data.goods_norm.forEach(itemn=>{
+										let normobj ={}
+										normobj.group_name = itemn.name
+										normobj.values = []
+										itemn.child.forEach(itemvc=>{
+											let valobj ={}
+											valobj.id = itemvc.id
+											valobj.parent_id = itemvc.parent_id
+											valobj.name = itemvc.value
+											valobj.price = itemvc.price
+											normobj.values.push(valobj)
+										})
+										console.log("fffffffffffff")
+										console.log(normobj)
+										materials.push(normobj)
+										console.log(materials)
+									})
+									itemc.images = images
+									itemc.materials = materials
+								})
+								
+						})
+						console.log(menu_list2)
+					})
+					console.log('bojjijijj')
+					this.menu_list=menu_list2
+					
 				}
-			})
+			}) */
 			
 		}
 	},

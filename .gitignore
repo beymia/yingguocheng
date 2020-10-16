@@ -8,3 +8,4 @@ components_me/
 /unpackage/dist/dev/.sourcemap/
 /.automator
 /unpackage
+/node_modules
