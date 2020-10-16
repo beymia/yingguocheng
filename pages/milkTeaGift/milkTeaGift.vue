@@ -9,20 +9,26 @@
         <text @click="activeFeat='my'" :class="[activeFeat==='my' ? 'active':'']">我的奶茶有裡</text>
       </view>
     </view>
-    <!--内容-->
-    <view class="content">
-        <view class="content_list" v-for="list in foreseeList" :key="list.id">
-          <view class="title">
-            <text>{{list.norm_name}}</text>
-          </view>
-          <swiper class="list">
-            <swiper-item v-for="(foresee,index) in (list.child)" :key="index">
-              <view class="detail">
-                <image src="../../static/images_t/milkTeaGift/img.png"></image>
-              </view>
-            </swiper-item>
-          </swiper>
+    <!--購買奶茶有禮-->
+    <view v-if="activeFeat==='buy'" class="buy_foresee">
+      <view class="content_list" v-for="list in foreseeList" :key="list.id">
+        <view class="title">
+          <text>{{ list.norm_name }}</text>
         </view>
+        <scroll-view enable-flex :scroll-x="true" class="list">
+          <view class="list_item"
+                @click="navPage(list.child[im])"
+                v-for="(foresee,im) in (list.child)"
+                :key="im">
+            <!-- TODO 替換圖片鏈接 foresee.worth_price-->
+            <image :src="'../../static/images_t/milkTeaGift/img.png'"></image>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    <!--我的奶茶有礼-->
+    <view v-else class="have_foresee">
+      <myForeseePage :foresee="haveForesee"></myForeseePage>
     </view>
   </view>
 </template>
@@ -35,6 +41,7 @@ import {
   mutualRecord
 } from "../../request/api";
 
+import myForeseePage from './components/myForeseePage'
 export default {
   data() {
     return {
@@ -171,7 +178,24 @@ export default {
           ]
         },
       ],
-      activeFeat:'buy'
+      activeFeat:'buy',
+      haveForesee: [{
+        id: "16027611616363589",
+        worth_price: "60.00",
+        home_avatar: "/uploads/202010/14/160267063599194.jpg"
+      }, {
+        id: "16027611616363589",
+        worth_price: "60.00",
+        home_avatar: "/uploads/202010/14/160267063599194.jpg"
+      }, {
+        id: "16027611616363589",
+        worth_price: "60.00",
+        home_avatar: "/uploads/202010/14/160267063599194.jpg"
+      }, {
+        id: "16027611616363589",
+        worth_price: "60.00",
+        home_avatar: "/uploads/202010/14/160267063599194.jpg"
+      },]
     }
   },
   async mounted() {
@@ -191,6 +215,15 @@ export default {
     //获取收送记录
     async getMutualRecord() {
     },
+    //跳轉至預付卡詳情
+    navPage(f){
+      uni.navigateTo({
+        url:'/pages/foreseeDetails/foreseeDetails?foresee='+ encodeURIComponent(JSON.stringify(f))
+      })
+    }
+  },
+  components:{
+    myForeseePage
   }
 }
 </script>
@@ -244,18 +277,44 @@ image{
     }
   }
 
-  .content{
+  .buy_foresee{
     padding-top: 150rpx;
-    width: auto;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: rebeccapurple;
+    background-color: $main-bg;
 
-    .list{
-      width: auto;
-      height: 240rpx;
-      background-color: #4cd964;
+    .content_list{
+      width: 100%;
+      padding: 0 $spacing-base;
+      box-sizing: border-box;
+
+      .title{
+        font-size: $font-size-base;
+        color: $font-color1;
+        margin-bottom: 10rpx;
+      }
+
+      .list{
+        width: 100%;
+        height: 230rpx;
+        white-space: nowrap;
+
+        .list_item{
+          display: inline-block;
+          width: 300rpx;
+          margin-right: 20rpx;
+        }
+      }
     }
+  }
+
+  .have_foresee{
+    padding-top: 150rpx;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $main-bg;
   }
 }
 </style>

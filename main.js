@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store'
+import VueJsonp from 'vue-jsonp'
 
+console.log(VueJsonp);
 //數據為空時展示
 import noMoreData from "./components-lk/noMoreData/noMoreData";
 

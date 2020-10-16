@@ -214,8 +214,14 @@
 				"navigationBarTitleText": "消息中心",
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
+		}, {
+			"path": "pages/foreseeDetails/foreseeDetails",
+			"style": {
+				"navigationBarTitleText": "奶茶禮品卡",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
