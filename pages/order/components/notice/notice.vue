@@ -4,7 +4,7 @@
 			<view class="mr60_con">
 				<!-- 新聞列表開始 -->
 					<view class="news_list">
-						<view class="news" v-for="(news,news_index) in choosed_shop.detail.scroll_ad" :key="news_index">
+						<view class="news" v-for="(news,news_index) in scroll_ad" :key="news_index">
 							<view class="icon">
 								<image src="/static/images/order/blueBall.png" mode=""></image>
 							</view>
@@ -20,7 +20,7 @@
 							配送
 						</view>
 						<view class="text" >
-							<rich-text :nodes="choosed_shop.detail.shop_detial"></rich-text>
+							<rich-text :nodes="shop_detial"></rich-text>
 						</view>
 					</view>
 				<!-- 配送結束 -->
@@ -53,7 +53,20 @@
 		props:{
 			choosed_shop:{
 				type:Object,
-				default:()=>{}
+				required:true
+			}
+		},
+		mounted() {
+			console.log("77777777777")
+			console.log(this.choosed_shop)
+			console.log(this.choosed_shop.detail.scroll_ad)
+		},
+		computed:{
+			scroll_ad(){
+				if(this.choosed_shop && this.choosed_shop.detail)return this.choosed_shop.detail.scroll_ad
+			},
+			shop_detial(){
+				if(this.choosed_shop && this.choosed_shop.detail)return this.choosed_shop.detail.shop_detial
 			}
 		}
 	}

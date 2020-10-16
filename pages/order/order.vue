@@ -58,7 +58,7 @@
 			<!-- 公告栏start -->
 			<view class="notice">
 				<swiper   class="swiper_wrap_notice"  :autoplay="true" vertical circular :interval="3000" :duration="1000">
-					<swiper-item v-show="!is_notice" v-for="(notice,notice_index) in notice_list">
+					<swiper-item v-show="!is_notice" v-for="(notice,notice_index) in notice_list1" :key="notice_index">
 						<view class="swiper-item notice_title">
 							<view class="notice_icon">
 								<image src="../../static/images/order/blueBall.png" mode=""></image>
@@ -67,6 +67,12 @@
 						</view>
 					</swiper-item>
 				</swiper>
+				<view class="nnnnnnnnnnnnnn">
+					<view class="mmmmmmmmmm" v-for="(item,index) in notice_list1">
+						{{item}}
+					</view>
+				</view>
+				
 				
 					<template v-if="is_notice">
 						<view class="notice_more" @tap="is_notice=false">
@@ -217,13 +223,23 @@
 			}
 		},
 		async onLoad() {
-			 console.log("order onLoad")
+			
 			 await this.init()
+			  console.log("order onLoad")
 			 console.log(this.spl)
 			this.$nextTick(() => this.calcSize())
 		},
-		onShow() {
+		async onReady() {
+			await this.onLoad
+			 console.log("order onReady")
+		},
+		async onShow() {
+			await this.onLoad
+			await this.onReady
+			console.log("order onShow")
 			this.handle_from()
+			console.log(this.choosedShop)
+			console.log(this.shopList)
 		},
 		
 		computed:{
@@ -247,9 +263,12 @@
 					}
 				}
 			},
-			notice_list(){
-				if(this.choosedShop){
-					return this.choosedShop.detail.scroll_ad
+			notice_list1(){
+				if(this.choosedShop&&this.choosedShop.detail){
+					console.log("999999999999999999999999")
+					let r = this.choosedShop.detail
+					console.log(r)
+					return r
 				}
 				
 			},
@@ -526,10 +545,33 @@
 					console.log('latitude:'+latitude+'longitude:'+longitude)
 					console.log(spl)
 					this.SET_SHOP_LIST(spl)
+					this.shopList.sort(function(item1,item2){
+						if(parseInt(item1.distance*100) <= parseInt(item2.distance*100) ){
+							return -1;
+						}else{
+							return 1
+						}
+					})
+					console.log(spl)
 					this.shopList.forEach( async item =>{
 					let shop_detail2=(await shop_detail({shop_id:item.id})).data
 					console.log(shop_detail2)
-					 
+					item.detail = shop_detail2
+					})
+					this.SET_CHOOSED_SHOP(this.shopList[0])
+					console.log(this.choosedShop)
+					// alert(this.choosedShop.id)
+					let goods_list1 = (await goods_list({shop_id:this.choosedShop.id}))
+					console.log(this.choosedShop)
+					console.log(goods_list1)
+					let goods_promise = []
+					console.log(this.choosedShop)
+					this.menu_list.forEach(item =>{
+						item.child.forEach(item =>{
+							alert(item.id)
+							//goods_promise.push(goods_detail())
+						})
+						
 					})
 				}
 			})

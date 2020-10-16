@@ -70,12 +70,15 @@ export default {
 			return Boolean(this.cart.length) && !(this.cart.findIndex(item => item.is_checked == false)+1);
 		},
 		restMoney(){
-			let m =Number(this.choosedShop.detail.lowest_cost) - this.cartPrice;
-			if(m <= 0){
-				return 0
-			}else{
-				return m
+			if(this.choosedShop && this.choosedShop.detail){
+				let m =Number(this.choosedShop.detail.lowest_cost) - this.cartPrice;
+				if(m <= 0){
+					return 0
+				}else{
+					return m
+				}
 			}
+			
 		}
 		
 	},
