@@ -195,19 +195,20 @@ export default {
         // })
         /* #endif*/
       } catch (e) {
+        console.log(e);
         this.customToast('出現了錯誤',false)
       }
     }
   },
-  watch: {
-    rechargeAmount(n, o) {
-      let newStr = n.slice(o.length),
-          newNum = parseInt(newStr)
-      if (isNaN(newNum)) {
-        this.rechargeAmount = '';
-      }
-    },
-  },
+  // watch: {
+  //   rechargeAmount(n, o) {
+  //     let newStr = n.slice(o.length),
+  //         newNum = parseInt(newStr)
+  //     if (isNaN(newNum)) {
+  //       this.rechargeAmount = '';
+  //     }
+  //   },
+  // },
   components: {
     optionsList
   }

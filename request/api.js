@@ -35,7 +35,7 @@ export const expensesRecord = (data) => ajax('/record/balance-notes', data, 'pos
 //会员二维码
 export const qrCode = (data) => ajax('/qr-code/user-code', data, 'post', 1)
 //充值钱包
-export const recharge = (data) => ajax('/account/recharge', data, 'post', 1)
+export const recharge = (data) => ajax('/pay/recharge', data, 'post', 1)
 //会员月度礼包
 export const monthPack = (data) => ajax('/month/park-list', data, 'post', 1)
 //领取月度礼包

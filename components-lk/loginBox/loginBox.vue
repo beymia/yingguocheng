@@ -94,6 +94,17 @@ export default {
               console.log('登錄錯誤')
               uni.hideLoading()
             }
+            //將token賦值給全局對象並且存入本地storage中
+            console.log(result);
+            APP.userToken = result.data.token;
+            uni.setStorageSync('token', APP.userToken)
+            uni.switchTab({
+              url: '/pages/home/home',
+              success(e) {
+                console.log(e);
+              }
+            })
+            uni.hideLoading()
           }
         }
       })
@@ -104,4 +115,95 @@ export default {
   }
 }
 </script>
+<style scoped lang="scss">
+.login_box {
+  width:100vw;
+  height: 700rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx 20rpx 0 0;
 
+  .head{
+    width: 100%;
+    height: 170rpx;
+    position: relative;
+
+    .close{
+      position: absolute;
+      right: 30rpx;
+      top: 30rpx;
+    }
+
+    image{
+      width: 150rpx;
+      height: 120rpx;
+      vertical-align: middle;
+      position: absolute;
+      top: 50rpx;
+      left: 50%;
+      margin-left: -75rpx;
+    }
+  }
+
+  .content{
+    width: 100%;
+    height:530rpx ;
+    margin-top: 32rpx;
+
+    .content_head{
+      width: 100%;
+      height: 127rpx;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0 $spacing-base;
+      box-sizing: border-box;
+
+      text:nth-child(1){
+        font-size: $font-size-lg + 16rpx;
+        font-weight: $font-weight-lg;
+        color: $font-color1;
+      }
+
+      text:nth-child(2){
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $font-color3;
+      }
+    }
+
+    .login_btn{
+      width: 100%;
+      height: 96rpx;
+      padding:0 40rpx;
+      box-sizing: border-box;
+      margin: 100rpx 0;
+
+      button{
+        width: 100%;
+        height: 96rpx;
+        border: none;
+        background-color: $main-color;
+        border-radius: 10rpx;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-lg;
+        color: #ffffff;
+        padding: 0;
+        line-height: 96rpx;
+        margin: 0;
+      }
+    }
+  }
+
+  .protocol{
+    width: 100%;
+    font-size: $font-size-sm - 6rpx;
+    font-weight: 400;
+    color: $font-color3;
+    text-align: center;
+
+    text:nth-child(2),text:nth-child(3){
+      color: $main-color;
+    };
+  }
+}
+</style>
