@@ -89,7 +89,7 @@ export default {
       oneSelfOrder: [],//自提订单
       takeawayOrder: [],//外卖订单
       invoiceData: [],//未开发票订单
-      loginBoxShow: false,
+      loginBoxShow: false,//false展示
     }
   },
   computed: {
@@ -130,27 +130,39 @@ export default {
   },
 
   //頁面每次展示都重新獲取本地storage中的token值
-  onShow() {
-    this.loginBoxShow=this.token = APP.userToken;
+  async onShow() {
+    this.loginBoxShow = this.token = APP.userToken;
+    await this.getData()
   },
 
-  async mounted() {
-    this.loginBoxShow=this.token = APP.userToken;
-    try{
-      this.currentOrderForm.data=(await this.requestOrder(1,this.currentOrderForm.page) || [])
-      this.historyOrderForm.data=(await this.requestOrder(2,this.historyOrderForm.page) ||[])
-    }catch (e) {
-      console.log(e);
-      this.customToast('訂單獲取失敗',false)
-    }
-  },
+  //請求所有的數據
+  // async mounted() {
+  //   this.loginBoxShow = this.token = APP.userToken;
+  //   if(this.loginBoxShow){
+  //    await this.getData()
+  //   }
+  // },
 
   methods: {
-    //请求数据，已经有数据后不再请求
+    //请求数据
     async requestOrder(type,page) {
       return (await orderForm({type, page})).data;
     },
 
+    async getData(){
+      uni.showLoading({
+        title:'請稍後'
+      })
+      try {
+        this.currentOrderForm.data = (await this.requestOrder(1, this.currentOrderForm.page) || [])
+        this.historyOrderForm.data = (await this.requestOrder(2, this.historyOrderForm.page) || [])
+        uni.hideLoading()
+      } catch (e) {
+        this.customToast('訂單獲取失敗')
+      }
+    },
+
+    //切換展示頁
     async toggleFeat(feat) {
       this.activeFeat = feat;
       if (feat === 'history') {
@@ -203,7 +215,7 @@ uni-page-body{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    z-index: 999;
+    z-index: 1;
     position: sticky;
     top: 128rpx;
   ;

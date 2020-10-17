@@ -56,12 +56,10 @@ export default {
       reRender: 1,//用戶充值後強制刷新頁面的條件
     }
   },
-  onLoad(options) {
-    console.log(1);
+  onLoad() {
     this.amount = APP.userInfo.balance
-    // this.originPhone = APP.userInfo.mobile;
     //TODO 测试使用手机号，生产环境需要从全局对象中获取
-    this.originPhone = '15660088912'
+    this.originPhone = APP.userInfo.mobile;
     this.phone = this.originPhone.replace(/\d/g, function (value, index) {
       if (index >= 3 && index <= 7) {
         return 'x'
@@ -69,9 +67,6 @@ export default {
         return value
       }
     })
-  },
-  mounted() {
-    console.log(1);
   },
   methods: {
     //导航到对应的页面
@@ -130,7 +125,7 @@ export default {
           let orderInfo = (await recharge({
             amount: this.rechargeAmount
           })).data;
-          /* #ifndef H5*/
+          // #ifndef H5
           try {
             uni.getProvider({
               service: 'payment',
@@ -142,7 +137,7 @@ export default {
             console.log(e);
             this.customToast('出現了錯誤',false)
           }
-          /* #endif*/
+          // #endif
         } catch (e) {
           console.log(e);
           this.customToast('出現了錯誤')

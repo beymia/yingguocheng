@@ -89,8 +89,15 @@ export default {
    * token没有引导用户登录
    */
   async onShow() {
+    this.token = APP.userToken
     if (this.token && this.userInfo.level) return;
+    if(!this.token){
+      this.loginBoxShow = false;
+    }else{
+      await this.getUserInfo()
+    }
     this.loginBoxShow = !!this.token;
+    if(!this.loginBoxShow) return;
     !this.userInfo.level && await this.getUserInfo()
   },
   methods: {
@@ -103,11 +110,11 @@ export default {
      this.userInfo = APP.userInfo;
      try{
        //token存在静默登录
-       if (this.token ||!this.userInfo.level ) {
+       if (this.token || !this.userInfo.level) {
          console.log(123);
          this.userInfo = (await userSpace()).data;
          APP.userInfo = this.userInfo;
-           this.loginBoxShow = true;
+         this.loginBoxShow = true;
        }
        uni.hideLoading()
      }catch (e){

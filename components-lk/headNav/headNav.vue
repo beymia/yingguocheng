@@ -34,7 +34,7 @@
 		position: fixed;
 		left: 0;
 		top: 0;
-		z-index: 999;
+		z-index: 2;
 	}
 
 	.head_nav_bar {

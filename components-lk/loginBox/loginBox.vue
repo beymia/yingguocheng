@@ -34,7 +34,6 @@
 
 <script>
 import popUpLayer from "../popUpLayer/popUpLayer";
-import {login} from "../../request/api";
 
 const APP = getApp().globalData
 export default {
@@ -57,6 +56,7 @@ export default {
   height: 700rpx;
   background: #FFFFFF;
   border-radius: 20rpx 20rpx 0 0;
+  z-index: 999999;
 
   .head{
     width: 100%;

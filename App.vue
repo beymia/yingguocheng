@@ -3,7 +3,6 @@ export default {
   globalData: {
     goodsPayment: {},//訂單信息，訂單頁修改，結算頁獲取
     coupon: 0,//使用的優惠券信息
-    couponInfo:null,//當前訂單可以使用的優惠券信息
     userToken: null,//用戶token
     userInfo:{},//用户基本信息
     userAddresses: [],//用户收货地址

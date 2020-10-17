@@ -1,6 +1,6 @@
 <template>
   <!--只提供动画和背景图层，-->
-  <view class="layer">
+  <view :style="{'z-index':floor}"  class="layer">
     <view class="masking" @click="$emit('mask-click')"></view>
     <view class="content">
       <slot></slot>
@@ -11,6 +11,12 @@
 <script>
 export default {
   name: "popUpLayer",
+  props:{
+    floor:{
+      type:Number,
+      default:999999
+    }
+  },
   methods:{
 
   }
@@ -24,7 +30,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 111111;
 
   .masking {
     width: 100%;

@@ -412,9 +412,9 @@
 							if (res.confirm) {
 								uni.navigateTo({
 									url:'/pages/chooseShop/chooseShop'
-								}) 
+								})
 							} else if (res.cancel) {
-								
+
 								}
 						}
 					})

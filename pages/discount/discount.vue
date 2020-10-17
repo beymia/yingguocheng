@@ -30,10 +30,14 @@ export default {
       coupon:false,
     }
   },
+  onLoad(options){
+    if(options.couponInfo){
+      this.unUsed = JSON.parse(decodeURIComponent(options.couponInfo));
+    }
+  },
   async mounted() {
-    if(APP.couponInfo){
-      this.unUsed = APP.couponInfo;
-    }else{
+    //獲取優惠券信息，onLoad生命週期內獲取不到值就發送請求獲取
+    if(!(this.unUsed.length)){
       this.token = APP.userToken;
       this.unUsed = await this.requestDiscount(1)
       this.used = await this.requestDiscount(2)

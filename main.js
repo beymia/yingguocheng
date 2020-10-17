@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import {VueJsonp} from 'vue-jsonp'
+
 Vue.use(VueJsonp)
 //數據為空時展示
 import noMoreData from "./components-lk/noMoreData/noMoreData";
@@ -23,14 +24,16 @@ Vue.prototype.customToast = function (title = '出現了錯誤', clear = true) {
  * @param name id或class类名
  */
 Vue.prototype.getLayoutInfo = function (name) {
+  let query
   return new Promise((resolve, reject) => {
-    /* #ifndef MP*/
-    let query = uni.createSelectorQuery().in(this);
-    /* #endif*/
-    /* #ifdef MP*/
-    let query = uni.createSelectorQuery();
-    /* #endif*/
+    // #ifndef MP
+    query = uni.createSelectorQuery().in(this);
+    // #endif
+    // #ifdef MP
+    query = uni.createSelectorQuery();
+    // #endif
     query.select(name).boundingClientRect(data => {
+      console.log(name,data);
       data ? resolve(data) : reject(data);
     }).exec();
   })
