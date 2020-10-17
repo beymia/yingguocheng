@@ -1,6 +1,6 @@
 <template>
   <view class="member_code">
-    <popUpLayer>
+    <popUpLayer :floor="1">
       <template>
         <view class="content">
           <view class="user_info">

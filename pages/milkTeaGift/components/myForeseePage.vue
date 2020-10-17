@@ -1,6 +1,6 @@
 <template>
   <view class="my_foresee">
-    <view v-if="foresee.length" class="empty">
+    <view v-if="!foresee.length" class="empty">
       <image src="../../../static/images_t/milkTeaGift/empty.png"></image>
       <text>暫無奶茶有禮卡</text>
       <button @click="$emit('buy-foreseeList',1)" plain>去購買奶茶有禮卡</button>
@@ -30,6 +30,7 @@ export default {
   },
   methods:{
     navHistory(page){
+      console.log(2);
       page += 'History';
       uni.navigateTo({
         url:`/pages/${page}/${page}`,
@@ -83,7 +84,7 @@ uni-page-body{
       color: #FFFFFF;
       text-align: center;
       line-height: 80rpx;
-      margin-bottom: 460rpx;
+      margin-bottom: 400rpx;
     }
   }
 

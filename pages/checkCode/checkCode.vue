@@ -39,7 +39,7 @@ export default {
     }
   },
   onLoad(options) {
-    this.phone = options.phone;
+    this.phone = options.phone || APP.userInfo.mobile;
     this.change = options.change;
     this.customToast('驗證碼已發送',false)
   },
@@ -80,6 +80,7 @@ export default {
     },
     //登录成功，將token賦值給全局對象並且存入本地storage中
     loginSuccess(result){
+      let self = this;
       uni.hideLoading()
       APP.userToken = result.data.token;
       uni.setStorageSync('token', APP.userToken)
@@ -87,8 +88,8 @@ export default {
         url: '/pages/home/home',
         success() {
           //跳轉成功清除定時器，倒計時清零
-          clearInterval(this.countDown);
-          this.timer = 0;
+          clearInterval(self.countDown);
+          self.timer = 0;
         }
       })
     }
@@ -106,14 +107,16 @@ export default {
           //TODO change有值則跳轉到設置交易密碼頁面
           if (this.change) {
             try {
-              // await verifyCode({mobile: self.phone, code: self.verificationCode})
+              console.log(self.phone);
+              let result = await verifyCode({mobile: self.phone, code: self.verificationCode})
+              console.log(result);
               uni.hideLoading()
               uni.redirectTo({
                 url: '/pages/setPassword/setPassword',
               })
             } catch (e) {
               console.log(e);
-              this.customToast('驗證碼錯誤', false)
+              this.customToast('驗證碼錯誤')
             }
             return;
           }

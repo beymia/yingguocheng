@@ -43,14 +43,14 @@
       </view>
       <view class="order_progress">
         <text>前面</text>
-        <text class="text_color">11單/29</text>
+        <text class="text_color">{{goodsData.current_order}}單/{{goodsData.current_cups}}</text>
         <text>杯制作中，</text>
         <text>預計</text>
-        <text class="text_color">17分鐘</text>
+        <text class="text_color">{{goodsData.current_cups}}分鐘</text>
         <text>後取茶</text>
       </view>
       <view class="current_progress">
-        <progress activeColor="#17a1ff" backgroundColor="#f0f0f0" percent="60"></progress>
+        <progress activeColor="#17a1ff" backgroundColor="#f0f0f0" :percent="computeProgress"></progress>
       </view>
     </view>
     <!--商品列表-->
@@ -199,45 +199,56 @@ export default {
       attach:{},
       totalAmount:0,
       attachArr:[],
-      couponInfo:[]
+      couponInfo:[],
     }
   },
- async onLoad() {
+  computed:{
+    //計算取茶時間進度條
+    computeProgress(){
+      let {current_cups,current_order} = this.goodsData;
+      return (current_order / current_cups ) * 100;
+    }
+  },
+  async onLoad() {
+    console.log(APP.goodsPayment);
     this.goodsData = APP.goodsPayment;
     this.receivingMethod = this.goodsData.haul_method;
-   this.goods_data = [];
-   this.goodsId = ''
-   //獲取訂單傳參數據
-   this.goodsData.goods_data.forEach((item, index) => {
-     this.goodsId +=item.id;
-     this.goods_data.push({
-       id: item.id,
-       num: item.goods_num,
-       norm: item.norm_id
-     })
-   });
+    this.goods_data = [];
+    this.goodsId = ''
+    //獲取訂單傳參數據
+    this.goodsData.goods_data.forEach((item, index) => {
+      this.goodsId += item.id;
+      this.goods_data.push({
+        id: item.id,
+        num: item.goods_num,
+        norm: item.norm_id
+      })
+    });
 
-   this.totalAmount = parseFloat(this.goodsData.payment_info)
+    this.totalAmount = parseFloat(this.goodsData.payment_info)
 
-   try {
-     this.attach = (await paymentAttach()).data
-    let temp = (await usedCoupon({
-       vehicle_method: this.goodsDatahaul_method,
-       goods_id: this.goodsId,
-       total_price: this.totalAmount
-     })).data
-     for (let key in temp){
-       if(temp.hasOwnProperty(key)){
-         this.couponInfo.push(temp[key])
-       }
-     }
-   } catch (e) {
-     console.log(e);
-   }
- },
+    try {
+      //獲取附加服務信息
+      this.attach = (await paymentAttach()).data
+      //獲取可使用的優惠券信息
+      let temp = (await usedCoupon({
+        vehicle_method: this.goodsDatahaul_method,
+        goods_id: this.goodsId,
+        total_price: this.totalAmount
+      })).data
+      //優惠券返回一個對象，轉換為數組
+      for (let key in temp) {
+        if (temp.hasOwnProperty(key)) {
+          this.couponInfo.push(temp[key])
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  },
   onShow() {
     //页面展示时从全局对象中获取优惠券的金额
-    console.log(APP.coupon.goods_quota  );
+    if (!APP.coupon.goods_quota) return;
     this.discountAmount = APP.coupon.goods_quota;
   },
   onUnload() {
@@ -257,8 +268,9 @@ export default {
     // },
     //自動輸入手機號
     autoFill() {
-      console.log(APP.userInfo.mobile);
-      this.userPhone = APP.userInfo.mobile
+      console.log(APP.userInfo)
+      console.log(this.goodsData.contact_phone);
+      this.userPhone = this.goodsData.contact_phone;
     },
 
     //訂單備註
@@ -271,7 +283,7 @@ export default {
       APP.couponInfo = this.couponInfo;
       console.log(APP.couponInfo);
       uni.navigateTo({
-        url: '/pages/discount/discount'
+        url: '/pages/discount/discount?couponInfo='+encodeURIComponent(JSON.stringify(this.couponInfo))
       })
     },
     //使用附加服務
@@ -325,10 +337,18 @@ export default {
         paramsObj.attach_id = paramsObj.attach_id.substr(0, paramsObj.attach_id.length - 1);
       }
       //選填參數沒有值直接刪除
-      !paramsObj.remake && delete paramsObj.remake
-      !paramsObj.attach_id && delete paramsObj.attach_id
-      !paramsObj.ticket_id && delete paramsObj.ticket_id
+      // !paramsObj.remake && delete paramsObj.remake
+      // !paramsObj.attach_id && delete paramsObj.attach_id
+      // !paramsObj.ticket_id && delete paramsObj.ticket_id
+      for(let key in paramsObj){
+        if(paramsObj.hasOwnProperty(key)){
+          if(!paramsObj[key]){
+            delete paramsObj[key]
+          }
+        }
+      }
       createOrder(paramsObj).then(value => {
+        console.log(value.data);
       }).catch(err => {
         console.log(err);
       })
