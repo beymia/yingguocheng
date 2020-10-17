@@ -58,7 +58,7 @@
 			<!-- 公告栏start -->
 			<view class="notice">
 				<swiper   class="swiper_wrap_notice"  :autoplay="true" vertical circular :interval="3000" :duration="1000">
-					<swiper-item v-show="!is_notice" v-for="(notice,notice_index) in notice_list1" :key="notice_index">
+					<swiper-item v-if="!is_notice" v-for="(notice,notice_index) in notice_list1" :key="notice_index">
 						<view class="swiper-item notice_title">
 							<view class="notice_icon">
 								<image src="../../static/images/order/blueBall.png" mode=""></image>
@@ -92,10 +92,10 @@
 		</view>
 		<!-- 头部end-->
 		<!-- 新聞詳情頁開始 -->
-		<notice v-show="is_notice" :choosed_shop="choosedShop"></notice>
+		<notice v-if="is_notice" :choosed_shop="choosedShop"></notice>
 		<!-- 新聞詳情頁結束 -->
 		<!-- 点单主体部分start -->
-		<view class="main" v-show="!is_notice">
+		<view class="main" v-if="!is_notice">
 			<!-- 左侧菜单栏start -->
 			<scroll-view class="menu_bar" scroll-y="true" >
 				<view class="menu_item" v-for="(menu,menu_index) in menu_list"  :class="{active:menu.id==menu_id_current}" @click="menu_Tap(menu.id)" >
@@ -181,6 +181,10 @@
 		<!-- 拼团 -->
 		<pintuan :show="showPintuan" @closePintuan="showPintuan = false" @choose_type="choose_pintuan_type"></pintuan>
 		<!-- 拼团end -->
+		<!-- 微信位置授權start -->
+		<locaAutho :show="showLocaAutho" @openSetting="openSetting"></locaAutho>
+		<!-- 微信位置授權end -->
+		
 	</view>
 </template>
 
@@ -194,6 +198,7 @@
 	import search from './components/search/search.vue'
 	import rest from './components/rest/rest.vue'
 	import pintuan from './components/pintuan/pintuan.vue'
+	import locaAutho from './components/locaAutho/locaAutho.vue'
 	import {shops_list,shops_detail,goods_list,goods_detail} from '@/request/api_y.js'
 	import {during} from '@/util/Date.js'
 	export default{
@@ -204,7 +209,8 @@
 			cartBar,
 			search,
 			rest,
-			pintuan
+			pintuan,
+			locaAutho,
 			},
 		data() {
 			return {
@@ -220,19 +226,54 @@
 				showSearch:false,
 				localAdress:{},
 				is_rest:false,
-				showPintuan:false
+				showPintuan:false,
+				showLocaAutho:false,
+				shop_change_time:0
 			
 			}
 		},
+		watch:{
+			choosedShop:{
+				async handler(newval){
+					if(this.shop_change_time == 0){
+						this.shop_change_time =1
+						return
+					}
+					console.log(66666666666666666666666)
+					console.log(newval)
+					this.judge_is_rest()//判斷是否在休息
+					await this.shop_init(loca_res)//获取门店列表和设置当前门店
+					await this.menu_list_init()//获取并设置当前门店下全部商品信息
+					this.$nextTick(() => this.calcSize())
+					console.log('bbbbbbbbbbbbbbbbbbbbbbbb')
+				},
+				deep:true
+			}
+		},
 		async onLoad() {
-			this.judge_is_rest()//判斷是否在休息
+			let conti = true
+			// #ifdef MP-WEIXIN
+				uni.getSetting({
+				  success: (res) => {
+				    console.log(res)
+				    if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
+						this.showLocaAutho = true
+						conti = false
+					}else if(res.authSetting['scope.userLocation'] == undefined){//初始化进入该页面
+						
+					}
+				  }
+				}) 
+			// #endif
+			if(!conti){
+				return
+			}
+			 
+			
 			let loca_res = await this.long_lati()//获取当前定位经纬度
+			this.judge_is_rest()//判斷是否在休息
 			await this.shop_init(loca_res)//获取门店列表和设置当前门店
 			await this.menu_list_init()//获取并设置当前门店下全部商品信息
-			
-			
-			
-			
 			
 			
 			 //await this.init()
@@ -245,6 +286,11 @@
 			 console.log("order onReady")
 		},
 		 onShow() {
+			/* wx.openSetting({
+				 success(res) {
+				 	
+				 }
+			 }) */
 			console.log("order onShow")
 			this.handle_from()
 			console.log(this.choosedShop)
@@ -328,6 +374,32 @@
 					}).exec()
 				})
 			},
+			async openSetting(){
+				//this.showLocaAutho = false
+				    // 获取位置信息
+					uni.openSetting({
+					  success: async(dataAu)=> {
+					    if (dataAu.authSetting["scope.userLocation"] == true) {
+					     this.showLocaAutho = false
+						 let loca_res = await this.long_lati()//获取当前定位经纬度
+						 this.judge_is_rest()//判斷是否在休息
+						 await this.shop_init(loca_res)//获取门店列表和设置当前门店
+						 await this.menu_list_init()//获取并设置当前门店下全部商品信息
+						 
+						 this.$nextTick(() => this.calcSize())
+						 
+					    } else {
+					      uni.showToast({
+					        title: '授权失败',
+					        icon: 'none',
+					        duration: 1000
+					      })
+					    }
+					  }
+					})
+				    
+				
+			},
 			judge_is_rest(){
 				let isin = during('09:00:00','22:00:00')
 				if(!isin){
@@ -405,6 +477,7 @@
 				
 			},
 			menu_Tap(id){
+				this.showLoca = !this.showLoca
 				this.menu_id_current=id;
 				this.goods_scrollTop = this.menu_list.find(item => item.id == id).top+Math.random();
 				console.log(this.goods_scrollTop)
@@ -582,6 +655,9 @@
 			// #endif
 					
 					// #ifndef H5
+						// #ifdef MP-WEIXIN
+						//this.loca_autho
+						// #endif
 						let loca_res = await new Promise((resolve,reject)=>{
 							uni.getLocation({
 								success(res) {
@@ -704,6 +780,7 @@
 			// console.log(this.choosedShop)
 			// console.log(this.shopList)
 		},
+
 		async init(){
 			var latitude = 0;
 			var longitude = 0

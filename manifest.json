@@ -56,6 +56,11 @@
         "setting" : {
             "urlCheck" : true,
             "minified" : true
+        },
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "请求授权位置权限"
+            }
         }
     },
     "h5" : {
