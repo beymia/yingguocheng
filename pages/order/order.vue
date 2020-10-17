@@ -226,9 +226,9 @@
 		},
 		async onLoad() {
 			this.judge_is_rest()//判斷是否在休息
+			var latitude = 0;
+			var longitude = 0
 			// #ifdef H5
-						var latitude = 0;
-						var longitude = 0
 						let res2 = await this.$jsonp('https://apis.map.qq.com/ws/location/v1/ip', {
 						  key : 'MBTBZ-2PMKR-QARWA-W7MOH-AJ76K-6HB2J',
 						  output:'jsonp',
@@ -237,9 +237,24 @@
 						latitude = res2.result.location.lat
 						longitude = res2.result.location.lng
 			// #endif
-						
-						let spl= (await shops_list({latitude:latitude,longitude:longitude})).data
+					
+					// #ifndef H5
+						let loca_res = await new Promise((resolve,reject)=>{
+							uni.getLocation({
+								success(res) {
+									resolve(res)
+								},
+								fail(err){
+									reject(err)
+								}
+							})
+						}).catch(e=>{})
+						latitude = loca_res.latitude
+						longitude = loca_res.longitude
+					// #endif
+					
 						console.log('latitude:'+latitude+'longitude:'+longitude)
+						let spl= (await shops_list({latitude:latitude,longitude:longitude})).data
 						// console.log(spl)
 						//this.SET_SHOP_LIST(spl)
 						spl.sort(function(item1,item2){
@@ -813,4 +828,5 @@
 
 <style lang="scss" scoped>
 	@import "order.scss";
+	
 </style>
