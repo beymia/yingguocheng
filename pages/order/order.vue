@@ -226,143 +226,18 @@
 		},
 		async onLoad() {
 			this.judge_is_rest()//判斷是否在休息
-			var latitude = 0;
-			var longitude = 0
-			// #ifdef H5
-						let res2 = await this.$jsonp('https://apis.map.qq.com/ws/location/v1/ip', {
-						  key : 'MBTBZ-2PMKR-QARWA-W7MOH-AJ76K-6HB2J',
-						  output:'jsonp',
-						}).catch(e=>{})
-						// console.log(res2)
-						latitude = res2.result.location.lat
-						longitude = res2.result.location.lng
-			// #endif
-					
-					// #ifndef H5
-						let loca_res = await new Promise((resolve,reject)=>{
-							uni.getLocation({
-								success(res) {
-									resolve(res)
-								},
-								fail(err){
-									reject(err)
-								}
-							})
-						}).catch(e=>{})
-						latitude = loca_res.latitude
-						longitude = loca_res.longitude
-					// #endif
-					
-						console.log('latitude:'+latitude+'longitude:'+longitude)
-						let spl= (await shops_list({latitude:latitude,longitude:longitude})).data
-						// console.log(spl)
-						//this.SET_SHOP_LIST(spl)
-						spl.sort(function(item1,item2){
-							if(parseInt(item1.distance*100) <= parseInt(item2.distance*100) ){
-								return -1;
-							}else{
-								return 1
-							}
-						})
-						// console.log(spl)
-						let spl_prom=[]
-						spl.forEach( async (item,index) =>{
-							// console.log(shop_detail2)
-							//spl[index].detail = (await shops_detail({shop_id:item.id})).data 
-							spl_prom.push(shops_detail({shop_id:item.id}))
-						})
-						await Promise.all(spl_prom).then(values=>{
-							let index = 0
-							spl.forEach(item=>{
-								item.detail = values[index].data
-								index++
-							})
-							
-						})
-						console.log(spl)
-						this.SET_SHOP_LIST(spl)
-						this.SET_CHOOSED_SHOP(this.shopList[0])
-						// console.log(this.choosedShop)
-						 //alert(this.choosedShop.id)
-						let menu_list1 = (await goods_list({shop_id:this.choosedShop.id})).data
-						// console.log(this.choosedShop)
-						console.log(menu_list1)
-						let goods_promise = []
-						// console.log(this.choosedShop) 
-						let menu_list2=[]
-						menu_list1.forEach(item =>{
-							let obj = {};
-							obj.id = item.id
-							obj.icon_url = this.imgSrc + item.home_avatar
-							obj.menu_name = item.classify_name
-							obj.goods_list = []
-							if(item.child && item.child.length){
-								item.child.forEach(itemc =>{
-									let objc = {}
-									objc.id = itemc.id
-									objc.name = itemc.goods_name
-									objc.labels = itemc.goods_label
-									objc.materials =[]
-									objc.description = itemc.goods_detail
-									objc.imgurl = this.imgSrc + itemc.home_avatar
-									objc.price = parseInt(itemc.goods_price * 100)/100
-									objc.sell_status = itemc.sell_status
-									objc.goods_norm = itemc.goods_norm
-									obj.goods_list.push(objc)
-									goods_promise.push(goods_detail({goods_id:itemc.id}))
-								})
-							}
-							menu_list2.push(obj)
-						})
-						console.log(menu_list2)
-						await Promise.all(goods_promise).then( values =>{
-							 console.log(values)
-							let index = 0
-							menu_list2.forEach(item =>{
-									item.goods_list.forEach(itemc =>{
-										let images =[]
-										let materials = []
-										values[index].data.goods_avatar.forEach(itemv=>{
-											images.push(this.imgSrc + itemv)
-										})
-										// console.log(values[index].data.goods_norm)
-										values[index].data.goods_norm.forEach(itemn=>{
-											let normobj ={}
-											normobj.group_name = itemn.name
-											normobj.values = []
-											itemn.child.forEach(itemvc=>{
-												let valobj ={}
-												valobj.id = itemvc.id
-												valobj.parent_id = itemvc.parent_id
-												valobj.name = itemvc.value
-												valobj.price = parseInt(itemvc.price * 100)/100
-												normobj.values.push(valobj)
-											})
-											console.log("fffffffffffff")
-											console.log(normobj)
-											materials.push(normobj)
-											console.log(materials)
-										})
-										itemc.images = images
-										itemc.materials = materials
-										index++
-									})
-									
-							})
-							console.log(menu_list2)
-						})
-						// console.log('bojjijijj')
-						this.menu_list=menu_list2
-						
-						// console.log(this.choosedShop)
-						// console.log(this.shopList)
-						
-						
-						
-						
-						 //await this.init()
-						  console.log("order onLoad")
-						this.$nextTick(() => this.calcSize())
+			let loca_res = await this.long_lati()//获取当前定位经纬度
+			await this.shop_init(loca_res)//获取门店列表和设置当前门店
+			await this.menu_list_init()//获取并设置当前门店下全部商品信息
+			
+			
+			
+			
+			
+			
+			 //await this.init()
+			  console.log("order onLoad")
+			this.$nextTick(() => this.calcSize())
 		},
 
 		 onReady() {
@@ -692,6 +567,142 @@
 			
 			
 			
+		},
+		async long_lati(){
+			var latitude = 0;
+			var longitude = 0
+			// #ifdef H5
+						let res2 = await this.$jsonp('https://apis.map.qq.com/ws/location/v1/ip', {
+						  key : 'MBTBZ-2PMKR-QARWA-W7MOH-AJ76K-6HB2J',
+						  output:'jsonp',
+						}).catch(e=>{})
+						// console.log(res2)
+						latitude = res2.result.location.lat
+						longitude = res2.result.location.lng
+			// #endif
+					
+					// #ifndef H5
+						let loca_res = await new Promise((resolve,reject)=>{
+							uni.getLocation({
+								success(res) {
+									resolve(res)
+								},
+								fail(err){
+									reject(err)
+								}
+							})
+						}).catch(e=>{})
+						latitude = loca_res.latitude
+						longitude = loca_res.longitude
+					// #endif
+						console.log('latitude:'+latitude+'longitude:'+longitude)
+						return {latitude:latitude,longitude:longitude}
+		},
+		async shop_init(loca_res){
+			let spl= (await shops_list({latitude:loca_res.latitude,longitude:loca_res.longitude})).data
+			// console.log(spl)
+			//this.SET_SHOP_LIST(spl)
+			spl.sort(function(item1,item2){
+				if(parseInt(item1.distance*100) <= parseInt(item2.distance*100) ){
+					return -1;
+				}else{
+					return 1
+				}
+			})
+			// console.log(spl)
+			let spl_prom=[]
+			spl.forEach( async (item,index) =>{
+				// console.log(shop_detail2)
+				//spl[index].detail = (await shops_detail({shop_id:item.id})).data 
+				spl_prom.push(shops_detail({shop_id:item.id}))
+			})
+			await Promise.all(spl_prom).then(values=>{
+				let index = 0
+				spl.forEach(item=>{
+					item.detail = values[index].data
+					index++
+				})
+				
+			})
+			console.log(spl)
+			this.SET_SHOP_LIST(spl)
+			this.SET_CHOOSED_SHOP(this.shopList[0])
+			// console.log(this.choosedShop)
+			 //alert(this.choosedShop.id)
+		},
+		async menu_list_init(){//获取并设置当前门店下全部商品信息
+			let menu_list1 = (await goods_list({shop_id:this.choosedShop.id})).data
+			// console.log(this.choosedShop)
+			console.log(menu_list1)
+			let goods_promise = []
+			// console.log(this.choosedShop) 
+			let menu_list2=[]
+			menu_list1.forEach(item =>{
+				let obj = {};
+				obj.id = item.id
+				obj.icon_url = this.imgSrc + item.home_avatar
+				obj.menu_name = item.classify_name
+				obj.goods_list = []
+				if(item.child && item.child.length){
+					item.child.forEach(itemc =>{
+						let objc = {}
+						objc.id = itemc.id
+						objc.name = itemc.goods_name
+						objc.labels = itemc.goods_label
+						objc.materials =[]
+						objc.description = itemc.goods_detail
+						objc.imgurl = this.imgSrc + itemc.home_avatar
+						objc.price = parseInt(itemc.goods_price * 100)/100
+						objc.sell_status = itemc.sell_status
+						objc.goods_norm = itemc.goods_norm
+						obj.goods_list.push(objc)
+						goods_promise.push(goods_detail({goods_id:itemc.id}))
+					})
+				}
+				menu_list2.push(obj)
+			})
+			console.log(menu_list2)
+			await Promise.all(goods_promise).then( values =>{
+				 console.log(values)
+				let index = 0
+				menu_list2.forEach(item =>{
+						item.goods_list.forEach(itemc =>{
+							let images =[]
+							let materials = []
+							values[index].data.goods_avatar.forEach(itemv=>{
+								images.push(this.imgSrc + itemv)
+							})
+							// console.log(values[index].data.goods_norm)
+							values[index].data.goods_norm.forEach(itemn=>{
+								let normobj ={}
+								normobj.group_name = itemn.name
+								normobj.values = []
+								itemn.child.forEach(itemvc=>{
+									let valobj ={}
+									valobj.id = itemvc.id
+									valobj.parent_id = itemvc.parent_id
+									valobj.name = itemvc.value
+									valobj.price = parseInt(itemvc.price * 100)/100
+									normobj.values.push(valobj)
+								})
+								console.log("fffffffffffff")
+								console.log(normobj)
+								materials.push(normobj)
+								console.log(materials)
+							})
+							itemc.images = images
+							itemc.materials = materials
+							index++
+						})
+						
+				})
+				console.log(menu_list2)
+			})
+			// console.log('bojjijijj')
+			this.menu_list=menu_list2
+			
+			// console.log(this.choosedShop)
+			// console.log(this.shopList)
 		},
 		async init(){
 			var latitude = 0;
