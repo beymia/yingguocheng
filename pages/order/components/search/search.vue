@@ -13,7 +13,7 @@
 			</view>
 			<scroll-view class="result" scroll-y>
 				<template v-if="!result.length">
-					<view class="section">
+					<view class="section" v-if="historySearch.length">
 						<view class="header">
 							<view class="title">历史搜索</view>
 							<view class="subtitle" @tap="clearHistory">
@@ -240,6 +240,11 @@
 			},
 			clearHistory(){
 				this.historySearch=[]
+				let new_h =''
+				uni.setStorage({
+					key:'historySearch',
+					data:new_h
+				})
 			},
 			clear() {
 				this.keyword=''

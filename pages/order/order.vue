@@ -186,7 +186,7 @@
 
 <script>
 	import {mapState, mapMutations} from 'vuex'
-	import {menu_list} from './data.js';
+	// import {menu_list} from './data.js';
 	import actions from './components/actions/actions.vue'
 	import notice from './components/notice/notice.vue'
 	import cartBar from './components/cartbar/cartbar.vue'
@@ -195,6 +195,7 @@
 	import rest from './components/rest/rest.vue'
 	import pintuan from './components/pintuan/pintuan.vue'
 	import {shops_list,shops_detail,goods_list,goods_detail} from '@/request/api_y.js'
+	import {during} from '@/util/Date.js'
 	export default{
 		components:{
 			actions,
@@ -224,6 +225,7 @@
 			}
 		},
 		async onLoad() {
+			this.judge_is_rest()//判斷是否在休息
 			// #ifdef H5
 						var latitude = 0;
 						var longitude = 0
@@ -234,7 +236,7 @@
 						// console.log(res2)
 						latitude = res2.result.location.lat
 						longitude = res2.result.location.lng
-						// #endif
+			// #endif
 						
 						let spl= (await shops_list({latitude:latitude,longitude:longitude})).data
 						console.log('latitude:'+latitude+'longitude:'+longitude)
@@ -288,7 +290,7 @@
 									objc.materials =[]
 									objc.description = itemc.goods_detail
 									objc.imgurl = this.imgSrc + itemc.home_avatar
-									objc.price = itemc.goods_price
+									objc.price = parseInt(itemc.goods_price * 100)/100
 									objc.sell_status = itemc.sell_status
 									objc.goods_norm = itemc.goods_norm
 									obj.goods_list.push(objc)
@@ -318,7 +320,7 @@
 												valobj.id = itemvc.id
 												valobj.parent_id = itemvc.parent_id
 												valobj.name = itemvc.value
-												valobj.price = itemvc.price
+												valobj.price = parseInt(itemvc.price * 100)/100
 												normobj.values.push(valobj)
 											})
 											console.log("fffffffffffff")
@@ -435,6 +437,26 @@
 						item.ht = h
 					}).exec()
 				})
+			},
+			judge_is_rest(){
+				let isin = during()
+				if(!isin){
+					this.is_rest = true
+					uni.showModal({
+						content:'本店已休息，您可以選擇切換門店',
+						cancelText:"留在當前",
+						confirmText:"切換門店",
+						success(res) {
+							if (res.confirm) {
+								uni.navigateTo({
+									url:'/pages/chooseShop/chooseShop'
+								}) 
+							} else if (res.cancel) {
+								
+								}
+						}
+					})
+				}
 			},
 			handle_from(){
 				switch(this.orderFrom){
@@ -608,43 +630,49 @@
 			
 		},
 		pay(price){
-			var app = getApp();
-			var order_info={};
-			var goods =[];
-			var goods_data = [];
-			this.cart.filter(item => item.is_checked==true).forEach(item =>{
-				let good ={};
-				good.id = item.id;
-				good.goods_name = item.name;
-				good.goods_price = item.truePrice;
-				good.home_avatar = item.imgurl;
-				good.norm = item.materials_text;
-				good.norm_id = item.norm_id ? item.norm_id : [];
-				good.goods_num =item.number;
-				goods_data.push(good);
+			this.judge_is_rest()//
+			if(!this.is_rest){
 				
-			})
-			order_info.goods_data = goods_data;
-			order_info.shop_id = this.choosedShop.id
-			order_info.shop_name = this.choosedShop.shop_name
-			order_info.distance = this.choosedShop.distance
-			order_info.delivery_cost = this.choosedShop.detail.delivery_cost
-			order_info.lowest_cost = this.choosedShop.detail.lowest_cost
-			order_info.payment_info = price
-			order_info.address_id = this.choosedAddress.id
-			order_info.contact_name = this.choosedAddress.contact_name
-			order_info.contact_sex = this.choosedAddress.contact_sex
-			order_info.contact_phone = this.choosedAddress.contact_phone
-			order_info.contact_address = this.choosedAddress.contact_address
-			order_info.contact_number = this.choosedAddress.contact_number
-			order_info.haul_method  = this.orderType
-			order_info.current_cups = this.choosedShop.detail.current_cups
-			order_info.current_order = this.choosedShop.detail.current_order
-			app.globalData.goodsPayment = order_info;
-			console.log(order_info)
-			uni.navigateTo({
-				url:'/pages/orderPayment/orderPayment'
-			})
+				var app = getApp();
+				var order_info={};
+				var goods =[];
+				var goods_data = [];
+				this.cart.filter(item => item.is_checked==true).forEach(item =>{
+					let good ={};
+					good.id = item.id;
+					good.goods_name = item.name;
+					good.goods_price = item.truePrice;
+					good.home_avatar = item.imgurl;
+					good.norm = item.materials_text;
+					good.norm_id = item.norm_id ? item.norm_id : [];
+					good.goods_num =item.number;
+					goods_data.push(good);
+					
+				})
+				order_info.goods_data = goods_data;
+				order_info.shop_id = this.choosedShop.id
+				order_info.shop_name = this.choosedShop.shop_name
+				order_info.distance = this.choosedShop.distance
+				order_info.delivery_cost = this.choosedShop.detail.delivery_cost
+				order_info.lowest_cost = this.choosedShop.detail.lowest_cost
+				order_info.payment_info = price
+				order_info.address_id = this.choosedAddress.id
+				order_info.contact_name = this.choosedAddress.contact_name
+				order_info.contact_sex = this.choosedAddress.contact_sex
+				order_info.contact_phone = this.choosedAddress.contact_phone
+				order_info.contact_address = this.choosedAddress.contact_address
+				order_info.contact_number = this.choosedAddress.contact_number
+				order_info.haul_method  = this.orderType
+				order_info.current_cups = this.choosedShop.detail.current_cups
+				order_info.current_order = this.choosedShop.detail.current_order
+				app.globalData.goodsPayment = order_info;
+				console.log(order_info)
+				uni.navigateTo({
+					url:'/pages/orderPayment/orderPayment'
+				})
+				
+			}
+			
 			
 			
 		},
