@@ -439,7 +439,7 @@
 				})
 			},
 			judge_is_rest(){
-				let isin = during()
+				let isin = during('09:00:00','22:00:00')
 				if(!isin){
 					this.is_rest = true
 					uni.showModal({
@@ -653,9 +653,11 @@
 				order_info.shop_id = this.choosedShop.id
 				order_info.shop_name = this.choosedShop.shop_name
 				order_info.distance = this.choosedShop.distance
-				order_info.delivery_cost = this.choosedShop.detail.delivery_cost
+				// order_info.delivery_cost = this.choosedShop.detail.delivery_cost
+				 order_info.delivery_cost = 0.01
 				order_info.lowest_cost = this.choosedShop.detail.lowest_cost
-				order_info.payment_info = price
+				// order_info.payment_info = price
+				order_info.payment_info = 0.01
 				order_info.address_id = this.choosedAddress.id
 				order_info.contact_name = this.choosedAddress.contact_name
 				order_info.contact_sex = this.choosedAddress.contact_sex
