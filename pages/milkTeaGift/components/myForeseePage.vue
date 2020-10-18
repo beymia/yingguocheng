@@ -24,9 +24,7 @@ export default {
   name: "myForesee",
   data(){
     return {
-      givePhone:'',
       giveData:{},
-      isGive:false,
     }
   },
   props:{
@@ -46,37 +44,7 @@ export default {
     },
     //赠送好友
     giveForesee(f){
-      console.log(1);
-      this.giveData = f;
-      this.isGive = true;
-    },
-    //阻止滑動事件
-    catchTouch(){},
-    //點擊贈送好友
-    giveStart(){
-      console.log(1);
-      uni.showLoading({
-        title:'請稍後'
-      })
-      try{
-        if(this.givePhone.length!==11||isNaN(this.givePhone)){
-          this.customToast('手機號不正確')
-          this.givePhone = ''
-          return
-        }
-        //TODO贈送邏輯處理
-
-        this.customToast('贈送成功')
-        this.givePhone = '';
-      }catch (e){
-        this.givePhone = ''
-        this.customToast('贈送失敗')
-      }
-    },
-    //取消贈送
-    closeGive(){
-      this.isGive = false;
-      this.givePhone = '';
+      this.$emit('give-start',f)
     },
   },
   components:{

@@ -35,13 +35,15 @@
       <template v-slot:right>
         <!--我的奶茶有礼-->
         <swiper-item class="have_foresee">
-          <myForeseePage @buy-foreseeList="assignIndex++" :foresee="haveForesee"></myForeseePage>
+          <myForeseePage @buy-foreseeList="assignIndex++"
+                         @give-start="giveInfo"
+                         :foresee="haveForesee"></myForeseePage>
         </swiper-item>
       </template>
     </swiperSwitch>
 
     <!--赠送好友-->
-    <view class="give" @touchmove.prevent.stop="catchTouch">
+    <view v-if="isGive" class="give" @touchmove.prevent.stop="catchTouch">
       <view class="mark">
         <view class="content">
           <uni-icons @click="closeGive"
@@ -253,6 +255,8 @@ export default {
       // haveForesee:[],
       activeFeat: 'buy',
       assignIndex:0,
+      givePhone:'',
+      isGive:false,
     }
   },
   async mounted() {
@@ -281,6 +285,37 @@ export default {
       })
     },
 
+    catchTouch(){},
+    giveInfo(){
+      this.isGive = true;
+    },
+    //點擊贈送好友
+    giveStart(){
+      console.log(1);
+      uni.showLoading({
+        title:'請稍後'
+      })
+      try{
+        if(this.givePhone.length!==11||isNaN(this.givePhone)){
+          this.customToast('手機號不正確')
+          this.givePhone = ''
+          return
+        }
+        this.isGive = false;
+        //TODO贈送邏輯處理
+
+        this.customToast('贈送成功')
+        this.givePhone = '';
+      }catch (e){
+        this.givePhone = ''
+        this.customToast('贈送失敗')
+      }
+    },
+    //取消贈送
+    closeGive(){
+      this.isGive = false;
+      this.givePhone = '';
+    },
   },
   components: {
     myForeseePage,
@@ -356,13 +391,13 @@ height: 100%;
     position: fixed;
     left: 0;
     top: 0;
-    z-index:1000;
+    z-index:13;
 
     .mark{
       width: 100%;
       height: 100%;
       background:rgba(0,0,0,.35);
-      z-index: 99999;
+      z-index: 12;
 
       .content{
         width: 480rpx;
