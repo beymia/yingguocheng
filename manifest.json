@@ -9,7 +9,8 @@
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
         "modules" : {
-            "Payment" : {}
+            "Payment" : {},
+            "Push" : {}
         },
         "distribute" : {
             "android" : {
@@ -43,19 +44,21 @@
                 "payment" : {
                     "weixin" : {
                         "__platform__" : [ "ios", "android" ],
-                        "appid" : "",
+                        "appid" : "wxd0f1e822e08155b2",
                         "UniversalLinks" : ""
                     }
-                }
+                },
+                "push" : {}
             }
         }
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wxd0f1e822e08155b2",
         "setting" : {
-            "urlCheck" : true,
-            "minified" : true
+            "urlCheck" : false,
+            "minified" : true,
+            "es6" : true
         },
         "permission" : {
             "scope.userLocation" : {

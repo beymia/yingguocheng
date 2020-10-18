@@ -7,7 +7,7 @@
     </view>
 
     <view class="have_content" v-else>
-      <foreseeList :list="foresee"></foreseeList>
+      <foreseeList @give-foresee="giveForesee" :list="foresee"></foreseeList>
     </view>
 
     <view class="foot">
@@ -22,6 +22,13 @@
 import foreseeList from "../../../components-lk/foreseeList/foreseeList";
 export default {
   name: "myForesee",
+  data(){
+    return {
+      givePhone:'',
+      giveData:{},
+      isGive:false,
+    }
+  },
   props:{
     foresee:{
       type:Array,
@@ -29,13 +36,48 @@ export default {
     }
   },
   methods:{
+    //导航页面
     navHistory(page){
       console.log(2);
       page += 'History';
       uni.navigateTo({
         url:`/pages/${page}/${page}`,
       })
-    }
+    },
+    //赠送好友
+    giveForesee(f){
+      console.log(1);
+      this.giveData = f;
+      this.isGive = true;
+    },
+    //阻止滑動事件
+    catchTouch(){},
+    //點擊贈送好友
+    giveStart(){
+      console.log(1);
+      uni.showLoading({
+        title:'請稍後'
+      })
+      try{
+        if(this.givePhone.length!==11||isNaN(this.givePhone)){
+          this.customToast('手機號不正確')
+          this.givePhone = ''
+          return
+        }
+        //TODO贈送邏輯處理
+
+        this.customToast('贈送成功')
+        this.givePhone = '';
+      }catch (e){
+        this.givePhone = ''
+        this.customToast('贈送失敗')
+      }
+    },
+    //取消贈送
+    closeGive(){
+      this.isGive = false;
+      this.givePhone = '';
+    },
   },
   components:{
     foreseeList

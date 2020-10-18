@@ -2,6 +2,8 @@ const ajax = require('./ajax')
 
 //true是请求时携带token，false为不携带
 
+//致用戶
+export const tolk = (data)=>ajax('/config/talk',data,'post')
 //订单详情
 export const orderForm = (data) => ajax('/user/order', data, 'post', 1)
 //开发票
@@ -25,7 +27,7 @@ export const redeemGifts = (data) => ajax('/convert/convert', data, 'post', 1)
 //用户信息
 export const userSpace = (data) => ajax('/user/user-info', data, 'post', 1)
 //开通会员
-export const joinMember = (data) => ajax('/account/service-pay', data, 'post')
+export const joinMember = (data) => ajax('/pay/service', data, 'post',1)
 //优惠券
 export const discount = (data) => ajax('/ticket/tickets', data, 'post', 1)
 //设置交易密码
@@ -73,3 +75,5 @@ export const myForesee = (data) => ajax('/foreseeList-card/my-card', data, 'post
 export const buyForesee = (data) => ajax('/foreseeList-card/pay-card', data, 'post', 1)
 //收送记录
 export const mutualRecord = (data) => ajax('/foreseeList-card/my-gift', data, 'post', 1)
+//贈送預付卡
+export const giveForesee = (data)=>ajax('/foresee-card/handsel-gift',data,'post',1)

@@ -80,6 +80,8 @@ export default {
   },
   //获取用户信息
   async mounted() {
+    this.token = APP.userToken;
+    this.userInfo = APP.userInfo;
     await this.getUserInfo()
   },
 
@@ -89,7 +91,8 @@ export default {
    * token没有引导用户登录
    */
   async onShow() {
-    this.token = APP.userToken
+    this.token = APP.userToken;
+    this.userInfo = APP.userInfo;
     if (this.token && this.userInfo.level) return;
     if(!this.token){
       this.loginBoxShow = false;

@@ -39,6 +39,23 @@
         </swiper-item>
       </template>
     </swiperSwitch>
+
+    <!--赠送好友-->
+    <view class="give" @touchmove.prevent.stop="catchTouch">
+      <view class="mark">
+        <view class="content">
+          <uni-icons @click="closeGive"
+                     class="icon"
+                     type="close"
+                     size="40"
+                     color="#cccccc">
+          </uni-icons>
+          <view class="title">贈送好友</view>
+          <input v-model="givePhone" type="number" maxlength="11" placeholder="請輸入贈送好友手機號">
+          <button @click="giveStart">確定贈送</button>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -239,12 +256,12 @@ export default {
     }
   },
   async mounted() {
-    await this.getForesee()
+    // await this.getForesee()
   },
   methods: {
     //获取数据列表
     async getForesee() {
-      // this.foreseeList = ((await milkList()).data || [])
+      this.foreseeList = ((await milkList()).data || [])
     },
     //获取我的卡片
     async getMyForesee() {
@@ -255,6 +272,8 @@ export default {
     //获取收送记录
     async getMutualRecord() {
     },
+    //贈送預付卡
+    async giveForeseeStart(){},
     //跳轉至預付卡詳情
     navPage(f) {
       uni.navigateTo({
@@ -285,18 +304,22 @@ swiper{
 height: 100%;
 
   .buy_foresee{
-    padding-top: 150rpx;
+    margin-top: 150rpx;
     width: 100%;
     display: flex;
     flex-direction: column;
     background-color: $main-bg;
     box-sizing: border-box;
     /* #ifdef H5*/
-    padding: 150rpx $spacing-base 0 $spacing-base;
+    padding: 0 $spacing-base 0 $spacing-base;
     /* #endif*/
 
     .content_list{
       width: 100%;
+      /* #ifdef MP*/
+      padding: 0 $spacing-base;
+      box-sizing:border-box;
+      /* #endif*/
 
       .title{
         font-size: $font-size-base;
@@ -319,7 +342,7 @@ height: 100%;
   }
 
   .have_foresee{
-    padding-top: 150rpx;
+    margin-top: 150rpx;
     width: 100%;
     min-height: 100%;
     display: flex;
@@ -327,5 +350,71 @@ height: 100%;
     background-color: $main-bg;
   }
 }
+  .give{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index:1000;
+
+    .mark{
+      width: 100%;
+      height: 100%;
+      background:rgba(0,0,0,.35);
+      z-index: 99999;
+
+      .content{
+        width: 480rpx;
+        height: 330rpx;
+        background: #ffffff;
+        border-radius: 20rpx;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        font-size: $font-size-base;
+        font-weight:$font-weight-lg;
+        color: $font-color1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .icon{
+          position: absolute;
+          right: 20rpx;
+          top: 20rpx;
+        }
+
+        .title{
+          margin: 50rpx 0 $spacing-lg 0;
+        }
+
+        input{
+          width: 330rpx;
+          height: 54rpx;
+          border: 1rpx solid #cccccc;
+          font-size: $font-size-sm;
+          font-weight: $font-weight-base;
+          border-radius: 8rpx;
+          padding: 0 10rpx;
+          box-sizing: border-box;
+          margin-bottom: 50rpx;
+        }
+
+        button  {
+          width: 150rpx;
+          height: 58rpx;
+          background: $main-color;
+          border-radius: 4rpx;
+          padding: 0;
+          line-height: 58rpx;
+          font-size: $font-size-sm;
+          font-weight: $font-weight-base;
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
 }
 </style>

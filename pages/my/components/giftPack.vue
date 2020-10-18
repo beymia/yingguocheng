@@ -11,6 +11,7 @@
 					<view class="icon_exception package_icon">
 						<image src="../../../static/images/my/free_drink.png"></image>
 					</view>
+          <!-- TODO 礼包数据需要从用户数据接口获取-->
 					<view class="package_title">
 						<text>星球贈飲券</text>
 						<text>X1</text>
