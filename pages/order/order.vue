@@ -1,15 +1,18 @@
 <template>
 	<view class="page">
 		<!-- 自定义导航栏start -->
-		<uni-nav-bar :title="title" statusBar style="" >
-			<block slot="left">
+			<uni-nav-bar :title="title" statusBar style="">
+			<template slot="left">
 				<view style="height: 35px;line-height: 35px;border-radius: 18px;border: 1px solid #eaeaea;margin-left: 24rpx;padding: 0 15px;display: flex;align-self: center;">
 					<text style="font-size: 17px;color: #666666;" @tap="pin_tap" v-if="!showSearch">拼</text>
 					<text style="font-size: 17px;color: #666666;" v-else>拼</text>
 					<text style="width: 29px;font-size: 17px;text-align: center;color: #EAEAEA;">|</text>
 					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;" @tap="showSearch=true"></icon>
 				</view>
-			</block>
+			</template>
+			<template slot="right">
+					<uni-icons type="scan" size='36' @tap='scan'></uni-icons>
+			</template>
 		</uni-nav-bar>
 		<!-- 自定义导航栏end -->
 		
@@ -199,7 +202,7 @@
 	import rest from './components/rest/rest.vue'
 	import pintuan from './components/pintuan/pintuan.vue'
 	import locaAutho from './components/locaAutho/locaAutho.vue'
-	import {shops_list,shops_detail,goods_list,goods_detail} from '@/request/api_y.js'
+	import {shops_list,shops_detail,goods_list,goods_detail,pintuan_creat,pintuan_detail} from '@/request/api_y.js'
 	import {during} from '@/util/Date.js'
 	export default{
 		components:{
@@ -239,10 +242,11 @@
 						this.shop_change_time =1
 						return
 					}
+					console.log(this.shop_change_time)
 					console.log(66666666666666666666666)
 					console.log(newval)
-					this.judge_is_rest()//判斷是否在休息
-					await this.shop_init(loca_res)//获取门店列表和设置当前门店
+					// //this.judge_is_rest()//判斷是否在休息
+					// await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
 					await this.menu_list_init()//获取并设置当前门店下全部商品信息
 					this.$nextTick(() => this.calcSize())
 					console.log('bbbbbbbbbbbbbbbbbbbbbbbb')
@@ -271,8 +275,9 @@
 			 
 			
 			let loca_res = await this.long_lati()//获取当前定位经纬度
+			this.loca_res = loca_res
+			await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
 			this.judge_is_rest()//判斷是否在休息
-			await this.shop_init(loca_res)//获取门店列表和设置当前门店
 			await this.menu_list_init()//获取并设置当前门店下全部商品信息
 			
 			
@@ -331,11 +336,6 @@
 				if(this.choosedShop){
 					console.log("999999999999999999999999")
 					console.log(this.choosedShop)
-					setTimeout(function(){
-						console.log(888888888888888)
-						console.log(this.choosedShop)
-					},100)
-					
 					if(this.choosedShop.detail){
 						console.log('cccccccccccccccccccccccccccc')
 						let r = this.choosedShop.detail.scroll_ad
@@ -374,6 +374,15 @@
 					}).exec()
 				})
 			},
+			scan(){
+				alert('scan')
+				uni.scanCode({
+					scanType:'qrCode',
+					success() {
+						alert('scan sucess')
+					}
+				})
+			},
 			async openSetting(){
 				//this.showLocaAutho = false
 				    // 获取位置信息
@@ -401,7 +410,7 @@
 				
 			},
 			judge_is_rest(){
-				let isin = during('09:00:00','22:00:00')
+				let isin = during(this.choosedShop.work_time,this.choosedShop.rest_time)
 				if(!isin){
 					this.is_rest = true
 					uni.showModal({
@@ -430,11 +439,28 @@
 						break;
 				}
 			},
-			pin_tap(){
+			async pin_tap(){
+				// #ifdef H5
+				uni.showModal({
+					showCancel:false,
+					content:'網頁版暫不支持此功能，請使用微信小程序版或手機app版！',
+				})
+				//return
+				// #endif
 				const token = uni.getStorageSync('token');
 				console.log(token)
 				if(token){
-					this.showPintuan = true
+					var code = uni.getStorageSync('pintuanCode');
+					if(code){
+						var a = await pintuan_detail({code:code})
+						if(a.code == 1000){
+							uni.navigateTo({
+								url:'/pages/pintuan/pintuan?pintuanCode='+code
+							})
+						}else{
+							this.showPintuan =true
+						}
+					}
 				}else{
 						uni.showModal({
 						    content: '您還沒有登錄，請先登錄',
@@ -578,9 +604,10 @@
 					this.cart.find(item => item.id==id).is_checked= false;
 			}
 		},
-		choose_pintuan_type(type){
+		async choose_pintuan_type(type){
 			this.showPintuan=false;
 			if(type==1 ){
+				this.SET_PINTUAN_TYPE(1)
 				uni.navigateTo({
 					url:"/pages/userAdress/userAdress?from=pintuan"
 				})
@@ -593,6 +620,22 @@
 			
 		},
 		pay(price){
+			const token = uni.getStorageSync('token');
+			console.log(token)
+			if(!token){
+				uni.showModal({
+				    content: '您還沒有登錄，請先登錄',
+				    success: function (res) {
+				        if (res.confirm) {
+							uni.navigateTo({
+								url:'/pages/login/login'
+							})
+				        } else if (res.cancel) {
+				        }
+				    }
+				});
+				return
+			}
 			this.judge_is_rest()//
 			if(!this.is_rest){
 				

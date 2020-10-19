@@ -5,7 +5,7 @@
 				<view class="search-input">
 					<image src="/static/images/order/search-icon.png" class="search-icon"></image>
 					<input class="s_input" type="text" v-model="keyword" 
-							placeholder="" 
+							placeholder=" " 
 							placeholder-class="placeholder" @input="handleKeywordInput">
 				    <image v-if="keyword" src="/static/images/order/image-delete.png" class="close-icon" @tap="clear" />
 				</view>

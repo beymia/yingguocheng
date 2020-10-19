@@ -60,8 +60,7 @@
 <script>
 	import {mapState, mapMutations} from 'vuex'
 	import listCell from '@/components-lk/list-cell/list-cell.vue'
-	import {userAddresses,address_delete} from '@/request/api_y.js'
-	
+	import {userAddresses,address_delete,address_add} from '@/request/api_y.js'
 	export default {
 		components: {
 			listCell
@@ -133,13 +132,20 @@
 			},
 			wxdr(){
 				uni.chooseAddress({
-					success:res=>{
+					success:async (res)=>{
+						
 						let {errMsg,userName,telNumber,provinceName,cityName,countyName,detailInfo} = res
 						if(errMsg == "chooseAddress:ok") {
-							let new_address={name:userName,complete_address:cityName+countyName,address:"",description:detailInfo,phone:telNumber}
-							this.userAddresses.push(new_address)
-							console.log(new_address.gender)
+							uni.showLoading({
+								title:'地址導入中...',
+								mask:true
+							})
+							let new_address={contact_name:userName,contact_sex:1,contact_address:cityName+countyName,contact_number:detailInfo,contact_phone:telNumber,default_status:2}
+							await address_add(new_address)
+							let uddresses = (await userAddresses()).data;
+							this.SET_USER_ADDRESSES(uddresses);
 						}
+						uni.hideLoading()
 					}
 					
 				})

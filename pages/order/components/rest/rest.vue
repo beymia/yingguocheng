@@ -46,6 +46,12 @@
 		justify-content: center;
 		text-align: center;
 		z-index: 995;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		/* #ifdef H5 */
+		bottom: 50px;
+		/* #endif */
 		.text1{
 			font-size: 28rpx;
 			color: #FFFFFF;

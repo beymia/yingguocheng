@@ -111,6 +111,7 @@
 
 <script>
 	import {pintuan_info} from "./data.js"
+	import {pintuan_creat,pintuan_detail} from '@/request/api_y.js'
 	export default {
 		data() {
 			return {
@@ -151,8 +152,9 @@
 				
 			}
 		},
-		onLoad() {
+		async onLoad() {
 			this.resort_pintuan_info(this.pintuan_info);
+			var code = await pintuan_creat({shop_id:this.choosedShop.id,vehicle_method:2})
 		}
 	}
 </script>

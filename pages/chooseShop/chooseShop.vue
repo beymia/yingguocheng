@@ -38,16 +38,16 @@
 			</view>
 			
 			<scroll-view scroll-y="true" class="shop_list">
-				<view class="shop_item" :class="{active:items.id == choosedShop.id}" v-for="(items,indexs) in (searchShopList ? searchShopList:shopList)" :key="indexs" @tap="shop_tap(items)">
+				<view class="shop_item" :class="{active:items.id == choosedShop.id}" v-for="(items,indexs) in (searchShopList ? searchShopList:shopList)" :key="indexs" @tap="shop_tap(indexs)">
 					<view class="left">
 						<view class="shop_name">
 							{{items.shop_name}}
 						</view>
 						<view class="order_waisong">
 							<view class="order">
-								<view class="progress" :style="{width: items.ocp.progress}"></view>
+								<view class="progress" :style="{width: items.current_cups+'%'}"></view>
 								<view class="text">
-									{{items.ocp.order}}單/{{items.ocp.cup}}杯製作中
+									{{items.current_order}}單/{{items.current_cups}}杯製作中
 								</view>
 							</view>
 							<view class="waisong">
@@ -184,7 +184,7 @@
 			}
 		},
 		onLoad() {
-			this.shopList.forEach(item =>{
+			/* this.shopList.forEach(item =>{
 				let order= Math.ceil(Math.random() * 15);
 				let cup =0;
 				do{
@@ -197,19 +197,16 @@
 					cup:cup,
 					progress:progress
 				}
-			})
+				console.log(item.ocp)
+			}) */
 			if(this.shopList.length <= 2){
 				this.SET_CY_SHOP_LIST(this.shopList)
 			}else{
 				let cys= [this.shopList[0],this.shopList[1]]
 				this.SET_CY_SHOP_LIST(cys)
 			}
+			console.log(this.shopList[0].ocp)
 			console.log(111111111)
-			wx.getLocation({
-				success(res){
-					console.log(res)
-				}
-			})
 			console.log("shop onLoad")
 		},
 		onShow() {
@@ -228,8 +225,9 @@
 				this.searchShopList=[shop];
 				
 			},
-			shop_tap(shop){
-				this.SET_CHOOSED_SHOP(shop);
+			shop_tap(indexs){
+				console.log(44444444444)
+				this.SET_CHOOSED_SHOP(this.shopList[indexs]);
 			},
 			order_tap(shop){
 				this.SET_CHOOSED_SHOP(shop);
@@ -329,6 +327,7 @@
 		flex: 1;
 		background-color: #F5F5F5;
 		overflow: hidden;
+		box-sizing: border-box;
 		.active{
 			border: 1px solid $main-color;
 		}
@@ -371,7 +370,7 @@
 							height: 22rpx;
 							line-height: 22rpx;
 							width: 100%;
-							font-size: 12rpx;
+							font-size: 14rpx;
 							color: #333333;
 							padding-left: 12rpx;
 						}
