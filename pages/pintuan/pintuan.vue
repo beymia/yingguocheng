@@ -1,20 +1,20 @@
 <template>
 	<view class="page">
-			<view class="shop_info">
+			<view class="pintuanShop">
 				<view class="info">
 					<view class="shop_icon">
 							<image src="/static/images/order/shop_icon.png" mode=""></image>
 					</view>
 					<view class="shop_name">
-						{{shop_info.shop_name}}
+						{{pintuanShop.shop_name}}
 					</view>
 					<view class="type">
-						{{type == 1 ? "外賣":"自取"}}
+						{{pintuanType == 1 ? "外賣":"自取"}}
 					</view>
 				</view>
-				<view class="distance">
+				<!-- <view class="distance">
 					距離您{{trans_distance}}
-				</view>
+				</view> -->
 				<view class="biaoyu">
 					快來叫上好友壹起喝奶茶吧~
 				</view>
@@ -37,7 +37,8 @@
 						<view class="user_info">
 							<view class="left">
 								<view class="user_icon">
-									<image :src="item.user_avatar" mode=""></image>
+									<!-- <image :src="item.user_avatar" mode=""></image> -->
+									<image src="/static/images_t/pintuan/touxiang.png" mode=""></image>
 								</view>
 								<view class="user_name">
 									{{item.user_name}}
@@ -91,17 +92,17 @@
 			</view>
 			<!-- 拼单详情结束 -->
 			<!-- 结算开始 -->
-			<view class="jiesuan">
+			<view class="jiesuan" v-if="isCaptain">
 				<view class="left">
 					<view class="left_top">
-						<text class="price">￥143</text>
-						<text class="my_pirce">(我点￥143)</text>
+						<text class="price">￥{{total_money}}</text>
+						<text class="my_pirce">(我点￥{{money}})</text>
 					</view>
 					<view class="tip">
 						如有商品參與優惠/活動，請結算實付金額為準
 					</view>
 				</view>
-				<view class="right">
+				<view class="right" @tap="pay">
 					結算
 				</view>
 			</view>
@@ -110,38 +111,87 @@
 </template>
 
 <script>
-	import {pintuan_info} from "./data.js"
-	import {pintuan_creat,pintuan_detail} from '@/request/api_y.js'
+	import {mapState, mapMutations} from 'vuex'
+	// import {pintuan_info} from "./data.js"
+	import {shops_list,shops_detail,pintuan_creat,pintuan_order,pintuan_invite,pintuan_invite_code,pintuan_lock,pintuan_unlock,pintuan_detail,pintuan_cancel} from '@/request/api_y.js'
+	import locaAutho from '@/pages/order/components/locaAutho/locaAutho.vue'
 	export default {
+		components:{
+			locaAutho
+		},
 		data() {
 			return {
-				shop_info:{
-					"id": "15992871171146972",
-					"shop_name": "合肥百乐门广场店",
-					"shop_address": "安徽省合肥市蜀山区",
-					"longitude": "117.23594319042803",
-					"latitude": "31.7816537753481",
-					"work_time": "10:0:00",
-					"rest_time": "22:0:00",
-					"current_order": "0",
-					"current_cups": "0",
-					"distance": 1.74
-				},
-				pintuan_info,
-				type:2
+				
+				pintuan_info:[],
+				showLocaAutho:false,
 			}
 		},
+		async onLoad(options) {
+			if(options.code){
+				if(options.invite){//从邀请好友中进来
+				const token = uni.getStorageSync('token');
+				if(!token){
+					uni.showModal({
+					    content: '您還沒有登錄，請先登錄',
+					    success: function (res) {
+					        if (res.confirm) {
+								uni.navigateTo({
+									url:'/pages/login/login'
+								})
+					        } else if (res.cancel) {
+								uni.switchTab({
+									url:'/pages/order/order?from=order'
+								})
+					        }
+					    }
+					});
+					return
+				}
+					let res = await pintuan_invite({code:options.code})
+					if(res.code == 1001){
+						uni.showModal({
+							content:'已存在进行中的拼单',
+							showCancel:false,
+						})
+					}
+					this.pintuan_init({code:options.code});
+					
+				}
+				//正常进入且已经有拼团
+				this.pintuan_init({code:options.code});
+				
+				
+			}else{//正常进入但没有拼团
+			console.log(this.choosedShop)
+				var code = await pintuan_creat({shop_id:this.choosedShop.id,vehicle_method:this.pintuanType})
+				uni.setStorageSync('pintuanCode',code)
+				console.log(88888888888)
+				this.pintuan_init(code)
+			}
+			
+		},
 		computed:{
-			trans_distance(){
-				let distance = this.shop_info.distance;
+			...mapState(['orderType','pintuanType','choosedShop','choosedAddress','shopList','pintuanCart','pintuanShop']),
+			/* trans_distance(){
+				let distance = this.pintuanShop.distance;
 				if(parseInt(distance * 10) < 10){
 					return distance * 1000 + "m"
 				}else{
 					return distance + "km"
 				}
+			} */
+			isCaptain(){
+				return this.pintuan_info[0].captain == 1 ? true:false
+			},
+			total_money(){
+				return parseInt(this.pintuan_info[0].total_money*100)/100
+			},
+			money(){
+				return parseInt(this.pintuan_info[0].money*100)/100
 			}
 		},
 		methods: {
+			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE','SET_PINTUAN_CART','SET_SHOP_LIST','SET_CHOOSED_SHOP','SET_PINTUAN_SHOP']),
 			resort_pintuan_info(pintuan_info){
 				let index= pintuan_info.findIndex(item => item.is_me == true);
 				if(index != -1){
@@ -150,12 +200,210 @@
 					pintuan_info.unshift(me[0]);
 				}
 				
-			}
+			},
+			async pintuan_init(code){
+				uni.showLoading({})
+				if(this.shopList.length == 0){
+					let conti = true
+					// #ifdef MP-WEIXIN
+						uni.getSetting({
+						  success: (res) => {
+						    console.log(res)
+						    if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
+								this.showLocaAutho = true
+								conti = false
+							}else if(res.authSetting['scope.userLocation'] == undefined){//初始化进入该页面
+								
+							}
+						  }
+						}) 
+					// #endif
+					if(!conti){
+						return
+					}
+					 
+					
+					let loca_res = await this.long_lati()//获取当前定位经纬度
+					this.loca_res = loca_res
+					await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
+				}
+				let pintuan_info = (await pintuan_detail({code:code})).data
+				this.resort_pintuan_info(pintuan_info)
+				console.log(pintuan_info)
+				this.pintuan_info = pintuan_info
+				console.log(this.pintuan_info)
+				 this.SET_PINTUAN_SHOP(this.shopList.find(item => item.id == pintuan_info[0].shop_id)) 
+				console.log(this.pintuanShop)
+				let pintuanCart = pintuan_info[0].goods_data ? pintuan_info[0].goods_data:[]
+				pintuanCart.forEach(item=>{
+					item.is_checked = true
+					item.id = item.goods_id
+					item.name = item.goods_name
+					item.price = parseInt(item.goods_price * 100)/100
+					item.truePrice = item.price
+					item.imgurl = item.home_avatar
+					item.number = item.goods_num
+					item.materials_text = item.goods_norm
+					//item.norm_id =
+				})
+				this.SET_PINTUAN_CART(pintuanCart)
+				uni.hideLoading()
+			},
+			async long_lati(){
+				var latitude = 0;
+				var longitude = 0
+				// #ifdef H5
+							let res2 = await this.$jsonp('https://apis.map.qq.com/ws/location/v1/ip', {
+							  key : 'MBTBZ-2PMKR-QARWA-W7MOH-AJ76K-6HB2J',
+							  output:'jsonp',
+							}).catch(e=>{})
+							// console.log(res2)
+							latitude = res2.result.location.lat
+							longitude = res2.result.location.lng
+				// #endif
+						
+						// #ifndef H5
+							// #ifdef MP-WEIXIN
+							//this.loca_autho
+							// #endif
+							let loca_res = await new Promise((resolve,reject)=>{
+								uni.getLocation({
+									success(res) {
+										resolve(res)
+									},
+									fail(err){
+										reject(err)
+									}
+								})
+							}).catch(e=>{})
+							latitude = loca_res.latitude
+							longitude = loca_res.longitude
+						// #endif
+							console.log('latitude:'+latitude+'longitude:'+longitude)
+							return {latitude:latitude,longitude:longitude}
+			},
+			async shop_init(loca_res){
+				let spl= (await shops_list({latitude:loca_res.latitude,longitude:loca_res.longitude})).data
+				// console.log(spl)
+				//this.SET_SHOP_LIST(spl)
+				spl.sort(function(item1,item2){
+					if(parseInt(item1.distance*100) <= parseInt(item2.distance*100) ){
+						return -1;
+					}else{
+						return 1
+					}
+				})
+				// console.log(spl)
+				let spl_prom=[]
+				spl.forEach( async (item,index) =>{
+					// console.log(shop_detail2)
+					//spl[index].detail = (await shops_detail({shop_id:item.id})).data 
+					spl_prom.push(shops_detail({shop_id:item.id}))
+				})
+				await Promise.all(spl_prom).then(values=>{
+					let index = 0
+					spl.forEach(item=>{
+						item.detail = values[index].data
+						index++
+					})
+					
+				})
+				console.log(spl)
+				this.SET_SHOP_LIST(spl)
+				//this.SET_CHOOSED_SHOP(this.shopList[0])
+				// console.log(this.choosedShop)
+				 //alert(this.choosedShop.id)
+			},
+			async judge_is_rest(){
+				let work_status = (await shops_detail({shop_id:this.pintuanShop.id})).data.work_status
+				if(work_status !=1){
+					this.is_rest = true
+					uni.showModal({
+						content:'本店已休息，您可以選擇切換門店',
+						cancelText:"留在當前",
+						confirmText:"切換門店",
+						success(res) {
+							if (res.confirm) {
+								uni.navigateTo({
+									url:'/pages/chooseShop/chooseShop'
+								})
+							} else if (res.cancel) {
+					
+								}
+						}
+					})
+				}
+
+			},
+			pay(price){
+				const token = uni.getStorageSync('token');
+				console.log(token)
+				if(!token){
+					uni.showModal({
+					    content: '您還沒有登錄，請先登錄',
+					    success: function (res) {
+					        if (res.confirm) {
+								uni.navigateTo({
+									url:'/pages/login/login'
+								})
+					        } else if (res.cancel) {
+					        }
+					    }
+					});
+					return
+				}
+				this.judge_is_rest()//
+				if(!this.is_rest){
+					uni.showLoading({})
+					var app = getApp();
+					var order_info={};
+					var goods =[];
+					var goods_data = [];
+					this.cart.filter(item => item.is_checked==true).forEach(item =>{
+						let good ={};
+						good.id = item.id;
+						good.goods_name = item.name;
+						good.goods_price = item.truePrice;
+						good.home_avatar = item.imgurl;
+						good.norm = item.materials_text;
+						good.norm_id = item.norm_id ? item.norm_id : [];
+						good.goods_num =item.number;
+						goods_data.push(good);
+						
+					})
+					order_info.goods_data = goods_data;
+					order_info.shop_id = this.pintuanShop.id
+					order_info.shop_name = this.pintuanShop.shop_name
+					order_info.distance = this.pintuanShop.distance
+					// order_info.delivery_cost = this.choosedShop.detail.delivery_cost
+					 order_info.delivery_cost = 0.01
+					order_info.lowest_cost = this.pintuanShop.detail.lowest_cost
+					// order_info.payment_info = price
+					order_info.payment_info = 0.01
+					order_info.address_id = this.choosedAddress.id
+					order_info.contact_name = this.choosedAddress.contact_name
+					order_info.contact_sex = this.choosedAddress.contact_sex
+					order_info.contact_phone = this.choosedAddress.contact_phone
+					order_info.contact_address = this.choosedAddress.contact_address
+					order_info.contact_number = this.choosedAddress.contact_number
+					order_info.haul_method  = this.pintuanType
+					order_info.current_cups = this.pintuanShop.detail.current_cups
+					order_info.current_order = this.pintuanShop.detail.current_order
+					app.globalData.goodsPayment = order_info;
+					console.log(order_info)
+					uni.hideLoading()
+					uni.navigateTo({
+						url:'/pages/orderPayment/orderPayment'
+					})
+					
+				}
+				
+				
+				
+			},
 		},
-		async onLoad() {
-			this.resort_pintuan_info(this.pintuan_info);
-			var code = await pintuan_creat({shop_id:this.choosedShop.id,vehicle_method:2})
-		}
+		
+		
 	}
 </script>
 
@@ -165,7 +413,7 @@
 		opacity: 0.5;
 		border-top: 1px solid #cccccc;
 	}
-	.shop_info{
+	.pintuanShop{
 		margin-top: 40rpx;
 		padding: 0 24rpx;
 		.info{
