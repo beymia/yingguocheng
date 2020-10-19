@@ -59,7 +59,7 @@ uni-page-body{
 }
 .my_foresee{
   width: 100%;
-  min-height: 100%;
+  //min-height: 100%;
   display: flex;
   flex-direction: column;
   padding: $spacing-base;

@@ -47,8 +47,12 @@ export default {
     return {
       phone: '',
       cAreaCode: 0,
-      areaCode: ['853', '86', '82', '84', '850', '852', '855', '856', '81', '880', '886']
+      areaCode: ['853', '86', '82', '84', '850', '852', '855', '856', '81', '880', '886'],
+      from:'',
     }
+  },
+  onLoad(options){
+    options.from && (this.from = options.from)
   },
   methods: {
     async loginStart() {
@@ -70,11 +74,12 @@ export default {
         uni.hideLoading()
         /*手机号正确，跳转至验证码接收頁*/
         uni.navigateTo({
-          url: '/pages/checkCode/checkCode?phone=' + this.phone
+          url: '/pages/checkCode/checkCode?phone=' + this.phone + '&from = ' + this.from
         })
       } catch (e) {
+				console.log(e)
         //驗證碼發送失敗
-        this.customToast('出現了錯誤')
+        this.customToast('驗證碼發送失敗')
       }
     },
     changeAreaCode(e) {
@@ -172,7 +177,7 @@ export default {
     height: 96rpx;
     background-color: #E9E9E9;
     border-radius: 100rpx;
-    margin-top: 150rpx;
+    //margin-top: 150rpx;
     overflow: hidden;
     float: right;
 

@@ -2,15 +2,17 @@
   <view class="member_benefits">
     <!--頭部-->
     <view class="member_name">
-      <view>{{user.user_name}}</view>
-      <view>購買記錄</view>
+      <view>{{ user.user_name }}</view>
+      <view @click="navRecord">購買記錄</view>
     </view>
     <!--經驗值-->
     <view class="ex">
-      <image mode="widthFix" src="../../static/images_t/memberBenefits/ex_bg.png"></image>
+      <view class="img">
+        <image mode="widthFix" src="../../static/images_t/memberBenefits/ex_bg.png"></image>
+      </view>
       <view class="ex_info">
         <view class="level">
-          <text>LV.{{user.level}}</text>
+          <text>LV.{{ user.level }}</text>
           <uni-icons class="icon"
                      style="display: inline-block;vertical-align: middle"
                      type="info"
@@ -19,29 +21,45 @@
           </uni-icons>
         </view>
         <view class="progress">
-            <view class="text">
-             <text>当前星球经验值{{user.empiric}}/{{user.n_empiric}}</text>
-            </view>
-          <progress activeColor="#17a1ff"
-                    backgroundColor="#f0f0f0"
-                    :percent="exProgress">
-          </progress>
+          <view class="text">
+            <text>当前星球经验值{{ user.empiric }}/{{ user.n_empiric }}</text>
+          </view>
+          <view class="pro_com">
+            <progress activeColor="#17a1ff"
+                      backgroundColor="#f0f0f0"
+                      active
+                      :percent="exProgress">
+            </progress>
+          </view>
         </view>
       </view>
     </view>
     <view class="cut_off"></view>
     <!--礼包领取-->
     <view class="pack">
+      <!--等级礼包-->
+      <view class="level">
+        <view class="title">
+          <text>等級禮包</text>
+          <!--          <text>根據購買日期，每月容易時間領取</text>-->
+        </view>
+        <view class="content">
+          <options @recive-start="receiveStart" :list="level"></options>
+        </view>
+      </view>
+      <view class="cut_off"></view>
+      <!--月度礼包-->
       <view class="month">
         <view class="title">
-          <text>每月登記權益</text>
-          <text>根據購買日期，每月容易時間領取</text>
+          <text>每月權益禮包</text>
+          <text>根據購買日期，每月同一時間領取</text>
         </view>
         <view class="content">
           <options @recive-start="receiveStart" :list="month"></options>
         </view>
       </view>
       <view class="cut_off"></view>
+      <!--会员权益礼包-->
       <view class="knight">
         <view class="title">
           <text>{{ user.level_title }}權益</text>
@@ -57,66 +75,81 @@
 
 <script>
 import {
+  levelPack,
+  receiveLevel,
   monthPack,
   receivePack,
   interestsPark,
   receiveKnight
 } from "../../request/api";
 import options from "./components/options";
+
 const APP = getApp().globalData
 export default {
   data() {
     return {
-      user:{},
-      exProgress:0,
-      month:[],
-      interests:[]
+      user: {},
+      exProgress: 0,
+      level: [],
+      month: [],
+      interests: []
     }
   },
   async mounted() {
     this.user = APP.userInfo;
     this.exProgress = (this.user.empiric / this.user.n_empiric) * 100
-    //不相干的兩個請求，同時發送
-    Promise.all([await monthPack(), await interestsPark()])
-        .then(value => {
-          this.month = value[0].data;
-          this.interests = value[1].data
-          this.month.forEach((item) => {
-            item.type = 'month'
-          })
-          this.interests.forEach((item) => {
-            item.type = 'interests'
-          })
-        }).catch(e => {
-      console.log(e);
-      this.customToast('出現了錯誤', false)
-    })
+    //不相干的請求，同時發送
+    await this.getPackData()
   },
   methods: {
-   async receiveStart(e){
-     uni.showLoading({
-       title: '領取中'
-     })
-     if (e.type === 'month') {
-       try {
-         await receivePack({park_id: e.id})
-         this.customToast('領取成功')
-       } catch (e) {
-         console.log(e);
-         this.customToast('領取失敗')
-       }
-     } else if (e.type === 'interests') {
-       try {
-         await receiveKnight({park_id: e.id})
-         this.customToast('領取成功')
-       } catch (e) {
-         console.log(e);
-         this.customToast('領取失敗')
-       }
-     }
-   },
+    //获取礼包数据
+    getPackData() {
+      Promise.all([levelPack(), monthPack(), interestsPark()])
+          .then(data => {
+            this.level = data[0].data;
+            this.month = data[1].data;
+            this.interests = data[2].data;
+            this.level.forEach((item) => {
+              item.type = 'level'
+            })
+            this.month.forEach((item) => {
+              item.type = 'month'
+            })
+            this.interests.forEach((item) => {
+              item.type = 'interests'
+            })
+          })
+    },
+    //领取礼包
+    async receiveStart(e) {
+      uni.showLoading({
+        title: '領取中'
+      })
+      try {
+        switch (e.type) {
+          case 'level':
+            await receiveLevel({park_id: e.id})
+            break;
+          case 'month':
+            await receivePack({park_id: e.id})
+            break;
+          case 'interests':
+            await receiveKnight({park_id: e.id})
+        }
+        this.customToast('領取成功')
+      } catch (e) {
+        console.log(e);
+        this.customToast('領取失敗')
+      }
+    },
+    //跳轉購買記錄
+    navRecord(){
+      uni.navigateTo({
+        url:'/pages/rechargeRecord/rechargeRecord'
+      })
+    },
   },
-  components:{
+  components: {
     options
   }
 }
@@ -125,7 +158,7 @@ export default {
 <style lang="scss" scoped>
 .member_benefits{
   width: 100%;
-  padding:$spacing-base;
+  padding:0 $spacing-base;
   box-sizing: border-box;
 
   .member_name{
@@ -153,16 +186,27 @@ export default {
     width: 100%;
     height: 280rpx;
     position: relative;
-    margin-bottom: 60rpx;
+    margin-bottom: 40rpx;
 
-    image{
-      width: 110%;
+    .img{
+      width: 100%;
       height: 280rpx;
-      margin-left: -5%;
+      overflow: hidden;
+      position: relative;
+      border-radius: 20rpx;
+
+      image{
+        width: 130%;
+        height: 130%;
+        vertical-align: middle;
+        position: absolute;
+        left: 50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+      }
     }
 
     .ex_info{
-      width: 100%;
       position: absolute;
       top: 50rpx;
       left: 50rpx;
@@ -181,12 +225,23 @@ export default {
         font-size: $font-size-sm;
         color: $font-color1;
 
-        progress{
+        .pro_com{
           width: 300rpx;
           height: 8rpx;
           background: #f5f5f5;
           border-radius: 4rpx;
           margin-top: 10rpx;
+          overflow: hidden;
+
+          progress{
+            width: 300rpx;
+
+
+            &.wx-progress-bar {
+              height: 8rpx !important;
+              border-radius: 4rpx !important;
+            }
+          }
         }
       }
     }

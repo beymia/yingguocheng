@@ -41,45 +41,61 @@ Vue.prototype.getLayoutInfo = function (name) {
 /**
  * uni通用的异步支付函數
  * @param orderInfo 必传，切符合规范
+ * @param provider 支付服务商
  * @returns {Promise<unknown>} promise对象
  */
-Vue.prototype.utilPayment = async function (orderInfo) {
+Vue.prototype.utilPayment = async function (orderInfo, provider = 'wxpay') {
   //提取支付所需的信息
   let {signType, paySign, timeStamp, nonceStr} = orderInfo;
 
-  return new Promise((resolve,reject)=>{
-    //获取服务供应商
-    uni.getProvider({
-      service: 'payment',
-       success(res) {
-        let provider = res.provider[0];
-        //微信支付
-        if (provider === 'wxpay') {
-          //发起支付
-          uni.requestPayment({
-            provider: provider,
-            orderInfo,
-            timeStamp,
-            nonceStr,
-            package: orderInfo.package,
-            signType,
-            paySign,
-            //支付成功
-            success(s) {
-              resolve(s)
-            },
-            //支付失败
-            fail(e) {
-              reject(e)
-            },
-          })
-        }
+  return new Promise((resolve, reject) => {
+    //微信支付
+    // #ifdef MP-WEIXIN
+    uni.requestPayment({
+      provider,
+      orderInfo,
+      timeStamp,
+      nonceStr,
+      package: orderInfo.package,
+      signType,
+      paySign,
+      success(s) {
+        resolve(s)
       },
-      //服务供应商获取失败
-      fail(e){
+      //支付失败
+      fail(e) {
+        console.log(e);
         reject(e)
+      },
+    })
+    // #endif
+
+    // #ifdef APP-PLUS
+    orderInfo.partnerid = '1541769301';
+    orderInfo = Object.keys(orderInfo).reduce((arr,key)=>{
+      arr[key.toLowerCase()] = orderInfo[key]
+      return arr
+    },{})
+    console.log(orderInfo);
+    uni.requestPayment({
+      provider,
+      orderInfo:JSON.stringify(orderInfo),
+      success(res){
+        resolve(res)
+      },
+      fail(e){
+        console.log(e);
+        console.log(orderInfo);
+        uni.showModal({
+          content:JSON.stringify(e)
+        })
+        reject(e);
+      },
+      complete(e){
+        console.log(e);
       }
     })
+    // #endif
   })
 }
 

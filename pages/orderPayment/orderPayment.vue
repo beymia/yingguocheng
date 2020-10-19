@@ -202,6 +202,7 @@ export default {
       totalAmount: 0,
       attachArr: [],
       couponInfo: [],
+      paymentTimer:null,
     }
   },
   computed: {
@@ -256,6 +257,8 @@ export default {
   onUnload() {
     //页面卸载时清空优惠券金额
     APP.coupon = {};
+    //TODO清空支付定时器
+    clearTimeout(this.paymentTimer)
   },
   methods: {
     // toggleReceiving(method) {
@@ -353,11 +356,20 @@ export default {
       }
       //创建订单并支付
       try {
-        let orderId = (await createOrder(paramsObj)).data.order_id;
-        let orderInfo = (await paymentStart({order_id: orderId, shop_id: paramsObj.shop_id})).data
+        let orderNum = (await createOrder(paramsObj)).data.order_num;
+        let orderInfo = (await paymentStart({order_num: orderNum, shop_id: paramsObj.shop_id})).data
+        // TODO 延迟请求微信支付，非最终方案
+        self.paymentTimer && clearTimeout(self.paymentTimer)
         //发起微信支付
-        await self.utilPayment(orderInfo)
-        await self.paymentSuccess();
+        try{
+          self.paymentTimer = setTimeout(async()=>{
+            await self.utilPayment(orderInfo)
+            await self.paymentSuccess();
+          },3000)
+        }catch (e) {
+          self.customToast('结算失败')
+          console.log(e);
+        }
       } catch (e) {
         self.customToast('结算失败')
         console.log(e);

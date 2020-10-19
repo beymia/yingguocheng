@@ -11,10 +11,10 @@ function ajax(url, data = {}, method = 'GET', h) {
 
   header['Content-Type'] = 'application/x-www-form-urlencoded'
   let baseURL;
-  // #ifndef MP
+  // #ifdef H5
   baseURL = '/api'
   // #endif
-  // #ifdef MP
+  // #ifndef H5
   baseURL = 'http://api.plg.wugee.net/'
   // #endif
   return new Promise((resolve, reject) => {
@@ -24,7 +24,6 @@ function ajax(url, data = {}, method = 'GET', h) {
       method,
       header,
       success(result) {
-        console.log(result.data.code);
         if (result.statusCode !== 200 || result.data.code === 1001) reject(result)
         resolve(result.data)
       },

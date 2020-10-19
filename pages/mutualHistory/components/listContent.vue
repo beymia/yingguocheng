@@ -31,7 +31,7 @@ export default {
 
 .container{
   width: 100%;
-  padding:150rpx $spacing-base 0 $spacing-base ;
+  padding:$spacing-base ;
   box-sizing: border-box;
 
   .mutual_list{

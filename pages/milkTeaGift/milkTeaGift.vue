@@ -1,17 +1,12 @@
 <template>
   <view class="container">
-    <swiperSwitch :leftLength="foreseeList.length"
-                  :rightLength="haveForesee.length"
-                  leftTitle="購買奶茶有禮"
+    <swiperSwitch leftTitle="購買奶茶有禮"
                   rightTitle="我的奶茶有禮"
-                  leftName=".content_list"
-                  rightName=".have_foresee >>> .have_list"
-                  :same="true"
                   :assign-index="assignIndex"
                   @swiper-end="assignIndex = false">
       <template v-slot:left>
         <!--購買奶茶有禮-->
-        <swiper-item class="buy_foresee">
+        <view class="buy_foresee">
           <view class="content_list" v-for="list in foreseeList" :key="list.id">
             <view class="title">
               <text>{{ list.norm_name }}</text>
@@ -30,15 +25,15 @@
               </swiper-item>
             </swiper>
           </view>
-        </swiper-item>
+        </view>
       </template>
       <template v-slot:right>
         <!--我的奶茶有礼-->
-        <swiper-item class="have_foresee">
+        <view class="have_foresee">
           <myForeseePage @buy-foreseeList="assignIndex++"
                          @give-start="giveInfo"
                          :foresee="haveForesee"></myForeseePage>
-        </swiper-item>
+        </view>
       </template>
     </swiperSwitch>
 
@@ -260,7 +255,7 @@ export default {
     }
   },
   async mounted() {
-    // await this.getForesee()
+    await this.getForesee()
   },
   methods: {
     //获取数据列表
@@ -339,14 +334,15 @@ swiper{
 height: 100%;
 
   .buy_foresee{
-    margin-top: 150rpx;
+    //margin-top: 150rpx;
     width: 100%;
     display: flex;
     flex-direction: column;
     background-color: $main-bg;
     box-sizing: border-box;
-    /* #ifdef H5*/
-    padding: 0 $spacing-base 0 $spacing-base;
+    padding:$spacing-base 0;
+    /* #ifdef H5 | APP-PLUS*/
+    padding:$spacing-base;
     /* #endif*/
 
     .content_list{
@@ -377,9 +373,9 @@ height: 100%;
   }
 
   .have_foresee{
-    margin-top: 150rpx;
+    //margin-top: 150rpx;
     width: 100%;
-    min-height: 100%;
+    //min-height: 100%;
     display: flex;
     flex-direction: column;
     background-color: $main-bg;

@@ -1,10 +1,6 @@
 <template>
   <view class="mutual">
-    <swiperSwitch :leftLength="receiveList.length"
-                  :rightLength="giveList.length"
-                  :leftName="swiperName"
-                  :rightName="swiperName"
-                  leftTitle="收到的"
+    <swiperSwitch leftTitle="收到的"
                   rightTitle="送出的">
       <template v-slot:left>
         <listContent :list="receiveList"></listContent>
@@ -82,7 +78,7 @@ uni-page-body{
 
 .mutual{
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   background-color: $main-bg;
 }
 </style>

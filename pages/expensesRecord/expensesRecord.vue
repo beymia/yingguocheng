@@ -10,22 +10,23 @@
         <view v-for="(p,i) in d.data"
               :key="p.id"
               :class="['item',i!== d.data.length-1?'borderBottom':'']">
-          <view>
+          <view class="diff">
             <view>
               <text>原有：{{ p.current_price }}</text>
               <text>現有：{{ p.surplus_price }}</text>
             </view>
-            <view>
+            <view class="time">
               <text>{{ p.created_at }}</text>
             </view>
           </view>
-          <view>
+          <view class="amount">
             <text>{{
                 p.consume_status === '充值'
                     ? '+' + p.consume_price
                     : '-' + p.consume_price
               }}
             </text>
+            <text>{{p.consume_type}}</text>
           </view>
         </view>
       </view>
@@ -111,12 +112,17 @@ export default {
           border-bottom: 1rpx solid rgba(204,204,204,.4);
         }
 
-        view:nth-child(1){
+        .diff{
           font-size: $font-size-sm;
           color: $font-color1;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
+
+          view:nth-child(1){
+            display: flex;
+            flex-direction: column;
+          }
 
           view:nth-child(2){
             font-size:$font-size-sm - 4rpx;
@@ -124,9 +130,13 @@ export default {
           }
         }
 
-        view:nth-child(2){
+        .amount{
           font-size: $font-size-sm;
           color: $main-color;
+
+          text:nth-child(1){
+            margin-right: 20rpx;
+          }
         }
       }
     }

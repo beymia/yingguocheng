@@ -75,15 +75,15 @@ export default {
         title: '更多',
         icon: 'arrowright'
       }],
-      loginBoxShow:false,//false為展示，需注意
+      loginBoxShow:false,//false為展示，
     }
   },
   //获取用户信息
-  async mounted() {
-    this.token = APP.userToken;
-    this.userInfo = APP.userInfo;
-    await this.getUserInfo()
-  },
+  // async mounted() {
+  //   this.token = APP.userToken;
+  //   this.userInfo = APP.userInfo;
+  //   await this.getUserInfo()
+  // },
 
   /**
    * 页面展示时判断的情况

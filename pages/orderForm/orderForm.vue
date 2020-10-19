@@ -90,6 +90,7 @@ export default {
       takeawayOrder: [],//外卖订单
       invoiceData: [],//未开发票订单
       loginBoxShow: false,//false展示
+      paymentTimer:null,
     }
   },
   computed: {
@@ -121,7 +122,6 @@ export default {
     },
     isEmpty() {
       if (this.activeFeat === 'current') {
-        console.log(!(this.currentOrderForm.data.length));
         return !(this.currentOrderForm.data.length)
       } else if (this.activeFeat === 'history') {
         return !(this.historyOrderForm.data.length)
@@ -132,7 +132,12 @@ export default {
   //頁面每次展示都重新獲取本地storage中的token值
   async onShow() {
     this.loginBoxShow = this.token = APP.userToken;
-    await this.getData()
+    this.token&&await this.getData()
+  },
+
+  onUnload(){
+    //TODO 清空支付定时器
+    clearTimeout(this.paymentTimer)
   },
 
   //請求所有的數據
@@ -190,12 +195,21 @@ export default {
       let order = g.order;
       try {
         let orderInfo = (await paymentStart({
-          order_id: order.id,
+          order_num: order.order_num,
           shop_id: order.shop_id,
-        }))
-        await self.utilPayment(orderInfo)
-        await self.getData()
-        this.customToast('结算成功了')
+        })).data
+        try{
+          // TODO 延迟请求微信支付，
+          self.paymentTimer && clearTimeout(self.paymentTimer)
+          self.paymentTimer = setTimeout(async () => {
+            let result = await self.utilPayment(orderInfo)
+            console.log(result);
+            await self.getData()
+            self.customToast('结算成功了')
+          }, 3000)
+        }catch (e) {
+          self.customToast('结算出错了')
+        }
       } catch (e) {
         self.customToast('结算出错了')
         console.log(e);

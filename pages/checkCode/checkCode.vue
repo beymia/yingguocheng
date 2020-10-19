@@ -36,11 +36,13 @@ export default {
       isFocus: 0,
       timer: 200,
       wxCode: '',
+      from:''
     }
   },
   onLoad(options) {
     this.phone = options.phone || APP.userInfo.mobile;
     this.change = options.change;
+    this.from = options.from;
     this.customToast('驗證碼已發送',false)
   },
   onHide() {
@@ -85,7 +87,7 @@ export default {
       APP.userToken = result.data.token;
       uni.setStorageSync('token', APP.userToken)
       uni.switchTab({
-        url: '/pages/home/home',
+        url:self.from ? '/pages/order/order': '/pages/home/home',
         success() {
           //跳轉成功清除定時器，倒計時清零
           clearInterval(self.countDown);
@@ -124,11 +126,12 @@ export default {
           //TODO驗證驗證碼，
           await verifyCode({mobile: self.phone, code: self.verificationCode})
           let result;
+          // #ifndef APP-PLUS
           uni.getProvider({
             service: 'oauth',
             async success(res) {
               //小程序登錄
-              if (res.provider[0] === 'weixin') {
+              if (res.provider.length === 1&&res.provider[0] === 'weixin') {
                 uni.login({
                   provider: res.provider[0],
                   scopes: 'auth_base',
@@ -161,6 +164,19 @@ export default {
               }
             }
           })
+          // #endif
+          // #ifdef APP-PLUS
+          try {
+            result = await login({
+              mobile: self.phone,
+            })
+            self.loginSuccess(result)
+          } catch (e) {
+            console.log(e);
+            console.log('登錄錯誤')
+            self.loginError()
+          }
+          // #endif
         } catch (e) {
           self.loginError()
         }

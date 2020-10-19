@@ -10,15 +10,23 @@
       </view>
     </view>
     <swiper :current="swiperIndex"
-            :style="{'height':tabIndex?rightHeight:leftHeight}"
             class="swiper-wrap"
             @change="swiperChange">
       <swiper-item class="swiper-slide left">
-        <slot name="left"></slot>
+        <scroll-view enable-flex class="scroll_wrap" scroll-y>
+          <view>
+            <slot name="left"></slot>
+          </view>
+        </scroll-view>
       </swiper-item>
       <swiper-item class="swiper-slide right">
-        <slot name="right"></slot>
+        <scroll-view enable-flex  class="scroll_wrap" scroll-y>
+          <view>
+            <slot name="right"></slot>
+          </view>
+        </scroll-view>
       </swiper-item>
+
     </swiper>
   </view>
 </template>
@@ -42,24 +50,24 @@ export default {
       type: String,
       default: ''
     },
-    leftLength: {
-      type: Number,
-      default: 0
-    },
-    rightLength: {
-      type: Number,
-      default: 0
-    },
-    leftName: String,
-    rightName: String,
+    // leftLength: {
+    //   type: Number,
+    //   default: 0
+    // },
+    // rightLength: {
+    //   type: Number,
+    //   default: 0
+    // },
+    // leftName: String,
+    // rightName: String,
     assignIndex: {
       type: Number,
       default: 0
     },
-    same: {
-      type: Boolean,
-      default: false,
-    }
+    // same: {
+    //   type: Boolean,
+    //   default: false,
+    // }
   },
   //组件初始加载计算高度
   async mounted() {
@@ -75,54 +83,54 @@ export default {
     swiperChange(e) {
       this.tabIndex = e.detail.current;
       this.swiperIndex = e.detail.current;
-      this.computeHeight()
+      // this.computeHeight()
     },
 
-    //计算swiper组件的高度,兼容小程序异步调用
-    async computeHeight() {
-      //屏幕滚动至最顶部，如果屏幕在非顶部可能会导致无法获取组件的布局信息
-      uni.pageScrollTo({
-        scrollTop: 0,
-        duration: 0,
-      })
-      let layout, h, diff;
-      let windowH = uni.getSystemInfoSync().windowHeight;
-      try {
-        if (this.tabIndex === 0) {
-          layout = await this.getLayoutInfo(this.leftName);
-          h = (this.leftLength * layout.height + layout.top)
-          h = h < windowH ? windowH : h;
-          this.leftHeight = h +'px';
-        } else {
-          if (this.same) {
-            // #ifdef MP
-            diff = await this.getLayoutInfo('.have_foresee >>> .foot')
-            // #endif
-            // #ifndef MP
-            diff = await this.getLayoutInfo('.foot')
-            // #endif
-            h = diff.top + diff.height;
-          } else {
-            layout = await this.getLayoutInfo(this.rightName);
-            h = (this.rightLength * layout.height + layout.top);
-          }
-          h = h < windowH ? windowH : h;
-          this.rightHeight = h + 'px';
-        }
-      } catch (e) {
-        this.leftHeight = windowH + 'px';
-        this.rightHeight = windowH + 'px';
-      }
-    },
+    //计算swiper组件的高度,使用scroll-view替代，不需要計算
+    // async computeHeight() {
+    //   //屏幕滚动至最顶部，如果屏幕在非顶部可能会导致无法获取组件的布局信息
+    //   // uni.pageScrollTo({
+    //   //   scrollTop: 0,
+    //   //   duration: 0,
+    //   // })
+    //   let layout, h, diff;
+    //   let windowH = uni.getSystemInfoSync().windowHeight;
+    //   try {
+    //     if (this.tabIndex === 0) {
+    //       layout = await this.getLayoutInfo(this.leftName);
+    //       h = (this.leftLength * layout.height + layout.top)
+    //       h = h < windowH ? windowH : h;
+    //       this.leftHeight = h +'px';
+    //     } else {
+    //       if (this.same) {
+    //         // #ifdef MP
+    //         diff = await this.getLayoutInfo('.have_foresee >>> .foot')
+    //         // #endif
+    //         // #ifndef MP
+    //         diff = await this.getLayoutInfo('.foot')
+    //         // #endif
+    //         h = diff.top + diff.height;
+    //       } else {
+    //         layout = await this.getLayoutInfo(this.rightName);
+    //         h = (this.rightLength * layout.height + layout.top);
+    //       }
+    //       h = h < windowH ? windowH : h;
+    //       this.rightHeight = h + 'px';
+    //     }
+    //   } catch (e) {
+    //     this.leftHeight = windowH + 'px';
+    //     this.rightHeight = windowH + 'px';
+    //   }
+    // },
   },
 
   watch: {
-    async tabIndex() {
-      await this.computeHeight()
-    },
+    // async tabIndex() {
+    //   // await this.computeHeight()
+    // },
     async assignIndex() {
       await this.swiperChange()
-      await this.computeHeight()
+      // await this.computeHeight()
     }
   },
 };
@@ -131,14 +139,13 @@ export default {
 <style lang="scss" scoped>
 .swiper_container{
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   .head{
     width: 100%;
     height: 120rpx;
-    position: fixed;
-    top: --status-bar-height;
-    left: 0;
-    z-index: 10;
     background: #FFFFFF;
     display: flex;
     justify-content: space-around;
@@ -172,7 +179,12 @@ export default {
   }
 
   .swiper-wrap{
-    height: 100%;
+    flex: 1;
+    overflow: hidden;
+
+    .scroll_wrap{
+      height: 100%;
+    }
   }
 }
 </style>

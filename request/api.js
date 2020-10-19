@@ -38,6 +38,11 @@ export const expensesRecord = (data) => ajax('/record/balance-notes', data, 'pos
 export const qrCode = (data) => ajax('/qr-code/user-code', data, 'post', 1)
 //充值钱包
 export const recharge = (data) => ajax('/pay/recharge', data, 'post', 1)
+
+//会员等级礼包
+export const levelPack = (data)=>ajax('/grade/park-list',data,'post',1)
+//领取等级礼包
+export const receiveLevel = (data)=>ajax('/grade/receive-park',data,'post',1)
 //会员月度礼包
 export const monthPack = (data) => ajax('/month/park-list', data, 'post', 1)
 //领取月度礼包
@@ -46,6 +51,9 @@ export const receivePack = (data) => ajax('/month/receive-park', data, 'post', 1
 export const interestsPark = (data) => ajax('/interests/park-list', data, 'post', 1)
 //领取骑士会员礼包
 export const receiveKnight = (data) => ajax('', data, 'post', 1)
+//會員購買記錄
+export const rechargeRecord = (data)=>ajax('/record/service-notes',data,'post',1)
+
 //消息中心
 export const msgCenter = (data) => ajax('/msg-center/list', data, 'post', 1)
 //会员充值信息
@@ -56,7 +64,7 @@ export const paymentAttach = (data) => ajax('/config/attach', data, 'post')
 //創建訂單
 export const createOrder = (data) => ajax('/order/create-order', data, 'post', 1)
 //發起支付
-export const paymentStart = (data) => ajax('/pay/wechat-pay', data, 'post', 1)
+export const paymentStart = (data) => ajax('/pay/pay', data, 'post', 1)
 //訂單可用優惠券
 export const usedCoupon = (data) => ajax('/ticket/suit-tickets', data, 'post', 1)
 

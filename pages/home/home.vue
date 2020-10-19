@@ -6,7 +6,14 @@
 		</view>
 		<view class="container">
 			<!-- 首页轮播图start -->
-			<swiper class="swiper-wrap" :indicator-dots="swiper.dots" :indicator-color="swiper.indicator_color" :indicator-active-color='swiper.indicator_active_color' :autoplay="swiper.autoplay" :circular='swiper.circular' :interval="swiper.interval" :duration="swiper.duration">
+			<swiper class="swiper-wrap" 
+			:indicator-dots="swiper.dots" 
+			:indicator-color="swiper.indicator_color" 
+			:indicator-active-color='swiper.indicator_active_color' 
+			:autoplay="swiper.autoplay" 
+			:circular='swiper.circular' 
+			:interval="swiper.interval" 
+			:duration="swiper.duration">
 				<swiper-item class="swiper-item" v-for="(item,index) in home_images.poster">
 						<image :src="item" mode=""></image>
 				</swiper-item>
@@ -169,13 +176,14 @@
 				})
 			},
 			async init(){
-				this.home_images = (await home_images({})).data;
-				console.log(this.home_images)
-				const token = uni.getStorageSync('token');
-				if(token){
-					this.integral = (await userSpace({})).data.integral
-				}
-				
+				try {
+          this.home_images = (await home_images({})).data;
+          console.log(this.home_images)
+          const token = uni.getStorageSync('token');
+          token&&(this.integral = (await userSpace({})).data.integral)
+        }catch (e) {
+          console.log(e);
+        }
 			}
 		}
 	}

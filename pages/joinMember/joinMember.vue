@@ -100,7 +100,7 @@
                    @click="selectType"
                    type="arrowup">
         </uni-icons>
-        <text v-if="memberInfo[joinType]"  class="type">{{ memberInfo[joinType].level_name }}</text>
+        <text @click="selectType" v-if="memberInfo[joinType]"  class="type">{{ memberInfo[joinType].level_name }}</text>
         <text>總價：</text>
         <text v-if="memberInfo[joinType]" class="type_amount">{{ memberInfo[joinType].recharge_money }}元/{{ memberInfo[joinType].expired_time }}月</text>
       </view>
