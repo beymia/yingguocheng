@@ -291,6 +291,16 @@
 			 console.log("order onReady")
 		},
 		 onShow() {
+			 // #ifdef MP-WEIXIN
+			 	uni.getSetting({
+			 	  success: (res) => {
+			 	    console.log(res)
+			 	    if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
+			 			this.showLocaAutho = true
+			 		}
+			 	  }
+			 	}) 
+			 // #endif
 			/* wx.openSetting({
 				 success(res) {
 				 	
@@ -409,8 +419,26 @@
 				    
 				
 			},
-			judge_is_rest(){
-				let isin = during(this.choosedShop.work_time,this.choosedShop.rest_time)
+			async judge_is_rest(){
+				let work_status = (await shops_detail({shop_id:this.choosedShop.id})).data.work_status
+				if(work_status !=1){
+					this.is_rest = true
+					uni.showModal({
+						content:'本店已休息，您可以選擇切換門店',
+						cancelText:"留在當前",
+						confirmText:"切換門店",
+						success(res) {
+							if (res.confirm) {
+								uni.navigateTo({
+									url:'/pages/chooseShop/chooseShop'
+								})
+							} else if (res.cancel) {
+					
+								}
+						}
+					})
+				}
+				/* let isin = during(this.choosedShop.work_time,this.choosedShop.rest_time)
 				if(!isin){
 					this.is_rest = true
 					uni.showModal({
@@ -427,7 +455,7 @@
 								}
 						}
 					})
-				}
+				} */
 			},
 			handle_from(){
 				switch(this.orderFrom){
@@ -460,6 +488,8 @@
 						}else{
 							this.showPintuan =true
 						}
+					}else{
+						this.showPintuan =true
 					}
 				}else{
 						uni.showModal({
@@ -638,7 +668,7 @@
 			}
 			this.judge_is_rest()//
 			if(!this.is_rest){
-				
+				uni.showLoading({})
 				var app = getApp();
 				var order_info={};
 				var goods =[];
@@ -675,6 +705,7 @@
 				order_info.current_order = this.choosedShop.detail.current_order
 				app.globalData.goodsPayment = order_info;
 				console.log(order_info)
+				uni.hideLoading()
 				uni.navigateTo({
 					url:'/pages/orderPayment/orderPayment'
 				})

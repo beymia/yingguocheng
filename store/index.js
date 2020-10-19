@@ -8,6 +8,8 @@ const store = new Vuex.Store({
 	state: {
 		orderType: 2,
 		pintuanType:2,
+		pintuanCart:[],
+		pintuanShop:{},
 		token:'KbJ3eQFi3+ErJg4sgHvRxzc0Yjk0ODAzNTY2NjhkNTFkYjdjZGNkYmJjM2ZkYjdhNjY3M2ZkMmUyOWU0NGM3OTMxZTRlZWQ4ZjlhOWQ0ZDahZmrINdB5avDmJea/ep06Hunl39st/eQkAe13k7TmIQ==',
 		orderFrom:'',
 		choosedAddress:{
@@ -153,6 +155,9 @@ const store = new Vuex.Store({
 		SET_PINTUAN_TYPE(state,pintuanType){
 			state.pintuanType = pintuanType
 		},
+		SET_PINTUAN_CART(state,pintuanCart){
+			state.pintuanCart = pintuanCart
+		},
 		SET_CHOOSED_ADDRESS(state,choosedAddress){
 			state.choosedAddress = choosedAddress
 		},
@@ -162,8 +167,9 @@ const store = new Vuex.Store({
 		SET_ORDER_FROM(state,orderFrom){
 			state.orderFrom = orderFrom
 		},
-		
-		
+		SET_PINTUAN_SHOP(state,pintuanShop){
+			state.pintuanShop = pintuanShop
+		}
 	}
 })
 
