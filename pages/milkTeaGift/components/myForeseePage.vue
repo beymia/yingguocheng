@@ -7,7 +7,7 @@
     </view>
 
     <view class="have_content" v-else>
-      <foreseeList :list="foresee"></foreseeList>
+      <foreseeList @give-foresee="giveForesee" :list="foresee"></foreseeList>
     </view>
 
     <view class="foot">
@@ -22,6 +22,11 @@
 import foreseeList from "../../../components-lk/foreseeList/foreseeList";
 export default {
   name: "myForesee",
+  data(){
+    return {
+      giveData:{},
+    }
+  },
   props:{
     foresee:{
       type:Array,
@@ -29,13 +34,18 @@ export default {
     }
   },
   methods:{
+    //导航页面
     navHistory(page){
       console.log(2);
       page += 'History';
       uni.navigateTo({
         url:`/pages/${page}/${page}`,
       })
-    }
+    },
+    //赠送好友
+    giveForesee(f){
+      this.$emit('give-start',f)
+    },
   },
   components:{
     foreseeList

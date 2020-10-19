@@ -56,10 +56,13 @@ export default {
       reRender: 1,//用戶充值後強制刷新頁面的條件
     }
   },
-  onLoad() {
+  onShow() {
+    this.amount = APP.userInfo.balance;
+  },
+  mounted() {
     this.amount = APP.userInfo.balance
-    //TODO 测试使用手机号，生产环境需要从全局对象中获取
     this.originPhone = APP.userInfo.mobile;
+    //处理手机号展示形式
     this.phone = this.originPhone.replace(/\d/g, function (value, index) {
       if (index >= 3 && index <= 7) {
         return 'x'
@@ -115,6 +118,7 @@ export default {
         }
       })
     },
+
     //支付功能
     async rechargeStart() {
       let self = this;
@@ -125,76 +129,39 @@ export default {
           let orderInfo = (await recharge({
             amount: this.rechargeAmount
           })).data;
-          // #ifndef H5
-          try {
-            uni.getProvider({
-              service: 'payment',
-              async success(result) {
-                await self.uniPayment(orderInfo, result)
-              },
-            })
-          } catch (e) {
-            console.log(e);
-            this.customToast('出現了錯誤',false)
-          }
-          // #endif
+
+          //开始支付
+          await self.utilPayment(orderInfo);
+          await self.paymentSuccess()
+
         } catch (e) {
           console.log(e);
-          this.customToast('出現了錯誤')
+          this.customToast('充值错误')
         }
       }
     },
-    //调用uni-app的通用支付接口
-    async uniPayment(orderInfo, result) {
-      let self = this;
-      let {signType, paySign,timeStamp,nonceStr} = orderInfo
-      try {
-        uni.requestPayment({
-          provider: result.provider[0],
-          orderInfo,
-          timeStamp,
-          nonceStr,
-          package:orderInfo.package,
-          signType,
-          paySign,
-          //支付接口调取成功
-          async success(e) {
-            console.log(e);
-            self.rechargeAmount = '';
-            self.reRender = 0;
-            //充值成功後從新獲取用戶信息
-            APP.userInfo = (await userSpace())
-            self.reRender = 1;
-          },
-          //支付接口调取失败
-          fail(e) {
-            console.log(e);
-            self.customToast('出現了錯誤',false)
-          },
-        })
-
-        /* #ifdef MP-WEIXIN*/
-        // let {signType, paySign,timeStamp,nonceStr} = orderInfo
-        // wx.requestPayment({
-        //   timeStamp,
-        //   nonceStr,
-        //   package:orderInfo.package,
-        //   signType,
-        //   paySign,
-        //   success (res) {
-        //     console.log(res);
-        //   },
-        //   fail (res) {
-        //     console.log(res);
-        //   }
-        // })
-        /* #endif*/
-      } catch (e) {
-        console.log(e);
-        this.customToast('出現了錯誤',false)
-      }
+    //支付成功
+   async paymentSuccess(e){
+     try{
+       console.log(e);
+       this.customToast('充值成功');
+       this.rechargeAmount = '';
+       APP.userInfo = (await userSpace()).data
+       this.amount = APP.userInfo.balance;
+       console.log(APP.userInfo);
+       console.log(this.amount);
+     }catch (e) {
+       console.log(e);
+     }
+   },
+    //支付失败
+    paymentError(e){
+      console.log(e);
+      this.customToast('充值失败');
+      this.rechargeAmount = '';
     }
   },
+  //監視充值價格，為整數
   // watch: {
   //   rechargeAmount(n, o) {
   //     let newStr = n.slice(o.length),

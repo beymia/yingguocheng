@@ -5,7 +5,7 @@
       <image src="../../static/images_t/milkTeaGift/img.png"></image>
       <view class="attach">
         <text>￥{{ have.worth_price }}</text>
-        <text>赠送好友</text>
+        <text @click="$emit('give-foresee',have)">赠送好友</text>
       </view>
     </view>
   </view>

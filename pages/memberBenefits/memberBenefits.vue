@@ -19,9 +19,9 @@
           </uni-icons>
         </view>
         <view class="progress">
-          <view class="text">
-           <text>当前星球经验值50/300</text>
-          </view>
+            <view class="text">
+             <text>当前星球经验值{{user.empiric}}/{{user.n_empiric}}</text>
+            </view>
           <progress activeColor="#17a1ff"
                     backgroundColor="#f0f0f0"
                     :percent="exProgress">
@@ -68,28 +68,29 @@ export default {
   data() {
     return {
       user:{},
-      exProgress:20,
+      exProgress:0,
       month:[],
       interests:[]
     }
   },
- async mounted(){
+  async mounted() {
     this.user = APP.userInfo;
-      //不相干的兩個請求，同時發送
-      Promise.all([await monthPack(),await interestsPark()])
-          .then(value=>{
-            this.month=value[0].data;
-            this.interests = value[1].data
-            this.month.forEach((item)=>{
-              item.type='month'
-            })
-            this.interests.forEach((item)=>{
-              item.type='interests'
-            })
-          }).catch(e=>{
-        console.log(e);
-        this.customToast('出現了錯誤',false)
-      })
+    this.exProgress = (this.user.empiric / this.user.n_empiric) * 100
+    //不相干的兩個請求，同時發送
+    Promise.all([await monthPack(), await interestsPark()])
+        .then(value => {
+          this.month = value[0].data;
+          this.interests = value[1].data
+          this.month.forEach((item) => {
+            item.type = 'month'
+          })
+          this.interests.forEach((item) => {
+            item.type = 'interests'
+          })
+        }).catch(e => {
+      console.log(e);
+      this.customToast('出現了錯誤', false)
+    })
   },
   methods: {
    async receiveStart(e){

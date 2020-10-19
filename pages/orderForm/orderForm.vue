@@ -72,7 +72,7 @@ import headNav from '../../components-lk/headNav/headNav.vue'
 import orderDetail from '../../components-lk/orderDetail/orderDetail.vue'
 import loginBox from "../../components-lk/loginBox/loginBox";
 
-import {orderForm} from '../../request/api'
+import {orderForm, paymentStart} from '../../request/api'
 
 const APP = getApp().globalData
 
@@ -119,11 +119,11 @@ export default {
       }
       return this.takeawayOrder
     },
-    isEmpty(){
-      if(this.activeFeat === 'current'){
+    isEmpty() {
+      if (this.activeFeat === 'current') {
         console.log(!(this.currentOrderForm.data.length));
         return !(this.currentOrderForm.data.length)
-      }else if(this.activeFeat === 'history'){
+      } else if (this.activeFeat === 'history') {
         return !(this.historyOrderForm.data.length)
       }
     },
@@ -145,13 +145,13 @@ export default {
 
   methods: {
     //请求数据
-    async requestOrder(type,page) {
+    async requestOrder(type, page) {
       return (await orderForm({type, page})).data;
     },
 
-    async getData(){
+    async getData() {
       uni.showLoading({
-        title:'請稍後'
+        title: '請稍後'
       })
       try {
         this.currentOrderForm.data = (await this.requestOrder(1, this.currentOrderForm.page) || [])
@@ -181,12 +181,25 @@ export default {
       })
     },
 
-    // 跳转至订单结算页面
-    orderPayment(g) {
-      getApp().globalData.goodsPayment = g.order;
-      uni.navigateTo({
-        url: '/pages/orderPayment/orderPayment',
+    // 没有支付的订单，点击直接支付
+    async orderPayment(g) {
+      uni.showLoading({
+        title: '结算中...'
       })
+      let self = this;
+      let order = g.order;
+      try {
+        let orderInfo = (await paymentStart({
+          order_id: order.id,
+          shop_id: order.shop_id,
+        }))
+        await self.utilPayment(orderInfo)
+        await self.getData()
+        this.customToast('结算成功了')
+      } catch (e) {
+        self.customToast('结算出错了')
+        console.log(e);
+      }
     },
   },
 

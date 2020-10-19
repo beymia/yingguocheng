@@ -43,10 +43,10 @@
       </view>
       <view class="order_progress">
         <text>前面</text>
-        <text class="text_color">{{goodsData.current_order}}單/{{goodsData.current_cups}}</text>
+        <text class="text_color">{{ goodsData.current_order }}單/{{ goodsData.current_cups }}</text>
         <text>杯制作中，</text>
         <text>預計</text>
-        <text class="text_color">{{goodsData.current_cups}}分鐘</text>
+        <text class="text_color">{{ goodsData.current_cups }}分鐘</text>
         <text>後取茶</text>
       </view>
       <view class="current_progress">
@@ -116,7 +116,8 @@
               <text v-if="!couponInfo.length">暫無可用</text>
               <text @click="navDiscount"
                     style="color:#17A1FF;"
-                    v-if="couponInfo.length&&!discountAmount">{{couponInfo.length}}個可用</text>
+                    v-if="couponInfo.length&&!discountAmount">{{ couponInfo.length }}個可用
+              </text>
               <uni-icons @click="navDiscount"
                          v-if="!discountAmount"
                          style="display: inline-block;vertical-align: middle"
@@ -183,7 +184,8 @@
 
 <script>
 import remarks from "../../components-lk/remarks/remarks";
-import {createOrder, paymentAttach, usedCoupon} from "../../request/api";
+import {createOrder, paymentAttach, paymentStart, usedCoupon} from "../../request/api";
+import order from "../order/order";
 
 const APP = getApp().globalData;
 export default {
@@ -191,22 +193,22 @@ export default {
     return {
       userPhone: '',
       isRemarks: false,
-      remarksData:{},
-      remarksArr:['無接觸配送','紙巾','糖包'],
+      remarksData: {},
+      remarksArr: ['無接觸配送', '紙巾', '糖包'],
       discountAmount: 0,
       goodsPrice: 0,
       goodsData: [],
-      attach:{},
-      totalAmount:0,
-      attachArr:[],
-      couponInfo:[],
+      attach: {},
+      totalAmount: 0,
+      attachArr: [],
+      couponInfo: [],
     }
   },
-  computed:{
+  computed: {
     //計算取茶時間進度條
-    computeProgress(){
-      let {current_cups,current_order} = this.goodsData;
-      return (current_order / current_cups ) * 100;
+    computeProgress() {
+      let {current_cups, current_order} = this.goodsData;
+      return (current_order / current_cups) * 100;
     }
   },
   async onLoad() {
@@ -252,7 +254,7 @@ export default {
     this.discountAmount = APP.coupon.goods_quota;
   },
   onUnload() {
-   //页面卸载时清空优惠券金额
+    //页面卸载时清空优惠券金额
     APP.coupon = {};
   },
   methods: {
@@ -281,9 +283,10 @@ export default {
     //跳轉至優惠券
     navDiscount() {
       APP.couponInfo = this.couponInfo;
+      if (!this.couponInfo.length) return;
       console.log(APP.couponInfo);
       uni.navigateTo({
-        url: '/pages/discount/discount?couponInfo='+encodeURIComponent(JSON.stringify(this.couponInfo))
+        url: '/pages/discount/discount?couponInfo=' + encodeURIComponent(JSON.stringify(this.couponInfo))
       })
     },
     //使用附加服務
@@ -303,9 +306,13 @@ export default {
       })
     },
     //開始支付
-    startPay() {
+    async startPay() {
+      let self = this;
+      uni.showLoading({
+        title: '請稍後'
+      })
       //創建訂單
-      let {shop_id, shop_name, address_id, haul_method} = this.goodsData;
+      let {shop_id, shop_name, address_id, haul_method} = self.goodsData;
       //傳參對象
       let paramsObj = {
         shop_id,//訂單id
@@ -319,10 +326,10 @@ export default {
       }
       paramsObj.goods_data = JSON.stringify(paramsObj.goods_data)
       //訂單備註
-      for (let key in this.remarksData) {
-        if (this.remarksData.hasOwnProperty(key)) {
-          if (this.remarksData[key]) {
-            paramsObj.remake += (this.remarksData[key] + ',');
+      for (let key in self.remarksData) {
+        if (self.remarksData.hasOwnProperty(key)) {
+          if (self.remarksData[key]) {
+            paramsObj.remake += (self.remarksData[key] + ',');
           }
         }
       }
@@ -330,27 +337,36 @@ export default {
         paramsObj.remake = paramsObj.remake.substr(0, paramsObj.remake.length - 1);
       }
       //附加信息
-      if (this.attachArr.length) {
-        this.attachArr.forEach((item) => {
+      if (self.attachArr.length) {
+        self.attachArr.forEach((item) => {
           paramsObj.attach_id += item + ',';
         })
         paramsObj.attach_id = paramsObj.attach_id.substr(0, paramsObj.attach_id.length - 1);
       }
       //選填參數沒有值直接刪除
-      // !paramsObj.remake && delete paramsObj.remake
-      // !paramsObj.attach_id && delete paramsObj.attach_id
-      // !paramsObj.ticket_id && delete paramsObj.ticket_id
-      for(let key in paramsObj){
-        if(paramsObj.hasOwnProperty(key)){
-          if(!paramsObj[key]){
+      for (let key in paramsObj) {
+        if (paramsObj.hasOwnProperty(key)) {
+          if (!paramsObj[key]) {
             delete paramsObj[key]
           }
         }
       }
-      createOrder(paramsObj).then(value => {
-        console.log(value.data);
-      }).catch(err => {
-        console.log(err);
+      //创建订单并支付
+      try {
+        let orderId = (await createOrder(paramsObj)).data.order_id;
+        let orderInfo = (await paymentStart({order_id: orderId, shop_id: paramsObj.shop_id})).data
+        //发起微信支付
+        await self.utilPayment(orderInfo)
+        await self.paymentSuccess();
+      } catch (e) {
+        self.customToast('结算失败')
+        console.log(e);
+      }
+    },
+   async paymentSuccess(){
+      this.customToast('结算成功');
+      uni.switchTab({
+        url:'/pages/orderForm/orderForm',
       })
     }
   },

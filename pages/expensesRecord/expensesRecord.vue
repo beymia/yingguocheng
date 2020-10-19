@@ -13,7 +13,7 @@
           <view>
             <view>
               <text>原有：{{ p.current_price }}</text>
-              <text>剩余：{{ p.consume_price }}</text>
+              <text>現有：{{ p.surplus_price }}</text>
             </view>
             <view>
               <text>{{ p.created_at }}</text>
@@ -22,8 +22,8 @@
           <view>
             <text>{{
                 p.consume_status === '充值'
-                    ? '+' + p.surplus_price
-                    : '-' + p.surplus_price
+                    ? '+' + p.consume_price
+                    : '-' + p.consume_price
               }}
             </text>
           </view>

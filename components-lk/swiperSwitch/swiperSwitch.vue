@@ -1,19 +1,18 @@
 <template>
-  <view class="container">
+  <view class="swiper_container">
     <!--    头部-->
     <view class="head">
       <view class="left">
-        <text @click="clickSwitch(0)" :class="[swiperIndex===0 ? 'active':'']">{{ leftTitle }}</text>
+        <text @click="clickSwitch(0)" :class="[tabIndex===0 ? 'active':'']">{{ leftTitle }}</text>
       </view>
       <view class="right">
-        <text @click="clickSwitch(1)" :class="[swiperIndex===1 ? 'active':'']">{{ rightTitle }}</text>
+        <text @click="clickSwitch(1)" :class="[tabIndex===1 ? 'active':'']">{{ rightTitle }}</text>
       </view>
     </view>
-    <swiper :style="{'height':swiperHeight}"
-            :current="swiperIndex"
-            @change="toggleFeat"
-            @animationfinish="switchEnd"
-            class="swiper-wrap">
+    <swiper :current="swiperIndex"
+            :style="{'height':tabIndex?rightHeight:leftHeight}"
+            class="swiper-wrap"
+            @change="swiperChange">
       <swiper-item class="swiper-slide left">
         <slot name="left"></slot>
       </swiper-item>
@@ -28,10 +27,10 @@
 export default {
   data() {
     return {
-      swiperHeight: '100%',
+      leftHeight: '100%',
+      rightHeight: '100%',
       swiperIndex: 0,
-      isSlide: true,
-      timer: null
+      tabIndex: 0,
     }
   },
   props: {
@@ -62,84 +61,63 @@ export default {
       default: false,
     }
   },
-  computed: {
-    currentIndex() {
-      if (typeof this.assignIndex === 'undefined') {
-        return this.swiperIndex;
-      } else {
-        return this.assignIndex
-      }
-    }
-  },
   //组件初始加载计算高度
   async mounted() {
     await this.computeHeight()
-  },
-  destroyed() {
-    clearTimeout(this.timer)
   },
   methods: {
     //點擊切換
     clickSwitch(i) {
       this.swiperIndex = i;
-      this.isSlide = false;
-    },
-    //swiper動畫結束之後出發
-    switchEnd() {
-      this.isSlide = true;
+      this.tabIndex = i;
     },
     //swiper改变时触发
-    swiperChange() {
-      this.swiperIndex === 0
-          ? this.swiperIndex = 1
-          : this.swiperIndex = 0;
-      this.isSlide = false;
-    },
-    //左右滑動切換
-    toggleFeat() {
-      //延遲觸發
-        if (!this.isSlide) return;
-        this.swiperChange()
+    swiperChange(e) {
+      this.tabIndex = e.detail.current;
+      this.swiperIndex = e.detail.current;
+      this.computeHeight()
     },
 
     //计算swiper组件的高度,兼容小程序异步调用
     async computeHeight() {
-      this.swiperHeight = '';
       //屏幕滚动至最顶部，如果屏幕在非顶部可能会导致无法获取组件的布局信息
       uni.pageScrollTo({
         scrollTop: 0,
         duration: 0,
       })
-      let layout, h,diff;
+      let layout, h, diff;
       let windowH = uni.getSystemInfoSync().windowHeight;
       try {
-        if (this.swiperIndex === 0) {
+        if (this.tabIndex === 0) {
           layout = await this.getLayoutInfo(this.leftName);
           h = (this.leftLength * layout.height + layout.top)
+          h = h < windowH ? windowH : h;
+          this.leftHeight = h +'px';
         } else {
           if (this.same) {
             // #ifdef MP
-             diff = await this.getLayoutInfo('.have_foresee >>> .foot')
+            diff = await this.getLayoutInfo('.have_foresee >>> .foot')
             // #endif
             // #ifndef MP
             diff = await this.getLayoutInfo('.foot')
             // #endif
             h = diff.top + diff.height;
-          }else{
+          } else {
             layout = await this.getLayoutInfo(this.rightName);
             h = (this.rightLength * layout.height + layout.top);
           }
+          h = h < windowH ? windowH : h;
+          this.rightHeight = h + 'px';
         }
-        h = h < windowH ? windowH : h;
-        this.swiperHeight = h + 'px';
       } catch (e) {
-        this.swiperHeight = windowH + 'px';
+        this.leftHeight = windowH + 'px';
+        this.rightHeight = windowH + 'px';
       }
     },
   },
 
   watch: {
-    async swiperIndex() {
+    async tabIndex() {
       await this.computeHeight()
     },
     async assignIndex() {
@@ -151,8 +129,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container{
+.swiper_container{
   width: 100%;
+
   .head{
     width: 100%;
     height: 120rpx;
@@ -191,6 +170,7 @@ export default {
       }
     }
   }
+
   .swiper-wrap{
     height: 100%;
   }

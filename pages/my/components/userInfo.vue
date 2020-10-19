@@ -38,7 +38,7 @@
         <text>錢包</text>
       </view>
       <view @click="$emit('handler-click',{page:'milkTeaGift'})">
-        <text>0</text>
+        <text>{{user.foresee_num || 0}}</text>
         <text>奶茶有裡</text>
       </view>
     </view>
