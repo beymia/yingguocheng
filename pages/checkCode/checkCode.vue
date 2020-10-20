@@ -9,14 +9,21 @@
         <text>已將驗證碼發送至{{ phone }}</text>
       </view>
       <view class="code_input">
-        <label v-for="(code,index) in 6" :key="index">
-          <input class="input_content"
-                 disabled
-                 maxlength="1"
-                 v-model="verificationCode[index]"
-                 type="text">
-        </label>
-        <input focus @input="inputCode" v-model="verificationCode" maxlength="6" class="empty_input" type="text">
+        <!--改用组件-->
+<!--        <label v-for="(code,index) in 6" :key="index">-->
+<!--          <input class="input_content"-->
+<!--                 disabled-->
+<!--                 maxlength="1"-->
+<!--                 v-model="verificationCode[index]"-->
+<!--                 type="text">-->
+<!--        </label>-->
+<!--        <input focus @input="inputCode" v-model="verificationCode" maxlength="6" class="empty_input" type="text">-->
+
+        <view>
+          <view style="height: 100rpx;"></view>
+          <one-input v-model="verificationCode" :maxlength="6"></one-input>
+          <view style="height: 100rpx;"></view>
+        </view>
       </view>
       <view class="code_timer">
         <text>{{ timer }}秒後重發</text>
@@ -26,7 +33,9 @@
 </template>
 
 <script>
-import {login, verifyCode} from "../../request/api";
+import {login, verifyCode,sendCheckCode} from "../../request/api";
+import oneInput from '../../components/myp-one/myp-one'
+
 const APP = getApp().globalData;
 export default {
   data() {
@@ -36,154 +45,145 @@ export default {
       isFocus: 0,
       timer: 200,
       wxCode: '',
-      from:''
+      from: ''
     }
   },
+
   onLoad(options) {
-    this.phone = options.phone || APP.userInfo.mobile;
-    this.change = options.change;
-    this.from = options.from;
-    this.customToast('驗證碼已發送',false)
+    console.log(options.from);
+    this.phone = options.phone || APP.userInfo.mobile;//用户手机号
+    this.change = options.change;//有值则是修改密码
+    this.from = options.from;//登录完成后跳转的页面，默认跳转首页
+    this.customToast('驗證碼已發送', false)
   },
+  //页面隐藏式清除定时器，并且验证码归位
   onHide() {
     this.verificationCode = '';
     uni.hideLoading();
+    self.timer = 200;
     clearInterval(this.countDown)
+    console.log('页面隐藏，清楚定时器');
   },
-  onUnload() {
-    this.verificationCode = '';
-    uni.hideLoading();
-    clearInterval(this.countDown)
-    console.log('清除定時器');
-  },
+  //进入页面直接开始定时器,时间为0时自动重发验证码
   mounted() {
+    let self = this;
     this.countDown && clearInterval(this.countDown);
-    this.countDown = setInterval(() => {
-      let self = this;
+    this.countDown = setInterval(async() => {
       self.timer--;
       if (self.timer === 0) {
-        uni.showToast({
-          title: '已重發',
-          icon: 'none',
-          success() {
-            self.timer = 200
-          }
-        })
+        try{
+          await sendCheckCode({mobile:self.phone})
+          self.customToast('已重發',false)
+          self.timer = 200
+        }catch (e) {
+          console.log(e);
+          self.customToast('验证码发送失败');
+          //发送出错清除定时器
+          clearInterval(self.countDown)
+        }
       }
     }, 1000)
   },
+
   methods: {
-    inputCode(e) {
-      this.verificationCode = e.detail.value
-    },
+    // changeCode(e){
+    //   console.log(e);
+    // },
+    // //
+    // inputCode(e) {
+    //   this.verificationCode = e.detail.value
+    // },
+
+    //登陆失败
     loginError() {
       this.verificationCode = '';
-      this.customToast('出現了錯誤')
+      this.customToast('登陆失败')
     },
+
     //登录成功，將token賦值給全局對象並且存入本地storage中
-    loginSuccess(result){
+    loginSuccess(result) {
       let self = this;
       uni.hideLoading()
       APP.userToken = result.data.token;
+      APP.isLoginBox = false;
       uni.setStorageSync('token', APP.userToken)
       uni.switchTab({
-        url:self.from ? '/pages/order/order': '/pages/home/home',
+        url: self.from ? `/pages/${self.from}/${self.from}` : '/pages/home/home',
         success() {
-          //跳轉成功清除定時器，倒計時清零
+          //跳轉成功清除定時器，倒計時归为
           clearInterval(self.countDown);
-          self.timer = 0;
+          self.timer = 200;
+          console.log('登陆成功，清除定时器')
         }
       })
-    }
+    },
   },
+
   watch: {
     async verificationCode(value) {
       let self = this;
 
       if (value.length === 6) {
-        console.log('驗證碼輸入完成')
         uni.showLoading({
           title: this.change ? '請稍後' : '正在登錄中',
         })
-        try {
-          //TODO change有值則跳轉到設置交易密碼頁面
-          if (this.change) {
-            try {
-              console.log(self.phone);
-              let result = await verifyCode({mobile: self.phone, code: self.verificationCode})
-              console.log(result);
-              uni.hideLoading()
-              uni.redirectTo({
-                url: '/pages/setPassword/setPassword',
-              })
-            } catch (e) {
-              console.log(e);
-              this.customToast('驗證碼錯誤')
-            }
+
+          //驗證驗證碼，
+          try{
+            await verifyCode({mobile: self.phone, code: self.verificationCode})
+          }catch (e) {
+            self.customToast('验证码错误')
             return;
           }
 
-          //TODO驗證驗證碼，
-          await verifyCode({mobile: self.phone, code: self.verificationCode})
-          let result;
-          // #ifndef APP-PLUS
-          uni.getProvider({
-            service: 'oauth',
-            async success(res) {
-              //小程序登錄
-              if (res.provider.length === 1&&res.provider[0] === 'weixin') {
-                uni.login({
-                  provider: res.provider[0],
-                  scopes: 'auth_base',
-                  async success(wxCode) {
-                    try {
-                      result = await login({
-                        mobile: self.phone,
-                        code: wxCode.code
-                      })
-                      self.loginSuccess(result)
-                    } catch (e) {
-                      console.log(e);
-                      console.log('api登錄出錯')
-                      self.loginError()
-                    }
-                  }
+          //TODO change有值則跳轉到設置交易密碼頁面
+          if (self.change) {
+            uni.hideLoading()
+            uni.redirectTo({
+              url: '/pages/setPassword/setPassword',
+            })
+            return;
+          }
+
+        let result;
+          //小程序登陆
+          // #ifdef MP-WEIXIN
+          uni.login({
+            provider:'weixin',
+            scopes: 'auth_base',
+            async success(wxCode) {
+              try {
+                result = await login({
+                  mobile: self.phone,
+                  code: wxCode.code
                 })
-              } else {
-                //h5登錄
-                try {
-                  result = await login({
-                    mobile: self.phone,
-                  })
-                  self.loginSuccess(result)
-                } catch (e) {
-                  console.log(e);
-                  console.log('登錄錯誤')
-                  self.loginError()
-                }
+                self.loginSuccess(result)
+              } catch (e) {
+                console.log('登陆失败',e)
+                self.loginError()
               }
             }
           })
           // #endif
-          // #ifdef APP-PLUS
-          try {
-            result = await login({
-              mobile: self.phone,
-            })
-            self.loginSuccess(result)
-          } catch (e) {
-            console.log(e);
-            console.log('登錄錯誤')
-            self.loginError()
-          }
-          // #endif
+
+        // APP 和 H5 登陆
+        // #ifdef APP-PLUS | H5
+        try {
+          result = await login({
+            mobile: self.phone,
+          })
+          self.loginSuccess(result)
         } catch (e) {
+          console.log('登錄錯誤',e)
           self.loginError()
         }
+        // #endif
       }
     }
   },
-  components: {}
+  components:{
+    oneInput
+  }
 }
 </script>
 

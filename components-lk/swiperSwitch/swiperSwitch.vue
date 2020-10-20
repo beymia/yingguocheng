@@ -70,9 +70,9 @@ export default {
     // }
   },
   //组件初始加载计算高度
-  async mounted() {
-    await this.computeHeight()
-  },
+  // async mounted() {
+  //   await this.computeHeight()
+  // },
   methods: {
     //點擊切換
     clickSwitch(i) {

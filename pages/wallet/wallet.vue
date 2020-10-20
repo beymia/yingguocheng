@@ -113,7 +113,7 @@ export default {
             }
           } catch (e) {
             console.log(e);
-            this.customToast('驗證碼發送失敗')
+            self.customToast('驗證碼發送失敗')
           }
         }
       })

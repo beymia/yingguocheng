@@ -28,11 +28,11 @@ export const redeemGifts = (data) => ajax('/convert/convert', data, 'post', 1)
 export const userSpace = (data) => ajax('/user/user-info', data, 'post', 1)
 //开通会员
 export const joinMember = (data) => ajax('/pay/service', data, 'post',1)
-//优惠券
+//全部优惠券
 export const discount = (data) => ajax('/ticket/tickets', data, 'post', 1)
 //设置交易密码
 export const setPwd = (data) => ajax('/user/setpwd', data, 'post', 1)
-//消费记录
+//钱包余额消费记录
 export const expensesRecord = (data) => ajax('/record/balance-notes', data, 'post', 1)
 //会员二维码
 export const qrCode = (data) => ajax('/qr-code/user-code', data, 'post', 1)
@@ -47,16 +47,16 @@ export const receiveLevel = (data)=>ajax('/grade/receive-park',data,'post',1)
 export const monthPack = (data) => ajax('/month/park-list', data, 'post', 1)
 //领取月度礼包
 export const receivePack = (data) => ajax('/month/receive-park', data, 'post', 1)
-//骑士会员礼包
+//会员等阶礼包
 export const interestsPark = (data) => ajax('/interests/park-list', data, 'post', 1)
-//领取骑士会员礼包
+//领取会员等阶礼包
 export const receiveKnight = (data) => ajax('', data, 'post', 1)
 //會員購買記錄
 export const rechargeRecord = (data)=>ajax('/record/service-notes',data,'post',1)
 
 //消息中心
 export const msgCenter = (data) => ajax('/msg-center/list', data, 'post', 1)
-//会员充值信息
+//获取会员充值等阶信息（金额 & 有效时间）
 export const memberRechargeInfo = (data) => ajax('/config/recharge-level', data, 'post', 1)
 
 //訂單結算附加服務

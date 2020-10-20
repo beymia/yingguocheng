@@ -6,28 +6,32 @@
         <text v-else>請确认交易密碼</text>
         <text class="title_tip">為了您的資金安全，請先設置交易密碼</text>
       </view>
-      <view class="password">
-        <label v-for="(code,index) in 6" :key="index">
-          <input class="pwd_content"
-                 disabled
-                 maxlength="1"
-                 v-model="currentPwd[index]"
-                 type="password">
-        </label>
-        <input focus
-               @input="inputPwd"
-               v-model="currentPwd"
-               maxlength="6"
-               class="empty_input"
-               type="text">
-      </view>
+<!--        <label v-for="(code,index) in 6" :key="index">-->
+<!--          <input class="pwd_content"-->
+<!--                 disabled-->
+<!--                 maxlength="1"-->
+<!--                 v-model="currentPwd[index]"-->
+<!--                 type="password">-->
+<!--        </label>-->
+<!--        <input focus-->
+<!--               @input="inputPwd"-->
+<!--               v-model="currentPwd"-->
+<!--               maxlength="6"-->
+<!--               class="empty_input"-->
+<!--               type="text">-->
+        <oneInput :isBox="true"
+                  :is-pwd="true"
+                  v-model="currentPwd"
+                  type="box"
+                  :maxlength="6">
+        </oneInput>
     </view>
   </view>
 </template>
 
 <script>
 import {setPwd} from "../../request/api";
-
+import oneInput from '../../components/myp-one/myp-one'
 export default {
   data() {
     return {
@@ -35,15 +39,12 @@ export default {
       currentPwd:''
     }
   },
-  methods: {
-    inputPwd(e){
-      this.currentPwd = e.detail.value;
-    },
-  },
   watch:{
    async currentPwd(value){
       if(!value) return ;
-      if(value.length === 6 && this.pwd.length === 6){
+     console.log(this.pwd);
+     console.log(this.currentPwd);
+     if(value.length === 6 && this.pwd.length === 6){
        if(value === this.pwd){
          try{
            uni.showLoading({
@@ -75,6 +76,9 @@ export default {
         this.currentPwd = '';
       }
     }
+  },
+  components:{
+    oneInput
   }
 }
 </script>
@@ -118,25 +122,25 @@ export default {
     .password{
       display: flex;
       justify-content: space-between;
-
-      .pwd_content{
-        width: 76rpx;
-        height: 90rpx;
-        background: #eaeaea;
-        border-radius: 4rpx;
-        text-align: center;
-        z-index: -1;
-      }
-
-      .empty_input{
-        height: 90rpx;
-        width: calc(100% + 200rpx);
-        position: absolute;
-        opacity: 0;
-        z-index: 999;
-        background-color: pink;
-        margin-left: -200rpx;
-      }
+      align-items: center;
+      //.pwd_content{
+      //  width: 76rpx;
+      //  height: 90rpx;
+      //  background: #eaeaea;
+      //  border-radius: 4rpx;
+      //  text-align: center;
+      //  z-index: -1;
+      //}
+      //
+      //.empty_input{
+      //  height: 90rpx;
+      //  width: calc(100% + 200rpx);
+      //  position: absolute;
+      //  opacity: 0;
+      //  z-index: 999;
+      //  background-color: pink;
+      //  margin-left: -200rpx;
+      //}
     }
   }
 }

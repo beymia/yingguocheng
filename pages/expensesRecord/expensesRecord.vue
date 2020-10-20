@@ -26,7 +26,7 @@
                     : '-' + p.consume_price
               }}
             </text>
-            <text>{{p.consume_type}}</text>
+            <text>{{ p.consume_type }}</text>
           </view>
         </view>
       </view>
@@ -35,35 +35,37 @@
 </template>
 
 <script>
-import {expensesRecord} from "../../request/api";
+//钱包余额消费记录
+import { expensesRecord} from "../../request/api";
 
 export default {
   data() {
     return {
-      record:[],
-      page:1
+      record: [],
+      page: 1
     }
   },
   async mounted() {
     this.token = getApp().globalData.userToken;
-    try{
-      this.record = (await expensesRecord({page:this.page})).data
-    }catch (e){
+    try {
+      this.record = (await expensesRecord({page: this.page})).data
+    } catch (e) {
       console.log(e);
-      this.customToast('出現了錯誤',false)
+      this.customToast('请求出错', false)
     }
   },
   computed: {
+    //根据月份分割数组
     spliceData() {
       let spliceObj = {},
           temp = []
       this.record.forEach((item, index) => {
         temp = item.created_at.split('/');
         item.name = `${temp[0]}年${temp[1]}月`;
-        if(!(spliceObj[item.name])){
+        if (!(spliceObj[item.name])) {
           spliceObj[item.name] = {
-            name:item.name,
-            data:[]
+            name: item.name,
+            data: []
           };
         }
         spliceObj[item.name].data.push(item)
@@ -71,7 +73,22 @@ export default {
       return spliceObj
     }
   },
-  methods: {}
+
+  //上拉加载更多
+  async onReachBottom(){
+    uni.showLoading({title:'加载中'})
+    try{
+      let data = (await expensesRecord({
+        page:++this.page,
+      })).data
+      !data && (data = []);
+      this.record = this.record.concat(data)
+      console.log(this.record);
+      uni.hideLoading()
+    }catch (e) {
+      this.customToast('没有更多数据了')
+    }
+  },
 }
 </script>
 

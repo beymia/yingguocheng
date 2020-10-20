@@ -31,6 +31,7 @@ export default {
     }
   },
   onLoad(options){
+    //从订单结算页面进入需携带优惠券信息
     if(options.couponInfo){
       this.unUsed = JSON.parse(decodeURIComponent(options.couponInfo));
     }
@@ -45,40 +46,31 @@ export default {
     }
   },
 
-  onHide(){
-    APP.couponInfo = null;
-  },
-
   methods: {
     //點擊使用優惠券
     useCoupon(coupon) {
+      //通过判断展示的页面使用优惠券，数据中没有可判断的字段
       if (this.activeDiscount === 'unUsed') {
         APP.coupon = coupon;
-        uni.navigateBack({
-          url: '/pages/orderPayment/orderPayment',
-        })
+        uni.navigateBack()
       } else {
         this.customToast('無法使用',false)
       }
     },
 
-    //請求優惠券信息
+    //請求優惠券信息，没有数据返回一个空数组
     async requestDiscount(type) {
       try {
-        if (this.token) {
-          let result = (await discount({type,})).data
+          let result = (await discount({type})).data
           !result && (result = [])
           return result
-        } else {
-          this.customToast('請先登錄',false)
-          return []
-        }
       } catch (e) {
+        this.customToast('请求出错')
         console.log(e);
       }
     },
   },
-  watch: {
+/*  watch: {
     async activeDiscount(value) {
       //沒有值的時候在獲取值
       if (this[this.activeDiscount].length === 0) {
@@ -96,7 +88,7 @@ export default {
         this[this.activeDiscount] = await this.requestDiscount(this.type)
       }
     },
-  },
+  },*/
   components: {
     discountModule
   }

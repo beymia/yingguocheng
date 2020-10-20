@@ -31,7 +31,7 @@
     <!-- #ifdef H5-->
     <view class="empty"></view>
     <!-- #endif-->
-    <loginBox v-if="!loginBoxShow" @close-login-box="loginBoxShow = true"></loginBox>
+    <loginBox v-if="loginBoxShow" @close-login-box="hideLoginBox"></loginBox>
   </view>
 </template>
 
@@ -75,7 +75,7 @@ export default {
         title: '更多',
         icon: 'arrowright'
       }],
-      loginBoxShow:false,//false為展示，
+      loginBoxShow:false,
     }
   },
   //获取用户信息
@@ -91,17 +91,26 @@ export default {
    * token没有引导用户登录
    */
   async onShow() {
-    this.token = APP.userToken;
-    this.userInfo = APP.userInfo;
-    if (this.token && this.userInfo.level) return;
-    if(!this.token){
-      this.loginBoxShow = false;
+    if (APP.userToken) {
+      APP.isLoginBox = false
+      this.token = APP.userToken;
+      if (APP.userInfo&&APP.userInfo.level) {
+        this.userInfo = APP.userInfo;
+      } else {
+        try {
+          await this.getUserInfo()
+        } catch (e) {
+          console.log(e);
+          this.customToast('信息获取失败')
+        }
+      }
     }else{
-      await this.getUserInfo()
+      APP.isLoginBox = true;
     }
-    this.loginBoxShow = !!this.token;
-    if(!this.loginBoxShow) return;
-    !this.userInfo.level && await this.getUserInfo()
+    this.loginBoxShow = APP.isLoginBox
+    // this.loginBoxShow = !!this.token;
+    // if(!this.loginBoxShow) return;
+    // !this.userInfo.level && await this.getUserInfo()
   },
   methods: {
     //请求用户信息
@@ -109,26 +118,25 @@ export default {
      uni.showLoading({
        title:'請稍後'
      })
-     this.loginBoxShow = this.token = APP.userToken
-     this.userInfo = APP.userInfo;
      try{
        //token存在静默登录
-       if (this.token || !this.userInfo.level) {
-         console.log(123);
+       if (this.token) {
          this.userInfo = (await userSpace()).data;
          APP.userInfo = this.userInfo;
-         this.loginBoxShow = true;
        }
        uni.hideLoading()
      }catch (e){
-       this.loginBoxShow = false;
        this.customToast('需要登錄',false)
      }
+    },
+    //隐藏登陆引导框
+    hideLoginBox(){
+     this.loginBoxShow = APP.isLoginBox = false;
     },
     //跳转至對應的頁面
     navFitPage(aims) {
       //用户没有登录不做处理
-      if (!this.token) {
+      if (!this.token || !this.userInfo.user_name) {
         this.customToast('請先登錄',false)
         return
       }
@@ -167,7 +175,6 @@ export default {
       }
       //跳转至钱包页面，没有支付密码时跳转设置密码页面
       if (page === 'wallet') {
-        console.log(APP.userInfo.pay_pwd);
         if (!(APP.userInfo.pay_pwd)) {
           uni.navigateTo({
             url: '/pages/setPassword/setPassword'
@@ -175,6 +182,7 @@ export default {
           return;
         }
       }
+
       //用户已经开通会员时跳转会员权益
       if(page === 'joinMember' && this.userInfo.level_title !=='普通会员'){
         uni.navigateTo({
@@ -182,12 +190,10 @@ export default {
         })
         return;
       }
+
       //通用的链接跳转
       uni.navigateTo({
         url: `/pages/${page}/${page}?${this.query}=${v}`,
-        complete(e){
-          console.log(e);
-        }
       })
     }
   },

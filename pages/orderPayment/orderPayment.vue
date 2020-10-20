@@ -212,12 +212,13 @@ export default {
       return (current_order / current_cups) * 100;
     }
   },
+
   async onLoad() {
-    console.log(APP.goodsPayment);
-    this.goodsData = APP.goodsPayment;
-    this.receivingMethod = this.goodsData.haul_method;
-    this.goods_data = [];
-    this.goodsId = ''
+    this.goodsData = APP.goodsPayment;//订单整体数据
+    this.receivingMethod = this.goodsData.haul_method;//订单的配送方式
+    this.goods_data = [];//订单单个商品的信息，创建订单时传递给后台的数据
+    this.goodsId = ''//订单的单个商品的id,用户获取当前订单可使用的优惠券
+
     //獲取訂單傳參數據
     this.goodsData.goods_data.forEach((item, index) => {
       this.goodsId += item.id;
@@ -228,12 +229,19 @@ export default {
       })
     });
 
+    //订单总金额
     this.totalAmount = parseFloat(this.goodsData.payment_info)
 
-    try {
-      //獲取附加服務信息
+    //獲取附加服務信息
+    try{
       this.attach = (await paymentAttach()).data
-      //獲取可使用的優惠券信息
+    }catch (e) {
+      console.log(e);
+      this.attach = {}
+    }
+
+    //獲取可使用的優惠券信息
+    try {
       let temp = (await usedCoupon({
         vehicle_method: this.goodsDatahaul_method,
         goods_id: this.goodsId,
@@ -247,12 +255,17 @@ export default {
       }
     } catch (e) {
       console.log(e);
+      this.couponInfo = [];
     }
   },
   onShow() {
     //页面展示时从全局对象中获取优惠券的金额
-    if (!APP.coupon.goods_quota) return;
-    this.discountAmount = APP.coupon.goods_quota;
+    if(APP.coupon.goods_quota){
+      this.discountAmount = APP.coupon.goods_quota;
+    }else{
+      this.discountAmount = 0;
+      this.couponInfo = []
+    }
   },
   onUnload() {
     //页面卸载时清空优惠券金额
@@ -273,8 +286,6 @@ export default {
     // },
     //自動輸入手機號
     autoFill() {
-      console.log(APP.userInfo)
-      console.log(this.goodsData.contact_phone);
       this.userPhone = this.goodsData.contact_phone;
     },
 
@@ -285,9 +296,7 @@ export default {
     },
     //跳轉至優惠券
     navDiscount() {
-      APP.couponInfo = this.couponInfo;
       if (!this.couponInfo.length) return;
-      console.log(APP.couponInfo);
       uni.navigateTo({
         url: '/pages/discount/discount?couponInfo=' + encodeURIComponent(JSON.stringify(this.couponInfo))
       })
@@ -354,28 +363,34 @@ export default {
           }
         }
       }
-      //创建订单并支付
-      try {
-        let orderNum = (await createOrder(paramsObj)).data.order_num;
-        let orderInfo = (await paymentStart({order_num: orderNum, shop_id: paramsObj.shop_id})).data
-        // TODO 延迟请求微信支付，非最终方案
-        self.paymentTimer && clearTimeout(self.paymentTimer)
-        //发起微信支付
-        try{
-          self.paymentTimer = setTimeout(async()=>{
-            await self.utilPayment(orderInfo)
-            await self.paymentSuccess();
-          },3000)
-        }catch (e) {
-          self.customToast('结算失败')
+      //创建订单
+      // try {
+      //    orderNum = (await createOrder(paramsObj)).data.order_num;
+      //    orderInfo = (await paymentStart({order_num: orderNum, shop_id: paramsObj.shop_id})).data
+      // } catch (e) {
+      //   self.customToast('订单创建失败')
+      //   console.log(e);
+      //   return;
+      // }
+      //支付订单
+      // TODO 延迟请求微信支付，非最终方案
+      self.paymentTimer && clearTimeout(self.paymentTimer)
+      //发起微信支付
+      self.paymentTimer = setTimeout(async () => {
+        console.log(2);
+        try {
+          let orderNum = (await createOrder(paramsObj)).data.order_num;
+          let orderInfo = (await paymentStart({order_num: orderNum, shop_id: paramsObj.shop_id})).data
+          await self.utilPayment(orderInfo)
+          await self.paymentSuccess();
+        } catch (e) {
+          self.customToast('订单创建失败')
           console.log(e);
         }
-      } catch (e) {
-        self.customToast('结算失败')
-        console.log(e);
-      }
+      }, 3000)
     },
-   async paymentSuccess(){
+    //订单结算成功，跳转至订单页
+    async paymentSuccess(){
       this.customToast('结算成功');
       uni.switchTab({
         url:'/pages/orderForm/orderForm',

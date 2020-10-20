@@ -133,7 +133,6 @@ export default {
     this.interestsPark = APP.userInfo.interests_pack;
     try {
       this.memberInfo = (await memberRechargeInfo()).data
-      console.log(this.memberInfo[this.joinType]);
     } catch (e) {
       console.log(e);
     }
@@ -142,7 +141,7 @@ export default {
     async paymentMember() {
       let self = this;
       if(!this.summaryStatus){
-        this.customToast('请仔细阅读协议');
+        this.customToast('请仔细阅读协议',false);
         return;
       }
       uni.showLoading({
@@ -154,7 +153,6 @@ export default {
           level_id:this.memberInfo[this.joinType].id
         })).data
 
-        console.log(orderInfo);
         //开始支付
         await self.utilPayment(orderInfo);
         //支付成功执行
@@ -169,8 +167,9 @@ export default {
       this.customToast('开通成功')
       APP.userInfo = (await userSpace()).data;
       // TODO 测试修改数据
-      APP.userInfo.user_name = 'godkonws';
+      APP.userInfo.user_name = '成功开通了会员';
       console.log(APP.userInfo.user_name);
+      //开通成功后跳转到会员权益页面
       uni.redirectTo({
         url:'/pages/memberBenefits/memberBenefits'
       })

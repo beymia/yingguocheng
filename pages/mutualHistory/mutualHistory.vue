@@ -63,7 +63,6 @@ export default {
 
     }
   },
-  methods: {},
   components:{
     swiperSwitch,
     listContent

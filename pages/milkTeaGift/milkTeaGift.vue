@@ -280,6 +280,7 @@ export default {
       })
     },
 
+    //在弹出赠送框后阻止滑动的空数组
     catchTouch(){},
     giveInfo(){
       this.isGive = true;

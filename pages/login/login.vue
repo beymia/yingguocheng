@@ -52,23 +52,29 @@ export default {
     }
   },
   onLoad(options){
+    console.log(options.from);
     options.from && (this.from = options.from)
   },
   methods: {
     async loginStart() {
-      try {
-        //手机号错误的处理
-        if (this.phone.length !== 11) {
-          this.customToast('手機號錯誤',false)
-          return
-        }
+      // uni.navigateTo({
+      //   url: '/pages/checkCode/checkCode?phone=' + this.phone + '&from = ' + this.from
+      // })
+      // return
 
+      //手机号错误的处理
+      if (this.phone.length !== 11) {
+        this.customToast('手機號錯誤',false)
+        return
+      }
+
+      try {
         uni.showLoading({
           title: '正在發送驗證碼',
           mask: true,
         })
         //發送驗證碼
-        let code = await sendCheckCode({
+       await sendCheckCode({
           mobile: this.phone
         })
         uni.hideLoading()
@@ -177,7 +183,7 @@ export default {
     height: 96rpx;
     background-color: #E9E9E9;
     border-radius: 100rpx;
-    //margin-top: 150rpx;
+    margin-top: 150rpx;
     overflow: hidden;
     float: right;
 

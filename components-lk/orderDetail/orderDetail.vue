@@ -27,7 +27,7 @@
 							<text>{{goods.goods_name}}</text>
 						</view>
 						<view v-if="!goods.tableware" class="goods_feature">
-							<text class="goods_straw">{{goods.norm}},</text>
+							<text class="goods_straw">{{goods.norm}}</text>
 <!--							<text class="goods_type">{{goods.type}},</text>-->
 <!--							<text class="goods_size">{{goods.size}},</text>-->
 <!--							<text class="goods_sugar">{{goods.sugar}}</text>-->
