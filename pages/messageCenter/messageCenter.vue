@@ -37,8 +37,10 @@ uni-page-body{
   height: 100%;
   background-color: $main-bg;
 }
+
 .msg_center{
   width: 100%;
+  height: 100%;
   background-color: $main-bg;
 
   .empty{

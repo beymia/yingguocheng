@@ -1,8 +1,8 @@
 <template>
-  <view class="record">
+  <view class="points_details">
     <noMoreData v-if="!spliceData||spliceData.length === 0"></noMoreData>
-    <view v-else
-          class="content"
+    <view class="content"
+          v-else
           v-for="(d,index) in spliceData"
           :key="index">
       <view class="head">{{ d.name }}</view>
@@ -10,17 +10,23 @@
         <view v-for="(p,i) in d.data"
               :key="p.id"
               :class="['item',i!== d.data.length-1?'borderBottom':'']">
-          <view>
+          <view class="diff">
             <view>
-              <text>{{ p.goods_name }}</text>
+              <text>原有：{{ p.current_price }}</text>
+              <text>現有：{{ p.surplus_price }}</text>
             </view>
-            <view>
+            <view class="time">
               <text>{{ p.created_at }}</text>
             </view>
           </view>
-          <view>
-            <text>{{'-' + p.barter_integral}}
+          <view class="amount">
+            <text>{{
+                p.consume_status === '充值'
+                    ? '+' + p.consume_price
+                    : '-' + p.consume_price
+              }}
             </text>
+            <text>{{ p.consume_type }}</text>
           </view>
         </view>
       </view>
@@ -29,33 +35,37 @@
 </template>
 
 <script>
-import {exchangeRecord} from "../../request/api";
+//TODO 展示数据，API接口需替换
+import { expensesRecord} from "../../request/api";
 
 export default {
   data() {
     return {
-      record:[],
-      page:1
+      record: [],
+      page: 1
     }
   },
-  async mounted(){
-    this.record = (await exchangeRecord({
-      page:this.page,
-    })).data
-    console.log(this.record);
+  async mounted() {
+    this.token = getApp().globalData.userToken;
+    try {
+      this.record = (await expensesRecord({page: this.page})).data
+    } catch (e) {
+      console.log(e);
+      this.customToast('请求出错', false)
+    }
   },
   computed: {
+    //根据月份分割数组
     spliceData() {
-      if(!this.record) return ;
       let spliceObj = {},
           temp = []
       this.record.forEach((item, index) => {
         temp = item.created_at.split('/');
         item.name = `${temp[0]}年${temp[1]}月`;
-        if(!(spliceObj[item.name])){
+        if (!(spliceObj[item.name])) {
           spliceObj[item.name] = {
-            name:item.name,
-            data:[]
+            name: item.name,
+            data: []
           };
         }
         spliceObj[item.name].data.push(item)
@@ -63,12 +73,27 @@ export default {
       return spliceObj
     }
   },
-  methods: {}
+
+  //上拉加载更多
+  async onReachBottom(){
+    uni.showLoading({title:'加载中'})
+    try{
+      let data = (await expensesRecord({
+        page:++this.page,
+      })).data
+      !data && (data = []);
+      this.record = this.record.concat(data)
+      console.log(this.record);
+      uni.hideLoading()
+    }catch (e) {
+      this.customToast('没有更多数据了')
+    }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.record {
+.points_details {
   width: 100%;
   min-height: 100vh;
   background-color: $main-bg;
@@ -104,12 +129,17 @@ export default {
           border-bottom: 1rpx solid rgba(204,204,204,.4);
         }
 
-        view:nth-child(1){
+        .diff{
           font-size: $font-size-sm;
           color: $font-color1;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
+
+          view:nth-child(1){
+            display: flex;
+            flex-direction: column;
+          }
 
           view:nth-child(2){
             font-size:$font-size-sm - 4rpx;
@@ -117,9 +147,13 @@ export default {
           }
         }
 
-        view:nth-child(2){
+        .amount{
           font-size: $font-size-sm;
           color: $main-color;
+
+          text:nth-child(1){
+            margin-right: 20rpx;
+          }
         }
       }
     }

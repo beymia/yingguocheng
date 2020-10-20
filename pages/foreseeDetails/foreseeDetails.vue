@@ -26,7 +26,7 @@
         </view>
       </view>
       <!--支付按鈕-->
-      <view class="btn">
+      <view @click="buy" class="btn">
         <button plain>確認支付￥{{ foresee.worth_price }}</button>
       </view>
     </view>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import {buyForesee} from "../../request/api";
+
 export default {
   data() {
     return {
@@ -43,7 +45,21 @@ export default {
   onLoad(options){
     this.foresee = JSON.parse(decodeURIComponent(options.foresee))
   },
-  methods: {}
+  methods: {
+    async buy(){
+      uni.showLoading({title:'购买中'})
+      let self = this;
+      try{
+        //请求预支付信息
+        let orderInfo = (await buyForesee({card_id:self.foresee.id})).data;
+        self.utilPayment(orderInfo)
+        self.customToast('购买成功')
+      }catch (e) {
+        console.log(e);
+        self.customToast('购买失败')
+      }
+    }
+  }
 }
 </script>
 

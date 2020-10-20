@@ -22,7 +22,7 @@
       <view class="invoice_content">
         <view @click="clickSelectAll" class="select_all">
           <image v-if="!selectAll" src="../../static/images_t/bulkInvoice/select_false.png"></image>
-          <image v-else="selectAll" src="../../static/images_t/bulkInvoice/select_true.png"></image>
+          <image v-else src="../../static/images_t/bulkInvoice/select_true.png"></image>
           <text>全選</text>
         </view>
         <view class="select_count">
@@ -51,10 +51,10 @@ export default {
     }
   },
   onLoad(options) {
-    console.log(options);
-    this.invoiceData = JSON.parse(options.invoice)
+    this.invoiceData = (JSON.parse(options.invoice) || [])
   },
   methods: {
+    //点击选择单项
     invoiceChange(i) {
       this.$set(this.invoiceData[i], 'check', !this.invoiceData[i].check)
       if(this.invoiceData[i].check){
@@ -66,11 +66,10 @@ export default {
         this.amount -= parseFloat(this.invoiceData[i].payment_info)
         this.orderId.splice(this.orderId.indexOf(this.invoiceData[i].id),1)
       }
-      console.log(this.orderId);
     },
 
     //点击选择全部
-    clickSelectAll(e) {
+    clickSelectAll() {
       this.amount = 0;
       this.count = 0;
       this.orderId = [];

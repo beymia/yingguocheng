@@ -142,27 +142,20 @@ export default {
             if(this.lookUp === 2 && !this.lookUpContent){
               delete invoiceInfoObj.identify_id;
             }
-            //TODO此處申請發票，invoiceInfoObj為傳參對象
             try{
               //申请开票，开票成功后跳转到订单页面
-              let result = (await invoice(invoiceInfoObj))
-              uni.hideLoading()
-              uni.showToast({
-                title:'申请成功',
-                icon:'none',
-                duration:2000,
-                success(){
-                  uni.redirectTo({
-                    url:'/pages/orderForm/orderForm'
-                  })
-                }
+              await invoice(invoiceInfoObj)
+              this.customToast('申请成功')
+              uni.redirectTo({
+                url:'/pages/orderForm/orderForm'
               })
             }catch (e){
-              this.customToast('出現了錯誤')
+              this.customToast('申请失败')
             }
           }
         })
       },
+      //更改发票的一些信息
       toggleInvoice(t, v) {
         this[t] = v;
       },

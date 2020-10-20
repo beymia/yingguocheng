@@ -63,7 +63,7 @@
     </view>
 
     <!--登录提示框-->
-    <loginBox v-if="!loginBoxShow" @close-login-box="loginBoxShow = true"></loginBox>
+    <loginBox v-if="loginBoxShow" @close-login-box="hideLoginBox"></loginBox>
   </view>
 </template>
 
@@ -89,16 +89,12 @@ export default {
       oneSelfOrder: [],//自提订单
       takeawayOrder: [],//外卖订单
       invoiceData: [],//未开发票订单
-      loginBoxShow: false,//false展示
+      loginBoxShow: false,
       paymentTimer:null,
     }
   },
   computed: {
-    /*
-    * 将外卖订单和自提订单分割出来
-    * 根据展示板块动态切换传递给展示组件的数据
-    * 訂單數據為空直接返回，不做處理
-    * */
+    //分离出外卖订单，自提订单，未开发票订单
     sliceOrder() {
       this.empty = false;
       this.takeawayOrder = [];
@@ -120,6 +116,8 @@ export default {
       }
       return this.takeawayOrder
     },
+
+    //判断是否暂时空页面
     isEmpty() {
       if (this.activeFeat === 'current') {
         return !(this.currentOrderForm.data.length)
@@ -129,26 +127,36 @@ export default {
     },
   },
 
-  //頁面每次展示都重新獲取本地storage中的token值
+  //页面每次展示重新获取token，请求重新请求订单数据
   async onShow() {
-    this.loginBoxShow = this.token = APP.userToken;
-    this.token&&await this.getData()
+    console.log(APP.userToken);
+    if (APP.userToken) {
+      this.loginBoxShow = APP.isLoginBox = false;
+      this.token = APP.userToken
+      try {
+        await this.getData()
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      this.loginBoxShow = APP.isLoginBox = true;
+    }
   },
-
+onHide(){
+  console.log(2);
+  clearTimeout(this.paymentTimer)
+},
   onUnload(){
     //TODO 清空支付定时器
     clearTimeout(this.paymentTimer)
+    console.log(1);
   },
 
-  //請求所有的數據
-  // async mounted() {
-  //   this.loginBoxShow = this.token = APP.userToken;
-  //   if(this.loginBoxShow){
-  //    await this.getData()
-  //   }
-  // },
-
   methods: {
+    //隐藏登陆引导框
+    hideLoginBox(){
+      this.loginBoxShow = APP.isLoginBox = false;
+    },
     //请求数据
     async requestOrder(type, page) {
       return (await orderForm({type, page})).data;
@@ -173,7 +181,6 @@ export default {
       if (feat === 'history') {
         this.headNavText = '英國城探秘'
         this.headNAVIcon = '';
-        //第一页的数据只请求一次
       } else {
         this.headNavText = '想對你說'
         this.headNAVIcon = 'email'
@@ -191,29 +198,36 @@ export default {
       uni.showLoading({
         title: '结算中...'
       })
-      let self = this;
-      let order = g.order;
-      try {
-        let orderInfo = (await paymentStart({
-          order_num: order.order_num,
-          shop_id: order.shop_id,
-        })).data
-        try{
-          // TODO 延迟请求微信支付，
-          self.paymentTimer && clearTimeout(self.paymentTimer)
-          self.paymentTimer = setTimeout(async () => {
-            let result = await self.utilPayment(orderInfo)
-            console.log(result);
-            await self.getData()
-            self.customToast('结算成功了')
-          }, 3000)
-        }catch (e) {
-          self.customToast('结算出错了')
-        }
-      } catch (e) {
-        self.customToast('结算出错了')
-        console.log(e);
-      }
+      let self = this,
+          order = g.order,
+          orderInfo;
+      //获取预支付信息
+      // try {
+      //    orderInfo = (await paymentStart({
+      //     order_num: order.order_num,
+      //     shop_id: order.shop_id,
+      //   })).data
+      // } catch (e) {
+      //   console.log(e);
+      //   self.customToast('订单信息获取失败')
+      //   return;
+      // }
+        // TODO 延迟请求微信支付，
+        self.paymentTimer && clearTimeout(self.paymentTimer)
+        self.paymentTimer = setTimeout(async () => {
+         try{
+           orderInfo = (await paymentStart({
+             order_num: order.order_num,
+             shop_id: order.shop_id,
+           })).data
+           await self.utilPayment(orderInfo)
+           await self.getData()
+           self.customToast('结算成功')
+         }catch (e) {
+           uni.hideLoading()
+           console.log(e);
+         }
+        }, 3000)
     },
   },
 
