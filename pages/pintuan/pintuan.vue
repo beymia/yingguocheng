@@ -151,6 +151,7 @@
 				if(options.invite){//从邀请好友中进来
 				const token = uni.getStorageSync('token');
 				if(!token){
+					uni.setStorageSync('pintuanCode',code)
 					uni.showModal({
 					    content: '您還沒有登錄，請先登錄',
 					    success: function (res) {
@@ -160,20 +161,26 @@
 								})
 					        } else if (res.cancel) {
 								uni.switchTab({
-									url:'/pages/order/order?from=order'
+									url:'/pages/order/order?from=pintuan'
 								})
 					        }
 					    }
 					});
 					return
 				}
-					let res = await pintuan_invite({code:options.code})
-					if(res.code == 1001){
-						uni.showModal({
-							content:'已存在进行中的拼单',
-							showCancel:false,
-						})
+					try{
+						let res = await pintuan_invite({code:options.code})
+						console.log(res)
+						if(res.code == 1001){
+							uni.showModal({
+								content:'已存在进行中的拼单',
+								showCancel:false,
+							})
+						}
+					}catch(e){
+						//TODO handle the exception
 					}
+					
 					await this.pintuan_init(options.code);
 					this.itvId=setInterval(()=>{this.pintuan_init(options.code)},1500)
 					
@@ -184,6 +191,25 @@
 				
 				
 			}else{//正常进入但没有拼团
+			const token = uni.getStorageSync('token');
+			if(!token){
+				uni.setStorageSync('pintuanCode',code)
+				uni.showModal({
+				    content: '您還沒有登錄，請先登錄',
+				    success: function (res) {
+				        if (res.confirm) {
+							uni.navigateTo({
+								url:'/pages/login/login'
+							})
+				        } else if (res.cancel) {
+							uni.switchTab({
+								url:'/pages/order/order?from=pintuan'
+							})
+				        }
+				    }
+				});
+				return
+			}
 			console.log(this.choosedShop)
 				var code = await pintuan_creat({shop_id:this.choosedShop.id,vehicle_method:this.pintuanType})
 				uni.setStorageSync('pintuanCode',code)
@@ -206,7 +232,7 @@
 			if (res.from === 'button') {// 来自页面内分享按钮
 			      return{
 					  title:'【拼單】' + this.pintuan_info[0].user_name +'邀請你一起喝奶茶啦',
-					  path:'/pages/pintuan/pintuan',
+					  path:'/pages/pintuan/pintuan?invite=true&code='+this.pintuanCode,
 					  imageUrl:'/static/images/order/invite.jpg'
 				  }
 			    }
