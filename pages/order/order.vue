@@ -316,6 +316,9 @@
 			console.log(this.choosedShop)
 			console.log(this.shopList)
 		},
+		onShareAppMessage(obj) {
+			
+		},
 		
 		computed:{
 			...mapState(['orderType','pintuanType','choosedShop','choosedAddress','orderFrom','shopList']),

@@ -183,13 +183,13 @@
 	// import {menu_list} from './data.js';
 	import actions from './components/actions/actions.vue'
 	import notice from './components/notice/notice.vue'
-	import cartBar from './components/cartbar/cartbar.vue'
+	import cartBar from './components/cartbar/cartbar-pintuan.vue'
 	import productModal from './components/product-modal/product-modal.vue'
 	import search from './components/search/search.vue'
 	import rest from './components/rest/rest.vue'
 	import pintuan from './components/pintuan/pintuan.vue'
 	import locaAutho from './components/locaAutho/locaAutho.vue'
-	import {shops_list,shops_detail,goods_list,goods_detail,pintuan_creat,pintuan_detail} from '@/request/api_y.js'
+	import {shops_list,shops_detail,goods_list,goods_detail,pintuan_creat,pintuan_detail,pintuan_order} from '@/request/api_y.js'
 	import {during} from '@/util/Date.js'
 	export default{
 		components:{
@@ -242,35 +242,38 @@
 			}
 		},
 		async onLoad() {
-			let conti = true
-			// #ifdef MP-WEIXIN
-				uni.getSetting({
-				  success: (res) => {
-				    console.log(res)
-				    if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
-						this.showLocaAutho = true
-						conti = false
-					}else if(res.authSetting['scope.userLocation'] == undefined){//初始化进入该页面
-						
+			
+			uni.showLoading({
+				
+			})
+			await this.judge_is_rest()//判斷是否在休息
+			let t = 0
+			if(!this.is_rest){
+				await this.menu_list_init()//获取并设置当前门店下全部商品信息
+				this.cart = this.pintuanCart[0]
+				console.log(this.cart)
+				this.cart.forEach((item,index)=>{
+					let i= this.menu_list.findIndex(iteml=>{
+						return iteml.id == item.id
+					})
+					if(i==-1){
+						t = 1
+						this.cart.splice(index,1)
 					}
-				  }
-				}) 
-			// #endif
-			if(!conti){
-				return
+				})
 			}
-			 
-			
-			let loca_res = await this.long_lati()//获取当前定位经纬度
-			this.loca_res = loca_res
-			await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
-			this.judge_is_rest()//判斷是否在休息
-			await this.menu_list_init()//获取并设置当前门店下全部商品信息
-			
+			if(t){
+				this.SET_PINTUAN_CART(this.cart)
+				uni.showModal({
+					content:'當前購物車中包含已失效商品，已自動刪除！',
+					showCancel:false
+				})
+			}
 			
 			 //await this.init()
 			  console.log("order onLoad")
 			this.$nextTick(() => this.calcSize())
+			uni.hideLoading()
 		},
 
 		 onReady() {
@@ -278,34 +281,15 @@
 			 console.log("order onReady")
 		},
 		 onShow() {
-			 // #ifdef MP-WEIXIN
-			 	uni.getSetting({
-			 	  success: (res) => {
-			 	    console.log(res)
-			 	    if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
-			 			this.showLocaAutho = true
-			 		}
-			 	  }
-			 	}) 
-			 // #endif
-			/* wx.openSetting({
-				 success(res) {
-				 	
-				 }
-			 }) */
-			console.log("order onShow")
-			this.handle_from()
-			console.log(this.choosedShop)
-			console.log(this.shopList)
+			
+		
 		},
 		onHide() {
-			console.log("order onhide")
-			console.log(this.choosedShop)
-			console.log(this.shopList)
+
 		},
 		
 		computed:{
-			...mapState(['orderType','pintuanType','choosedShop','choosedAddress','orderFrom','shopList']),
+			...mapState(['orderType','pintuanType','choosedShop','choosedAddress','orderFrom','shopList','pintuanShop','pintuanCode',,'pintuanCart']),
 			contact_number(){
 				// console.log(this.choosedAddress)
 				if(this.choosedAddress.contact_number ){
@@ -356,7 +340,7 @@
 			}
 		},
 		methods:{
-			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE','SET_CHOOSED_SHOP','SET_CHOOSED_ADDRESS','SET_ORDER_FROM','SET_SHOP_LIST']),
+			...mapMutations(['SET_ORDER_TYPE','SET_PINTUAN_TYPE','SET_CHOOSED_SHOP','SET_CHOOSED_ADDRESS','SET_ORDER_FROM','SET_SHOP_LIST','SET_PINTUAN_SHOP','SET_PINTUAN_CODE',,'SET_PINTUAN_CART']),
 			calcSize() {
 				let h = 0
 				
@@ -641,7 +625,7 @@
 			}
 			
 		},
-		pay(price){
+		async pay(price){
 			const token = uni.getStorageSync('token');
 			console.log(token)
 			if(!token){
@@ -658,7 +642,8 @@
 				});
 				return
 			}
-			this.judge_is_rest()//
+			uni.showLoading({})
+			await this.judge_is_rest()//
 			if(!this.is_rest){
 				
 				var app = getApp();
@@ -667,39 +652,25 @@
 				var goods_data = [];
 				this.cart.filter(item => item.is_checked==true).forEach(item =>{
 					let good ={};
-					good.id = item.id;
-					good.goods_name = item.name;
-					good.goods_price = item.truePrice;
-					good.home_avatar = item.imgurl;
-					good.norm = item.materials_text;
-					good.norm_id = item.norm_id ? item.norm_id : [];
-					good.goods_num =item.number;
+					good.goods_id = item.id;
+					good.goods_norm = item.norm_id ? item.norm_id : [];
+					good.goods_num = item.number
+					
 					goods_data.push(good);
 					
 				})
-				order_info.goods_data = goods_data;
-				order_info.shop_id = this.choosedShop.id
-				order_info.shop_name = this.choosedShop.shop_name
-				order_info.distance = this.choosedShop.distance
-				// order_info.delivery_cost = this.choosedShop.detail.delivery_cost
-				 order_info.delivery_cost = 0.01
-				order_info.lowest_cost = this.choosedShop.detail.lowest_cost
-				// order_info.payment_info = price
-				order_info.payment_info = 0.01
-				order_info.address_id = this.choosedAddress.id
-				order_info.contact_name = this.choosedAddress.contact_name
-				order_info.contact_sex = this.choosedAddress.contact_sex
-				order_info.contact_phone = this.choosedAddress.contact_phone
-				order_info.contact_address = this.choosedAddress.contact_address
-				order_info.contact_number = this.choosedAddress.contact_number
-				order_info.haul_method  = this.orderType
-				order_info.current_cups = this.choosedShop.detail.current_cups
-				order_info.current_order = this.choosedShop.detail.current_order
-				app.globalData.goodsPayment = order_info;
-				console.log(order_info)
-				uni.navigateTo({
-					url:'/pages/orderPayment/orderPayment'
+				try{
+					console.log(goods_data)
+					await pintuan_order({code:this.pintuanCode,goods_data: JSON.stringify(goods_data)})
+				}catch(e){
+					
+					console.log(e)
+					return
+				}
+				uni.navigateBack({
+					delta:1
 				})
+				
 				
 			}
 			
@@ -772,7 +743,7 @@
 			 //alert(this.choosedShop.id)
 		},
 		async menu_list_init(){//获取并设置当前门店下全部商品信息
-			let menu_list1 = (await goods_list({shop_id:this.choosedShop.id})).data
+			let menu_list1 = (await goods_list({shop_id:this.pintuanShop.id})).data
 			// console.log(this.choosedShop)
 			console.log(menu_list1)
 			let goods_promise = []

@@ -11,6 +11,7 @@ const store = new Vuex.Store({
 		pintuanCart:[],
 		pintuanShop:{},
 		token:'KbJ3eQFi3+ErJg4sgHvRxzc0Yjk0ODAzNTY2NjhkNTFkYjdjZGNkYmJjM2ZkYjdhNjY3M2ZkMmUyOWU0NGM3OTMxZTRlZWQ4ZjlhOWQ0ZDahZmrINdB5avDmJea/ep06Hunl39st/eQkAe13k7TmIQ==',
+		pintuanCode:'',
 		orderFrom:'',
 		choosedAddress:{
 			/* "id": "16007580462028548",
@@ -141,8 +142,6 @@ const store = new Vuex.Store({
 			state.orderType = orderType
 		},
 		SET_CHOOSED_SHOP(state,choosedShop){
-			console.log(33333333333333333)
-			console.log(choosedShop)
 			state.choosedShop = choosedShop
 			console.log(state.choosedShop)
 		},
@@ -169,6 +168,9 @@ const store = new Vuex.Store({
 		},
 		SET_PINTUAN_SHOP(state,pintuanShop){
 			state.pintuanShop = pintuanShop
+		},
+		SET_PINTUAN_CODE(state,pintuanCode){
+			state.pintuanCode = pintuanCode
 		}
 	}
 })

@@ -92,7 +92,7 @@
 				});
 				return
 			}
-			
+			console.log(token)
 			let uddresses = (await userAddresses()).data;
 			this.SET_USER_ADDRESSES(uddresses);
 			
@@ -120,7 +120,7 @@
 				this.SET_ORDER_TYPE(1)
 				console.log(this.from)
 				if(this.from == 'pintuan'){
-					uni.navigateTo({
+					uni.redirectTo({
 						url:'/pages/pintuan/pintuan'
 					})
 				}else{

@@ -20,6 +20,13 @@
         "navigationStyle": "custom"
       }
     },
+	{
+	  "path": "pages/order/order_pintuan",
+	  "style": {
+	    "navigationBarTitleText": "英国城",
+	    "navigationStyle": "custom"
+	  }
+	},
     {
       "path": "pages/userAdress/userAdress",
       "style": {
@@ -263,7 +270,7 @@
       },
       {
         "pagePath": "pages/order/order",
-        "iconPath": "static/icon/home.png",
+        "iconPath": "static/icon/order.png",
         "selectedIconPath": "static/icon/order_slected.png",
         "text": "點單"
       },

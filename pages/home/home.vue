@@ -2,7 +2,7 @@
 	<view class="page">
 		<uni-status-bar></uni-status-bar>
 		<view style="height: 44px;display: flex;justify-content: center;margin-bottom: 30rpx;">
-			<image :src="home_images.logo[0]"  mode="aspectFit"></image>
+			<image :src="imgSrc+home_images.logo[0]"  mode="aspectFit"></image>
 		</view>
 		<view class="container">
 			<!-- 首页轮播图start -->
@@ -15,7 +15,7 @@
 			:interval="swiper.interval" 
 			:duration="swiper.duration">
 				<swiper-item class="swiper-item" v-for="(item,index) in home_images.poster">
-						<image :src="item" mode=""></image>
+						<image :src="imgSrc + item" mode=""></image>
 				</swiper-item>
 			</swiper>
 			<!-- 首页轮播图end -->
@@ -136,6 +136,9 @@
 		},
 		async onLoad() {
 			await this.init()
+		},
+		onShareAppMessage(obj) {
+			
 		},
 		computed:{
 			...mapState(['orderType','orderFrom']),
