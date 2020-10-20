@@ -182,12 +182,12 @@
 					}
 					
 					await this.pintuan_init(options.code);
-					this.itvId=setInterval(()=>{this.pintuan_init(options.code)},1500)
+					// this.itvId=setInterval(()=>{this.pintuan_init(options.code)},1500)
 					
 				}
 				//正常进入且已经有拼团
 				await this.pintuan_init(options.code);
-				this.itvId=setInterval(()=>{this.pintuan_init(options.code)},1500)
+				// this.itvId=setInterval(()=>{this.pintuan_init(options.code)},1500)
 				
 				
 			}else{//正常进入但没有拼团
@@ -216,7 +216,7 @@
 				this.SET_PINTUAN_CODE(code)
 				console.log(88888888888)
 				await this.pintuan_init(code)
-				this.itvId=setInterval(()=>{this.pintuan_init(code)},1500)
+				// this.itvId=setInterval(()=>{this.pintuan_init(code)},1500)
 			}
 			
 		},
@@ -226,7 +226,7 @@
 			setTimeout(function(){uni.hideLoading()},1000)
 		},
 		onUnload() {
-			clearInterval(this.itvId)
+			// clearInterval(this.itvId)
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') {// 来自页面内分享按钮
@@ -334,27 +334,30 @@
 				 this.SET_PINTUAN_SHOP(this.shopList.find(item => item.id == pintuan_info[0].shop_id)) 
 				console.log(this.pintuanShop)
 				let pintuanCart =[]
-				pintuan_info.forEach(item=>{
-					pintuanCart = pintuanCart.concat(item.goods_data ? (item.goods_data.length ? item.goods_data:[[]]):[[]]) 
+				pintuan_info.forEach((item,index)=>{
+					pintuanCart[index] = item.goods_data ? item.goods_data:[]
 				})
 				console.log(pintuanCart)
-				pintuanCart.forEach(item=>{
-					item.goods_data && item.goods_data.forEach(itemc=>{
+				let pintuanCart1 = pintuanCart.concat([])
+				pintuanCart.forEach((item,index)=>{
+						console.log(9999999)
 						item.is_checked = true
-						item.id = item.goods_id
-						item.name = item.goods_name
-						item.price = parseInt(item.goods_price * 100)/100
-						item.truePrice = item.price
-						item.imgurl = item.home_avatar
-						item.number = item.goods_num
-						item.materials_text = item.goods_norm
-					}
-					)
+						console.log(99999991)
+						item.id = pintuanCart1[index].goods_id
+						console.log(99999992)
+						item.name = pintuanCart1[index].goods_name
+						item.price = parseInt(pintuanCart1[index].goods_price * 100)/100
+						item.truePrice = parseInt(pintuanCart1[index].goods_price * 100)/100
+						item.imgurl = pintuanCart1[index].home_avatar
+						item.number = pintuanCart1[index].goods_num
+						item.materials_text = pintuanCart1[index].goods_norm
 					
 					//item.norm_id =
 				})
+				console.log(88888888)
 				console.log(pintuanCart)
 				this.SET_PINTUAN_CART(pintuanCart)
+				setTimeout(()=>{this.pintuan_init()},1000)
 			},
 			async long_lati(){
 				var latitude = 0;

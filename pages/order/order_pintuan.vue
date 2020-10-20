@@ -251,6 +251,7 @@
 			if(!this.is_rest){
 				await this.menu_list_init()//获取并设置当前门店下全部商品信息
 				this.cart = this.pintuanCart[0]
+				console.log(777777777777)
 				console.log(this.cart)
 				this.cart.forEach((item,index)=>{
 					let i= this.menu_list.findIndex(iteml=>{
@@ -396,7 +397,7 @@
 				
 			},
 			async judge_is_rest(){
-				let work_status = (await shops_detail({shop_id:this.choosedShop.id})).data.work_status
+				let work_status = (await shops_detail({shop_id:this.pintuanShop.id})).data.work_status
 				if(work_status !=1){
 					this.is_rest = true
 					uni.showModal({
