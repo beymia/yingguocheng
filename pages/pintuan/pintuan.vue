@@ -327,9 +327,11 @@
 					await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
 				}
 				let pintuan_info = (await pintuan_detail({code:code})).data
+				console.log(pintuan_info)
 				this.resort_pintuan_info(pintuan_info)
 				console.log(pintuan_info)
 				this.pintuan_info = pintuan_info
+				console.log('this.pintuan_info')
 				console.log(this.pintuan_info)
 				 this.SET_PINTUAN_SHOP(this.shopList.find(item => item.id == pintuan_info[0].shop_id)) 
 				console.log(this.pintuanShop)
@@ -337,23 +339,31 @@
 				pintuan_info.forEach((item,index)=>{
 					pintuanCart[index] = item.goods_data ? item.goods_data:[]
 				})
+				console.log('pintuanCart')
 				console.log(pintuanCart)
 				let pintuanCart1 = pintuanCart.concat([])
-				pintuanCart.forEach((item,index)=>{
-						console.log(9999999)
-						item.is_checked = true
-						console.log(99999991)
-						item.id = pintuanCart1[index].goods_id
-						console.log(99999992)
-						item.name = pintuanCart1[index].goods_name
-						item.price = parseInt(pintuanCart1[index].goods_price * 100)/100
-						item.truePrice = parseInt(pintuanCart1[index].goods_price * 100)/100
-						item.imgurl = pintuanCart1[index].home_avatar
-						item.number = pintuanCart1[index].goods_num
-						item.materials_text = pintuanCart1[index].goods_norm
+				console.log('pintuanCart1')
+				console.log(pintuanCart1)
+				 pintuanCart.forEach((item,index)=>{
+						item.forEach(itemc=>{
+							console.log(9999999)
+							console.log('pintuanCart1[index]')
+							console.log(itemc)
+							itemc.is_checked = true
+							console.log(99999991)
+							itemc.id = itemc.goods_id
+							console.log(99999992)
+							itemc.name = itemc.goods_name
+							itemc.price = parseInt(itemc.goods_price * 100)/100
+							itemc.truePrice = parseInt(itemc.goods_price * 100)/100
+							itemc.imgurl = itemc.home_avatar
+							itemc.number = itemc.goods_num
+							itemc.materials_text = itemc.goods_norm
+						})
+						
 					
 					//item.norm_id =
-				})
+				}) 
 				console.log(88888888)
 				console.log(pintuanCart)
 				this.SET_PINTUAN_CART(pintuanCart)
