@@ -203,6 +203,7 @@
 					}catch(e){
 						//TODO handle the exception
 						console.log(e)
+						return
 					}
 					uni.setStorageSync('pintuanCode',options.code)
 					this.SET_PINTUAN_CODE(options.code)
@@ -246,6 +247,7 @@
 						return
 					}catch(e){
 						//TODO handle the exception
+						return
 					}
 					
 				}
@@ -253,7 +255,6 @@
 				//正常进入但没有拼团
 			const token = uni.getStorageSync('token');
 			if(!token){
-				uni.setStorageSync('pintuanCode',code)
 				uni.showModal({
 				    content: '您還沒有登錄，請先登錄',
 				    success: function (res) {
@@ -272,6 +273,7 @@
 			}
 			console.log(this.choosedShop)
 				if(!this.pintuanType){
+					console.log(this.pintuanType)
 					uni.showModal({
 						content:'拼單不存在',
 						showCancel:false,
@@ -512,7 +514,7 @@
 				console.log(pintuanCart)
 				this.SET_PINTUAN_CART(pintuanCart)
 				getApp().globalData.isInvite=false
-				// setTimeout(()=>{this.pintuan_init(code)},1000)
+				setTimeout(()=>{this.pintuan_init(code)},1000)
 			},
 			async long_lati(){
 				var latitude = 0;
@@ -617,14 +619,15 @@
 					});
 					return
 				}
+				
 				this.judge_is_rest()//
 				if(!this.is_rest){
 					uni.showLoading({})
-					try{
+					/* try{
 						await pintuan_lock({code:this.pintuancode})
 					}catch(e){
 						//TODO handle the exception
-					}
+					} */
 					var app = getApp();
 					var order_info={};
 					var goods =[];
@@ -644,6 +647,15 @@
 						
 						
 					})
+					if(goods_data.length==0){
+						uni.showModal({
+							content:'您還沒有選購商品',
+							showCancel:false
+							
+						})
+						uni.hideLoading()
+						return
+					}
 					order_info.goods_data = goods_data;
 					order_info.shop_id = this.pintuanShop.id
 					order_info.shop_name = this.pintuanShop.shop_name

@@ -612,13 +612,14 @@
 			},
 			checkboxChange(e){
 				var values = e.detail.value;
-				var id=e.currentTarget.dataset.id;
-				console.log(e)
-				if(values.length > 0){
-					this.cart.find(item => item.id==id).is_checked=true;
-				}else{
-					this.cart.find(item => item.id==id).is_checked= false;
-			}
+					var good=e.currentTarget.dataset.good
+					console.log(e)
+					console.log(good)
+					if(values.length > 0){
+						this.cart.find(item => item.id==good.id && item.materials_text == good.materials_text).is_checked=true;
+					}else{
+						this.cart.find(item => item.id==good.id && item.materials_text == good.materials_text).is_checked= false;
+				}
 		},
 		async choose_pintuan_type(type){
 			this.showPintuan=false;
@@ -675,7 +676,6 @@
 				}catch(e){
 					
 					console.log(e)
-					return
 				}
 				uni.navigateBack({
 					delta:1
@@ -683,7 +683,7 @@
 				
 				
 			}
-			
+			uni.hideLoading()
 			
 			
 		},

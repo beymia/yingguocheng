@@ -2,7 +2,7 @@
 	<view class="page">
 		<uni-status-bar></uni-status-bar>
 		<view style="height: 44px;display: flex;justify-content: center;margin-bottom: 30rpx;">
-			<image :src="imgSrc+home_images.logo[0]"  mode="aspectFit"></image>
+			<image :src="home_images.logo[0]"  mode="aspectFit"></image>
 		</view>
 		<view class="container">
 			<!-- 首页轮播图start -->
@@ -15,7 +15,7 @@
 			:interval="swiper.interval" 
 			:duration="swiper.duration">
 				<swiper-item class="swiper-item" v-for="(item,index) in home_images.poster">
-						<image :src="imgSrc + item" mode=""></image>
+						<image :src="item" mode=""></image>
 				</swiper-item>
 			</swiper>
 			<!-- 首页轮播图end -->
@@ -103,7 +103,7 @@
 				</view>
 				<view class="memberCode" @tap="huiyuanma">
 					<view class="item1">
-						<image src="../../static/images_t/home/memberCode.png" mode=""></image>
+						<image src="../../static/images/home/memberCode.png" mode=""></image>
 					</view>
 					<view class="item2">
 						會員碼

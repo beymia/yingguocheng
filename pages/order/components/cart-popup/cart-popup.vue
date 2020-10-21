@@ -21,7 +21,7 @@
 					<view class="list">
 						<view class="item" v-for="(item, index) in cart" :key="index">
 							<view class="left">
-								<checkbox-group class="ck" :data-id="item.id" @change="checkboxChange" >
+								<checkbox-group class="ck" :data-good='item' @change="checkboxChange" >
 									<label >
 											<checkbox :value="item.id"  :checked="item.is_checked" />
 									</label>

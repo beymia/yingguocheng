@@ -505,7 +505,7 @@
 								this.showPintuan =true
 							}else{
 								uni.navigateTo({
-									url:'/pages/pintuan/pintuan?pintuanCode='+code
+									url:'/pages/pintuan/pintuan?code='+code
 								})
 							}
 						}catch(e){
@@ -651,12 +651,13 @@
 			},
 			checkboxChange(e){
 				var values = e.detail.value;
-				var id=e.currentTarget.dataset.id;
+				var good=e.currentTarget.dataset.good
 				console.log(e)
+				console.log(good)
 				if(values.length > 0){
-					this.cart.find(item => item.id==id).is_checked=true;
+					this.cart.find(item => item.id==good.id && item.materials_text == good.materials_text).is_checked=true;
 				}else{
-					this.cart.find(item => item.id==id).is_checked= false;
+					this.cart.find(item => item.id==good.id && item.materials_text == good.materials_text).is_checked= false;
 			}
 		},
 		async choose_pintuan_type(type){
@@ -710,6 +711,14 @@
 					goods_data.push(good);
 					
 				})
+				if(goods_data.length==0){
+					uni.showModal({
+						content:'您還沒有選購商品',
+						showCancel:false
+						
+					})
+					return
+				}
 				order_info.goods_data = goods_data;
 				order_info.shop_id = this.choosedShop.id
 				order_info.shop_name = this.choosedShop.shop_name
