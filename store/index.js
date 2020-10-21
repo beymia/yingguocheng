@@ -7,7 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		orderType: 2,
-		pintuanType:2,
+		pintuanType:NaN,
 		pintuanCart:[],
 		pintuanShop:{},
 		token:'KbJ3eQFi3+ErJg4sgHvRxzc0Yjk0ODAzNTY2NjhkNTFkYjdjZGNkYmJjM2ZkYjdhNjY3M2ZkMmUyOWU0NGM3OTMxZTRlZWQ4ZjlhOWQ0ZDahZmrINdB5avDmJea/ep06Hunl39st/eQkAe13k7TmIQ==',

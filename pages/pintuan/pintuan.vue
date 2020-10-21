@@ -19,19 +19,26 @@
 					快來叫上好友壹起喝奶茶吧~
 				</view>
 				<view class="pindan_invite">
-					<button class="pindan_cancel" @tap="pindan_cancel">
-						取消拼单
-					</button>
-					<!-- #ifdef MP-WEIXIN -->
-					<button class="invite" hover-class="hover-comon" open-type="share">
-						邀請好友
-					</button>
-					<!-- #endif -->
-					<!-- #ifndef MP-WEIXIN -->
-					<button class="invite" hover-class="hover-comon" @tap='invite()'>
-						邀請好友
-					</button>
-					<!-- #endif -->
+					<template v-if="isCaptain">
+						<button class="pindan_cancel" @tap="pindan_cancel">
+							取消拼单
+						</button>
+						<!-- #ifdef MP-WEIXIN -->
+						<button class="invite" hover-class="hover-comon" open-type="share">
+							邀請好友
+						</button>
+						<!-- #endif -->
+						<!-- #ifndef MP-WEIXIN -->
+						<button class="invite" hover-class="hover-comon" @tap='invite()'>
+							邀請好友
+						</button>
+						<!-- #endif -->
+					</template>
+					<template v-else>
+						<button class="pindan_cancel" @tap="pindan_cancel">
+							退出拼单
+						</button>
+					</template>
 					
 				</view>
 			</view>
@@ -80,7 +87,7 @@
 							<view class="bordrline"></view>
 							<view class="good" v-for="(itemc,indexc) in item.goods_data">
 								<view class="icon">
-									<image :src="imgSrc+itemc.home_avatar" mode=""></image>
+									<image :src="itemc.imgurl" mode=""></image>
 								</view>
 								<view class="intro">
 									<view class="good_name_price">
@@ -119,7 +126,7 @@
 						如有商品參與優惠/活動，請結算實付金額為準
 					</view>
 				</view>
-				<view class="right" @tap="pay">
+				<view class="right" @tap="pay(total_money)">
 					結算
 				</view>
 			</view>
@@ -156,8 +163,8 @@
 				if(options.invite){//从邀请好友中进来
 				const token = uni.getStorageSync('token');
 				if(!token){
-					uni.setStorageSync('pintuanCode',code)
 					getApp().globalData.isInvite = true
+					getApp().globalData.pintuanCode = options.code
 					uni.showModal({
 					    content: '您還沒有登錄，請先登錄',
 					    success: function (res) {
@@ -175,46 +182,75 @@
 					return
 				}
 					try{
-						let res = await pintuan_invite({code:options.code})
-						console.log(res)
-						if(res.code == 1001){
-							uni.showModal({
-								content:'已存在进行中的拼单',
-								showCancel:false,
-							})
+						let ivited = await pintuan_detail({code:options.code})
+						if(invited.code == 1001){
+							let res = await pintuan_invite({code:options.code})
+							console.log(res)
+							if(res.code == 1001){
+								uni.showModal({
+									content:'拼單已取消或存在其他進行中的拼單',
+									showCancel:false,
+									success() {
+										uni.switchTab({
+											url:'/pages/order/order'
+										})
+									}
+								})
+								return
+							}
 						}
+						
 					}catch(e){
 						//TODO handle the exception
+						console.log(e)
 					}
+					uni.setStorageSync('pintuanCode',options.code)
 					this.SET_PINTUAN_CODE(options.code)
 					await this.pintuan_init(options.code);
 					// this.itvId=setInterval(()=>{this.pintuan_init(options.code)},1500)
-					
-				}
-				//正常进入且已经有拼团
-				if(getApp().globalData.isInvite){//从邀请中返回登录后进入
-					try{
-						let res = await pintuan_invite({code:options.code})
-						console.log(res)
-						if(res.code == 1001){
-							uni.showModal({
-								content:'已存在进行中的拼单',
-								showCancel:false,
-							})
-						}
-					}catch(e){
-						//TODO handle the exception
-					}
-					this.SET_PINTUAN_CODE(options.code)
-					await this.pintuan_init(options.code);
+					return
 				}else{
+					
+				//正常进入且已经有拼团
 					this.SET_PINTUAN_CODE(options.code)
 					await this.pintuan_init(options.code);
-				}
 				// this.itvId=setInterval(()=>{this.pintuan_init(options.code)},1500)
+				}
 				
 				
 			}else{//正常进入但没有拼团
+				if(getApp().globalData.isInvite){//从邀请中返回登录后进入
+					try{
+						let psc =getApp().globalData.pintuanCode
+						let ivited = await pintuan_detail({code:psc})
+						if(invited.code == 1001){
+							let res = await pintuan_invite({code:psc})
+							let ivited1 = await pintuan_detail({code:psc})
+							console.log(res)
+							if(res.code == 1001 && ivited1.code == 1001){
+								uni.showModal({
+									content:'拼單已取消或存在其他進行中的拼單',
+									showCancel:false,
+									success() {
+										uni.switchTab({
+											url:'/pages/order/order'
+										})
+									}
+								})
+								return
+							}
+						}
+						uni.setStorageSync('pintuanCode',psc)
+						this.SET_PINTUAN_CODE(psc)
+						await this.pintuan_init(psc);
+						return
+					}catch(e){
+						//TODO handle the exception
+					}
+					
+				}
+				
+				//正常进入但没有拼团
 			const token = uni.getStorageSync('token');
 			if(!token){
 				uni.setStorageSync('pintuanCode',code)
@@ -235,6 +271,18 @@
 				return
 			}
 			console.log(this.choosedShop)
+				if(!this.pintuanType){
+					uni.showModal({
+						content:'拼單不存在',
+						showCancel:false,
+						success() {
+							uni.switchTab({
+								url:'/pages/order/order'
+							})
+						}
+					})
+					return
+				}
 				var code = (await pintuan_creat({shop_id:this.choosedShop.id,vehicle_method:this.pintuanType})).data.code
 				uni.setStorageSync('pintuanCode',code)
 				this.SET_PINTUAN_CODE(code)
@@ -316,9 +364,9 @@
 				console.log(this.qrUrl)
 			},
 			async pindan_cancel(){
-				uni.showModal({
+				/* uni.showModal({
 					content:"確定要取消當前拼單嗎",
-					async success(res) {
+					success: async (res) => {
 						if(res.confirm){
 							uni.showLoading({
 								
@@ -335,23 +383,41 @@
 						
 						}
 					}
+				}) */
+				uni.showLoading({
+					
 				})
+				try{
+					let res = await pintuan_cancel({code:this.pintuanCode})
+					if(res.code == 1000){
+						uni.setStorageSync('pintuanCode','')
+					}
+				}catch(e){
+					//TODO handle the exception
+				}
+				uni.switchTab({
+					url:'/pages/order/order'
+				})
+				uni.hideLoading()
 			},
 			async clear(){
 				uni.showModal({
 					content:"確定要清空當前選定的商品嗎？",
-					async success(res) {
+					success: async (res) => {
 						if(res.confirm){
+							console.log('aaaaaaaaaaaa')
 							try{
+								console.log('bbbbbbbbbbbb')
 								let rr= await pintuan_order({code:this.pintuanCode,goods_data:'[]'})
+								if(rr.code==1001){
+									uni.showToast({
+										title: '清空失敗，請稍候重試！',
+										duration:2000
+									});
+								}
 							}catch(e){
 								//TODO handle the exception
-							}
-							if(rr.code==1001){
-								uni.showToast({
-									title: '清空失敗，請稍候重試！',
-									duration:2000
-								});
+								console.log(e)
 							}
 							// this.pintuan_info[0] =[]
 							// let n_cart = this.pintuanCart.concat([])
@@ -392,11 +458,27 @@
 					await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
 				}
 				
-				let pintuan_info = (await pintuan_detail({code:code})).data
+				let pintuan_info_res = await pintuan_detail({code:code})
+				if(pintuan_info_res.code == 1001){
+					uni.showModal({
+						content:'拼單已取消或不存在',
+						showCancel:false,
+						success(){
+							uni.switchTab({
+								url:'/pages/order/order'
+							})
+						}
+						
+					})
+					uni.setStorageSync('pintuanCode','')
+					return
+				}
+				let pintuan_info = pintuan_info_res.data
 				console.log(pintuan_info)
 				this.resort_pintuan_info(pintuan_info)
 				console.log(pintuan_info)
 				this.pintuan_info = pintuan_info
+				this.SET_PINTUAN_TYPE(pintuan_info[0].vehicle_method == '外卖' ? 1 : 2)
 				console.log('this.pintuan_info')
 				console.log(this.pintuan_info)
 				 this.SET_PINTUAN_SHOP(this.shopList.find(item => item.id == pintuan_info[0].shop_id)) 
@@ -430,7 +512,7 @@
 				console.log(pintuanCart)
 				this.SET_PINTUAN_CART(pintuanCart)
 				getApp().globalData.isInvite=false
-				setTimeout(()=>{this.pintuan_init(code)},1000)
+				// setTimeout(()=>{this.pintuan_init(code)},1000)
 			},
 			async long_lati(){
 				var latitude = 0;
