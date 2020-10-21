@@ -125,7 +125,8 @@ export default {
       summaryStatus: false,
       monthPark:[],
       interestsPark:[],
-      joinType:0,
+      joinType:0,//根据索引读取数据中的会员等阶
+      paymentStatus:false,//支付状态，为true时禁止再次支付，防止多次提交数据
     }
   },
   async mounted() {
@@ -139,6 +140,8 @@ export default {
   },
   methods: {
     async paymentMember() {
+      if(this.paymentStatus) return;
+      this.paymentStatus = true;
       let self = this;
       if(!this.summaryStatus){
         this.customToast('请仔细阅读协议',false);
@@ -160,20 +163,23 @@ export default {
       } catch (e) {
         console.log(e);
         this.customToast('开通失敗')
+        self.paymentStatus = false;
       }
     },
+
     //开通成功，重新获取会员信息，并且跳转会员权益页面
     async joinSuccess() {
       this.customToast('开通成功')
+      this.paymentStatus = false;
       APP.userInfo = (await userSpace()).data;
       // TODO 测试修改数据
       APP.userInfo.user_name = '成功开通了会员';
-      console.log(APP.userInfo.user_name);
       //开通成功后跳转到会员权益页面
       uni.redirectTo({
         url:'/pages/memberBenefits/memberBenefits'
       })
     },
+
     //選擇開通類型
     selectType(){
       let itemList = [],
@@ -181,6 +187,7 @@ export default {
       this.memberInfo.forEach((item)=>{
         itemList.push(item.level_name)
       });
+
       uni.showActionSheet({
         itemList,
         success(index){

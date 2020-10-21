@@ -1,12 +1,13 @@
 /*
  * 简易封装模拟测试请求
  * */
-function ajax(url, data = {}, method = 'GET', h) {
+function ajax(url, {data={},method='POST',isToken=true}) {
+
   // TODO 生产环境需要替换默认的URL地址
 
   let header = {};
 
-  h && (header['token'] = getApp().globalData.userToken)
+  isToken && (header['token'] = getApp().globalData.userToken)
 
   header['Content-Type'] = 'application/x-www-form-urlencoded'
   let baseURL;
@@ -25,7 +26,7 @@ function ajax(url, data = {}, method = 'GET', h) {
       success(result) {
         // TODO token错误
         if (result.statusCode !== 200 || result.data.code === 1001) {
-          tokenError(h, result, reject)
+          tokenError(isToken, result, reject)
           return;
         }
         resolve(result.data)
@@ -43,6 +44,7 @@ function tokenError(h, result, reject) {
   let token = uni.getStorageSync('token')
   console.log(token);
   if (token && (h && result.data.msg === 'Token Error')) {
+    uni.hideLoading()
     uni.showModal({
       title: '登陆状态失效!\n请重新登陆',
       success(res) {

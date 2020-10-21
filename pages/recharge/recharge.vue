@@ -82,7 +82,7 @@ export default {
   }
 
   /* H5端改版单选框的默认样式*/
-  /* #ifdef H5*/
+  /* #ifdef H5 | APP-PLUS*/
   /deep/.uni-radio-input {
     width: 34rpx !important;
     height: 34rpx !important;

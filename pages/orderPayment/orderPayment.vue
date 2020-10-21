@@ -30,7 +30,7 @@
         <view class="phone_input">
           <label>
             <text>聯系電話</text>
-            <input :value="userPhone" type="number">
+            <input maxlength="11" :value="userPhone" type="number">
           </label>
         </view>
         <button @click="autoFill" class="auto_fill" plain>自動填寫</button>
@@ -43,8 +43,8 @@
       </view>
       <view class="order_progress">
         <text>前面</text>
-        <text class="text_color">{{ goodsData.current_order }}單/{{ goodsData.current_cups }}</text>
-        <text>杯制作中，</text>
+        <text class="text_color">{{ goodsData.current_order }}單/{{ goodsData.current_cups }}杯</text>
+        <text>制作中，</text>
         <text>預計</text>
         <text class="text_color">{{ goodsData.current_cups }}分鐘</text>
         <text>後取茶</text>
@@ -203,6 +203,7 @@ export default {
       attachArr: [],
       couponInfo: [],
       paymentTimer:null,
+      paymentStatus:false,//订单的支付状态，为true时禁止再次点击支付
     }
   },
   computed: {
@@ -215,7 +216,6 @@ export default {
 
   async onLoad() {
     this.goodsData = APP.goodsPayment;//订单整体数据
-    this.receivingMethod = this.goodsData.haul_method;//订单的配送方式
     this.goods_data = [];//订单单个商品的信息，创建订单时传递给后台的数据
     this.goodsId = ''//订单的单个商品的id,用户获取当前订单可使用的优惠券
 
@@ -268,25 +268,16 @@ export default {
     }
   },
   onUnload() {
+    this.paymentStatus =  false;
     //页面卸载时清空优惠券金额
     APP.coupon = {};
     //TODO清空支付定时器
     clearTimeout(this.paymentTimer)
   },
   methods: {
-    // toggleReceiving(method) {
-    //   this.receivingMethod = method;
-    //   if (method === '2') {
-    //     this.surcharge = 5;
-    //     this.totalAmount += this.surcharge
-    //   } else {
-    //     this.surcharge ? this.totalAmount -= this.surcharge : null;
-    //     this.surcharge = 0;
-    //   }
-    // },
     //自動輸入手機號
     autoFill() {
-      this.userPhone = this.goodsData.contact_phone;
+      this.userPhone = APP.userInfo.mobile;
     },
 
     //訂單備註
@@ -319,6 +310,9 @@ export default {
     },
     //開始支付
     async startPay() {
+      //订单为支付状态时再次点击支付直接返回
+      if(this.paymentStatus) return;
+      this.paymentStatus = true;
       let self = this;
       uni.showLoading({
         title: '請稍後'
@@ -381,16 +375,19 @@ export default {
         try {
           let orderNum = (await createOrder(paramsObj)).data.order_num;
           let orderInfo = (await paymentStart({order_num: orderNum, shop_id: paramsObj.shop_id})).data
+          console.log(1);
           await self.utilPayment(orderInfo)
           await self.paymentSuccess();
         } catch (e) {
-          self.customToast('订单创建失败')
+          self.customToast('订单创建失败');
+          self.paymentStatus = false;
           console.log(e);
         }
       }, 3000)
     },
     //订单结算成功，跳转至订单页
     async paymentSuccess(){
+      this.paymentStatus = false;
       this.customToast('结算成功');
       uni.switchTab({
         url:'/pages/orderForm/orderForm',
@@ -549,7 +546,7 @@ export default {
       border-radius: 15rpx;
       overflow: hidden;
 
-      /* #ifdef H5 */
+      /* #ifdef H5 | APP-PLUS */
       /deep/ .uni-progress-bar {
         height: 30rpx !important;
       }
@@ -557,7 +554,6 @@ export default {
       /deep/.uni-progress-inner-bar {
         border-radius: 15rpx;
       }
-
       /* #endif*/
     }
   }
@@ -707,7 +703,7 @@ export default {
             margin-right: 10rpx;
           }
 
-          /* #ifdef H5*/
+          /* #ifdef H5 | App-PLUS*/
           /deep/.uni-radio-input {
             width: 34rpx;
             height: 34rpx;

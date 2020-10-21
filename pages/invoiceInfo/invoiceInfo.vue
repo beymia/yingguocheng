@@ -183,7 +183,7 @@ export default {
 			box-sizing: border-box;
 
       /* H5端改版单选框的默认样式*/
-      /* #ifdef H5*/
+      /* #ifdef H5 | APP-PLUS*/
       /deep/.uni-radio-input {
         width: 34rpx !important;
         height: 34rpx !important;
@@ -250,7 +250,7 @@ export default {
 				margin-bottom: 20rpx;
 			}
 
-			/* #ifdef H5*/
+			/* #ifdef H5 | SPP-PLUS*/
 			.tips_title {
 				margin-bottom: 20rpx;
 				transform: scale(0.9);

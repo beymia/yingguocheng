@@ -1,9 +1,11 @@
 <template>
   <view class="container">
-    <swiperSwitch leftTitle="購買奶茶有禮"
-                  rightTitle="我的奶茶有禮"
-                  :assign-index="assignIndex"
-                  @swiper-end="assignIndex = false">
+    <swiperSwitch
+        leftTitle="購買奶茶有禮"
+        rightTitle="我的奶茶有禮"
+        :assign-index="assignIndex"
+        @swiper-end="assignIndex = false"
+    >
       <template v-slot:left>
         <!--購買奶茶有禮-->
         <view class="buy_foresee">
@@ -11,17 +13,23 @@
             <view class="title">
               <text>{{ list.norm_name }}</text>
             </view>
-            <swiper next-margin="40rpx"
-                    display-multiple-items="2"
-                    enable-flex
-                    :scroll-x="true"
-                    class="list">
-              <swiper-item class="list_item"
-                           @click="navPage(list.child[im])"
-                           v-for="(foresee,im) in (list.child)"
-                           :key="im">
+            <swiper
+                next-margin="40rpx"
+                display-multiple-items="2"
+                enable-flex
+                :scroll-x="true"
+                class="list"
+            >
+              <swiper-item
+                  class="list_item"
+                  @click="navPage(list.child[im])"
+                  v-for="(foresee, im) in list.child"
+                  :key="im"
+              >
                 <!-- TODO 替換圖片鏈接 foreseeList.worth_price-->
-                <image :src="'../../static/images_t/milkTeaGift/img.png'"></image>
+                <image
+                    :src="'../../static/images_t/milkTeaGift/img.png'"
+                ></image>
               </swiper-item>
             </swiper>
           </view>
@@ -30,9 +38,11 @@
       <template v-slot:right>
         <!--我的奶茶有礼-->
         <view class="have_foresee">
-          <myForeseePage @buy-foreseeList="assignIndex++"
-                         @give-start="giveInfo"
-                         :foresee="haveForesee"></myForeseePage>
+          <myForeseePage
+              @buy-foreseeList="assignIndex++"
+              @give-start="giveInfo"
+              :foresee="haveForesee"
+          ></myForeseePage>
         </view>
       </template>
     </swiperSwitch>
@@ -41,14 +51,21 @@
     <view v-if="isGive" class="give" @touchmove.prevent.stop="catchTouch">
       <view class="mark">
         <view class="content">
-          <uni-icons @click="closeGive"
-                     class="icon"
-                     type="close"
-                     size="40"
-                     color="#cccccc">
+          <uni-icons
+              @click="closeGive"
+              class="icon"
+              type="close"
+              size="40"
+              color="#cccccc"
+          >
           </uni-icons>
           <view class="title">贈送好友</view>
-          <input v-model="givePhone" type="number" maxlength="11" placeholder="請輸入贈送好友手機號">
+          <input
+              v-model="givePhone"
+              type="number"
+              maxlength="11"
+              placeholder="請輸入贈送好友手機號"
+          />
           <button @click="giveStart">確定贈送</button>
         </view>
       </view>
@@ -61,11 +78,12 @@ import {
   milkList,
   myForesee,
   buyForesee,
-  mutualRecord
+  mutualRecord,
+  giveForesee,
 } from "../../request/api";
 
 import swiperSwitch from "../../components-lk/swiperSwitch/swiperSwitch";
-import myForeseePage from './components/myForeseePage'
+import myForeseePage from "./components/myForeseePage";
 
 export default {
   data() {
@@ -79,25 +97,29 @@ export default {
               id: "1602670752262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602670725262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602677252262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602670725222564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
+              worth_price: "60",
             },
-          ]
-        },  {
+          ],
+        },
+        {
           id: "1602667262842649",
           norm_name: "流心波波卡",
           child: [
@@ -105,25 +127,29 @@ export default {
               id: "1602670752262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602670725262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602677252262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602670725222564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
+              worth_price: "60",
             },
-          ]
-        }, {
+          ],
+        },
+        {
           id: "1602662062842649",
           norm_name: "流心波波卡",
           child: [
@@ -131,25 +157,29 @@ export default {
               id: "1602670725226254",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "160267252262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602670725262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "160267072522664",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
+              worth_price: "60",
             },
-          ]
-        }, {
+          ],
+        },
+        {
           id: "160266762842649",
           norm_name: "流心波波卡",
           child: [
@@ -157,25 +187,29 @@ export default {
               id: "16027252262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "16026707262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602677252262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "160267072564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
+              worth_price: "60",
             },
-          ]
-        }, {
+          ],
+        },
+        {
           id: "16026672842649",
           norm_name: "流心波波卡",
           child: [
@@ -183,25 +217,29 @@ export default {
               id: "1602670762564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602670722564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "1602670725262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "160262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
+              worth_price: "60",
             },
-          ]
-        }, {
+          ],
+        },
+        {
           id: "160266842649",
           norm_name: "流心波波卡",
           child: [
@@ -209,58 +247,66 @@ export default {
               id: "1602662564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "160262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "16026764",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
-            }, {
+              worth_price: "60",
+            },
+            {
               id: "160252262564",
               card_name: "恰杯茶啵",
               home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60"
+              worth_price: "60",
             },
-          ]
+          ],
         },
       ],
       haveForesee: [
-          {
-        id: "1602761166363589",
-        worth_price: "60.00",
-        home_avatar: "/uploads/202010/14/160267063599194.jpg"
-      }, {
-        id: "1602761616363589",
-        worth_price: "60.00",
-        home_avatar: "/uploads/202010/14/160267063599194.jpg"
-      }, {
-        id: "1602761161363589",
-        worth_price: "60.00",
-        home_avatar: "/uploads/202010/14/160267063599194.jpg"
-      }, {
-        id: "1602761161636589",
-        worth_price: "60.00",
-        home_avatar: "/uploads/202010/14/160267063599194.jpg"
-      },],
+        {
+          id: "1602761166363589",
+          worth_price: "60.00",
+          home_avatar: "/uploads/202010/14/160267063599194.jpg",
+        },
+        {
+          id: "1602761616363589",
+          worth_price: "60.00",
+          home_avatar: "/uploads/202010/14/160267063599194.jpg",
+        },
+        {
+          id: "1602761161363589",
+          worth_price: "60.00",
+          home_avatar: "/uploads/202010/14/160267063599194.jpg",
+        },
+        {
+          id: "1602761161636589",
+          worth_price: "60.00",
+          home_avatar: "/uploads/202010/14/160267063599194.jpg",
+        },
+      ],
       // haveForesee:[],
-      activeFeat: 'buy',
-      assignIndex:0,
-      givePhone:'',
-      isGive:false,
-    }
+      activeFeat: "buy",
+      assignIndex: 0,
+      givePhone: "",
+      isGive: false,
+      giveForeseeId:''
+    };
   },
   async mounted() {
-    await this.getForesee()
+    await this.getForesee();
   },
   methods: {
     //获取数据列表
     async getForesee() {
-      this.foreseeList = ((await milkList()).data || [])
+      this.foreseeList = (await milkList()).data || [];
     },
     //获取我的卡片
     async getMyForesee() {
@@ -272,131 +318,143 @@ export default {
     async getMutualRecord() {
     },
     //贈送預付卡
-    async giveForeseeStart(){},
+    async giveForeseeStart() {
+    },
     //跳轉至預付卡詳情
     navPage(f) {
       uni.navigateTo({
-        url: '/pages/foreseeDetails/foreseeDetails?foresee=' + encodeURIComponent(JSON.stringify(f))
-      })
+        url:
+            "/pages/foreseeDetails/foreseeDetails?foresee=" +
+            encodeURIComponent(JSON.stringify(f)),
+      });
     },
 
     //在弹出赠送框后阻止滑动的空数组
-    catchTouch(){},
-    giveInfo(){
+    catchTouch() {},
+    //展示赠送框，并存储赠送的预付卡ID
+    giveInfo(e) {
+      console.log(e);
       this.isGive = true;
+      this.giveForeseeId = e.id;
     },
     //點擊贈送好友
-    giveStart(){
-      console.log(1);
-      uni.showLoading({
-        title:'請稍後'
-      })
-      try{
-        if(this.givePhone.length!==11||isNaN(this.givePhone)){
-          this.customToast('手機號不正確')
-          this.givePhone = ''
-          return
-        }
-        this.isGive = false;
-        //TODO贈送邏輯處理
+    async giveStart(e) {
+      let self = this;
+      //手机号位数不对直接返回
+      if (self.givePhone.length !== 11) {
+        self.customToast("手機號不正確");
+        self.givePhone = "";
+        return;
+      }
 
-        this.customToast('贈送成功')
-        this.givePhone = '';
-      }catch (e){
-        this.givePhone = ''
-        this.customToast('贈送失敗')
+      uni.showLoading({
+        title: "赠送中",
+      });
+
+      self.isGive = false;
+      //TODO贈送邏輯處理
+      try {
+        await giveForesee({
+          card_id: self.giveForeseeId,
+          mobile: self.givePhone,
+        })
+        self.customToast("贈送成功");
+        self.givePhone = "";
+      } catch (e) {
+        self.givePhone = '';
+        self.customToast('赠送失败')
       }
     },
     //取消贈送
-    closeGive(){
+    closeGive() {
       this.isGive = false;
-      this.givePhone = '';
+      this.givePhone = "";
     },
   },
   components: {
     myForeseePage,
-    swiperSwitch
-  }
-}
+    swiperSwitch,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-image{
+image {
   width: 300rpx;
   height: 200rpx;
   vertical-align: middle;
 }
-.container{
+.container {
   width: 100%;
   min-height: 100%;
   background-color: $main-bg;
 
-swiper{
-height: 100%;
+  swiper {
+    height: 100%;
 
-  .buy_foresee{
-    //margin-top: 150rpx;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: $main-bg;
-    box-sizing: border-box;
-    padding:$spacing-base 0;
-    /* #ifdef H5 | APP-PLUS*/
-    padding:$spacing-base;
-    /* #endif*/
-
-    .content_list{
+    .buy_foresee {
+      //margin-top: 150rpx;
       width: 100%;
-      /* #ifdef MP*/
-      padding: 0 $spacing-base;
-      box-sizing:border-box;
+      display: flex;
+      flex-direction: column;
+      background-color: $main-bg;
+      box-sizing: border-box;
+      padding: $spacing-base 0;
+      /* #ifdef H5 | APP-PLUS*/
+      padding: $spacing-base;
       /* #endif*/
 
-      .title{
-        font-size: $font-size-base;
-        color: $font-color1;
-        margin-bottom: 10rpx;
-      }
-
-      .list{
+      .content_list {
         width: 100%;
-        height: 200rpx;
-        white-space: nowrap;
-        margin-bottom: $spacing-lg;
+        /* #ifdef MP*/
+        padding: 0 $spacing-base;
+        box-sizing: border-box;
+        /* #endif*/
 
-        .list_item{
-          display: inline-block;
-          width: 300rpx;
+        .title {
+          font-size: $font-size-base;
+          color: $font-color1;
+          margin-bottom: 10rpx;
+        }
+
+        .list {
+          width: 100%;
+          height: 200rpx;
+          white-space: nowrap;
+          margin-bottom: $spacing-lg;
+
+          .list_item {
+            display: inline-block;
+            width: 300rpx;
+          }
         }
       }
     }
-  }
 
-  .have_foresee{
-    //margin-top: 150rpx;
-    width: 100%;
-    //min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: $main-bg;
+    .have_foresee {
+      //margin-top: 150rpx;
+      width: 100%;
+      //min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: $main-bg;
+    }
   }
-}
-  .give{
+  .give {
     width: 100vw;
     height: 100vh;
     position: fixed;
     left: 0;
     top: 0;
-    z-index:13;
+    z-index: 13;
 
-    .mark{
+    .mark {
       width: 100%;
       height: 100%;
-      background:rgba(0,0,0,.35);
+      background: rgba(0, 0, 0, 0.35);
       z-index: 12;
 
-      .content{
+      .content {
         width: 480rpx;
         height: 330rpx;
         background: #ffffff;
@@ -404,25 +462,25 @@ height: 100%;
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         font-size: $font-size-base;
-        font-weight:$font-weight-lg;
+        font-weight: $font-weight-lg;
         color: $font-color1;
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        .icon{
+        .icon {
           position: absolute;
           right: 20rpx;
           top: 20rpx;
         }
 
-        .title{
+        .title {
           margin: 50rpx 0 $spacing-lg 0;
         }
 
-        input{
+        input {
           width: 330rpx;
           height: 54rpx;
           border: 1rpx solid #cccccc;
@@ -434,7 +492,7 @@ height: 100%;
           margin-bottom: 50rpx;
         }
 
-        button  {
+        button {
           width: 150rpx;
           height: 58rpx;
           background: $main-color;
@@ -443,7 +501,7 @@ height: 100%;
           line-height: 58rpx;
           font-size: $font-size-sm;
           font-weight: $font-weight-base;
-          color: #FFFFFF;
+          color: #ffffff;
         }
       }
     }

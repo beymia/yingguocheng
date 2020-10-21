@@ -58,24 +58,26 @@ export default {
   },
   //页面隐藏式清除定时器，并且验证码归位
   onHide() {
-    this.verificationCode = '';
-    uni.hideLoading();
-    self.timer = 200;
-    clearInterval(this.countDown)
-    console.log('页面隐藏，清楚定时器');
+    this.pageHide()
+    console.log('hide清除定时器')
   },
+  onUnload() {
+    this.pageHide()
+    console.log('unload清除定时器')
+  },
+
   //进入页面直接开始定时器,时间为0时自动重发验证码
   mounted() {
     let self = this;
     this.countDown && clearInterval(this.countDown);
-    this.countDown = setInterval(async() => {
+    this.countDown = setInterval(async () => {
       self.timer--;
       if (self.timer === 0) {
-        try{
-          await sendCheckCode({mobile:self.phone})
-          self.customToast('已重發',false)
+        try {
+          await sendCheckCode({mobile: self.phone})
+          self.customToast('已重發', false)
           self.timer = 200
-        }catch (e) {
+        } catch (e) {
           console.log(e);
           self.customToast('验证码发送失败');
           //发送出错清除定时器
@@ -93,6 +95,15 @@ export default {
     // inputCode(e) {
     //   this.verificationCode = e.detail.value
     // },
+
+    //页面关闭或者卸载的操作
+    pageHide(){
+      this.verificationCode = '';
+      uni.hideLoading();
+      self.timer = 200;
+      clearInterval(this.countDown)
+      console.log('页面隐藏，清楚定时器');
+    },
 
     //登陆失败
     loginError() {
@@ -132,6 +143,8 @@ export default {
           try{
             await verifyCode({mobile: self.phone, code: self.verificationCode})
           }catch (e) {
+            console.log(self.phone);
+            console.log(self.verificationCode);
             self.customToast('验证码错误')
             return;
           }

@@ -39,26 +39,26 @@ export default {
     }
   },
   async onLoad() {
-    this.user = getApp().globalData.userInfo;
-    await this.QRcode();
-    this.timer = setInterval(async ()=>{
-      await this.QRcode()
-      console.log(1);
-    },30000)
+    try{
+      this.user = getApp().globalData.userInfo;
+      await this.QRcode();
+      this.timer = setInterval(async ()=>{
+        await this.QRcode()
+        console.log(1);
+      },30000)
+    }catch (e) {
+      this.customToast('會員碼獲取失敗')
+    }
   },
   methods: {
     async QRcode() {
       this.qrCodeData = (await qrCode({})).data
     },
-    usedWallet(){
-      this.isWallet = !this.isWallet
-    }
-  },
-  onHide(){
-    clearInterval(this.timer)
   },
   onUnload(){
+    console.log('定時器清除，onUnload')
     clearInterval(this.timer)
+    console.log(this.timer);
   },
   components: {
     popUpLayer

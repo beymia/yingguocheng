@@ -28,7 +28,7 @@
     <!--兌換中心-->
     <view></view>
 
-    <!-- #ifdef H5-->
+    <!-- #ifdef H5 | APP-PLUS-->
     <view class="empty"></view>
     <!-- #endif-->
     <loginBox v-if="loginBoxShow" @close-login-box="hideLoginBox"></loginBox>

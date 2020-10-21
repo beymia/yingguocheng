@@ -39,23 +39,28 @@ import {buyForesee} from "../../request/api";
 export default {
   data() {
     return {
-      foresee:{}
+      foresee: {},
+      paymentStatus: false//订单状态
     }
   },
-  onLoad(options){
+  onLoad(options) {
     this.foresee = JSON.parse(decodeURIComponent(options.foresee))
   },
   methods: {
-    async buy(){
-      uni.showLoading({title:'购买中'})
+    async buy() {
+      if (this.paymentStatus) return;
+      this.paymentStatus = true;
+      uni.showLoading({title: '购买中'})
       let self = this;
-      try{
+      try {
         //请求预支付信息
-        let orderInfo = (await buyForesee({card_id:self.foresee.id})).data;
-        self.utilPayment(orderInfo)
+        let orderInfo = (await buyForesee({card_id: self.foresee.id})).data;
+        await self.utilPayment(orderInfo)
+        self.paymentStatus = false;
         self.customToast('购买成功')
-      }catch (e) {
+      } catch (e) {
         console.log(e);
+        self.paymentStatus = false;
         self.customToast('购买失败')
       }
     }

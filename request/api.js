@@ -1,87 +1,87 @@
 const ajax = require('./ajax')
 
-//true是请求时携带token，false为不携带
+//true是请求时携带Token，false为不携带
 
 //致用戶
-export const tolk = (data)=>ajax('/config/talk',data,'post')
+export const tolk = (data)=>ajax('/config/talk',{data,isToken:false})
 //订单详情
-export const orderForm = (data) => ajax('/user/order', data, 'post', 1)
+export const orderForm = (data) => ajax('/user/order',{data})
 //开发票
-export const invoice = (data) => ajax('/invoice-apply/create-apply', data, 'post', 1)
+export const invoice = (data) => ajax('/invoice-apply/create-apply',{data})
 //发送验证码
-export const sendCheckCode = (data) => ajax('/sms/login-sms', data, 'post')
+export const sendCheckCode = (data) => ajax('/sms/login-sms',{data,isToken:false})
 //效验验证码
-export const verifyCode = (data) => ajax('/sms/verify-sms', data, 'post')
+export const verifyCode = (data) => ajax('/sms/verify-sms',{data,isToken:false})
 //登录&注册
-export const login = (data) => ajax('/login/login', data, 'post')
+export const login = (data) => ajax('/login/login', {data,isToken:false})
 //积分商城
-export const convert = (data) => ajax('/convert/list', data, 'post', 1)
+export const convert = (data) => ajax('/convert/list',{data})
 //积分明细
-export const pointsDetails = (data) => ajax('/record/integral-notes', data, 'post', 1)
+export const pointsDetails = (data) => ajax('/record/integral-notes',{data})
 //积分兑换记录
-export const exchangeRecord = (data) => ajax('/integral/convert-record', data, 'post', 1)
+export const exchangeRecord = (data) => ajax('/integral/convert-record', {data})
 //積分商品詳情
-export const pointsGoodsDetail = (data) => ajax('/convert/detail', data, 'post', 1)
+export const pointsGoodsDetail = (data) => ajax('/convert/detail',{data})
 //積分兌換禮品
-export const redeemGifts = (data) => ajax('/convert/convert', data, 'post', 1)
+export const redeemGifts = (data) => ajax('/convert/convert', {data})
 //用户信息
-export const userSpace = (data) => ajax('/user/user-info', data, 'post', 1)
+export const userSpace = (data) => ajax('/user/user-info', {data})
 //开通会员
-export const joinMember = (data) => ajax('/pay/service', data, 'post',1)
+export const joinMember = (data) => ajax('/pay/service', {data})
 //全部优惠券
-export const discount = (data) => ajax('/ticket/tickets', data, 'post', 1)
+export const discount = (data) => ajax('/ticket/tickets',{data})
 //设置交易密码
-export const setPwd = (data) => ajax('/user/setpwd', data, 'post', 1)
+export const setPwd = (data) => ajax('/user/setpwd', {data})
 //钱包余额消费记录
-export const expensesRecord = (data) => ajax('/record/balance-notes', data, 'post', 1)
+export const expensesRecord = (data) => ajax('/record/balance-notes',{data})
 //会员二维码
-export const qrCode = (data) => ajax('/qr-code/user-code', data, 'post', 1)
+export const qrCode = (data) => ajax('/qr-code/user-code', {data})
 //充值钱包
-export const recharge = (data) => ajax('/pay/recharge', data, 'post', 1)
+export const recharge = (data) => ajax('/pay/recharge', {data})
 
 //会员等级礼包
-export const levelPack = (data)=>ajax('/grade/park-list',data,'post',1)
+export const levelPack = (data)=>ajax('/grade/park-list',{data})
 //领取等级礼包
-export const receiveLevel = (data)=>ajax('/grade/receive-park',data,'post',1)
+export const receiveLevel = (data)=>ajax('/grade/receive-park',{data})
 //会员月度礼包
-export const monthPack = (data) => ajax('/month/park-list', data, 'post', 1)
+export const monthPack = (data) => ajax('/month/park-list', {data})
 //领取月度礼包
-export const receivePack = (data) => ajax('/month/receive-park', data, 'post', 1)
+export const receivePack = (data) => ajax('/month/receive-park',{data})
 //会员等阶礼包
-export const interestsPark = (data) => ajax('/interests/park-list', data, 'post', 1)
+export const interestsPark = (data) => ajax('/interests/park-list', {data})
 //领取会员等阶礼包
-export const receiveKnight = (data) => ajax('', data, 'post', 1)
+export const receiveKnight = (data) => ajax('/interests/receive-park', {data})
 //會員購買記錄
-export const rechargeRecord = (data)=>ajax('/record/service-notes',data,'post',1)
+export const rechargeRecord = (data)=>ajax('/record/service-notes',{data})
 
 //消息中心
-export const msgCenter = (data) => ajax('/msg-center/list', data, 'post', 1)
+export const msgCenter = (data) => ajax('/msg-center/list', {data})
 //获取会员充值等阶信息（金额 & 有效时间）
-export const memberRechargeInfo = (data) => ajax('/config/recharge-level', data, 'post', 1)
+export const memberRechargeInfo = (data) => ajax('/config/recharge-level',{data})
 
 //訂單結算附加服務
-export const paymentAttach = (data) => ajax('/config/attach', data, 'post')
+export const paymentAttach = (data) => ajax('/config/attach',{data,isToken:false})
 //創建訂單
-export const createOrder = (data) => ajax('/order/create-order', data, 'post', 1)
+export const createOrder = (data) => ajax('/order/create-order',{data})
 //發起支付
-export const paymentStart = (data) => ajax('/pay/pay', data, 'post', 1)
+export const paymentStart = (data) => ajax('/pay/pay', {data})
 //訂單可用優惠券
-export const usedCoupon = (data) => ajax('/ticket/suit-tickets', data, 'post', 1)
+export const usedCoupon = (data) => ajax('/ticket/suit-tickets', {data})
 
 //初始化聊天室
-export const initChat = (data) => ajax('/dialog/init-dialog', data, 'post', 1)
+export const initChat = (data) => ajax('/dialog/init-dialog', {data})
 //發送消息
-export const sendMsg = (data) => ajax('/dialog/send-msg', data, 'post', 1)
+export const sendMsg = (data) => ajax('/dialog/send-msg', {data})
 //接受消息
-export const receiveMsg = (data) => ajax('/dialog/latest-dialog', data, 'post', 1)
+export const receiveMsg = (data) => ajax('/dialog/latest-dialog',{data})
 
 //奶茶有礼列表
-export const milkList = (data) => ajax('/foreseeList-card/list', data, 'post', 1)
+export const milkList = (data) => ajax('/foreseeList-card/list', {data})
 //我的卡片
-export const myForesee = (data) => ajax('/foreseeList-card/my-card', data, 'post', 1)
+export const myForesee = (data) => ajax('/foreseeList-card/my-card',{data})
 //购买卡片
-export const buyForesee = (data) => ajax('/foreseeList-card/pay-card', data, 'post', 1)
+export const buyForesee = (data) => ajax('/foreseeList-card/pay-card',{data})
 //收送记录
-export const mutualRecord = (data) => ajax('/foreseeList-card/my-gift', data, 'post', 1)
+export const mutualRecord = (data) => ajax('/foreseeList-card/my-gift', {data})
 //贈送預付卡
-export const giveForesee = (data)=>ajax('/foresee-card/handsel-gift',data,'post',1)
+export const giveForesee = (data)=>ajax('/foresee-card/handsel-gift',{data})

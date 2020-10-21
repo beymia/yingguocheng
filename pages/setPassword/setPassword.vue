@@ -6,25 +6,26 @@
         <text v-else>請确认交易密碼</text>
         <text class="title_tip">為了您的資金安全，請先設置交易密碼</text>
       </view>
-<!--        <label v-for="(code,index) in 6" :key="index">-->
-<!--          <input class="pwd_content"-->
-<!--                 disabled-->
-<!--                 maxlength="1"-->
-<!--                 v-model="currentPwd[index]"-->
-<!--                 type="password">-->
-<!--        </label>-->
-<!--        <input focus-->
-<!--               @input="inputPwd"-->
-<!--               v-model="currentPwd"-->
-<!--               maxlength="6"-->
-<!--               class="empty_input"-->
-<!--               type="text">-->
-        <oneInput :isBox="true"
-                  :is-pwd="true"
-                  v-model="currentPwd"
-                  type="box"
-                  :maxlength="6">
-        </oneInput>
+      <!--        <label v-for="(code,index) in 6" :key="index">-->
+      <!--          <input class="pwd_content"-->
+      <!--                 disabled-->
+      <!--                 maxlength="1"-->
+      <!--                 v-model="currentPwd[index]"-->
+      <!--                 type="password">-->
+      <!--        </label>-->
+      <!--        <input focus-->
+      <!--               @input="inputPwd"-->
+      <!--               v-model="currentPwd"-->
+      <!--               maxlength="6"-->
+      <!--               class="empty_input"-->
+      <!--               type="text">-->
+      <oneInput :isBox="true"
+                :is-pwd="true"
+                :autoFocus="true"
+                v-model="currentPwd"
+                type="box"
+                :maxlength="6">
+      </oneInput>
     </view>
   </view>
 </template>
@@ -32,52 +33,49 @@
 <script>
 import {setPwd} from "../../request/api";
 import oneInput from '../../components/myp-one/myp-one'
+
 export default {
   data() {
     return {
-      pwd:'',
-      currentPwd:''
+      pwd: '',
+      currentPwd: ''
     }
   },
-  watch:{
-   async currentPwd(value){
-      if(!value) return ;
-     console.log(this.pwd);
-     console.log(this.currentPwd);
-     if(value.length === 6 && this.pwd.length === 6){
-       if(value === this.pwd){
-         try{
-           uni.showLoading({
-             title:'请稍后'
-           });
-           //TODO 生产环境需删除设置的token
-           let result = await setPwd({
-             password:this.pwd,
-             veify_pwd:value
-           })
-           uni.hideLoading()
-           uni.redirectTo({
-             url:'/pages/wallet/wallet'
-           })
-         }catch (e){
-           this.customToast('密碼過於簡單')
-           this.currentPwd='';
-           this.pwd = '';
-         }
-       }else{
-         this.customToast('密碼不一致')
-         this.currentPwd = ''
-         this.pwd = '';
-       }
+  watch: {
+    async currentPwd(value) {
+      if (!value) return;
+      if (value.length === 6 && this.pwd.length === 6) {
+        if (value === this.pwd) {
+          uni.showLoading({
+            title: '请稍后'
+          });
+          try {
+            await setPwd({password: this.pwd, veify_pwd: value})
+
+            uni.hideLoading()
+            //登录成功重定向至钱包页面
+            uni.redirectTo({
+              url: '/pages/wallet/wallet'
+            })
+          } catch (e) {
+            this.currentPwd = '';
+            this.pwd = '';
+            this.customToast('密碼設置失敗')
+          }
+        } else {
+          this.customToast('密碼不一致')
+          this.currentPwd = ''
+          this.pwd = '';
+        }
         return
       }
-      if(value.length === 6){
+      if (value.length === 6) {
         this.pwd = value;
         this.currentPwd = '';
       }
     }
   },
-  components:{
+  components: {
     oneInput
   }
 }

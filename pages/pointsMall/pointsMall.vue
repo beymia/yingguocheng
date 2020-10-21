@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import {convert} from "../../request/api";
+import {convert,userSpace} from "../../request/api";
 
 export default {
   data() {
@@ -61,8 +61,11 @@ export default {
       active: 'knight'
     }
   },
-  onLoad(options) {
+ async onLoad(options) {
     this.integral = options.integral;
+    if(!this.integral){
+      this.integral = (await userSpace()).data.integral;
+    }
   },
   async mounted() {
     this.token = getApp().globalData.userToken

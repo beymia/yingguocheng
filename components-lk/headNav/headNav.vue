@@ -35,6 +35,10 @@
 		left: 0;
 		top: 0;
 		z-index: 2;
+
+    /* #ifdef APP-PLUS*/
+    height: 168rpx;
+    /* #endif*/
 	}
 
 	.head_nav_bar {
@@ -52,9 +56,9 @@
 		bottom: 14rpx;
 		/* #endif */
 
-		/* #ifdef H5 | APP-PLUS */
+		/* #ifdef APP-PLUS */
 		left: 24rpx;
-		top: 22rpx;
+		top: 62rpx;
 		/* #endif */
 
 		.head_nav_text {

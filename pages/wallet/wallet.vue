@@ -38,7 +38,8 @@ export default {
   data() {
     return {
       amount: '0.00',
-      options: [{
+      options: [
+          {
         title: '掃碼支付',
         summary: '可使用錢包直接支付',
         icon: 'arrowright'
@@ -54,6 +55,7 @@ export default {
       rechargeBox: false,
       rechargeAmount: '',
       reRender: 1,//用戶充值後強制刷新頁面的條件
+      paymentStatus:false,
     }
   },
   onShow() {
@@ -112,7 +114,7 @@ export default {
               })
             }
           } catch (e) {
-            console.log(e);
+            console.log(e.data.msg);
             self.customToast('驗證碼發送失敗')
           }
         }
@@ -121,6 +123,8 @@ export default {
 
     //支付功能
     async rechargeStart() {
+      if(this.paymentStatus) return;
+      this.paymentStatus = true;
       let self = this;
       if (Number(this.rechargeAmount)) {
         this.rechargeBox = false;
@@ -136,32 +140,28 @@ export default {
 
         } catch (e) {
           console.log(e);
-          this.customToast('充值错误')
+          self.paymentStatus = false;
+          self.rechargeAmount = '';
+          self.customToast('充值失敗')
         }
       }
     },
     //支付成功
    async paymentSuccess(e){
+     console.log(e);
+     this.paymentStatus = false;
+     this.customToast('充值成功');
+     this.rechargeAmount = '';
+     //重新获取用户数据
      try{
-       console.log(e);
-       this.customToast('充值成功');
-       this.rechargeAmount = '';
        APP.userInfo = (await userSpace()).data
        this.amount = APP.userInfo.balance;
-       console.log(APP.userInfo);
-       console.log(this.amount);
      }catch (e) {
        console.log(e);
      }
    },
-    //支付失败
-    paymentError(e){
-      console.log(e);
-      this.customToast('充值失败');
-      this.rechargeAmount = '';
-    }
   },
-  //監視充值價格，為整數
+  //TODO 監視充值價格，為整數,生产环境需打开
   // watch: {
   //   rechargeAmount(n, o) {
   //     let newStr = n.slice(o.length),

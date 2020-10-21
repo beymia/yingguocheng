@@ -85,10 +85,9 @@ export default {
           this.orderId = [];
         }
       })
-      console.log(this.orderId)
     },
 
-    // 跳转至发票详情页，并传递发票总金额
+    // 跳转至发票详情页，并传递发票总金额和id
     navInvoiceInfo() {
       if(this.amount){
         uni.navigateTo({

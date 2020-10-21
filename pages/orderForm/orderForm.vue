@@ -58,7 +58,8 @@
         </view>
       </view>
       <view>
-        <orderDetail :orderFormData="sliceOrder"></orderDetail>
+        <noMoreData v-if="!sliceOrder.length"></noMoreData>
+        <orderDetail v-else :orderFormData="sliceOrder"></orderDetail>
       </view>
     </view>
 
@@ -90,7 +91,8 @@ export default {
       takeawayOrder: [],//外卖订单
       invoiceData: [],//未开发票订单
       loginBoxShow: false,
-      paymentTimer:null,
+      paymentTimer: null,
+      paymentStatus: false,//订单结算状态
     }
   },
   computed: {
@@ -129,7 +131,6 @@ export default {
 
   //页面每次展示重新获取token，请求重新请求订单数据
   async onShow() {
-    console.log(APP.userToken);
     if (APP.userToken) {
       this.loginBoxShow = APP.isLoginBox = false;
       this.token = APP.userToken
@@ -142,19 +143,15 @@ export default {
       this.loginBoxShow = APP.isLoginBox = true;
     }
   },
-onHide(){
-  console.log(2);
-  clearTimeout(this.paymentTimer)
-},
-  onUnload(){
-    //TODO 清空支付定时器
+
+  onHide() {
     clearTimeout(this.paymentTimer)
-    console.log(1);
+    this.paymentStatus = false;
   },
 
   methods: {
-    //隐藏登陆引导框
-    hideLoginBox(){
+    //点击隐藏登陆引导框
+    hideLoginBox() {
       this.loginBoxShow = APP.isLoginBox = false;
     },
     //请求数据
@@ -162,6 +159,7 @@ onHide(){
       return (await orderForm({type, page})).data;
     },
 
+    //同时请求两种订单格式，没有值时设置空数组
     async getData() {
       uni.showLoading({
         title: '請稍後'
@@ -171,12 +169,12 @@ onHide(){
         this.historyOrderForm.data = (await this.requestOrder(2, this.historyOrderForm.page) || [])
         uni.hideLoading()
       } catch (e) {
-        this.customToast('訂單獲取失敗')
+        this.customToast('訂單信息獲取失敗')
       }
     },
 
     //切換展示頁
-    async toggleFeat(feat) {
+    toggleFeat(feat) {
       this.activeFeat = feat;
       if (feat === 'history') {
         this.headNavText = '英國城探秘'
@@ -195,39 +193,32 @@ onHide(){
 
     // 没有支付的订单，点击直接支付
     async orderPayment(g) {
+      if (this.paymentStatus) return;
+      this.paymentStatus = true;
       uni.showLoading({
         title: '结算中...'
       })
-      let self = this,
-          order = g.order,
-          orderInfo;
-      //获取预支付信息
-      // try {
-      //    orderInfo = (await paymentStart({
-      //     order_num: order.order_num,
-      //     shop_id: order.shop_id,
-      //   })).data
-      // } catch (e) {
-      //   console.log(e);
-      //   self.customToast('订单信息获取失败')
-      //   return;
-      // }
-        // TODO 延迟请求微信支付，
-        self.paymentTimer && clearTimeout(self.paymentTimer)
-        self.paymentTimer = setTimeout(async () => {
-         try{
-           orderInfo = (await paymentStart({
-             order_num: order.order_num,
-             shop_id: order.shop_id,
-           })).data
-           await self.utilPayment(orderInfo)
-           await self.getData()
-           self.customToast('结算成功')
-         }catch (e) {
-           uni.hideLoading()
-           console.log(e);
-         }
-        }, 3000)
+      let self = this,//缓存this
+          order = g.order,//当前点击的订单
+          orderInfo;//订单的预支付信息
+      // TODO 延迟请求微信支付，
+      self.paymentTimer && clearTimeout(self.paymentTimer)
+      self.paymentTimer = setTimeout(async () => {
+        try {
+          //获取订单预支付信息
+          orderInfo = (await paymentStart({order_num: order.order_num, shop_id: order.shop_id,})).data
+          //调起支付接口
+          await self.utilPayment(orderInfo)
+          //支付成功重新获取数据
+          await self.getData()
+          self.paymentStatus = false;
+          self.customToast('结算成功')
+        } catch (e) {
+          self.paymentStatus = false;
+          uni.hideLoading()
+          console.log(e);
+        }
+      }, 3000)
     },
   },
 
@@ -258,7 +249,7 @@ uni-page-body{
     align-items: center;
     z-index: 1;
     position: sticky;
-    top: 128rpx;
+    top: 168rpx;
   ;
 
     .current,
@@ -320,7 +311,7 @@ uni-page-body{
 
   .order_detail,
   .order_history {
-    padding: 128rpx $spacing-base $spacing-lg $spacing-base;
+    padding: 168rpx $spacing-base $spacing-lg $spacing-base;
   }
 
   .order_history {
