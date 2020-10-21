@@ -1,4 +1,4 @@
-const ajax = require('./ajax')
+const ajax = require('./ajax_y')
 
 //門店列表
 export const shops_list = (data) => ajax('/shop/shop-list', data, 'post', 0)

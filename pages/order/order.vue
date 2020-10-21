@@ -10,9 +10,12 @@
 					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;" @tap="showSearch=true"></icon>
 				</view>
 			</template>
+			<!-- #ifndef MP-WEIXIN -->
 			<template slot="right">
 					<uni-icons type="scan" size='36' @tap='scan'></uni-icons>
 			</template>
+			<!-- #endif -->
+			
 		</uni-nav-bar>
 		<!-- 自定义导航栏end -->
 		
@@ -391,8 +394,18 @@
 				alert('scan')
 				uni.scanCode({
 					scanType:'qrCode',
-					success() {
-						alert('scan sucess')
+					success(res) {
+						let aa = res.result.split(':')
+						if(aa.length=2&& aa[0].trim().toLowerCase() =='invitecode' ){
+							uni.navigateTo({
+								url:'/pages/pintuan/pintuan?invite=true&code='+aa[1]
+							})
+						}else{
+							uni.showModal({
+								showCancel:false,
+								content:'請掃描正確的邀請碼'
+							})
+						}
 					}
 				})
 			},
@@ -483,14 +496,23 @@
 				if(token){
 					var code = uni.getStorageSync('pintuanCode');
 					if(code){
-						var a = await pintuan_detail({code:code})
-						if(a.code == 1000){
-							uni.navigateTo({
-								url:'/pages/pintuan/pintuan?pintuanCode='+code
-							})
-						}else{
-							this.showPintuan =true
+						try{
+							console.log('cccccccccccccc')
+							var a = await pintuan_detail({code:code})
+							console.log('aaaaaaaaaaaaaaaaa')
+							if(a.code == 1001){
+								console.log('bbbbbbbbbbbbbbbb')
+								this.showPintuan =true
+							}else{
+								uni.navigateTo({
+									url:'/pages/pintuan/pintuan?pintuanCode='+code
+								})
+							}
+						}catch(e){
+							//TODO handle the exception
+							console.log(e)
 						}
+						
 					}else{
 						this.showPintuan =true
 					}
@@ -692,11 +714,11 @@
 				order_info.shop_id = this.choosedShop.id
 				order_info.shop_name = this.choosedShop.shop_name
 				order_info.distance = this.choosedShop.distance
-				// order_info.delivery_cost = this.choosedShop.detail.delivery_cost
-				 order_info.delivery_cost = 0.01
+				order_info.delivery_cost = this.choosedShop.detail.delivery_cost
+				 // order_info.delivery_cost = 0.01
 				order_info.lowest_cost = this.choosedShop.detail.lowest_cost
-				// order_info.payment_info = price
-				order_info.payment_info = 0.01
+				order_info.payment_info = price
+				// order_info.payment_info = 0.01
 				order_info.address_id = this.choosedAddress.id
 				order_info.contact_name = this.choosedAddress.contact_name
 				order_info.contact_sex = this.choosedAddress.contact_sex

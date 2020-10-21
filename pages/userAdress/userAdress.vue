@@ -141,8 +141,14 @@
 								mask:true
 							})
 							let new_address={contact_name:userName,contact_sex:1,contact_address:cityName+countyName,contact_number:detailInfo,contact_phone:telNumber,default_status:2}
-							await address_add(new_address)
+							console.log('new_address')
+							console.log(new_address)
+							let add =await address_add(new_address)
+							console.log('add')
+							console.log(add)
 							let uddresses = (await userAddresses()).data;
+							console.log('uddresses')
+							console.log(uddresses)
 							this.SET_USER_ADDRESSES(uddresses);
 						}
 						uni.hideLoading()

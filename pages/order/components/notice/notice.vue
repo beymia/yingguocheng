@@ -15,7 +15,7 @@
 					</view>
 				<!-- 新聞列表結束 -->
 				<!-- 配送開始 -->
-					<view class="other">
+					<view class="other" v-if="shop_detial">
 						<view class="title">
 							配送
 						</view>
@@ -80,6 +80,9 @@
 			height: 100%;
 			.mr60_con{
 				margin-right: 60rpx;
+				display: flex;
+				flex-direction: column;
+				height: 100%;
 			}
 		}
 		.news_list{
@@ -102,9 +105,10 @@
 		}
 		.other{
 			margin-bottom: 50rpx;
-			&:last-child{
-				margin-bottom: 0;
-			}
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
 			.title{
 				font-size: 32rpx;
 				height: 45rpx;

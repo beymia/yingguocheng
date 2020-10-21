@@ -22,7 +22,7 @@
 						<view class="loca_icon">
 							<image src="../../static/images/order/location.png" mode=""></image>
 						</view>
-						<view class="shop_adress">{{choosedShop.shop_address.length<=9 ? choosedShop.shop_address:choosedShop.shop_address.substr(0,8)+"..." }}</view>
+						<view class="shop_adress">{{shop_address}}</view>
 						<!-- <uni-icons type="arrowright" size="35" color="#333333"></uni-icons> -->
 					</view>
 					<view class="bottom">
@@ -30,7 +30,7 @@
 							<image src="../../static/images/order/shop_tap.jpg" mode=""></image>
 						</view>
 						<view class="shop_name" >
-							{{choosedShop.shop_name}}
+							{{pintuanShop.shop_name}}
 						</view>
 						<!-- <view class="tip_text">
 							{{choosedShop.tip}}
@@ -82,7 +82,7 @@
 		</view>
 		<!-- 头部end-->
 		<!-- 新聞詳情頁開始 -->
-		<notice v-if="is_notice" :choosed_shop="choosedShop"></notice>
+		<notice v-if="is_notice" :choosed_shop="pintuanShop"></notice>
 		<!-- 新聞詳情頁結束 -->
 		<!-- 点单主体部分start -->
 		<view class="main" v-if="!is_notice">
@@ -153,7 +153,7 @@
 		/>
 		<!-- 商品詳情頁結束 -->
 		<!-- 购物车栏 begin -->
-		<cart-bar v-if="!is_notice && !is_rest" :cart="cart" :choosedShop="choosedShop"
+		<cart-bar v-if="!is_notice && !is_rest" :cart="cart" :choosedShop="pintuanShop"
 				  @add="handleAddToCart" 
 				  @minus="handleMinusFromCart"
 				  @clear="clearCart"
@@ -223,7 +223,7 @@
 			}
 		},
 		watch:{
-			choosedShop:{
+			/* choosedShop:{
 				async handler(newval){
 					if(this.shop_change_time == 0){
 						this.shop_change_time =1
@@ -239,7 +239,7 @@
 					console.log('bbbbbbbbbbbbbbbbbbbbbbbb')
 				},
 				deep:true
-			}
+			} */
 		},
 		async onLoad() {
 			
@@ -255,19 +255,24 @@
 				console.log(this.cart)
 				console.log(this.menu_list)
 				this.cart.forEach((item,index)=>{
+					let t1=0
 					 this.menu_list.forEach(iteml=>{
 						if(iteml.goods_list){
 							let i=iteml.goods_list.findIndex(itemg=>{
 									return itemg.id == item.id
 							})
 							if(i!=-1){
-								t = 1
-								console.log('this.cart[index]')
-								console.log(this.cart[index])
-								this.cart.splice(index,1)
+								t1=1
 							}
+							
 						}
 					})
+					if(t1!=1){
+						t = 1
+						console.log('this.cart[index]')
+						console.log(this.cart[index])
+						this.cart.splice(index,1)
+					}
 					
 				})
 			}
@@ -309,26 +314,22 @@
 					}
 				}
 			},
-			shop_adress(){
-				if(this.choosedShop.shop_address){
-					console.log(111111111111)
-					console.log(this.choosedShop)
-					console.log(this.choosedShop.detail)
-					console.log(this.choosedShop)
-					if(this.choosedShop.shop_address.length<=9){
-						return this.choosedShop.shop_address
+			shop_address(){
+				if(this.pintuanShop.shop_address){
+					
+					if(this.pintuanShop.shop_address.length<=9){
+						return this.pintuanShop.shop_address
 					}else{
-						return this.choosedShop.shop_address.substr(0,8)+"..."
+						return this.pintuanShop.shop_address.substr(0,8)+"..."
 					}
 				}
 			},
 			notice_list1(){
-				if(this.choosedShop){
-					console.log("999999999999999999999999")
-					console.log(this.choosedShop)
-					if(this.choosedShop.detail){
+				if(this.pintuanShop){
+					
+					if(this.pintuanShop.detail){
 						console.log('cccccccccccccccccccccccccccc')
-						let r = this.choosedShop.detail.scroll_ad
+						let r = this.pintuanShop.detail.scroll_ad
 						console.log(r)
 						return r
 					}
@@ -345,7 +346,7 @@
 					}, 0)
 			},
 			opening_hours(){
-				return this.choosedShop.work_time + ' - ' +this.choosedShop.rest_time
+				return this.pintuanShop.work_time + ' - ' +this.pintuanShop.rest_time
 			}
 		},
 		methods:{

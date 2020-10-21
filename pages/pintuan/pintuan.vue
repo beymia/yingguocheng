@@ -19,7 +19,7 @@
 					快來叫上好友壹起喝奶茶吧~
 				</view>
 				<view class="pindan_invite">
-					<button class="pindan_cancel">
+					<button class="pindan_cancel" @tap="pindan_cancel">
 						取消拼单
 					</button>
 					<!-- #ifdef MP-WEIXIN -->
@@ -58,20 +58,23 @@
 							<!-- <view class="ljdd" v-if="!item.goods_data">
 								立即點單
 							</view> -->
-							<navigator class="ljdd" v-if="!item.goods_data" url="/pages/order/order_pintuan">
-								立即點單
-							</navigator>	
-							<view v-else class="clear_edit">
-								<view class="clear" @tap='clear'>
-									清空
+							<template v-if="item.is_me">
+								<view v-if="item.goods_data&&item.goods_data.length" class="clear_edit">
+									<view class="clear" @tap='clear'>
+										清空
+									</view>
+									<!-- <view class="edit" >
+										修改商品
+									</view> -->
+									<navigator url="/pages/order/order_pintuan" class="edit">
+										修改商品
+									</navigator>
 								</view>
-								<!-- <view class="edit" >
-									修改商品
-								</view> -->
-								<navigator url="/pages/order/order_pintuan" class="edit">
-									修改商品
+								<navigator v-else class="ljdd"  url="/pages/order/order_pintuan">
+									立即點單
 								</navigator>
-							</view>
+							</template>	
+							
 						</view>
 						<view class="user_order" v-if="item.goods_data">
 							<view class="bordrline"></view>
@@ -142,7 +145,9 @@
 				pintuan_info:[],
 				showLocaAutho:false,
 				qrUrl:'',
-				showQr:false
+				showQr:false,
+				sett:true,
+				onShowSett:false
 			}
 		},
 		async onLoad(options) {
@@ -152,6 +157,7 @@
 				const token = uni.getStorageSync('token');
 				if(!token){
 					uni.setStorageSync('pintuanCode',code)
+					getApp().globalData.isInvite = true
 					uni.showModal({
 					    content: '您還沒有登錄，請先登錄',
 					    success: function (res) {
@@ -180,13 +186,31 @@
 					}catch(e){
 						//TODO handle the exception
 					}
-					
+					this.SET_PINTUAN_CODE(options.code)
 					await this.pintuan_init(options.code);
 					// this.itvId=setInterval(()=>{this.pintuan_init(options.code)},1500)
 					
 				}
 				//正常进入且已经有拼团
-				await this.pintuan_init(options.code);
+				if(getApp().globalData.isInvite){//从邀请中返回登录后进入
+					try{
+						let res = await pintuan_invite({code:options.code})
+						console.log(res)
+						if(res.code == 1001){
+							uni.showModal({
+								content:'已存在进行中的拼单',
+								showCancel:false,
+							})
+						}
+					}catch(e){
+						//TODO handle the exception
+					}
+					this.SET_PINTUAN_CODE(options.code)
+					await this.pintuan_init(options.code);
+				}else{
+					this.SET_PINTUAN_CODE(options.code)
+					await this.pintuan_init(options.code);
+				}
 				// this.itvId=setInterval(()=>{this.pintuan_init(options.code)},1500)
 				
 				
@@ -211,7 +235,7 @@
 				return
 			}
 			console.log(this.choosedShop)
-				var code = await pintuan_creat({shop_id:this.choosedShop.id,vehicle_method:this.pintuanType})
+				var code = (await pintuan_creat({shop_id:this.choosedShop.id,vehicle_method:this.pintuanType})).data.code
 				uni.setStorageSync('pintuanCode',code)
 				this.SET_PINTUAN_CODE(code)
 				console.log(88888888888)
@@ -224,9 +248,19 @@
 			uni.showLoading({
 			});
 			setTimeout(function(){uni.hideLoading()},1000)
+			if(this.onShowSett){
+				this.sett=true
+				this.pintuan_init(this.pintuanCode)
+			}else{
+				this.onShowSett=true
+			}
+		},
+		onHide() {
+			this.sett=false
 		},
 		onUnload() {
 			// clearInterval(this.itvId)
+			this.sett=false
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') {// 来自页面内分享按钮
@@ -249,12 +283,12 @@
 			} */
 			isCaptain(){
 				if(this.pintuan_info.length){
-					return this.pintuan_info[0].captain == 1 ? true:false
+					return this.pintuan_info[0].captain && this.pintuan_info[0].captain == 1 ? true:false
 				}
 			},
 			total_money(){
 				if(this.pintuan_info.length){
-					return parseInt(this.pintuan_info[0].total_money*100)/100
+					return parseInt(this.pintuan_info.find(item=>item.captain==1).total_money*100)/100
 					}
 			},
 			money(){
@@ -281,12 +315,38 @@
 				this.qrUrl = qrUrl
 				console.log(this.qrUrl)
 			},
+			async pindan_cancel(){
+				uni.showModal({
+					content:"確定要取消當前拼單嗎",
+					async success(res) {
+						if(res.confirm){
+							uni.showLoading({
+								
+							})
+							try{
+								await pintuan_cancel({code:this.pintuanCode})
+							}catch(e){
+								//TODO handle the exception
+							}
+							uni.switchTab({
+								url:'/pages/order/order'
+							})
+							uni.hideLoading()
+						
+						}
+					}
+				})
+			},
 			async clear(){
 				uni.showModal({
 					content:"確定要清空當前選定的商品嗎？",
 					async success(res) {
 						if(res.confirm){
-							let rr= await pintuan_order({code:this.pintuanCode,goods_data:'[]'})
+							try{
+								let rr= await pintuan_order({code:this.pintuanCode,goods_data:'[]'})
+							}catch(e){
+								//TODO handle the exception
+							}
 							if(rr.code==1001){
 								uni.showToast({
 									title: '清空失敗，請稍候重試！',
@@ -302,6 +362,11 @@
 				})
 			},
 			async pintuan_init(code){
+				console.log('codecodecode')
+				console.log(code)
+				if (!this.sett){
+					return
+				}
 				if(this.shopList.length == 0){
 					let conti = true
 					// #ifdef MP-WEIXIN
@@ -326,6 +391,7 @@
 					this.loca_res = loca_res
 					await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
 				}
+				
 				let pintuan_info = (await pintuan_detail({code:code})).data
 				console.log(pintuan_info)
 				this.resort_pintuan_info(pintuan_info)
@@ -346,19 +412,15 @@
 				console.log(pintuanCart1)
 				 pintuanCart.forEach((item,index)=>{
 						item.forEach(itemc=>{
-							console.log(9999999)
-							console.log('pintuanCart1[index]')
-							console.log(itemc)
 							itemc.is_checked = true
-							console.log(99999991)
 							itemc.id = itemc.goods_id
-							console.log(99999992)
 							itemc.name = itemc.goods_name
 							itemc.price = parseInt(itemc.goods_price * 100)/100
 							itemc.truePrice = parseInt(itemc.goods_price * 100)/100
-							itemc.imgurl = itemc.home_avatar
+							itemc.imgurl = this.imgSrc + itemc.home_avatar
 							itemc.number = itemc.goods_num
 							itemc.materials_text = itemc.goods_norm
+							itemc.norm_id = itemc.norm_id && itemc.norm_id.length ? itemc.norm_id.split(','):[]
 						})
 						
 					
@@ -367,7 +429,8 @@
 				console.log(88888888)
 				console.log(pintuanCart)
 				this.SET_PINTUAN_CART(pintuanCart)
-				setTimeout(()=>{this.pintuan_init()},1000)
+				getApp().globalData.isInvite=false
+				setTimeout(()=>{this.pintuan_init(code)},1000)
 			},
 			async long_lati(){
 				var latitude = 0;
@@ -455,7 +518,7 @@
 				}
 
 			},
-			pay(price){
+			async pay(price){
 				const token = uni.getStorageSync('token');
 				console.log(token)
 				if(!token){
@@ -475,31 +538,39 @@
 				this.judge_is_rest()//
 				if(!this.is_rest){
 					uni.showLoading({})
+					try{
+						await pintuan_lock({code:this.pintuancode})
+					}catch(e){
+						//TODO handle the exception
+					}
 					var app = getApp();
 					var order_info={};
 					var goods =[];
 					var goods_data = [];
-					this.cart.filter(item => item.is_checked==true).forEach(item =>{
-						let good ={};
-						good.id = item.id;
-						good.goods_name = item.name;
-						good.goods_price = item.truePrice;
-						good.home_avatar = item.imgurl;
-						good.norm = item.materials_text;
-						good.norm_id = item.norm_id ? item.norm_id : [];
-						good.goods_num =item.number;
-						goods_data.push(good);
+					this.pintuanCart.forEach(itemp =>{
+						itemp.forEach(item=>{
+							let good ={};
+							good.id = item.id;
+							good.goods_name = item.name;
+							good.goods_price = item.truePrice;
+							good.home_avatar = this.imgSrc + item.imgurl;
+							good.norm = item.materials_text;
+							good.norm_id = item.norm_id ? item.norm_id : [];
+							good.goods_num =item.number;
+							goods_data.push(good);
+						})
+						
 						
 					})
 					order_info.goods_data = goods_data;
 					order_info.shop_id = this.pintuanShop.id
 					order_info.shop_name = this.pintuanShop.shop_name
 					order_info.distance = this.pintuanShop.distance
-					// order_info.delivery_cost = this.choosedShop.detail.delivery_cost
-					 order_info.delivery_cost = 0.01
+					order_info.delivery_cost = this.choosedShop.detail.delivery_cost
+					 // order_info.delivery_cost = 0.01
 					order_info.lowest_cost = this.pintuanShop.detail.lowest_cost
-					// order_info.payment_info = price
-					order_info.payment_info = 0.01
+					order_info.payment_info = price
+					// order_info.payment_info = 0.01
 					order_info.address_id = this.choosedAddress.id
 					order_info.contact_name = this.choosedAddress.contact_name
 					order_info.contact_sex = this.choosedAddress.contact_sex
@@ -510,6 +581,7 @@
 					order_info.current_cups = this.pintuanShop.detail.current_cups
 					order_info.current_order = this.pintuanShop.detail.current_order
 					app.globalData.goodsPayment = order_info;
+					console.log(11111111111111)
 					console.log(order_info)
 					uni.hideLoading()
 					uni.navigateTo({
