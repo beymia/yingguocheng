@@ -182,7 +182,7 @@
 					return
 				}
 					try{
-						let ivited = await pintuan_detail({code:options.code})
+						let invited = await pintuan_detail({code:options.code})
 						if(invited.code == 1001){
 							let res = await pintuan_invite({code:options.code})
 							console.log(res)
