@@ -51,7 +51,7 @@
 					<swiper-item v-if="!is_notice" v-for="(notice,notice_index) in notice_list1" :key="notice_index">
 						<view class="swiper-item notice_title">
 							<view class="notice_icon">
-								<image src="../../static/images/order/blueBall.png" mode=""></image>
+								<image src="/static/images/order/blueBall.png" mode=""></image>
 							</view>
 							<text class="notice_text">{{notice}}</text>
 						</view>
@@ -637,7 +637,10 @@
 			
 		},
 		async pay(price){
+			console.log(111111)
+			console.log(price)
 			const token = uni.getStorageSync('token');
+			console.log(2222222222)
 			console.log(token)
 			if(!token){
 				uni.showModal({
@@ -653,6 +656,7 @@
 				});
 				return
 			}
+			console.log(33333333)
 			uni.showLoading({})
 			await this.judge_is_rest()//
 			if(!this.is_rest){
@@ -671,6 +675,7 @@
 					
 				})
 				try{
+					console.log(44444444)
 					console.log(goods_data)
 					await pintuan_order({code:this.pintuanCode,goods_data: JSON.stringify(goods_data)})
 				}catch(e){

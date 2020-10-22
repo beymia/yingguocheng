@@ -27,8 +27,8 @@
 					
 				</view>
 			</view>
-			<button v-if="restMoney && orderType == 1" type="primary" class="right" >我選好了</button>
-			<button v-else type="primary" class="right" @tap="pay">我選好了</button>
+			<!-- <button v-if="restMoney && orderType == 1" type="primary" class="right" >我選好了</button> -->
+			<button type="primary" class="right" @tap="pay">我選好了</button>
 		</uni-transition>
 		<cart-popup :cart="cart" ref="cartPopup" @add="add" @minus="minus" @clear="clear" @change="popChange" @checkboxChange="checkboxChange"></cart-popup>
 	</view>
