@@ -170,11 +170,11 @@
 					    success: function (res) {
 					        if (res.confirm) {
 								uni.navigateTo({
-									url:'/pages/login/login'
+									url:'/pages/login/login?from=pintuan'
 								})
 					        } else if (res.cancel) {
 								uni.switchTab({
-									url:'/pages/order/order?from=pintuan'
+									url:'/pages/order/order'
 								})
 					        }
 					    }
@@ -234,7 +234,7 @@
 									showCancel:false,
 									success() {
 										uni.switchTab({
-											url:'/pages/order/order'
+											url:'/pages/order/order?from=pintuan'
 										})
 									}
 								})
@@ -260,11 +260,11 @@
 				    success: function (res) {
 				        if (res.confirm) {
 							uni.navigateTo({
-								url:'/pages/login/login'
+								url:'/pages/login/login?from=pintuan'
 							})
 				        } else if (res.cancel) {
 							uni.switchTab({
-								url:'/pages/order/order?from=pintuan'
+								url:'/pages/order/order'
 							})
 				        }
 				    }
@@ -611,7 +611,7 @@
 					    success: function (res) {
 					        if (res.confirm) {
 								uni.navigateTo({
-									url:'/pages/login/login'
+									url:'/pages/login/login?from=pintuan'
 								})
 					        } else if (res.cancel) {
 					        }
