@@ -154,7 +154,8 @@
 				qrUrl:'',
 				showQr:false,
 				sett:true,
-				onShowSett:false
+				onShowSett:false,
+				
 			}
 		},
 		async onLoad(options) {
@@ -181,6 +182,7 @@
 					});
 					return
 				}
+					getApp().globalData.isInvite = false
 					try{
 						let invited = await pintuan_detail({code:options.code})
 						if(invited.code == 1001){
@@ -359,11 +361,29 @@
 				
 			},
 			async invite(){
+				/* //分享爲二維碼
 				this.$refs.qrcode.open()
 				let qrUrl =	(await pintuan_invite_code({code:this.pintuanCode})).data
 				console.log(qrUrl)
 				this.qrUrl = qrUrl
-				console.log(this.qrUrl)
+				console.log(this.qrUrl) */
+				//分享爲微信小程序
+				uni.share({
+				    provider: 'weixin',
+				    scene: "WXSceneSession",
+				    type: 5,
+				    imageUrl: '/pages/pintuan/pintuan?invite=true&code='+this.pintuanCode,
+				    title: '【拼單】' + this.pintuan_info[0].user_name +'邀請你一起喝奶茶啦',
+				    miniProgram: {
+				        id: 'wxd0f1e822e08155b2',
+				        path: '/pages/pintuan/pintuan?invite=true&code='+this.pintuanCode,
+				        type: 0
+				        //webUrl: 'http://uniapp.dcloud.io'
+				    },
+				    success: ret => {
+				        console.log(JSON.stringify(ret));
+				    }
+				});
 			},
 			async pindan_cancel(){
 				/* uni.showModal({
@@ -655,6 +675,18 @@
 						})
 						uni.hideLoading()
 						return
+					}
+					if(this.pintuanType == 1){
+						let n_price = parseInt(price*100)
+						let lowest_cost = parseInt(this.pintuanShop.detail.lowest_cost*100)
+						let rest_money = lowest_cost - n_price
+						if(n_price < lowest_cost){
+							uni.showModal({
+								content:'滿￥'+ lowest_cost + '起送,還差￥' + rest_money,
+								showCancel:false
+							})
+							return
+						}
 					}
 					order_info.goods_data = goods_data;
 					order_info.shop_id = this.pintuanShop.id

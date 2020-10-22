@@ -3,11 +3,11 @@
 		<!-- 自定义导航栏start -->
 			<uni-nav-bar :title="title" statusBar style="">
 			<template slot="left">
-				<view style="height: 35px;line-height: 35px;border-radius: 18px;border: 1px solid #eaeaea;margin-left: 24rpx;padding: 0 15px;display: flex;align-self: center;">
-					<text style="font-size: 17px;color: #666666;" @tap="pin_tap" v-if="!showSearch">拼</text>
-					<text style="font-size: 17px;color: #666666;" v-else>拼</text>
-					<text style="width: 29px;font-size: 17px;text-align: center;color: #EAEAEA;">|</text>
-					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;" @tap="showSearch=true"></icon>
+				<view style="height: 35px;line-height: 35px;border-radius: 18px;border: 1px solid #eaeaea;margin-left: 24rpx;display: flex;align-self: center;">
+					<text style="font-size: 17px;color: rgb(102, 102, 102);width: 38px;text-align: center;" @tap="pin_tap" v-if="!showSearch">拼</text>
+					<text style="font-size: 17px;color: rgb(102, 102, 102);width: 38px;text-align: center;" v-else>拼</text>
+					<text style="font-size: 17px;text-align: center;color: #EAEAEA;">|</text>
+					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;width: 38px;justify-content: center;margin-top: 4px;" @tap="showSearch=true"></icon>
 				</view>
 			</template>
 			<!-- #ifndef MP-WEIXIN -->
@@ -27,7 +27,7 @@
 				<view class="left">
 					<view class="top" @tap="loca_tap">
 						<view class="loca_icon">
-							<image src="../../static/images/order/location.png" mode=""></image>
+							<image src="/static/images/order/location.png" mode=""></image>
 						</view>
 						<view v-if="orderType == 1" class="shop_adress">{{contact_number}}</view>
 						<view v-else class="shop_adress">{{ shop_adress}}</view>
@@ -514,7 +514,25 @@
 						}
 						
 					}else{
-						this.showPintuan =true
+						try{
+							let res_pc = await pintuan_creat()
+							console.log('res_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pc')
+							console.log(res_pc)
+							if(res_pc.code == 1000){
+								uni.setStorage({
+									key:'pintuanCode',
+									data:res_pc.data.code
+								})
+								uni.navigateTo({
+									url:'/pages/pintuan/pintuan?code='+	res_pc.data.code
+								})
+							}else{
+								this.showPintuan =true
+							}
+						}catch(e){
+							//TODO handle the exception
+							console.log(e)
+						}
 					}
 				}else{
 						uni.showModal({
@@ -522,7 +540,7 @@
 						    success: function (res) {
 						        if (res.confirm) {
 									uni.navigateTo({
-										url:'/pages/login/login'
+										url:'/pages/login/login?from=order'
 									})
 						        } else if (res.cancel) {
 						        }
