@@ -50,17 +50,16 @@ export default {
   },
 
   onLoad(options) {
-    console.log(options.from);
-    this.phone = options.phone || APP.userInfo.mobile;//用户手机号
-    this.change = options.change;//有值则是修改密码
-    this.from = options.from;//登录完成后跳转的页面，默认跳转首页
+    console.log(options.query,'22222');
+    options.query = JSON.parse(options.query)
+    console.log(options.query.from);
+    this.phone = options.query.phone || APP.userInfo.mobile;//用户手机号
+    this.change = options.query.change;//有值则是修改密码
+    this.from = options.query.from;//登录完成后跳转的页面，默认跳转首页
     this.customToast('驗證碼已發送', false)
   },
   //页面隐藏式清除定时器，并且验证码归位
-  onHide() {
-    this.pageHide()
-    console.log('hide清除定时器')
-  },
+
   onUnload() {
     this.pageHide()
     console.log('unload清除定时器')
@@ -72,6 +71,7 @@ export default {
     this.countDown && clearInterval(this.countDown);
     this.countDown = setInterval(async () => {
       self.timer--;
+      console.log(self.timer);
       if (self.timer === 0) {
         try {
           await sendCheckCode({mobile: self.phone})
@@ -100,7 +100,7 @@ export default {
     pageHide(){
       this.verificationCode = '';
       uni.hideLoading();
-      self.timer = 200;
+      this.timer = 200;
       clearInterval(this.countDown)
       console.log('页面隐藏，清楚定时器');
     },
@@ -118,15 +118,21 @@ export default {
       APP.userToken = result.data.token;
       APP.isLoginBox = false;
       uni.setStorageSync('token', APP.userToken)
+      if(self.from){
+        uni.redirectTo({
+          url: `/pages/${self.from}/${self.from}`,
+          success() {
+            self.pageHide()
+          }
+        })
+        return;
+      }
       uni.switchTab({
-        url: self.from ? `/pages/${self.from}/${self.from}` : '/pages/home/home',
+        url: '/pages/home/home',
         success() {
-          //跳轉成功清除定時器，倒計時归为
-          clearInterval(self.countDown);
-          self.timer = 200;
-          console.log('登陆成功，清除定时器')
+          self.pageHide()
         }
-      })
+      });
     },
   },
 

@@ -36,7 +36,6 @@ export default {
   methods:{
     //导航页面
     navHistory(page){
-      console.log(2);
       page += 'History';
       uni.navigateTo({
         url:`/pages/${page}/${page}`,
@@ -62,7 +61,7 @@ uni-page-body{
   //min-height: 100%;
   display: flex;
   flex-direction: column;
-  padding: $spacing-base;
+  padding: $spacing-lg $spacing-base 0;
   box-sizing: border-box;
 
   .empty{
@@ -140,7 +139,7 @@ uni-page-body{
 
   .foot{
     width:100%;
-    height: 100rpx;
+    height: 80rpx;
     font-size: $font-size-sm;
     color: $font-color3;
     display: flex;

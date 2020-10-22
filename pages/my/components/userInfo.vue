@@ -3,11 +3,11 @@
 		<!--用户的基本信息-->
 		<view class="user_basic">
 			<view class="user_avatar">
-				<image src="../../../static/images_t/my/user_avatar.png"></image>
+				<image :src="wxUserInfo.avatarUrl || baseImg"></image>
 			</view>
 			<view class="name_vip">
 				<view class="name">
-					<text>{{ user.user_name }}</text>
+					<text>{{ wxUserInfo.nickName || user.user_name }}</text>
 					<text v-if="user.level">LV.{{ user.level }}</text>
 				</view>
 				<view class="privilege">
@@ -46,14 +46,24 @@
 </template>
 
 <script>
+const APP = getApp().globalData
 	export default {
 		name: "user",
+    data(){
+		  return {
+		    baseImg:'../../../static/images_t/my/user_avatar.png',
+        wxUserInfo:{}
+      }
+    },
 		props: {
 			user: {
 				type: Object,
 				required: true
 			}
-		}
+		},
+    mounted(){
+      this.wxUserInfo = APP.wxUserInfo;
+    },
 	}
 </script>
 
@@ -76,6 +86,7 @@
 				height: 144rpx;
 				border-radius: 50%;
         background-color: $main-color;
+        overflow: hidden;
 			}
 
 			.name_vip {

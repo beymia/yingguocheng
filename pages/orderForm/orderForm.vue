@@ -91,7 +91,6 @@ export default {
       takeawayOrder: [],//外卖订单
       invoiceData: [],//未开发票订单
       loginBoxShow: false,
-      paymentTimer: null,
       paymentStatus: false,//订单结算状态
     }
   },
@@ -109,7 +108,7 @@ export default {
           this.oneSelfOrder.push(item)
         }
         //分离未开发票订单
-        if (item.invoice_status === '2' && item.pay_status === '已完成') {
+        if (item.invoice_status === '2' && item.pay_status !== '已完成') {
           this.invoiceData.push(item)
         }
       });
@@ -145,7 +144,6 @@ export default {
   },
 
   onHide() {
-    clearTimeout(this.paymentTimer)
     this.paymentStatus = false;
   },
 
@@ -201,24 +199,20 @@ export default {
       let self = this,//缓存this
           order = g.order,//当前点击的订单
           orderInfo;//订单的预支付信息
-      // TODO 延迟请求微信支付，
-      self.paymentTimer && clearTimeout(self.paymentTimer)
-      self.paymentTimer = setTimeout(async () => {
-        try {
-          //获取订单预支付信息
-          orderInfo = (await paymentStart({order_num: order.order_num, shop_id: order.shop_id,})).data
-          //调起支付接口
-          await self.utilPayment(orderInfo)
-          //支付成功重新获取数据
-          await self.getData()
-          self.paymentStatus = false;
-          self.customToast('结算成功')
-        } catch (e) {
-          self.paymentStatus = false;
-          uni.hideLoading()
-          console.log(e);
-        }
-      }, 3000)
+      try {
+        //获取订单预支付信息
+        orderInfo = (await paymentStart({order_id: order.id, shop_id: order.shop_id,})).data
+        //调起支付接口
+        await self.utilPayment(orderInfo)
+        //支付成功重新获取数据
+        await self.getData()
+        self.paymentStatus = false;
+        self.customToast('结算成功')
+      } catch (e) {
+        self.paymentStatus = false;
+        uni.hideLoading()
+        console.log(e);
+      }
     },
   },
 
@@ -249,7 +243,12 @@ uni-page-body{
     align-items: center;
     z-index: 1;
     position: sticky;
+    /* #ifndef MP-WEXIN*/
     top: 168rpx;
+    /* #endif*/
+    /* #ifdef MP-WEIXIN*/
+    top:128rpx;
+    /* #endif*/
   ;
 
     .current,
@@ -311,7 +310,12 @@ uni-page-body{
 
   .order_detail,
   .order_history {
+    /* #ifndef MP-WEIXN*/
+    padding: 128rpx $spacing-base $spacing-lg $spacing-base;
+    /* #endif*/
+    /* #ifdef MP-WEIXIN*/
     padding: 168rpx $spacing-base $spacing-lg $spacing-base;
+    /* #endif*/
   }
 
   .order_history {

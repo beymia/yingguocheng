@@ -18,7 +18,15 @@
               <text>登錄後消費可獲取積分，享受更好的服務體驗</text>
             </view>
             <view class="login_btn">
+              <!-- #ifndef MP-WEIXIN-->
               <button @click="navLogin" plain>使用手機號登陸</button>
+              <!-- #endif-->
+              <!-- #ifdef MP-WEIXIN-->
+              <button open-type="getUserInfo"
+                      @getuserinfo="getUserInfo"
+                      plain>使用微信號登陸
+              </button>
+              <!-- #endif-->
             </view>
             <view class="protocol">
               <text>點擊登錄XX，即表示已閱讀並同意</text>
@@ -38,12 +46,38 @@ import popUpLayer from "../popUpLayer/popUpLayer";
 const APP = getApp().globalData
 export default {
   name: "loginBox",
-  methods: {
-    navLogin() {
-      uni.navigateTo({
-        url: '/pages/login/login'
-      })
+  data() {
+    return {
+      isAuth: 0,
     }
+  },
+  methods: {
+    // #ifndef MP-WEIXIN
+    navLogin() {
+      this.isAuth++;
+    },
+    // #endif
+    // #ifdef MP-WEIXIN
+    getUserInfo(e) {
+      if (e.detail.userInfo) {
+        APP.wxUserInfo = e.detail.userInfo;
+        this.isAuth++;
+        APP.isAuth = true;
+      } else {
+        APP.isAuth = false;
+        this.isAuth = 0;
+      }
+    },
+    // #endif
+  },
+  watch: {
+    isAuth(value) {
+      if (value) {
+        uni.navigateTo({
+          url: '/pages/login/login'
+        })
+      }
+    },
   },
   components: {
     popUpLayer

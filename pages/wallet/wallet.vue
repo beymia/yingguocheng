@@ -105,9 +105,9 @@ export default {
                 title: '正在發送驗證碼'
               })
               //发送验证码
-              let result = await sendCheckCode({mobile: self.originPhone})
-              uni.navigateTo({
-                url: '/pages/checkCode/checkCode?change=1',
+              await sendCheckCode({mobile: self.originPhone})
+              uni.redirectTo({
+                url: '/pages/checkCode/checkCode?query=' + JSON.stringify({change:1}),
                 success() {
                   uni.hideLoading()
                 }
@@ -130,14 +130,10 @@ export default {
         this.rechargeBox = false;
         try {
           //获取支付信息
-          let orderInfo = (await recharge({
-            amount: this.rechargeAmount
-          })).data;
-
+          let orderInfo = (await recharge({amount: this.rechargeAmount})).data;
           //开始支付
           await self.utilPayment(orderInfo);
           await self.paymentSuccess()
-
         } catch (e) {
           console.log(e);
           self.paymentStatus = false;

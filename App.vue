@@ -1,20 +1,39 @@
 <script>
 export default {
   globalData: {
+    userToken: null, //用戶token
+    userInfo: {}, //用户基本信息
+    isLoginBox: true, //用户登录引导框,微信需弹出授权窗口
+    isAuth:true,//用户是否已经授权，微信小程序
+    wxUserInfo:{},//getUserInfo获取到的用户信息，微信小程序
     goodsPayment: {}, //订单的结算信息
     coupon: 0, //使用的優惠券信息
-    userToken: null, //用戶token
-    isLoginBox: true, //用户登录引导框
-    userInfo: {}, //用户基本信息
+    isForeseeBuy:false,//用户购买预付卡的表示，为true时重新获取用户拥有的预付卡
     userAddresses: [], //用户收货地址
     edit_address_id: {}, //当前编辑的收货地址id
     choosed_address: {}, //用户选择的地址
   },
-  onLaunch: function () {
+  onLaunch:async function () {
     //应用初次启动时从缓存中读取用户token
+    //TODO 往storage中注入token免登錄使用
     // uni.setStorageSync('token','Lp0lLLjXkKYdU8Qk0o3qlGRjZTc2NzJlOTk5YjNkODZlZmE0Mjg5Zjk2MTkxYTg0NGNkM2MyZjg2MzJlNGExN2RjNDIwYzIwMWFhODMwNDi7lYxo8ami9E5qx5krqUBDTzu2zMFhOjzBcWBbQXZktQ==')
     this.globalData.userToken = uni.getStorageSync("token");
     console.log("App Launch");
+
+    // #ifdef MP-WEIXIN
+    //判断用户是否授权获取相关信息，已经授权直接存在userInfo中
+    let self = this;
+   await uni.getUserInfo({
+      provider:'weixin',
+      success(res){
+        self.globalData.wxUserInfo = res.userInfo;
+        self.globalData.isAuth = true;
+      },
+      fail(){
+        self.globalData.isAuth = false
+      },
+    })
+    // #endif
   },
   onShow: function () {
     console.log("App Show");

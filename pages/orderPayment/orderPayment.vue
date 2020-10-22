@@ -202,7 +202,6 @@ export default {
       totalAmount: 0,
       attachArr: [],
       couponInfo: [],
-      paymentTimer:null,
       paymentStatus:false,//订单的支付状态，为true时禁止再次点击支付
     }
   },
@@ -271,8 +270,6 @@ export default {
     this.paymentStatus =  false;
     //页面卸载时清空优惠券金额
     APP.coupon = {};
-    //TODO清空支付定时器
-    clearTimeout(this.paymentTimer)
   },
   methods: {
     //自動輸入手機號
@@ -359,31 +356,26 @@ export default {
       }
       //创建订单
       // try {
-      //    orderNum = (await createOrder(paramsObj)).data.order_num;
-      //    orderInfo = (await paymentStart({order_num: orderNum, shop_id: paramsObj.shop_id})).data
+      //    orderNum = (await createOrder(paramsObj)).data.order_id;
+      //    orderInfo = (await paymentStart({order_id: orderNum, shop_id: paramsObj.shop_id})).data
       // } catch (e) {
       //   self.customToast('订单创建失败')
       //   console.log(e);
       //   return;
       // }
       //支付订单
-      // TODO 延迟请求微信支付，非最终方案
-      self.paymentTimer && clearTimeout(self.paymentTimer)
       //发起微信支付
-      self.paymentTimer = setTimeout(async () => {
-        console.log(2);
-        try {
-          let orderNum = (await createOrder(paramsObj)).data.order_num;
-          let orderInfo = (await paymentStart({order_num: orderNum, shop_id: paramsObj.shop_id})).data
-          console.log(1);
-          await self.utilPayment(orderInfo)
-          await self.paymentSuccess();
-        } catch (e) {
-          self.customToast('订单创建失败');
-          self.paymentStatus = false;
-          console.log(e);
-        }
-      }, 3000)
+      try {
+        let orderId = (await createOrder(paramsObj)).data.order_id;
+        // let orderInfo = (await paymentStart({order_id: orderId, shop_id: paramsObj.shop_id})).data
+        console.log(1);
+        // await self.utilPayment(orderInfo)
+        await self.paymentSuccess();
+      } catch (e) {
+        self.customToast('订单创建失败');
+        self.paymentStatus = false;
+        console.log(e);
+      }
     },
     //订单结算成功，跳转至订单页
     async paymentSuccess(){
