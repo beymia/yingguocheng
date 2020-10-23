@@ -22,6 +22,7 @@
       <input class="phone_input"
              v-model="phone"
              type="number"
+             maxlength="11"
              placeholder="請輸入手機號"/>
     </view>
     <view class="login_submit" @click="loginStart">
@@ -54,6 +55,7 @@ export default {
   onLoad(options){
     console.log(options.from);
     options.from && (this.from = options.from)
+    console.log(this.from);
   },
   methods: {
     async loginStart() {
@@ -80,7 +82,7 @@ export default {
         uni.hideLoading()
         /*手机号正确，跳转至验证码接收頁*/
         uni.navigateTo({
-          url: '/pages/checkCode/checkCode?phone=' + this.phone + '&from = ' + this.from
+          url: '/pages/checkCode/checkCode?query=' + JSON.stringify({phone:this.phone,from:this.from})
         })
       } catch (e) {
 				console.log(e)

@@ -172,8 +172,6 @@ export default {
       this.customToast('开通成功')
       this.paymentStatus = false;
       APP.userInfo = (await userSpace()).data;
-      // TODO 测试修改数据
-      APP.userInfo.user_name = '成功开通了会员';
       //开通成功后跳转到会员权益页面
       uni.redirectTo({
         url:'/pages/memberBenefits/memberBenefits'

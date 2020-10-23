@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import {buyForesee} from "../../request/api";
-
+import {buyForesee, userSpace} from "../../request/api";
+const APP = getApp().globalData;
 export default {
   data() {
     return {
@@ -56,13 +56,19 @@ export default {
         //请求预支付信息
         let orderInfo = (await buyForesee({card_id: self.foresee.id})).data;
         await self.utilPayment(orderInfo)
-        self.paymentStatus = false;
-        self.customToast('购买成功')
+        //重新获取用户相关信息
+        await self.paymentSuccess()
       } catch (e) {
         console.log(e);
         self.paymentStatus = false;
         self.customToast('购买失败')
       }
+    },
+    async paymentSuccess(){
+      this.paymentStatus = false;
+      this.customToast('购买成功');
+      APP.userInfo = (await userSpace()).data
+      APP.isForeseeBuy = true;
     }
   }
 }

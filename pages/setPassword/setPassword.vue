@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import {setPwd} from "../../request/api";
+import {setPwd, userSpace} from "../../request/api";
 import oneInput from '../../components/myp-one/myp-one'
-
+const APP =getApp().globalData;
 export default {
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
           });
           try {
             await setPwd({password: this.pwd, veify_pwd: value})
-
+            APP.userInfo = (await userSpace()).data;
             uni.hideLoading()
             //登录成功重定向至钱包页面
             uni.redirectTo({

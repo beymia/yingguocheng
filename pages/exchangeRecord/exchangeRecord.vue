@@ -66,17 +66,18 @@ export default {
   },
   //上拉加载更多
   async onReachBottom(){
-    uni.showLoading({title:'加载中'})
     try{
       let data = (await exchangeRecord({
         page:++this.page,
       })).data
-      !data && (data = []);
+      if(!data){
+        --this.page;
+        throw 1
+      }
       this.record = this.record.concat(data)
       console.log(this.record);
-      uni.hideLoading()
     }catch (e) {
-      this.customToast('没有更多数据了')
+      this.customToast('没有更多数据了',false)
     }
   },
 }

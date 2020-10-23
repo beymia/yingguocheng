@@ -13,14 +13,22 @@
             class="swiper-wrap"
             @change="swiperChange">
       <swiper-item class="swiper-slide left">
-        <scroll-view enable-flex class="scroll_wrap" scroll-y>
+        <scroll-view @scrolltolower="$emit('scroll-bottom','left')"
+                     enable-flex
+                     lower-threshold="0"
+                     class="scroll_wrap"
+                     scroll-y>
           <view>
             <slot name="left"></slot>
           </view>
         </scroll-view>
       </swiper-item>
       <swiper-item class="swiper-slide right">
-        <scroll-view enable-flex  class="scroll_wrap" scroll-y>
+        <scroll-view @scrolltolower="$emit('scroll-bottom','right')"
+                     enable-flex
+                     lower-threshold="0"
+                     class="scroll_wrap"
+                     scroll-y>
           <view>
             <slot name="right"></slot>
           </view>
@@ -50,29 +58,11 @@ export default {
       type: String,
       default: ''
     },
-    // leftLength: {
-    //   type: Number,
-    //   default: 0
-    // },
-    // rightLength: {
-    //   type: Number,
-    //   default: 0
-    // },
-    // leftName: String,
-    // rightName: String,
     assignIndex: {
       type: Number,
       default: 0
     },
-    // same: {
-    //   type: Boolean,
-    //   default: false,
-    // }
   },
-  //组件初始加载计算高度
-  // async mounted() {
-  //   await this.computeHeight()
-  // },
   methods: {
     //點擊切換
     clickSwitch(i) {
@@ -129,7 +119,7 @@ export default {
     //   // await this.computeHeight()
     // },
     async assignIndex() {
-      await this.swiperChange()
+      await this.swiperChange({detail:{current:0}})
       // await this.computeHeight()
     }
   },

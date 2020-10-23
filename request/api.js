@@ -76,7 +76,7 @@ export const sendMsg = (data) => ajax('/dialog/send-msg', {data})
 export const receiveMsg = (data) => ajax('/dialog/latest-dialog',{data})
 
 //奶茶有礼列表
-export const milkList = (data) => ajax('/foreseeList-card/list', {data})
+export const foreseeList = (data) => ajax('/foreseeList-card/list', {data})
 //我的卡片
 export const myForesee = (data) => ajax('/foreseeList-card/my-card',{data})
 //购买卡片

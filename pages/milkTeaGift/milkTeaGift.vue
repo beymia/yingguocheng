@@ -4,8 +4,7 @@
         leftTitle="購買奶茶有禮"
         rightTitle="我的奶茶有禮"
         :assign-index="assignIndex"
-        @swiper-end="assignIndex = false"
-    >
+        @swiper-end="assignIndex = false">
       <template v-slot:left>
         <!--購買奶茶有禮-->
         <view class="buy_foresee">
@@ -18,14 +17,12 @@
                 display-multiple-items="2"
                 enable-flex
                 :scroll-x="true"
-                class="list"
-            >
+                class="list">
               <swiper-item
                   class="list_item"
                   @click="navPage(list.child[im])"
                   v-for="(foresee, im) in list.child"
-                  :key="im"
-              >
+                  :key="im">
                 <!-- TODO 替換圖片鏈接 foreseeList.worth_price-->
                 <image
                     :src="'../../static/images_t/milkTeaGift/img.png'"
@@ -75,16 +72,15 @@
 
 <script>
 import {
-  milkList,
+  foreseeList,
   myForesee,
-  buyForesee,
-  mutualRecord,
   giveForesee,
 } from "../../request/api";
 
 import swiperSwitch from "../../components-lk/swiperSwitch/swiperSwitch";
 import myForeseePage from "./components/myForeseePage";
 
+const APP = getApp().globalData;
 export default {
   data() {
     return {
@@ -270,29 +266,29 @@ export default {
           ],
         },
       ],
-      haveForesee: [
-        {
-          id: "1602761166363589",
-          worth_price: "60.00",
-          home_avatar: "/uploads/202010/14/160267063599194.jpg",
-        },
-        {
-          id: "1602761616363589",
-          worth_price: "60.00",
-          home_avatar: "/uploads/202010/14/160267063599194.jpg",
-        },
-        {
-          id: "1602761161363589",
-          worth_price: "60.00",
-          home_avatar: "/uploads/202010/14/160267063599194.jpg",
-        },
-        {
-          id: "1602761161636589",
-          worth_price: "60.00",
-          home_avatar: "/uploads/202010/14/160267063599194.jpg",
-        },
-      ],
-      // haveForesee:[],
+      haveForesee:[],
+      // haveForesee: [
+      //   {
+      //     id: "1602761166363589",
+      //     worth_price: "60.00",
+      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
+      //   },
+      //   {
+      //     id: "1602761616363589",
+      //     worth_price: "60.00",
+      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
+      //   },
+      //   {
+      //     id: "1602761161363589",
+      //     worth_price: "60.00",
+      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
+      //   },
+      //   {
+      //     id: "1602761161636589",
+      //     worth_price: "60.00",
+      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
+      //   },
+      // ],
       activeFeat: "buy",
       assignIndex: 0,
       givePhone: "",
@@ -300,26 +296,34 @@ export default {
       giveForeseeId:''
     };
   },
+
+  async onShow(){
+    if(APP.isForeseeBuy){
+      await this.getForesee()
+      APP.isForeseeBuy = false;
+      console.log(APP.isForeseeBuy);
+    }
+  },
+
   async mounted() {
-    await this.getForesee();
+    // await this.getForesee();
   },
   methods: {
-    //获取数据列表
-    async getForesee() {
-      this.foreseeList = (await milkList()).data || [];
-    },
-    //获取我的卡片
-    async getMyForesee() {
-    },
-    //获取购买记录
-    async getBuyRecord() {
-    },
-    //获取收送记录
-    async getMutualRecord() {
-    },
-    //贈送預付卡
-    async giveForeseeStart() {
-    },
+    // TODO 获取可购买的商品列表和拥有的商品列表 生产环境使用，待测试
+     getForesee() {
+       let self = this;
+       Promise.all([foreseeList(),myForesee()])
+       .then(value => {
+        self.foreseeList = (value.data[0] || [])
+        self.haveForesee = (value.data[1] || [])
+       })
+       .catch(err=>{
+         console.log(err);
+         this.customToast('数据获取失败')
+         self.foreseeList = [];
+         self.haveForesee = [];
+       })
+     },
     //跳轉至預付卡詳情
     navPage(f) {
       uni.navigateTo({

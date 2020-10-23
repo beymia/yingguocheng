@@ -88,6 +88,7 @@ export default {
   /**
    * 页面展示时判断的情况
    * 有 token 没有用户信息，请求接口获取用户信息
+   * 有用户信息再次从全局对象中获取，防止信息偏差
    * token没有引导用户登录
    */
   async onShow() {
@@ -112,6 +113,7 @@ export default {
     // if(!this.loginBoxShow) return;
     // !this.userInfo.level && await this.getUserInfo()
   },
+
   methods: {
     //请求用户信息
    async getUserInfo(){
@@ -149,20 +151,16 @@ export default {
           this.query = 'wallet';
           break;
         case '會員碼':
-          // TODO 非頁面
             page = 'memberCode';
             this.query = 'user';
             APP.userInfo = this.userInfo
           break;
         case '兌換中心':
-          // TODO 非頁面
+          //跳轉積分商城
           this.query = 'integral';
           page = 'pointsMall'
           v = this.userInfo.integral
           break;
-          // case '星球封面':
-          //   page = 'planetCover';
-        //   break;
         case '聯系客服':
           page = 'customerService';
           break;
