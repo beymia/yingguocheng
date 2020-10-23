@@ -5,7 +5,7 @@
 				<view class="search-input">
 					<image src="/static/images/order/search-icon.png" class="search-icon"></image>
 					<input class="s_input" type="text" v-model="keyword" 
-							placeholder="冷萃桂花綠" 
+							:placeholder="hotSearch[0]?hotSearch[0].name:''" 
 							placeholder-class="placeholder" @input="handleKeywordInput">
 				    <image v-if="keyword" src="/static/images/order/image-delete.png" class="close-icon" @tap="clear" />
 				</view>
@@ -116,7 +116,8 @@
 			}
 		},
 		async created() {
-			
+			console.log('searchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearch')
+			console.log(this.categories)
 			var statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
 			this.tranStyles.top= statusBarHeight + 44 +"px";
 			
@@ -155,6 +156,12 @@
 				hotSearch = new_hot
 			}
 			this.hotSearch = hotSearch
+		},
+		watch:{
+			categories(n){
+				console.log('searchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearchsearch')
+				console.log(n)
+			}
 		},
 		methods: {
 			hide() {
@@ -369,6 +376,7 @@
 		overflow: hidden;
 		
 		.product {
+			color: #333333;
 			padding: 20rpx 0;
 			display: flex;
 			align-items: center;
@@ -376,8 +384,9 @@
 			font-size: 26rpx;
 			
 			.pro-image {
-				width: 144rpx;
-				height: 108rpx;
+				width: 92rpx;
+				height: 92rpx;
+				margin: 0 20rpx;
 			}
 			
 			.pro-price {

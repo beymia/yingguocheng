@@ -10,11 +10,9 @@
 					<icon type="search" size="17" color="#666666" style="display: flex;align-items: center;width: 38px;justify-content: center;margin-top: 4px;" @tap="showSearch=true"></icon>
 				</view>
 			</template>
-			<!-- #ifndef MP-WEIXIN -->
-			<template slot="right">
+			<!-- <template slot="right">
 					<uni-icons type="scan" size='36' @tap='scan'></uni-icons>
-			</template>
-			<!-- #endif -->
+			</template> -->
 			
 		</uni-nav-bar>
 		<!-- 自定义导航栏end -->
@@ -182,7 +180,7 @@
 		<rest :is_rest="is_rest" :opening_hours="opening_hours"></rest>
 		<!-- 休息中 end -->
 		<!-- 搜索页面start -->
-		<search :show="showSearch" :categories="menu_list" @hide="showSearch=false" @choose="showProductDetailModal" ></search>
+		<search v-if="showSearch" :show="showSearch" :categories="menu_list" @hide="showSearch=false" @choose="showProductDetailModal" ></search>
 		<!-- 搜索页面end -->
 		<!-- 拼团 -->
 		<pintuan :show="showPintuan" @closePintuan="showPintuan = false" @choose_type="choose_pintuan_type"></pintuan>
@@ -683,7 +681,7 @@
 			if(type==1 ){
 				this.SET_PINTUAN_TYPE(1)
 				uni.navigateTo({
-					url:"/pages/userAdress/userAdress?from=pintuan"
+					url:"/pages/pintuan/pintuan"
 				})
 			}else{
 				this.SET_PINTUAN_TYPE(2)
@@ -702,7 +700,7 @@
 				    success: function (res) {
 				        if (res.confirm) {
 							uni.navigateTo({
-								url:'/pages/login/login'
+								url:'/pages/login/login?from=order'
 							})
 				        } else if (res.cancel) {
 				        }
@@ -741,9 +739,9 @@
 				order_info.shop_id = this.choosedShop.id
 				order_info.shop_name = this.choosedShop.shop_name
 				order_info.distance = this.choosedShop.distance
-				order_info.delivery_cost = this.choosedShop.detail.delivery_cost
+				order_info.delivery_cost = parseInt(this.choosedShop.detail.delivery_cost * 100)/100
 				 // order_info.delivery_cost = 0.01
-				order_info.lowest_cost = this.choosedShop.detail.lowest_cost
+				order_info.lowest_cost = parseInt(this.choosedShop.detail.lowest_cost*100)/100
 				order_info.payment_info = price
 				// order_info.payment_info = 0.01
 				order_info.address_id = this.choosedAddress.id

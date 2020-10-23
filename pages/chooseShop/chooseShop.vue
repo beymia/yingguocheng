@@ -93,16 +93,16 @@
 		<!-- 常用開始 -->
 		<view class="content_cy" v-if="!is_xzmd">
 			<scroll-view scroll-y="true" class="shop_list">
-				<view class="shop_item" :class="{active:items.id == choosedShop.id}" v-for="(items,indexs) in cyShopList" :key="indexs" @tap="shop_tap(items)">
+				<view class="shop_item" :class="{active:items.id == choosedShop.id}" v-for="(items,indexs) in cyShopList" :key="indexs" @tap="shop_tap(indexs)">
 					<view class="left">
 						<view class="shop_name">
 							{{items.shop_name}}
 						</view>
 						<view class="order_waisong">
 							<view class="order">
-								<view class="progress" :style="{width: items.ocp.progress}"></view>
+								<view class="progress" :style="{width: items.current_cups+'%'}"></view>
 								<view class="text">
-									{{items.ocp.order}}單/{{items.ocp.cup}}杯製作中
+									{{items.current_order}}單/{{items.current_cups}}杯製作中
 								</view>
 							</view>
 							<view class="waisong">
@@ -176,6 +176,8 @@
 					latitude:this.choosedShop.latitude,
 					longitude:this.choosedShop.longitude,
 					iconPath: '/static/images/order/mark.png',
+					width:'58rpx',
+					height:'96rpx',
 					callout:{
 						content:this.choosedShop.shop_name,
 						display:"ALWAYS"
@@ -205,7 +207,8 @@
 				let cys= [this.shopList[0],this.shopList[1]]
 				this.SET_CY_SHOP_LIST(cys)
 			}
-			console.log(this.shopList[0].ocp)
+			console.log(this.shopList)
+			console.log(this.cyShopList)
 			console.log(111111111)
 			console.log("shop onLoad")
 		},

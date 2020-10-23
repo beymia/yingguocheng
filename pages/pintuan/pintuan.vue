@@ -29,7 +29,7 @@
 						</button>
 						<!-- #endif -->
 						<!-- #ifndef MP-WEIXIN -->
-						<button class="invite" hover-class="hover-comon" @tap='invite()'>
+						<button class="invite" hover-class="hover-comon" @tap='invite'>
 							邀請好友
 						</button>
 						<!-- #endif -->
@@ -360,7 +360,7 @@
 				}
 				
 			},
-			async invite(){
+			invite(){
 				/* //分享爲二維碼
 				this.$refs.qrcode.open()
 				let qrUrl =	(await pintuan_invite_code({code:this.pintuanCode})).data
@@ -368,6 +368,16 @@
 				this.qrUrl = qrUrl
 				console.log(this.qrUrl) */
 				//分享爲微信小程序
+				
+				uni.getProvider({
+					service:'share',
+					success(res) {
+						console.log(JSON.stringify(res))
+					},
+					complete(res) {
+						console.log(res)
+					}
+				})
 				uni.share({
 				    provider: 'weixin',
 				    scene: "WXSceneSession",
@@ -375,14 +385,19 @@
 				    imageUrl: '/pages/pintuan/pintuan?invite=true&code='+this.pintuanCode,
 				    title: '【拼單】' + this.pintuan_info[0].user_name +'邀請你一起喝奶茶啦',
 				    miniProgram: {
-				        id: 'wxd0f1e822e08155b2',
+				        id: 'gh_8a9587e12406',
 				        path: '/pages/pintuan/pintuan?invite=true&code='+this.pintuanCode,
-				        type: 0
-				        //webUrl: 'http://uniapp.dcloud.io'
+				        type: 0,
+				        webUrl: 'http://uniapp.dcloud.io'
 				    },
 				    success: ret => {
+						console.log('shareshareshareshareshareshareshareshareshareshareshareshareshareshare')
 				        console.log(JSON.stringify(ret));
-				    }
+				    },
+					complete(ret) {
+						console.log('shareshareshareshareshareshareshareshareshareshareshareshareshareshare')
+						console.log(JSON.stringify(ret));
+					}
 				});
 			},
 			async pindan_cancel(){
@@ -413,6 +428,7 @@
 					let res = await pintuan_cancel({code:this.pintuanCode})
 					if(res.code == 1000){
 						uni.setStorageSync('pintuanCode','')
+						this.SET_PINTUAN_TYPE(NaN)
 					}
 				}catch(e){
 					//TODO handle the exception
@@ -493,6 +509,7 @@
 						
 					})
 					uni.setStorageSync('pintuanCode','')
+					this.SET_PINTUAN_TYPE(NaN)
 					return
 				}
 				let pintuan_info = pintuan_info_res.data
@@ -534,7 +551,7 @@
 				console.log(pintuanCart)
 				this.SET_PINTUAN_CART(pintuanCart)
 				getApp().globalData.isInvite=false
-				setTimeout(()=>{this.pintuan_init(code)},1000)
+				//setTimeout(()=>{this.pintuan_init(code)},1000)
 			},
 			async long_lati(){
 				var latitude = 0;
@@ -658,7 +675,7 @@
 							good.id = item.id;
 							good.goods_name = item.name;
 							good.goods_price = item.truePrice;
-							good.home_avatar = this.imgSrc + item.imgurl;
+							good.home_avatar = item.imgurl;
 							good.norm = item.materials_text;
 							good.norm_id = item.norm_id ? item.norm_id : [];
 							good.goods_num =item.number;
@@ -676,39 +693,52 @@
 						uni.hideLoading()
 						return
 					}
+					
+					var  init_pay_data = () =>{
+						order_info.goods_data = goods_data;
+						order_info.shop_id = this.pintuanShop.id
+						order_info.shop_name = this.pintuanShop.shop_name
+						order_info.distance = this.pintuanShop.distance
+						order_info.delivery_cost = this.pintuanShop.detail.delivery_cost
+						 // order_info.delivery_cost = 0.01
+						order_info.lowest_cost = this.pintuanShop.detail.lowest_cost
+						order_info.payment_info = price
+						// order_info.payment_info = 0.01
+						order_info.address_id = this.choosedAddress.id
+						order_info.contact_name = this.choosedAddress.contact_name
+						order_info.contact_sex = this.choosedAddress.contact_sex
+						order_info.contact_phone = this.choosedAddress.contact_phone
+						order_info.contact_address = this.choosedAddress.contact_address
+						order_info.contact_number = this.choosedAddress.contact_number
+						order_info.haul_method  = this.pintuanType
+						order_info.current_cups = this.pintuanShop.detail.current_cups
+						order_info.current_order = this.pintuanShop.detail.current_order
+						app.globalData.goodsPayment = order_info;
+						console.log(11111111111111)
+						console.log(order_info)
+					}
+					
 					if(this.pintuanType == 1){
 						let n_price = parseInt(price*100)
 						let lowest_cost = parseInt(this.pintuanShop.detail.lowest_cost*100)
 						let rest_money = lowest_cost - n_price
 						if(n_price < lowest_cost){
 							uni.showModal({
-								content:'滿￥'+ lowest_cost + '起送,還差￥' + rest_money,
+								content:'滿￥'+ lowest_cost/100 + '起送,還差￥' + rest_money/100,
 								showCancel:false
 							})
+							uni.hideLoading()
 							return
 						}
+						init_pay_data()
+						uni.hideLoading()
+						uni.navigateTo({
+							url:'/pages/userAdress/userAdress?from=pintuan'
+						})
+						return
 					}
-					order_info.goods_data = goods_data;
-					order_info.shop_id = this.pintuanShop.id
-					order_info.shop_name = this.pintuanShop.shop_name
-					order_info.distance = this.pintuanShop.distance
-					order_info.delivery_cost = this.choosedShop.detail.delivery_cost
-					 // order_info.delivery_cost = 0.01
-					order_info.lowest_cost = this.pintuanShop.detail.lowest_cost
-					order_info.payment_info = price
-					// order_info.payment_info = 0.01
-					order_info.address_id = this.choosedAddress.id
-					order_info.contact_name = this.choosedAddress.contact_name
-					order_info.contact_sex = this.choosedAddress.contact_sex
-					order_info.contact_phone = this.choosedAddress.contact_phone
-					order_info.contact_address = this.choosedAddress.contact_address
-					order_info.contact_number = this.choosedAddress.contact_number
-					order_info.haul_method  = this.pintuanType
-					order_info.current_cups = this.pintuanShop.detail.current_cups
-					order_info.current_order = this.pintuanShop.detail.current_order
-					app.globalData.goodsPayment = order_info;
-					console.log(11111111111111)
-					console.log(order_info)
+					
+					init_pay_data()
 					uni.hideLoading()
 					uni.navigateTo({
 						url:'/pages/orderPayment/orderPayment'

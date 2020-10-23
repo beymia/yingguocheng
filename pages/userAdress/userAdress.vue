@@ -81,7 +81,7 @@
 				    success: function (res) {
 				        if (res.confirm) {
 							uni.redirectTo({
-								url:'/pages/login/login'
+								url:'/pages/login/login?from=order'
 							})
 				        } else if (res.cancel) {
 							uni.navigateBack({
@@ -121,7 +121,7 @@
 				console.log(this.from)
 				if(this.from == 'pintuan'){
 					uni.redirectTo({
-						url:'/pages/pintuan/pintuan'
+						url:'/pages/orderPayment/orderPayment'
 					})
 				}else{
 					uni.switchTab({

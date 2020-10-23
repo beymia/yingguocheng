@@ -166,7 +166,7 @@
 		<rest :is_rest="is_rest" :opening_hours="opening_hours"></rest>
 		<!-- 休息中 end -->
 		<!-- 搜索页面start -->
-		<search :show="showSearch" :categories="menu_list" @hide="showSearch=false" @choose="showProductDetailModal" ></search>
+		<search v-if="showSearch" :show="showSearch" :categories="menu_list" @hide="showSearch=false" @choose="showProductDetailModal" ></search>
 		<!-- 搜索页面end -->
 		<!-- 拼团 -->
 		<pintuan :show="showPintuan" @closePintuan="showPintuan = false" @choose_type="choose_pintuan_type"></pintuan>

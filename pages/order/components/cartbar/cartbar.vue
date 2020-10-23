@@ -21,8 +21,8 @@
 				<view style="display: flex;flex-direction: column;">
 					<view class="price">￥{{ cartPrice }}</view>
 					<template v-if="orderType == 1">
-						<text v-if="restMoney" style="font-size: 18rpx;color: #353535;margin-left: 5px;">滿￥{{choosedShop.detail.lowest_cost}}起送，還差￥{{restMoney}}元</text>
-						<text v-else-if="choosedShop.detail.delivery_cost" style="font-size: 18rpx;color: #353535;margin-left: 5px;">另需配送費￥{{choosedShop.detail.delivery_cost}}元</text>
+						<text v-if="restMoney" style="font-size: 18rpx;color: #353535;margin-left: 5px;">滿￥{{parseInt(choosedShop.detail.lowest_cost*100)/100 }}起送，還差￥{{parseInt(restMoney*100)/100}}元</text>
+						<text v-else-if="choosedShop.detail.delivery_cost" style="font-size: 18rpx;color: #353535;margin-left: 5px;">另需配送費￥{{parseInt(choosedShop.detail.delivery_cost*100)/100}}元</text>
 					</template>
 					
 				</view>

@@ -110,8 +110,8 @@ const store = new Vuex.Store({
 			"current_order": "0",
 			"current_cups": "0",
 			"distance": 2.24
-		}],
-		cyShopList:[{
+		}*/],
+		cyShopList:[/*{
 			"id": "15992871171146972",
 			"shop_name": "合肥百乐门广场店",
 			"shop_address": "安徽省合肥市蜀山区",
