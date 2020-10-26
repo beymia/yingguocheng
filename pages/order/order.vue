@@ -96,7 +96,7 @@
 		</view>
 		<!-- 头部end-->
 		<!-- 新聞詳情頁開始 -->
-		<notice v-if="is_notice" :choosed_shop="choosedShop"></notice>
+		<notice v-if="is_notice" style="flex: 1;display: flex;" :choosed_shop="choosedShop"></notice>
 		<!-- 新聞詳情頁結束 -->
 		<!-- 点单主体部分start -->
 		<view class="main" v-if="!is_notice">

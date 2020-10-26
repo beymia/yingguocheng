@@ -14,7 +14,7 @@ function ajax(url, data = {}, method = 'GET', h) {
   baseURL = '/api'
   // #endif
   // #ifndef H5
-  baseURL = 'http://api.plg.wugee.net/'
+  baseURL = 'http://api.plg.wugee.net'
   // #endif
   return new Promise((resolve, reject) => {
     uni.request({
