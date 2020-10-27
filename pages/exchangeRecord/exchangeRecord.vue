@@ -1,6 +1,6 @@
 <template>
   <view class="record">
-    <noMoreData v-if="!spliceData||spliceData.length === 0"></noMoreData>
+    <noMoreData v-if="!record||record.length === 0"></noMoreData>
     <view v-else
           class="content"
           v-for="(d,index) in spliceData"
@@ -34,15 +34,12 @@ import {exchangeRecord} from "../../request/api";
 export default {
   data() {
     return {
-      record:[],
+      record:[],//积分商城兑换记录
       page:1
     }
   },
   async mounted(){
-    // TODO 展示数据，API接口需替换
-    this.record = (await exchangeRecord({
-      page:this.page,
-    })).data
+    this.record = (await exchangeRecord({page:this.page})).data
   },
   computed: {
     //根据月份分离出对应的数据
@@ -70,12 +67,12 @@ export default {
       let data = (await exchangeRecord({
         page:++this.page,
       })).data
+      //没有更多数据时手动抛出一个错误
       if(!data){
         --this.page;
         throw 1
       }
       this.record = this.record.concat(data)
-      console.log(this.record);
     }catch (e) {
       this.customToast('没有更多数据了',false)
     }

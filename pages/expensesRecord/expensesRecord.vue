@@ -1,6 +1,6 @@
 <template>
   <view class="points_details">
-    <noMoreData v-if="!spliceData||spliceData.length === 0"></noMoreData>
+    <noMoreData v-if="!record||record.length === 0"></noMoreData>
     <view class="content"
           v-else
           v-for="(d,index) in spliceData"

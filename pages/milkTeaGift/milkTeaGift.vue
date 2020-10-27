@@ -14,7 +14,6 @@
             </view>
             <swiper
                 next-margin="40rpx"
-                display-multiple-items="2"
                 enable-flex
                 :scroll-x="true"
                 class="list">
@@ -23,10 +22,7 @@
                   @click="navPage(list.child[im])"
                   v-for="(foresee, im) in list.child"
                   :key="im">
-                <!-- TODO 替換圖片鏈接 foreseeList.worth_price-->
-                <image
-                    :src="'../../static/images_t/milkTeaGift/img.png'"
-                ></image>
+                <image :src="foresee.home_avatar | filterImg"></image>
               </swiper-item>
             </swiper>
           </view>
@@ -84,221 +80,19 @@ const APP = getApp().globalData;
 export default {
   data() {
     return {
-      foreseeList: [
-        {
-          id: "16022649",
-          norm_name: "流心波波卡",
-          child: [
-            {
-              id: "1602670752262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602670725262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602677252262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602670725222564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-          ],
-        },
-        {
-          id: "1602667262842649",
-          norm_name: "流心波波卡",
-          child: [
-            {
-              id: "1602670752262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602670725262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602677252262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602670725222564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-          ],
-        },
-        {
-          id: "1602662062842649",
-          norm_name: "流心波波卡",
-          child: [
-            {
-              id: "1602670725226254",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "160267252262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602670725262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "160267072522664",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-          ],
-        },
-        {
-          id: "160266762842649",
-          norm_name: "流心波波卡",
-          child: [
-            {
-              id: "16027252262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "16026707262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602677252262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "160267072564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-          ],
-        },
-        {
-          id: "16026672842649",
-          norm_name: "流心波波卡",
-          child: [
-            {
-              id: "1602670762564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602670722564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "1602670725262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "160262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-          ],
-        },
-        {
-          id: "160266842649",
-          norm_name: "流心波波卡",
-          child: [
-            {
-              id: "1602662564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "160262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "16026764",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-            {
-              id: "160252262564",
-              card_name: "恰杯茶啵",
-              home_avatar: "/uploads/202010/14/160267063599194.jpg",
-              worth_price: "60",
-            },
-          ],
-        },
-      ],
-      haveForesee:[],
-      // haveForesee: [
-      //   {
-      //     id: "1602761166363589",
-      //     worth_price: "60.00",
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //   },
-      //   {
-      //     id: "1602761616363589",
-      //     worth_price: "60.00",
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //   },
-      //   {
-      //     id: "1602761161363589",
-      //     worth_price: "60.00",
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //   },
-      //   {
-      //     id: "1602761161636589",
-      //     worth_price: "60.00",
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //   },
-      // ],
+      haveForesee: [],
+      foreseeList: [],
       activeFeat: "buy",
       assignIndex: 0,
       givePhone: "",
       isGive: false,
-      giveForeseeId:''
+      giveForeseeId: ''
     };
   },
 
-  async onShow(){
-    if(APP.isForeseeBuy){
+  //如果isForeseeBuy为true，则用户购买了新的预付卡，重新获取预付卡信息
+  async onShow() {
+    if (APP.isForeseeBuy) {
       await this.getForesee()
       APP.isForeseeBuy = false;
       console.log(APP.isForeseeBuy);
@@ -306,24 +100,21 @@ export default {
   },
 
   async mounted() {
-    // await this.getForesee();
+    await this.getForesee();
   },
   methods: {
-    // TODO 获取可购买的商品列表和拥有的商品列表 生产环境使用，待测试
-     getForesee() {
-       let self = this;
-       Promise.all([foreseeList(),myForesee()])
-       .then(value => {
-        self.foreseeList = (value.data[0] || [])
-        self.haveForesee = (value.data[1] || [])
-       })
-       .catch(err=>{
-         console.log(err);
-         this.customToast('数据获取失败')
-         self.foreseeList = [];
-         self.haveForesee = [];
-       })
-     },
+    getForesee() {
+      let self = this;
+      Promise.all([foreseeList(), myForesee()])
+          .then(value => {
+            self.foreseeList = (value[0].data || [])
+            self.haveForesee = (value[1].data || [])
+          })
+          .catch(err => {
+            console.log(err);
+            this.customToast('数据获取失败')
+          })
+    },
     //跳轉至預付卡詳情
     navPage(f) {
       uni.navigateTo({
@@ -356,7 +147,6 @@ export default {
       });
 
       self.isGive = false;
-      //TODO贈送邏輯處理
       try {
         await giveForesee({
           card_id: self.giveForeseeId,

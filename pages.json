@@ -229,7 +229,7 @@
       }
     },
     {
-      "path": "pages/buyHistory/buyHistory",
+      "path": "pages/foreseeBuyHistory/foreseeBuyHistory",
       "style": {
         "navigationBarTitleText": "購買歷史",
         "navigationBarBackgroundColor": "#FFFFFF"

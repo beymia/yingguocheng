@@ -14,6 +14,7 @@
       </view>
     </view>
 
+    <!--充值弹框-->
     <view v-if="rechargeBox" class="recharge">
       <view class="content">
         <view class="title">整數充值</view>
@@ -39,30 +40,30 @@ export default {
     return {
       amount: '0.00',
       options: [
-          {
-        title: '掃碼支付',
-        summary: '可使用錢包直接支付',
-        icon: 'arrowright'
-      }, {
-        title: '消費記錄',
-        icon: 'arrowright'
-      }, {
-        title: '重置交易密碼',
-        icon: 'arrowright'
-      },],
+        {
+          title: '掃碼支付',
+          summary: '可使用錢包直接支付',
+          icon: 'arrowright'
+        }, {
+          title: '消費記錄',
+          icon: 'arrowright'
+        }, {
+          title: '重置交易密碼',
+          icon: 'arrowright'
+        },],
       rechargePwd: false,
       phone: '',
       rechargeBox: false,
       rechargeAmount: '',
       reRender: 1,//用戶充值後強制刷新頁面的條件
-      paymentStatus:false,
+      paymentStatus: false,
     }
   },
   onShow() {
     this.amount = APP.userInfo.balance;
   },
   mounted() {
-    this.amount = APP.userInfo.balance
+      this.amount = APP.userInfo.balance
     this.originPhone = APP.userInfo.mobile;
     //处理手机号展示形式
     this.phone = this.originPhone.replace(/\d/g, function (value, index) {
@@ -107,7 +108,7 @@ export default {
               //发送验证码
               await sendCheckCode({mobile: self.originPhone})
               uni.redirectTo({
-                url: '/pages/checkCode/checkCode?query=' + JSON.stringify({change:1}),
+                url: '/pages/checkCode/checkCode?query=' + JSON.stringify({change: 1}),
                 success() {
                   uni.hideLoading()
                 }
@@ -123,7 +124,7 @@ export default {
 
     //支付功能
     async rechargeStart() {
-      if(this.paymentStatus) return;
+      if (this.paymentStatus) return;
       this.paymentStatus = true;
       let self = this;
       if (Number(this.rechargeAmount)) {
@@ -143,30 +144,30 @@ export default {
       }
     },
     //支付成功
-   async paymentSuccess(e){
-     console.log(e);
-     this.paymentStatus = false;
-     this.customToast('充值成功');
-     this.rechargeAmount = '';
-     //重新获取用户数据
-     try{
-       APP.userInfo = (await userSpace()).data
-       this.amount = APP.userInfo.balance;
-     }catch (e) {
-       console.log(e);
-     }
-   },
+    async paymentSuccess(e) {
+      console.log(e);
+      this.paymentStatus = false;
+      this.customToast('充值成功');
+      this.rechargeAmount = '';
+      //重新获取用户数据
+      try {
+        APP.userInfo = (await userSpace()).data
+        this.amount = APP.userInfo.balance;
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   //TODO 監視充值價格，為整數,生产环境需打开
-  // watch: {
-  //   rechargeAmount(n, o) {
-  //     let newStr = n.slice(o.length),
-  //         newNum = parseInt(newStr)
-  //     if (isNaN(newNum)) {
-  //       this.rechargeAmount = '';
-  //     }
-  //   },
-  // },
+  watch: {
+    rechargeAmount(n, o) {
+      let newStr = n.slice(o.length),
+          newNum = parseInt(newStr)
+      if (isNaN(newNum)) {
+        this.rechargeAmount = '';
+      }
+    },
+  },
   components: {
     optionsList
   }
