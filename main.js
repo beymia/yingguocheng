@@ -9,7 +9,11 @@ import noMoreData from "./components-lk/noMoreData/noMoreData";
 
 Vue.component('noMoreData', noMoreData)
 
-Vue.prototype.imgSrc = 'http://publicfile.wugee.net'
+Vue.prototype.imgSrc = 'http://publicfile.wugee.net';
+//全局过滤器，解决小程序全局属性不可用
+Vue.filter('filterImg',function(src){
+  return 'http://publicfile.wugee.net' + src
+})
 
 //通用的提示處理
 Vue.prototype.customToast = function (title = '出現了錯誤', clear = true) {

@@ -1,6 +1,3 @@
-/*
- * 简易封装模拟测试请求
- * */
 function ajax(url, {data={},method='POST',isToken=true}) {
 
   // TODO 生产环境需要替换默认的URL地址

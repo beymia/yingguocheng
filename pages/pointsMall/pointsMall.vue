@@ -18,6 +18,7 @@
 
     <!--空的分割线-->
     <view class="separate"></view>
+
     <!--積分商品-->
     <view class="integral_goods">
       <view class="head">
@@ -32,7 +33,7 @@
                 v-for="(goods,index) in convertList"
                 :key="index">
             <view class="goods_img">
-              <image :src="imgSrc + goods.home_avatar"></image>
+              <image :src="goods.home_avatar | filterImg"></image>
             </view>
             <view class="goods_name">
               <text>{{ goods.goods_name }}</text>
@@ -58,7 +59,7 @@ export default {
       convertList: [],
       knightList:[],
       jazzList:[],
-      active: 'knight'
+      active: 'knight',
     }
   },
  async onLoad(options) {

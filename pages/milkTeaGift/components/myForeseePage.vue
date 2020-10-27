@@ -11,7 +11,7 @@
     </view>
 
     <view class="foot">
-      <text @click="navHistory('buy')">購買歷史</text>
+      <text @click="navHistory('foreseeBuy')">購買歷史</text>
       <text>|</text>
       <text @click="navHistory('mutual')">收送歷史</text>
     </view>
@@ -38,7 +38,7 @@ export default {
     navHistory(page){
       page += 'History';
       uni.navigateTo({
-        url:`/pages/${page}/${page}`,
+        url:`/pages/${page}/${page}?data=${encodeURIComponent(JSON.stringify(this.foresee))}`,
       })
     },
     //赠送好友

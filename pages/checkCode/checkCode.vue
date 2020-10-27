@@ -155,7 +155,7 @@ export default {
             return;
           }
 
-          //TODO change有值則跳轉到設置交易密碼頁面
+          // change有值則跳轉到設置交易密碼頁面
           if (self.change) {
             uni.hideLoading()
             uni.redirectTo({

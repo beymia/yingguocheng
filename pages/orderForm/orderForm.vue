@@ -108,7 +108,7 @@ export default {
           this.oneSelfOrder.push(item)
         }
         //分离未开发票订单
-        if (item.invoice_status === '2' && item.pay_status !== '已完成') {
+        if (item.invoice_status === '1' && item.pay_status !== '已完成') {
           this.invoiceData.push(item)
         }
       });
@@ -314,7 +314,7 @@ uni-page-body{
     padding: 128rpx $spacing-base $spacing-lg $spacing-base;
     /* #endif*/
     /* #ifdef MP-WEIXIN*/
-    padding: 168rpx $spacing-base $spacing-lg $spacing-base;
+    padding: 128rpx $spacing-base $spacing-lg $spacing-base;
     /* #endif*/
   }
 

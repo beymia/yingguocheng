@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.automator" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components-lk" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-popup" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-swipe-action" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-swipe-action-item" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/components/uni-transition" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/bulkInvoice" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/chooseShop" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/discount" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/exchangeCenter" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/exchangeRecord" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/expensesRecord" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/invoiceInfo" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/joinMember" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/memberCode" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/milkTeaGift" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/milkTeaGifts" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/more" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/order/components" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/orderPayment" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/pintuan" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/planetCover" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/pointsDetails" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/pointsMall" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/profile" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/recharge" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/setPassword" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/wallet" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/.sourcemap/mp-weixin/pages/wantTell" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/common" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/components" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/components-lk" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/bulkInvoice" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/checkCode" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/chooseShop" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/customerService" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/discount" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/exchangeRecord" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/expensesRecord" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/home" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/index" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/invoiceInfo" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/joinMember" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/login" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/memberCode" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/milkTeaGift" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/more" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/my" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/order/components" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/orderForm" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/orderPayment" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/pintuan" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/pointsDetails" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/pointsMall" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/profile" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/recharge" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/setPassword" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/wallet" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/pages/wantTell" />
+      <excludeFolder url="file://$MODULE_DIR$/unpackage/dist/dev/mp-weixin/static" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
