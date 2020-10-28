@@ -145,6 +145,7 @@ export default {
       let self = this;
       if(!this.summaryStatus){
         this.customToast('请仔细阅读协议',false);
+        this.paymentStatus = false;
         return;
       }
       uni.showLoading({
@@ -156,7 +157,7 @@ export default {
           level_id:this.memberInfo[this.joinType].id
         })).data
 
-        //开始支付
+        //开支始付
         await self.utilPayment(orderInfo);
         //支付成功执行
         await self.joinSuccess()

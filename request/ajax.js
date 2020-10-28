@@ -12,7 +12,7 @@ function ajax(url, {data={},method='POST',isToken=true}) {
   baseURL = '/api'
   // #endif
   // #ifndef H5
-  baseURL = 'http://api.plg.wugee.net'
+  baseURL = 'https://api.plg.wugee.net'
   // #endif
   return new Promise((resolve, reject) => {
     uni.request({
