@@ -45,7 +45,7 @@
 						</view>
 						<view class="order_waisong">
 							<view class="order">
-								<view class="progress" :style="{width: items.current_cups+'%'}"></view>
+								<view class="progress" :style="{width: items.current_cups > 100 ? 100:items.current_cups +'%'}"></view>
 								<view class="text">
 									{{items.current_order}}單/{{items.current_cups}}杯製作中
 								</view>

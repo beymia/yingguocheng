@@ -33,12 +33,13 @@
 						下單免排隊
 					</view>
 				</view>
-				<view class="submenu2" @tap="waimai">
+				<!-- <view class="submenu2" @tap="waimai"> -->
+				<view class="submenu2" >
 					<view class="item1">
 						<image src="/static/images/home/motorbike.png" mode=""></image>
 					</view>
 					<view class="item2">
-						外賣
+						代付
 					</view>
 					<view class="item3">
 						無需接觸 送茶到家
@@ -180,7 +181,12 @@
 			},
 			async init(){
 				try {
-          this.home_images = (await home_images({})).data;
+           let home_images_n = (await home_images({})).data;
+		   home_images_n.logo[0] = this.imgSrc + home_images_n.logo[0]
+		   home_images_n.poster.forEach((item,index)=>{
+			    home_images_n.poster[index] = this.imgSrc + item
+		   })
+		   this.home_images = home_images_n
           console.log(this.home_images)
           const token = uni.getStorageSync('token');
           token&&(this.integral = (await userSpace({})).data.integral)

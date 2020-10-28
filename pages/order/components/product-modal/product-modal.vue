@@ -24,8 +24,8 @@
 					</view>
 				</view>
 				<view class="mb-10">产品描述</view>
-				<view class="mb-20">{{ productData.description }}</view>
-				<!-- <rich-text class="mb-20" :nodes="productData.description"></rich-text> -->
+				<!-- <view class="mb-20">{{ productData.description }}</view> -->
+				<rich-text class="mb-20" style="display: block;" :nodes="productData.description"></rich-text>
 				<view class="materials" v-for="(material, index) in productData.materials" :key="index">
 					<view class="group-name">{{ material.group_name }}</view>
 					<view class="values">

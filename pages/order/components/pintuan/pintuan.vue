@@ -38,7 +38,7 @@
 					<image src="/static/images/order/pintuan_waimai.png" mode=""></image>
 				</view>
 				<view class="">
-					外賣
+					代付
 				</view>
 			</view>
 			<view class="bordrline"></view>
