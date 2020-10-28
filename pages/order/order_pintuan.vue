@@ -40,7 +40,7 @@
 					
 				</view>
 				<view class="pintuan_type">
-					{{pintuanType == 1 ? "代付":"自取"}}
+					{{pintuanType == 1 ? "外賣":"自取"}}
 				</view>
 			</view>
 			<!-- 位置、自取、外卖、堂食end -->
