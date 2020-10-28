@@ -29,7 +29,20 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="199f51b9-0775-4020-aca0-617acadb18c7" name="默认的" comment="32" />
+    <list default="true" id="199f51b9-0775-4020-aca0-617acadb18c7" name="默认的" comment="32">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Update_2020_10_20_0020_19_01____.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/._.DS_Store" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/._bottom.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/._box.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/._components" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/._middle.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/._myp-one" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/bottom.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/box.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/middle.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行Update之前于_2020_10_20_0020_19_01_取消提交了变更_[默认的]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,6 +189,7 @@
       <workItem from="1603759855497" duration="136000" />
       <workItem from="1603760011756" duration="5635000" />
       <workItem from="1603765788826" duration="14420000" />
+      <workItem from="1603846545610" duration="107000" />
     </task>
     <task id="LOCAL-00001" summary="用户页面和订单结算页面结构完成">
       <created>1601287204618</created>
