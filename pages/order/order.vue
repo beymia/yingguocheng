@@ -49,8 +49,8 @@
 					<view   class="order_type " :class="orderType==2?'order_type_selected':''" @tap="order_type_tap(2)">
 						自取
 					</view>
-					<view  class="order_type " :class="orderType==1?'order_type_selected':''" >
-						代付
+					<view  class="order_type " :class="orderType==1?'order_type_selected':''" @tap="order_type_tap(1)">
+						外賣
 					</view>
 					<view  class="order_type " :class="orderType==3?'order_type_selected':''" @tap="order_type_tap(3)">
 						堂食

@@ -33,13 +33,13 @@
 						下單免排隊
 					</view>
 				</view>
-				<!-- <view class="submenu2" @tap="waimai"> -->
-				<view class="submenu2" >
+				<view class="submenu2" @tap="waimai">
+				<!-- <view class="submenu2" > -->
 					<view class="item1">
 						<image src="/static/images/home/motorbike.png" mode=""></image>
 					</view>
 					<view class="item2">
-						代付
+						外賣
 					</view>
 					<view class="item3">
 						無需接觸 送茶到家
