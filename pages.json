@@ -261,7 +261,7 @@
     "color": "#C6C6C6",
     "selectedColor": "#17A1FF",
     "borderStyle": "white",
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#FFFFFF",
     "list": [
       {
         "pagePath": "pages/home/home",

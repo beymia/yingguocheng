@@ -59,6 +59,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
   font-family: 'PingFang SC', 'Microsoft Yahei';

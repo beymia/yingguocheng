@@ -51,7 +51,7 @@ const APP = getApp().globalData
 		name: "user",
     data(){
 		  return {
-		    baseImg:'../../../static/images_t/my/user_avatar.png',
+		    baseImg:'/static/images_t/my/user_avatar.png',
         wxUserInfo:{}
       }
     },
@@ -63,6 +63,8 @@ const APP = getApp().globalData
 		},
     mounted(){
       this.wxUserInfo = APP.wxUserInfo;
+	  console.log('this.wxUserInfo')
+	  console.log(this.wxUserInfo)
     },
 	}
 </script>
