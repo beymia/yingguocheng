@@ -1,6 +1,6 @@
 <template>
   <view class="record">
-    <noMoreData v-if="!spliceData||spliceData.length === 0"></noMoreData>
+    <noMoreData v-if="!record||record.length === 0"></noMoreData>
     <view v-else
           class="content"
           v-for="(d,index) in spliceData"
@@ -19,8 +19,7 @@
             </view>
           </view>
           <view>
-            <text>{{'-' + p.barter_integral}}
-            </text>
+            <text>{{ '-' + p.barter_integral }}</text>
           </view>
         </view>
       </view>
@@ -29,55 +28,35 @@
 </template>
 
 <script>
-import {exchangeRecord} from "../../request/api";
 
 export default {
   data() {
     return {
-      record:[],
-      page:1
+      record: [],
+      page: 1
     }
   },
-  async mounted(){
-    // TODO 展示数据，API接口需替换
-    this.record = (await exchangeRecord({
-      page:this.page,
-    })).data
+  onLoad(options) {
+    this.record = JSON.parse(decodeURIComponent(options.data))
   },
   computed: {
     //根据月份分离出对应的数据
     spliceData() {
-      if(!this.record) return ;
+      if (!this.record) return;
       let spliceObj = {},
           temp = []
       this.record.forEach((item) => {
         temp = item.created_at.split('/');
         item.name = `${temp[0]}年${temp[1]}月`;
-        if(!(spliceObj[item.name])){
+        if (!(spliceObj[item.name])) {
           spliceObj[item.name] = {
-            name:item.name,
-            data:[]
+            name: item.name,
+            data: []
           };
         }
         spliceObj[item.name].data.push(item)
       })
       return spliceObj
-    }
-  },
-  //上拉加载更多
- async onReachBottom(){
-    try{
-      let data = (await exchangeRecord({
-        page:++this.page,
-      })).data
-
-      if(!data){
-        --this.page;
-        throw 1
-      }
-      this.record = this.record.concat(data)
-    }catch (e) {
-      this.customToast('没有更多数据了',false)
     }
   },
 }

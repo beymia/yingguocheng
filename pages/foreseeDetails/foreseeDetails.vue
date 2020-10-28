@@ -1,8 +1,7 @@
 <template>
   <view class="foresee">
     <view class="head">
-      <!-- TODO 替換圖片鏈接 foreseeList.worth_price-->
-      <image :src="'../../static/images_t/milkTeaGift/img.png'"></image>
+      <image :src="foresee.home_avatar | filterImg"></image>
     </view>
     <view class="foresee_content">
       <view class="foresee_name">{{ foresee.card_name }}</view>
@@ -59,9 +58,8 @@ export default {
         //重新获取用户相关信息
         await self.paymentSuccess()
       } catch (e) {
-        console.log(e);
+        uni.hideLoading()
         self.paymentStatus = false;
-        self.customToast('购买失败')
       }
     },
     async paymentSuccess(){

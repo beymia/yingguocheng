@@ -202,7 +202,7 @@ export default {
       totalAmount: 0,
       attachArr: [],
       couponInfo: [],
-      paymentStatus:false,//订单的支付状态，为true时禁止再次点击支付
+      paymentStatus: false,//订单的支付状态，为true时禁止再次点击支付
     }
   },
   computed: {
@@ -232,9 +232,9 @@ export default {
     this.totalAmount = parseFloat(this.goodsData.payment_info)
 
     //獲取附加服務信息
-    try{
+    try {
       this.attach = (await paymentAttach()).data
-    }catch (e) {
+    } catch (e) {
       console.log(e);
       this.attach = {}
     }
@@ -259,15 +259,15 @@ export default {
   },
   onShow() {
     //页面展示时从全局对象中获取优惠券的金额
-    if(APP.coupon.goods_quota){
+    if (APP.coupon.goods_quota) {
       this.discountAmount = APP.coupon.goods_quota;
-    }else{
+    } else {
       this.discountAmount = 0;
       this.couponInfo = []
     }
   },
   onUnload() {
-    this.paymentStatus =  false;
+    this.paymentStatus = false;
     //页面卸载时清空优惠券金额
     APP.coupon = {};
   },
@@ -308,7 +308,7 @@ export default {
     //開始支付
     async startPay() {
       //订单为支付状态时再次点击支付直接返回
-      if(this.paymentStatus) return;
+      if (this.paymentStatus) return;
       this.paymentStatus = true;
       let self = this;
       uni.showLoading({
@@ -367,9 +367,9 @@ export default {
       //发起微信支付
       try {
         let orderId = (await createOrder(paramsObj)).data.order_id;
-        // let orderInfo = (await paymentStart({order_id: orderId, shop_id: paramsObj.shop_id})).data
+        let orderInfo = (await paymentStart({order_id: orderId, shop_id: paramsObj.shop_id})).data
         console.log(1);
-        // await self.utilPayment(orderInfo)
+        await self.utilPayment(orderInfo)
         await self.paymentSuccess();
       } catch (e) {
         self.customToast('订单创建失败');
@@ -378,11 +378,11 @@ export default {
       }
     },
     //订单结算成功，跳转至订单页
-    async paymentSuccess(){
+    async paymentSuccess() {
       this.paymentStatus = false;
       this.customToast('结算成功');
       uni.switchTab({
-        url:'/pages/orderForm/orderForm',
+        url: '/pages/orderForm/orderForm',
       })
     }
   },

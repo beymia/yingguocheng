@@ -35,13 +35,12 @@
 </template>
 
 <script>
-//TODO 展示数据，API接口需替换
 import { expensesRecord} from "../../request/api";
 
 export default {
   data() {
     return {
-      record: [],
+      record: [],//钱包充值记录
       page: 1
     }
   },

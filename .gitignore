@@ -1,12 +1,3 @@
 /unpackage/
-components_me/
-/.idea
-/.git
-/unpackage/dist/
-/unpackage/dist/dev/
-/unpackage/dist/dev/mp-weixin/
-/unpackage/dist/dev/.sourcemap/
-/.automator
-/unpackage
-/node_modules
-/static/images_t/
+/.idea/
+/.git/

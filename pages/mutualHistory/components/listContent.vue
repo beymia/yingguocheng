@@ -3,8 +3,7 @@
     <view v-for="(content,index) in list"
           :key="index"
           class="mutual_list">
-      <!--TODO 需要替换图片地址 imgSrc + content.home_avatar-->
-      <image src="../../../static/images_t/milkTeaGift/img.png"></image>
+      <image :src="content.home_avatar | filterImg"></image>
       <view class="mutual_info">
         <text>￥{{content.worth_price}}</text>
         <view class="info">

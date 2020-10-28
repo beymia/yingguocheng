@@ -12,6 +12,7 @@
     "@types/uni-app": "^1.4.3"
   },
   "dependencies": {
+    "vue": "^2.6.12",
     "vue-jsonp": "^2.0.0"
   }
 }

@@ -1,8 +1,7 @@
 <template>
   <view class="foresee_container">
     <view class="have_list" v-for="have in list" :key="have.id">
-      <!-- TODO 需要替换图片地址 have.worth_price-->
-      <image src="../../static/images_t/milkTeaGift/img.png"></image>
+      <image :src="have.home_avatar | filterImg"></image>
       <view class="attach">
         <text>￥{{ have.worth_price }}</text>
         <text @click="$emit('give-foresee',have)">赠送好友</text>

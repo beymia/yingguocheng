@@ -76,12 +76,12 @@ export const sendMsg = (data) => ajax('/dialog/send-msg', {data})
 export const receiveMsg = (data) => ajax('/dialog/latest-dialog',{data})
 
 //奶茶有礼列表
-export const foreseeList = (data) => ajax('/foreseeList-card/list', {data})
+export const foreseeList = (data) => ajax('/foresee-card/list', {data})
 //我的卡片
-export const myForesee = (data) => ajax('/foreseeList-card/my-card',{data})
+export const myForesee = (data) => ajax('/foresee-card/my-card',{data})
 //购买卡片
-export const buyForesee = (data) => ajax('/foreseeList-card/pay-card',{data})
+export const buyForesee = (data) => ajax('/pay/card',{data})
 //收送记录
-export const mutualRecord = (data) => ajax('/foreseeList-card/my-gift', {data})
+export const mutualRecord = (data) => ajax('/foresee-card/my-gift', {data})
 //贈送預付卡
 export const giveForesee = (data)=>ajax('/foresee-card/handsel-gift',{data})
