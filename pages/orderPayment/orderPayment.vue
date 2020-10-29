@@ -18,7 +18,7 @@
             <text>自取</text>
           </view>
           <view :class="['other_people',goodsData.haul_method === 1 ? 'active_method' : '']">
-            <text>外卖</text>
+            <text>外賣</text>
           </view>
           <view :class="['shop',goodsData.haul_method === 3 ? 'active_method' : '']">
             <text>堂食</text>

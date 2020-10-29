@@ -76,6 +76,7 @@ Vue.prototype.utilPayment = async function (orderInfo, provider = 'wxpay') {
 
     // #ifdef APP-PLUS
     orderInfo.partnerid = '1541769301';
+    //支付所需字段名转换为小写
     orderInfo = Object.keys(orderInfo).reduce((arr,key)=>{
       arr[key.toLowerCase()] = orderInfo[key]
       return arr

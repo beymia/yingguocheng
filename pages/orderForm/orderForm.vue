@@ -88,14 +88,14 @@ export default {
       currentOrderForm: {data: [], page: 1},
       historyOrderForm: {data: [], page: 1},
       oneSelfOrder: [],//自提订单
-      takeawayOrder: [],//外卖订单
+      takeawayOrder: [],//外賣订单
       invoiceData: [],//未开发票订单
       loginBoxShow: false,
       paymentStatus: false,//订单结算状态
     }
   },
   computed: {
-    //分离出外卖订单，自提订单，未开发票订单
+    //分离出外賣订单，自提订单，未开发票订单
     sliceOrder() {
       this.empty = false;
       this.takeawayOrder = [];

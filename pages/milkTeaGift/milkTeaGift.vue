@@ -124,13 +124,12 @@ export default {
     //跳轉至預付卡詳情
     navPage(f) {
       uni.navigateTo({
-        url:
-            "/pages/foreseeDetails/foreseeDetails?foresee=" +
+        url: "/pages/foreseeDetails/foreseeDetails?foresee=" +
             encodeURIComponent(JSON.stringify(f)),
       });
     },
 
-    //在弹出赠送框后阻止滑动的空数组
+    //在弹出赠送框后阻止滑动穿透的空函数
     catchTouch() {},
     //展示赠送框，并存储赠送的预付卡ID
     giveInfo(e) {
