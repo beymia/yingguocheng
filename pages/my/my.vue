@@ -16,7 +16,7 @@
       </view>
       <!-- 开通礼包 -->
       <view @click="navFitPage({page:'joinMember'})" class="open_package">
-        <giftPack></giftPack>
+        <giftPack :giftPack="userInfo.ritual_park"></giftPack>
       </view>
 
       <!-- 功能列表 -->
@@ -46,7 +46,7 @@ import optionsList from "../../components-lk/optionsList/optionsList";
 import loginBox from "../../components-lk/loginBox/loginBox";
 
 const APP = getApp().globalData;
-
+//用户信息
 export default {
   data() {
     return {
@@ -61,10 +61,6 @@ export default {
         summary: '兌換星球會員、優惠券和禮品卡',
         icon: 'arrowright'
       },
-      //   {
-      //   title: '星球封面',
-      //   icon: 'arrowright'
-      // },
         {
         title: '聯系客服',
         icon: 'arrowright'
@@ -78,13 +74,6 @@ export default {
       loginBoxShow:false,
     }
   },
-  //获取用户信息
-  // async mounted() {
-  //   this.token = APP.userToken;
-  //   this.userInfo = APP.userInfo;
-  //   await this.getUserInfo()
-  // },
-
   /**
    * 页面展示时判断的情况
    * 有 token 没有用户信息，请求接口获取用户信息
@@ -109,9 +98,6 @@ export default {
       APP.isLoginBox = true;
     }
     this.loginBoxShow = APP.isLoginBox
-    // this.loginBoxShow = !!this.token;
-    // if(!this.loginBoxShow) return;
-    // !this.userInfo.level && await this.getUserInfo()
   },
 
   methods: {

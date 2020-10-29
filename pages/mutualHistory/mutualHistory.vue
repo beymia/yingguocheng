@@ -18,46 +18,10 @@
 import swiperSwitch from "../../components-lk/swiperSwitch/swiperSwitch";
 import listContent from "./components/listContent";
 import {mutualRecord} from "../../request/api";
-
+//预付卡赠送历史
 export default {
   data() {
     return {
-      // giveList: [
-      //   {
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //     worth_price: "60.00",
-      //     to_uid_name: "LPQNRDnL0DKdhnbn"
-      //   }],
-      // receiveList: [
-      //   {
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //     worth_price: "60.00",
-      //     to_uid_name: "LPQNRDnL0DKdhnbn"
-      //   }, {
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //     worth_price: "60.00",
-      //     to_uid_name: "LPQNRDnL0DKdhnbn"
-      //   }, {
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //     worth_price: "60.00",
-      //     to_uid_name: "LPQNRDnL0DKdhnbn"
-      //   }, {
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //     worth_price: "60.00",
-      //     to_uid_name: "LPQNRDnL0DKdhnbn"
-      //   }, {
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //     worth_price: "60.00",
-      //     to_uid_name: "LPQNRDnL0DKdhnbn"
-      //   }, {
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //     worth_price: "60.00",
-      //     to_uid_name: "LPQNRDnL0DKdhnbn"
-      //   }, {
-      //     home_avatar: "/uploads/202010/14/160267063599194.jpg",
-      //     worth_price: "60.00",
-      //     to_uid_name: "LPQNRDnL0DKdhnbn"
-      //   },],
       giveList: [],
       receiveList: []
     }
@@ -71,7 +35,7 @@ export default {
         })
         .catch(err => {
           console.log(err);
-          self.customToast('出现了错误')
+          self.customToast('出現了錯誤')
         })
   },
   components: {

@@ -41,8 +41,9 @@
 </template>
 
 <script>
-import {sendCheckCode,login} from "../../request/api";
+import {sendCheckCode} from "../../request/api";
 
+//发送验证码，具体的登录逻辑在checkCode
 export default {
   data() {
     return {
@@ -53,16 +54,10 @@ export default {
     }
   },
   onLoad(options){
-    console.log(options.from);
     options.from && (this.from = options.from)
-    console.log(this.from);
   },
   methods: {
     async loginStart() {
-      // uni.navigateTo({
-      //   url: '/pages/checkCode/checkCode?phone=' + this.phone + '&from = ' + this.from
-      // })
-      // return
 
       //手机号错误的处理
       if (this.phone.length !== 11) {

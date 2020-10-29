@@ -9,7 +9,7 @@
 						{{pintuanShop.shop_name}}
 					</view>
 					<view class="type">
-						{{pintuanType == 1 ? "代付":"自取"}}
+						{{pintuanType == 1 ? "外賣":"自取"}}
 					</view>
 				</view>
 				<!-- <view class="distance">

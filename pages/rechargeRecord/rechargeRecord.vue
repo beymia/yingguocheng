@@ -36,11 +36,11 @@
 
 <script>
 import { expensesRecord} from "../../request/api";
-
+//会员充值记录
 export default {
   data() {
     return {
-      record: [],//钱包充值记录
+      record: [],
       page: 1
     }
   },

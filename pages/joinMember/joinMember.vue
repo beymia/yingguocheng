@@ -2,7 +2,7 @@
   <view class="join_member">
     <!--頭部-->
     <view class="top">
-      <giftPack title="開通/續費星球會員後，立刻發放"></giftPack>
+      <giftPack :giftPack="giftPack" title="開通/續費星球會員後，立刻發放"></giftPack>
     </view>
     <!--中間-->
     <view class="center">
@@ -118,6 +118,7 @@ import optionsList from "../../components-lk/optionsList/optionsList";
 
 import {memberRechargeInfo, joinMember, userSpace} from "../../request/api";
 const APP = getApp().globalData
+//開通會員
 export default {
   data() {
     return {
@@ -127,12 +128,16 @@ export default {
       interestsPark:[],
       joinType:0,//根据索引读取数据中的会员等阶
       paymentStatus:false,//支付状态，为true时禁止再次支付，防止多次提交数据
+      giftPack:[]
     }
   },
   async mounted() {
+    //从用户信息中获取开通会员的优惠信息
     this.monthPark = APP.userInfo.month_park;
     this.interestsPark = APP.userInfo.interests_pack;
+    this.giftPack = APP.userInfo.ritual_park;
     try {
+      //获取会员等阶信息
       this.memberInfo = (await memberRechargeInfo()).data
     } catch (e) {
       console.log(e);
@@ -143,13 +148,14 @@ export default {
       if(this.paymentStatus) return;
       this.paymentStatus = true;
       let self = this;
+      //没有勾选开通协议直接返回
       if(!this.summaryStatus){
         this.customToast('请仔细阅读协议',false);
         this.paymentStatus = false;
         return;
       }
       uni.showLoading({
-        title:'开通中...'
+        title:'開通中...'
       })
       try{
         //請求接口獲取支付信息
@@ -170,13 +176,20 @@ export default {
 
     //开通成功，重新获取会员信息，并且跳转会员权益页面
     async joinSuccess() {
-      this.customToast('开通成功')
-      this.paymentStatus = false;
-      APP.userInfo = (await userSpace()).data;
-      //开通成功后跳转到会员权益页面
-      uni.redirectTo({
-        url:'/pages/memberBenefits/memberBenefits'
-      })
+      try{
+        this.customToast('开通成功')
+        this.paymentStatus = false;
+        APP.userInfo = (await userSpace()).data;
+        //开通成功后跳转到会员权益页面
+        uni.redirectTo({
+          url:'/pages/memberBenefits/memberBenefits'
+        })
+      }catch (e) {
+        this.customToast('信息更新可能延遲')
+        uni.redirectTo({
+          url:'/pages/my/my'
+        })
+      }
     },
 
     //選擇開通類型

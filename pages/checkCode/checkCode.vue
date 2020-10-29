@@ -10,14 +10,14 @@
       </view>
       <view class="code_input">
         <!--改用组件-->
-<!--        <label v-for="(code,index) in 6" :key="index">-->
-<!--          <input class="input_content"-->
-<!--                 disabled-->
-<!--                 maxlength="1"-->
-<!--                 v-model="verificationCode[index]"-->
-<!--                 type="text">-->
-<!--        </label>-->
-<!--        <input focus @input="inputCode" v-model="verificationCode" maxlength="6" class="empty_input" type="text">-->
+        <!--        <label v-for="(code,index) in 6" :key="index">-->
+        <!--          <input class="input_content"-->
+        <!--                 disabled-->
+        <!--                 maxlength="1"-->
+        <!--                 v-model="verificationCode[index]"-->
+        <!--                 type="text">-->
+        <!--        </label>-->
+        <!--        <input focus @input="inputCode" v-model="verificationCode" maxlength="6" class="empty_input" type="text">-->
 
         <view>
           <view style="height: 100rpx;"></view>
@@ -33,10 +33,12 @@
 </template>
 
 <script>
-import {login, verifyCode,sendCheckCode} from "../../request/api";
+import {login, verifyCode, sendCheckCode} from "../../request/api";
 import oneInput from '../../components/myp-one/myp-one'
 
 const APP = getApp().globalData;
+
+//输入验证码
 export default {
   data() {
     return {
@@ -50,19 +52,16 @@ export default {
   },
 
   onLoad(options) {
-    console.log(options.query,'22222');
     options.query = JSON.parse(options.query)
-    console.log(options.query.from);
     this.phone = options.query.phone || APP.userInfo.mobile;//用户手机号
     this.change = options.query.change;//有值则是修改密码
     this.from = options.query.from;//登录完成后跳转的页面，默认跳转首页
     this.customToast('驗證碼已發送', false)
   },
-  //页面隐藏式清除定时器，并且验证码归位
 
+  //页面隐藏式清除定时器，并且验证码归位
   onUnload() {
     this.pageHide()
-    console.log('unload清除定时器')
   },
 
   //进入页面直接开始定时器,时间为0时自动重发验证码
@@ -71,12 +70,20 @@ export default {
     this.countDown && clearInterval(this.countDown);
     this.countDown = setInterval(async () => {
       self.timer--;
-      console.log(self.timer);
       if (self.timer === 0) {
+        clearInterval(self.countDown)
+        self.timer = 200
         try {
-          await sendCheckCode({mobile: self.phone})
-          self.customToast('已重發', false)
-          self.timer = 200
+          uni.showModal({
+            title:'是否重新發送驗證碼',
+            async success(res){
+              if(res.confirm){
+                await sendCheckCode({mobile: self.phone})
+                self.customToast('已重發', false)
+                self.timer = 200
+              }
+            }
+          })
         } catch (e) {
           console.log(e);
           self.customToast('验证码发送失败');
@@ -88,26 +95,17 @@ export default {
   },
 
   methods: {
-    // changeCode(e){
-    //   console.log(e);
-    // },
-    // //
-    // inputCode(e) {
-    //   this.verificationCode = e.detail.value
-    // },
-
     //页面关闭或者卸载的操作
-    pageHide(){
+    pageHide() {
       this.verificationCode = '';
       uni.hideLoading();
       this.timer = 200;
       clearInterval(this.countDown)
-      console.log('页面隐藏，清楚定时器');
     },
 
     //登陆失败
     loginError() {
-      this.verificationCode = '';
+      this.pageHide()
       this.customToast('登陆失败')
     },
 
@@ -118,7 +116,8 @@ export default {
       APP.userToken = result.data.token;
       APP.isLoginBox = false;
       uni.setStorageSync('token', APP.userToken)
-      if(self.from){
+      //options没有值时默认跳转首页
+      if (self.from) {
         uni.redirectTo({
           url: `/pages/${self.from}/${self.from}`,
           success() {
@@ -145,45 +144,43 @@ export default {
           title: this.change ? '請稍後' : '正在登錄中',
         })
 
-          //驗證驗證碼，
-          try{
-            await verifyCode({mobile: self.phone, code: self.verificationCode})
-          }catch (e) {
-            console.log(self.phone);
-            console.log(self.verificationCode);
-            self.customToast('验证码错误')
-            return;
-          }
+        //驗證驗證碼，
+        try {
+          await verifyCode({mobile: self.phone, code: self.verificationCode})
+        } catch (e) {
+          self.customToast('验证码错误')
+          return;
+        }
 
-          // change有值則跳轉到設置交易密碼頁面
-          if (self.change) {
-            uni.hideLoading()
-            uni.redirectTo({
-              url: '/pages/setPassword/setPassword',
-            })
-            return;
-          }
+        // change有值則跳轉到設置交易密碼頁面
+        if (self.change) {
+          uni.hideLoading()
+          uni.redirectTo({
+            url: '/pages/setPassword/setPassword',
+          })
+          return;
+        }
 
         let result;
-          //小程序登陆
-          // #ifdef MP-WEIXIN
-          uni.login({
-            provider:'weixin',
-            scopes: 'auth_base',
-            async success(wxCode) {
-              try {
-                result = await login({
-                  mobile: self.phone,
-                  code: wxCode.code
-                })
-                self.loginSuccess(result)
-              } catch (e) {
-                console.log('登陆失败',e)
-                self.loginError()
-              }
+        //小程序登陆
+        // #ifdef MP-WEIXIN
+        uni.login({
+          provider: 'weixin',
+          scopes: 'auth_base',
+          async success(wxCode) {
+            try {
+              result = await login({
+                mobile: self.phone,
+                code: wxCode.code
+              })
+              self.loginSuccess(result)
+            } catch (e) {
+              console.log('登陆失败', e)
+              self.loginError()
             }
-          })
-          // #endif
+          }
+        })
+        // #endif
 
         // APP 和 H5 登陆
         // #ifdef APP-PLUS | H5
@@ -193,14 +190,14 @@ export default {
           })
           self.loginSuccess(result)
         } catch (e) {
-          console.log('登錄錯誤',e)
+          console.log('登錄錯誤', e)
           self.loginError()
         }
         // #endif
       }
     }
   },
-  components:{
+  components: {
     oneInput
   }
 }

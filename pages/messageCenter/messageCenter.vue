@@ -17,7 +17,7 @@
 
 <script>
 import {msgCenter} from "../../request/api";
-
+//消息中心
 export default {
   data() {
     return {
@@ -25,10 +25,12 @@ export default {
     }
   },
   async mounted(){
-    this.msgList = (await msgCenter()).data;
-    console.log(this.msgList);
+    try{
+      this.msgList = (await msgCenter()).data;
+    }catch (e) {
+      this.msgList = []
+    }
   },
-  methods: {}
 }
 </script>
 

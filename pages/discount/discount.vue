@@ -20,6 +20,7 @@ import discountModule from "../../components-lk/discountModule/discountModule";
 import {discount} from "../../request/api";
 
 const APP = getApp().globalData;
+//优惠券
 export default {
   data() {
     return {

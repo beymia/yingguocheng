@@ -10,7 +10,6 @@
 
 <script>
 import optionsList from "../../components-lk/optionsList/optionsList";
-
 export default {
   name: "more",
   data() {

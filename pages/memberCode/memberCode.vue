@@ -47,18 +47,24 @@ export default {
         console.log(1);
       },30000)
     }catch (e) {
-      this.customToast('會員碼獲取失敗')
+      console.log(e);
     }
   },
   methods: {
     async QRcode() {
-      this.qrCodeData = (await qrCode({})).data
+      try{
+        this.qrCodeData = (await qrCode({})).data
+      }catch (e) {
+        clearTimeout(this.timer)
+        uni.showModal({
+          title:'會員碼獲取錯誤'
+        })
+      }
     },
   },
   onUnload(){
     console.log('定時器清除，onUnload')
     clearInterval(this.timer)
-    console.log(this.timer);
   },
   components: {
     popUpLayer

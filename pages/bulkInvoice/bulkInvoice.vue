@@ -26,8 +26,8 @@
           <text>全選</text>
         </view>
         <view class="select_count">
-          <text>共￥{{ amount || '' }}</text>
-          <text>{{ count || '' }}个订单</text>
+          <text>共￥{{ amount || 0 }}</text>
+          <text>{{ count || 0 }}个订单</text>
         </view>
         <view @click="navInvoiceInfo"
               class="next_stop">
@@ -41,6 +41,7 @@
 
 <script>
 
+//批量开发票
 export default {
   data() {
     return {
@@ -93,8 +94,6 @@ export default {
         uni.navigateTo({
           url: `/pages/invoiceInfo/invoiceInfo?invoiceAmount=${this.amount}&id=${this.orderId.join(',')}`
         })
-      }else{
-        this.customToast('沒有選擇訂單',false)
       }
     }
   },

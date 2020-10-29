@@ -30,16 +30,21 @@
 
 <script>
 import {exchangeRecord} from "../../request/api";
-
+//积分商城兑换记录
 export default {
   data() {
     return {
-      record:[],//积分商城兑换记录
+      record:[],
       page:1
     }
   },
   async mounted(){
-    this.record = (await exchangeRecord({page:this.page})).data
+    try{
+      this.record = (await exchangeRecord({page:this.page})).data
+    }catch (e) {
+      this.customToast('請求出錯了',false)
+      this.record = []
+    }
   },
   computed: {
     //根据月份分离出对应的数据
@@ -64,17 +69,12 @@ export default {
   //上拉加载更多
   async onReachBottom(){
     try{
-      let data = (await exchangeRecord({
-        page:++this.page,
-      })).data
+      let data = (await exchangeRecord({page:++this.page,})).data
       //没有更多数据时手动抛出一个错误
-      if(!data){
-        --this.page;
-        throw 1
-      }
+      if(!data){--this.page;throw 1}
       this.record = this.record.concat(data)
     }catch (e) {
-      this.customToast('没有更多数据了',false)
+      this.customToast('沒有更多數據了',false)
     }
   },
 }

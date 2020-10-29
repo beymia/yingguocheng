@@ -70,21 +70,22 @@
 import {
   foreseeList,
   myForesee,
-  giveForesee,
+  giveForesee, userSpace,
 } from "../../request/api";
 
 import swiperSwitch from "../../components-lk/swiperSwitch/swiperSwitch";
 import myForeseePage from "./components/myForeseePage";
 
 const APP = getApp().globalData;
+//奶茶有禮
 export default {
   data() {
     return {
-      haveForesee: [],
-      foreseeList: [],
-      activeFeat: "buy",
+      haveForesee: [],//拥有的
+      foreseeList: [],//可购买列表
+      activeFeat: "buy",//活跃板块
       assignIndex: 0,
-      givePhone: "",
+      givePhone: "",//赠送手机号
       isGive: false,
       giveForeseeId: ''
     };
@@ -93,9 +94,14 @@ export default {
   //如果isForeseeBuy为true，则用户购买了新的预付卡，重新获取预付卡信息
   async onShow() {
     if (APP.isForeseeBuy) {
-      await this.getForesee()
-      APP.isForeseeBuy = false;
-      console.log(APP.isForeseeBuy);
+      try{
+        await this.getForesee()
+        APP.isForeseeBuy = false;
+        APP.userInfo = (await userSpace()).data
+        console.log(APP.isForeseeBuy);
+      }catch (e) {
+        this.customToast('信息更新可能延遲',false)
+      }
     }
   },
 
@@ -112,7 +118,7 @@ export default {
           })
           .catch(err => {
             console.log(err);
-            this.customToast('数据获取失败')
+            this.customToast('出現了錯誤')
           })
     },
     //跳轉至預付卡詳情
@@ -128,12 +134,11 @@ export default {
     catchTouch() {},
     //展示赠送框，并存储赠送的预付卡ID
     giveInfo(e) {
-      console.log(e);
       this.isGive = true;
       this.giveForeseeId = e.id;
     },
     //點擊贈送好友
-    async giveStart(e) {
+    async giveStart() {
       let self = this;
       //手机号位数不对直接返回
       if (self.givePhone.length !== 11) {
@@ -154,6 +159,10 @@ export default {
         })
         self.customToast("贈送成功");
         self.givePhone = "";
+        //赠送成功后重新获取预付卡信息和用户信息
+        await self.getForesee()
+        self.haveForesee.length--;
+        APP.userInfo = (await userSpace()).data
       } catch (e) {
         self.givePhone = '';
         self.customToast('赠送失败')

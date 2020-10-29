@@ -7,17 +7,17 @@
 		</view>
 		<view class="package_content">
 			<view class="package_top">
-				<view class="items">
+        <!-- TODO 礼包数据需要从用户数据接口获取-->
+				<view class="items" v-for="(pack,index) in giftPack" :key="index">
 					<view class="icon_exception package_icon">
-						<image src="../../../static/images/my/free_drink.png"></image>
+						<image :src="pack.home_avatar"></image>
 					</view>
-          <!-- TODO 礼包数据需要从用户数据接口获取-->
 					<view class="package_title">
-						<text>星球贈飲券</text>
-						<text>X1</text>
+						<text>{{pack.goods_name}}</text>
+						<text>X{{pack.goods_num}}</text>
 					</view>
 				</view>
-				<view class="items">
+<!--				<view class="items">
 					<view class="package_icon">
 						<image src="../../../static/images/my/free_one.png"></image>
 					</view>
@@ -63,7 +63,7 @@
 						<text>免運費券</text>
 						<text>X2</text>
 					</view>
-				</view>
+				</view>-->
 			</view>
 		</view>
 	</view>
@@ -76,8 +76,12 @@
 		  title:{
 		    type:[String,Number],
         default:0
+      },
+      giftPack:{
+		    type:Array,
+        default:()=>[]
       }
-    }
+    },
 	}
 </script>
 
@@ -92,6 +96,7 @@
 		justify-content: space-between;
 		font-size: $font-size-sm;
 		color: $font-color1;
+    overflow:hidden;
 
 		.package_head {
 			height: 90rpx;
@@ -125,9 +130,12 @@
 			.package_bottom {
 				display: flex;
 				align-items: flex-end;
+        flex-wrap: wrap;
 
 				.items {
 					flex: 1;
+          min-width:147rpx;
+          margin-bottom: 37rpx;
 					display: flex;
 					flex-direction: column;
 					text-align: center;

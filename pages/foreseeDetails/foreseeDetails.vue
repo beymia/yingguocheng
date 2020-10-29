@@ -49,19 +49,19 @@ export default {
     async buy() {
       if (this.paymentStatus) return;
       this.paymentStatus = true;
-      uni.showLoading({title: '购买中'})
+      uni.showLoading({title: '購買中...'})
       let self = this;
       try {
         //请求预支付信息
         let orderInfo = (await buyForesee({card_id: self.foresee.id})).data;
         await self.utilPayment(orderInfo)
-        //重新获取用户相关信息
         await self.paymentSuccess()
       } catch (e) {
         uni.hideLoading()
         self.paymentStatus = false;
       }
     },
+    //購買成功後重新獲取用戶信息
     async paymentSuccess(){
       this.paymentStatus = false;
       this.customToast('购买成功');

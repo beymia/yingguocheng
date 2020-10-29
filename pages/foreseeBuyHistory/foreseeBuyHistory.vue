@@ -28,7 +28,7 @@
 </template>
 
 <script>
-
+//預付卡購買記錄
 export default {
   data() {
     return {
@@ -37,7 +37,11 @@ export default {
     }
   },
   onLoad(options) {
-    this.record = JSON.parse(decodeURIComponent(options.data))
+    if(options.data){
+      this.record = JSON.parse(decodeURIComponent(options.data))
+      return;
+    }
+    this.record = [];
   },
   computed: {
     //根据月份分离出对应的数据

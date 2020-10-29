@@ -80,11 +80,12 @@ import {
   monthPack,
   receivePack,
   interestsPark,
-  receiveKnight
+  receiveKnight, userSpace
 } from "../../request/api";
 import options from "./components/options";
 
 const APP = getApp().globalData
+//会员权益，开通会员后才可进入
 export default {
   data() {
     return {
@@ -109,6 +110,7 @@ export default {
             this.level = data[0].data;
             this.month = data[1].data;
             this.interests = data[2].data;
+            //接口数据没有标注礼包类型，手动添加
             this.level.forEach((item) => {
               item.type = 'level'
             })
@@ -137,6 +139,7 @@ export default {
             await receiveKnight({park_id: e.id})
         }
         this.customToast('領取成功')
+        APP.userInfo = (await userSpace()).data
       } catch (e) {
         console.log(e);
         this.customToast('領取失敗')

@@ -35,9 +35,9 @@
 </template>
 
 <script>
-//钱包余额消费记录
 import { expensesRecord} from "../../request/api";
 
+//钱包余额消费记录
 export default {
   data() {
     return {
@@ -51,7 +51,8 @@ export default {
       this.record = (await expensesRecord({page: this.page})).data
     } catch (e) {
       console.log(e);
-      this.customToast('请求出错', false)
+      this.record = []
+      this.customToast('請求出錯了', false)
     }
   },
   computed: {
@@ -85,9 +86,8 @@ export default {
         throw 1
       }
       this.record = this.record.concat(data)
-      console.log(this.record);
     }catch (e) {
-      this.customToast('没有更多数据了',false)
+      this.customToast('沒有更多數據了',false)
     }
   },
 }
