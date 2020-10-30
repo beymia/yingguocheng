@@ -44,7 +44,6 @@ export default {
       await this.QRcode();
       this.timer = setInterval(async ()=>{
         await this.QRcode()
-        console.log(1);
       },30000)
     }catch (e) {
       console.log(e);

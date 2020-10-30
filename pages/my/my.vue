@@ -22,6 +22,7 @@
       <!-- 功能列表 -->
       <view class="fun_list">
         <optionsList @options-click="navFitPage" :list="options"></optionsList>
+        <button open-type="contact">添加客服</button>
       </view>
     </view>
 

@@ -15,8 +15,6 @@ export default {
   },
   onLaunch:async function () {
     //应用初次启动时从缓存中读取用户token
-    //TODO 往storage中注入token免登錄使用
-    // uni.setStorageSync('token','Lp0lLLjXkKYdU8Qk0o3qlGRjZTc2NzJlOTk5YjNkODZlZmE0Mjg5Zjk2MTkxYTg0NGNkM2MyZjg2MzJlNGExN2RjNDIwYzIwMWFhODMwNDi7lYxo8ami9E5qx5krqUBDTzu2zMFhOjzBcWBbQXZktQ==')
     this.globalData.userToken = uni.getStorageSync("token");
     console.log("App Launch");
 

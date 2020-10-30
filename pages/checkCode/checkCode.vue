@@ -66,35 +66,44 @@ export default {
 
   //进入页面直接开始定时器,时间为0时自动重发验证码
   mounted() {
-    let self = this;
-    this.countDown && clearInterval(this.countDown);
-    this.countDown = setInterval(async () => {
-      self.timer--;
-      if (self.timer === 0) {
-        clearInterval(self.countDown)
-        self.timer = 200
-        try {
-          uni.showModal({
-            title:'是否重新發送驗證碼',
-            async success(res){
-              if(res.confirm){
-                await sendCheckCode({mobile: self.phone})
-                self.customToast('已重發', false)
-                self.timer = 200
-              }
-            }
-          })
-        } catch (e) {
-          console.log(e);
-          self.customToast('验证码发送失败');
-          //发送出错清除定时器
-          clearInterval(self.countDown)
-        }
-      }
-    }, 1000)
+    this.setCountDown(this.reCountDown)
   },
 
   methods: {
+    //定时器计时
+    setCountDown(fill){
+      this.countDown && clearInterval(this.countDown);
+      let self = this;
+      self.countDown = setInterval(()=>{
+        self.timer--;
+        if(self.timer === 0){
+          clearInterval(self.countDown)
+          self.timer = 200;
+          fill()
+        }
+      },1000)
+    },
+
+    //重新发送验证码
+    reCountDown() {
+      this.timer = 200;
+      let self = this;
+      uni.showModal({
+        title: '是否重新發送驗證碼',
+        async success(res) {
+          try {
+            if (res.confirm) {
+              await sendCheckCode({mobile: self.phone})
+              self.customToast('已重新發送', false)
+              self.setCountDown(self.reCountDown)
+            }
+          } catch (e) {
+            self.customToast('驗證碼發送失敗')
+          }
+        }
+      })
+    },
+
     //页面关闭或者卸载的操作
     pageHide() {
       this.verificationCode = '';
@@ -106,7 +115,7 @@ export default {
     //登陆失败
     loginError() {
       this.pageHide()
-      this.customToast('登陆失败')
+      this.customToast('登錄失敗')
     },
 
     //登录成功，將token賦值給全局對象並且存入本地storage中
@@ -126,6 +135,7 @@ export default {
         })
         return;
       }
+
       uni.switchTab({
         url: '/pages/home/home',
         success() {
@@ -148,7 +158,7 @@ export default {
         try {
           await verifyCode({mobile: self.phone, code: self.verificationCode})
         } catch (e) {
-          self.customToast('验证码错误')
+          self.customToast('驗證碼錯誤')
           return;
         }
 
@@ -175,7 +185,7 @@ export default {
               })
               self.loginSuccess(result)
             } catch (e) {
-              console.log('登陆失败', e)
+              console.log('登錄失敗', e)
               self.loginError()
             }
           }
