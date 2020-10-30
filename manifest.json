@@ -9,10 +9,7 @@
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
         "modules" : {
-            "Payment" : {},
-            "Push" : {},
-            "OAuth" : {},
-            "Share" : {}
+            "Maps" : {}
         },
         "distribute" : {
             "android" : {
@@ -63,6 +60,12 @@
                     "weixin" : {
                         "appid" : "wxd0f1e822e08155b2",
                         "UniversalLinks" : ""
+                    }
+                },
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "afe520c866faaaf27f8bef62bc42651b",
+                        "appkey_android" : "2d032af0d7b9004420b27305f735971e"
                     }
                 }
             }
