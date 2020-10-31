@@ -3,7 +3,10 @@
     <!-- 头部背景 -->
     <view class="profile_head">
       <view class="head_bg">
-        <image mode="widthFix" src="../../static/images_t/my/head_bg.png"></image>
+        <image
+          mode="widthFix"
+          src="../../static/images_t/my/head_bg.png"
+        ></image>
       </view>
       <view class="head_logo">
         <text>英国城</text>
@@ -12,17 +15,16 @@
     <view class="profile_content">
       <!-- 用户相关信息 -->
       <view class="profile_info">
-        <userInfo @handler-click="navFitPage" :user="userInfo "></userInfo>
+        <userInfo @handler-click="navFitPage" :user="userInfo"></userInfo>
       </view>
       <!-- 开通礼包 -->
-      <view @click="navFitPage({page:'joinMember'})" class="open_package">
+      <view @click="navFitPage({ page: 'joinMember' })" class="open_package">
         <giftPack :giftPack="userInfo.ritual_park"></giftPack>
       </view>
 
       <!-- 功能列表 -->
       <view class="fun_list">
         <optionsList @options-click="navFitPage" :list="options"></optionsList>
-        <button open-type="contact">添加客服</button>
       </view>
     </view>
 
@@ -37,9 +39,7 @@
 </template>
 
 <script>
-import {
-  userSpace
-} from '../../request/api'
+import { userSpace } from "../../request/api";
 
 import userInfo from "./components/userInfo";
 import giftPack from "./components/giftPack";
@@ -53,27 +53,31 @@ export default {
     return {
       userInfo: {},
       options: [
-          {
-        title: '會員碼',
-        summary: '門店掃碼積分、奶茶錢包和奶茶有禮支付',
-        icon: 'arrowright'
-      }, {
-        title: '兌換中心',
-        summary: '兌換星球會員、優惠券和禮品卡',
-        icon: 'arrowright'
-      },
         {
-        title: '聯系客服',
-        icon: 'arrowright'
-      }, {
-        title: '消息中心',
-        icon: 'arrowright'
-      }, {
-        title: '更多',
-        icon: 'arrowright'
-      }],
-      loginBoxShow:false,
-    }
+          title: "會員碼",
+          summary: "門店掃碼積分、奶茶錢包和奶茶有禮支付",
+          icon: "arrowright",
+        },
+        {
+          title: "兌換中心",
+          summary: "兌換星球會員、優惠券和禮品卡",
+          icon: "arrowright",
+        },
+        {
+          title: "聯系客服",
+          icon: "arrowright",
+        },
+        {
+          title: "消息中心",
+          icon: "arrowright",
+        },
+        {
+          title: "更多",
+          icon: "arrowright",
+        },
+      ],
+      loginBoxShow: false,
+    };
   },
   /**
    * 页面展示时判断的情况
@@ -83,112 +87,113 @@ export default {
    */
   async onShow() {
     if (APP.userToken) {
-      APP.isLoginBox = false
+      APP.isLoginBox = false;
       this.token = APP.userToken;
-      if (APP.userInfo&&APP.userInfo.level) {
+      if (APP.userInfo && APP.userInfo.level) {
         this.userInfo = APP.userInfo;
       } else {
         try {
-          await this.getUserInfo()
+          await this.getUserInfo();
         } catch (e) {
           console.log(e);
-          this.customToast('信息获取失败')
+          this.customToast("信息获取失败");
         }
       }
-    }else{
+    } else {
       APP.isLoginBox = true;
     }
-    this.loginBoxShow = APP.isLoginBox
+    this.loginBoxShow = APP.isLoginBox;
   },
 
   methods: {
     //请求用户信息
-   async getUserInfo(){
-     uni.showLoading({
-       title:'請稍後'
-     })
-     try{
-       //token存在静默登录
-       if (this.token) {
-         this.userInfo = (await userSpace()).data;
-         APP.userInfo = this.userInfo;
-       }
-       uni.hideLoading()
-     }catch (e){
-       this.customToast('需要登錄',false)
-     }
+    async getUserInfo() {
+      uni.showLoading({
+        title: "請稍後",
+      });
+      try {
+        //token存在静默登录
+        if (this.token) {
+          this.userInfo = (await userSpace()).data;
+          APP.userInfo = this.userInfo;
+        }
+        uni.hideLoading();
+      } catch (e) {
+        this.customToast("需要登錄", false);
+        
+      }
     },
     //隐藏登陆引导框
-    hideLoginBox(){
-     this.loginBoxShow = APP.isLoginBox = false;
+    hideLoginBox() {
+      this.loginBoxShow = APP.isLoginBox = false;
     },
     //跳转至對應的頁面
     navFitPage(aims) {
       //用户没有登录不做处理
       if (!this.token || !this.userInfo.user_name) {
-        this.customToast('請先登錄',false)
-        return
+        this.customToast("請先登錄", false);
+        return;
       }
-      let {page, v} = aims;
+      let { page, v } = aims;
       switch (page) {
-        case 'pointsMall':
-          this.query = 'integral';
+        case "pointsMall":
+          this.query = "integral";
           break;
-        case 'wallet':
-          this.query = 'wallet';
+        case "wallet":
+          this.query = "wallet";
           break;
-        case '會員碼':
-            page = 'memberCode';
-            this.query = 'user';
-            APP.userInfo = this.userInfo
+        case "會員碼":
+          page = "memberCode";
+          this.query = "user";
+          APP.userInfo = this.userInfo;
           break;
-        case '兌換中心':
+        case "兌換中心":
           //跳轉積分商城
-          this.query = 'integral';
-          page = 'pointsMall'
-          v = this.userInfo.integral
+          this.query = "integral";
+          page = "pointsMall";
+          v = this.userInfo.integral;
           break;
-        case '聯系客服':
-          page = 'customerService';
+        case "聯系客服":
+          page = "customerService";
           break;
-        case '消息中心':
-          page = 'messageCenter';
+        case "消息中心":
+          page = "messageCenter";
           break;
-        case '更多':
-          page = 'more';
+        case "更多":
+          page = "more";
           break;
       }
       //跳转至钱包页面，没有支付密码时跳转设置密码页面
-      if (page === 'wallet') {
-        if (!(APP.userInfo.pay_pwd)) {
+      if (page === "wallet") {
+        if (!APP.userInfo.pay_pwd) {
           uni.navigateTo({
-            url: '/pages/setPassword/setPassword'
-          })
+            url: "/pages/setPassword/setPassword",
+          });
           return;
         }
       }
 
       //用户已经开通会员时跳转会员权益
-      if(page === 'joinMember' && this.userInfo.level_title !=='普通会员'){
+      if (page === "joinMember" && this.userInfo.level_title !== "普通会员") {
         uni.navigateTo({
-          url:'/pages/memberBenefits/memberBenefits'
-        })
+          url: "/pages/memberBenefits/memberBenefits",
+        });
         return;
       }
 
       //通用的链接跳转
       uni.navigateTo({
         url: `/pages/${page}/${page}?${this.query}=${v}`,
-      })
-    }
+      });
+    },
   },
   components: {
     userInfo,
     giftPack,
     optionsList,
-    loginBox
-  }
-}
+    loginBox,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -213,7 +218,7 @@ uni-page-body {
     width: 100%;
     height: 550rpx;
     text-align: center;
-    background: #FFFFFF;
+    background: #ffffff;
 
     .head_bg {
       width: 100%;
@@ -253,7 +258,7 @@ uni-page-body {
     }
 
     .open_package {
-      @include container(380rpx)
+      @include container(380rpx);
     }
 
     .fun_list {

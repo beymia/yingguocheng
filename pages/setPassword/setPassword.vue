@@ -6,40 +6,21 @@
         <text v-else>請确认交易密碼</text>
         <text class="title_tip">為了您的資金安全，請先設置交易密碼</text>
       </view>
-      <!--        <label v-for="(code,index) in 6" :key="index">-->
-      <!--          <input class="pwd_content"-->
-      <!--                 disabled-->
-      <!--                 maxlength="1"-->
-      <!--                 v-model="currentPwd[index]"-->
-      <!--                 type="password">-->
-      <!--        </label>-->
-      <!--        <input focus-->
-      <!--               @input="inputPwd"-->
-      <!--               v-model="currentPwd"-->
-      <!--               maxlength="6"-->
-      <!--               class="empty_input"-->
-      <!--               type="text">-->
-      <oneInput :isBox="true"
-                :is-pwd="true"
-                :autoFocus="true"
-                v-model="currentPwd"
-                type="box"
-                :maxlength="6">
-      </oneInput>
     </view>
+    <oneInput :is-pwd="true" v-model="currentPwd" type="box" :maxlength="6"></oneInput>
   </view>
 </template>
 
 <script>
-import {setPwd, userSpace} from "../../request/api";
-import oneInput from '../../components/myp-one/myp-one'
-const APP =getApp().globalData;
+import { setPwd, userSpace } from "../../request/api";
+import oneInput from "../../components/myp-one/myp-one";
+const APP = getApp().globalData;
 export default {
   data() {
     return {
-      pwd: '',
-      currentPwd: ''
-    }
+      pwd: "",
+      currentPwd: "",
+    };
   },
   watch: {
     async currentPwd(value) {
@@ -47,52 +28,53 @@ export default {
       if (value.length === 6 && this.pwd.length === 6) {
         if (value === this.pwd) {
           uni.showLoading({
-            title: '请稍后'
+            title: "请稍后",
           });
           try {
-            await setPwd({password: this.pwd, veify_pwd: value})
+            await setPwd({ password: this.pwd, veify_pwd: value });
             APP.userInfo = (await userSpace()).data;
-            uni.hideLoading()
+            uni.hideLoading();
             //登录成功重定向至钱包页面
             uni.redirectTo({
-              url: '/pages/wallet/wallet'
-            })
+              url: "/pages/wallet/wallet",
+            });
           } catch (e) {
-            this.currentPwd = '';
-            this.pwd = '';
-            this.customToast('密碼設置失敗')
+            this.currentPwd = "";
+            this.pwd = "";
+            this.customToast("密碼設置失敗");
           }
         } else {
-          this.customToast('密碼不一致')
-          this.currentPwd = ''
-          this.pwd = '';
+          this.customToast("密碼不一致");
+          this.currentPwd = "";
+          this.pwd = "";
         }
-        return
+        return;
       }
+
       if (value.length === 6) {
         this.pwd = value;
-        this.currentPwd = '';
+        this.currentPwd = "";
       }
-    }
+    },
   },
   components: {
-    oneInput
-  }
-}
+    oneInput,
+  },
+};
 </script>
 
 <style scoped lang="scss">
-.set_password{
+.set_password {
   width: 100%;
   height: 100%;
   padding-top: 100rpx;
   box-sizing: border-box;
 
-  .content{
+  .content {
     width: 606rpx;
     margin: 0 auto;
 
-    .head_title{
+    .head_title {
       width: 100%;
       height: 88rpx;
       display: flex;
@@ -101,23 +83,21 @@ export default {
       text-align: center;
       margin-bottom: 50rpx;
 
-      text{
+      text {
         font-size: $font-size-lg;
         font-weight: $font-weight-lg;
         color: $font-color1;
       }
 
-      .title_tip{
+      .title_tip {
         font-size: $font-size-sm;
         font-weight: $font-weight-base;
         color: $font-color3;
         margin-top: 10rpx;
       }
-
-
     }
 
-    .password{
+    .password {
       display: flex;
       justify-content: space-between;
       align-items: center;

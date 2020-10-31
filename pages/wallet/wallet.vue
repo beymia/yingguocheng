@@ -105,8 +105,8 @@ export default {
               uni.showLoading({
                 title: '正在發送驗證碼'
               })
-              //发送验证码
-              await sendCheckCode({mobile: self.originPhone})
+              // TODO 发送验证码
+              // await sendCheckCode({mobile: self.originPhone})
               uni.redirectTo({
                 url: '/pages/checkCode/checkCode?query=' + JSON.stringify({change: 1}),
                 success() {

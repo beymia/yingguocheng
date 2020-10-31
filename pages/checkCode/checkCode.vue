@@ -9,20 +9,10 @@
         <text>已將驗證碼發送至{{ phone }}</text>
       </view>
       <view class="code_input">
-        <!--改用组件-->
-        <!--        <label v-for="(code,index) in 6" :key="index">-->
-        <!--          <input class="input_content"-->
-        <!--                 disabled-->
-        <!--                 maxlength="1"-->
-        <!--                 v-model="verificationCode[index]"-->
-        <!--                 type="text">-->
-        <!--        </label>-->
-        <!--        <input focus @input="inputCode" v-model="verificationCode" maxlength="6" class="empty_input" type="text">-->
-
         <view>
-          <view style="height: 100rpx;"></view>
+          <view style="height: 100rpx"></view>
           <one-input v-model="verificationCode" :maxlength="6"></one-input>
-          <view style="height: 100rpx;"></view>
+          <view style="height: 100rpx"></view>
         </view>
       </view>
       <view class="code_timer">
@@ -33,8 +23,8 @@
 </template>
 
 <script>
-import {login, verifyCode, sendCheckCode} from "../../request/api";
-import oneInput from '../../components/myp-one/myp-one'
+import { login, verifyCode, sendCheckCode } from "../../request/api";
+import oneInput from "../../components/myp-one/myp-one";
 
 const APP = getApp().globalData;
 
@@ -42,46 +32,46 @@ const APP = getApp().globalData;
 export default {
   data() {
     return {
-      phone: '',
-      verificationCode: '',
+      phone: "",
+      verificationCode: "",
       isFocus: 0,
       timer: 200,
-      wxCode: '',
-      from: ''
-    }
+      wxCode: "",
+      from: "",
+    };
   },
 
   onLoad(options) {
-    options.query = JSON.parse(options.query)
-    this.phone = options.query.phone || APP.userInfo.mobile;//用户手机号
-    this.change = options.query.change;//有值则是修改密码
-    this.from = options.query.from;//登录完成后跳转的页面，默认跳转首页
-    this.customToast('驗證碼已發送', false)
+    options.query = JSON.parse(options.query);
+    this.phone = options.query.phone || APP.userInfo.mobile; //用户手机号
+    this.change = options.query.change; //有值则是修改密码
+    this.from = options.query.from; //登录完成后跳转的页面，默认跳转首页
+    this.customToast("驗證碼已發送", false);
   },
 
   //页面隐藏式清除定时器，并且验证码归位
   onUnload() {
-    this.pageHide()
+    this.pageHide();
   },
 
   //进入页面直接开始定时器,时间为0时自动重发验证码
   mounted() {
-    this.setCountDown(this.reCountDown)
+    this.setCountDown(this.reCountDown);
   },
 
   methods: {
     //定时器计时
-    setCountDown(fill){
+    setCountDown(fill) {
       this.countDown && clearInterval(this.countDown);
       let self = this;
-      self.countDown = setInterval(()=>{
+      self.countDown = setInterval(() => {
         self.timer--;
-        if(self.timer === 0){
-          clearInterval(self.countDown)
+        if (self.timer === 0) {
+          clearInterval(self.countDown);
           self.timer = 200;
-          fill()
+          fill();
         }
-      },1000)
+      }, 1000);
     },
 
     //重新发送验证码
@@ -89,58 +79,59 @@ export default {
       this.timer = 200;
       let self = this;
       uni.showModal({
-        title: '是否重新發送驗證碼',
+        title: "是否重新發送驗證碼",
         async success(res) {
           try {
             if (res.confirm) {
-              await sendCheckCode({mobile: self.phone})
-              self.customToast('已重新發送', false)
-              self.setCountDown(self.reCountDown)
+              await sendCheckCode({ mobile: self.phone });
+              self.customToast("已重新發送", false);
+              self.setCountDown(self.reCountDown);
             }
           } catch (e) {
-            self.customToast('驗證碼發送失敗')
+            self.customToast("驗證碼發送失敗");
           }
-        }
-      })
+        },
+      });
     },
 
     //页面关闭或者卸载的操作
     pageHide() {
-      this.verificationCode = '';
+      this.verificationCode = "";
       uni.hideLoading();
       this.timer = 200;
-      clearInterval(this.countDown)
+      clearInterval(this.countDown);
     },
 
     //登陆失败
     loginError() {
-      this.pageHide()
-      this.customToast('登錄失敗')
+      this.pageHide();
+      this.customToast("登錄失敗");
     },
 
     //登录成功，將token賦值給全局對象並且存入本地storage中
     loginSuccess(result) {
       let self = this;
-      uni.hideLoading()
+      console.log(1);
+      uni.hideLoading();
       APP.userToken = result.data.token;
       APP.isLoginBox = false;
-      uni.setStorageSync('token', APP.userToken)
+      uni.setStorageSync("token", APP.userToken);
       //options没有值时默认跳转首页
       if (self.from) {
         uni.redirectTo({
           url: `/pages/${self.from}/${self.from}`,
           success() {
-            self.pageHide()
-          }
-        })
+            self.pageHide();
+          },
+        });
         return;
       }
 
       uni.switchTab({
-        url: '/pages/home/home',
+        url: "/pages/home/home",
         success() {
-          self.pageHide()
-        }
+          self.pageHide();
+        },
       });
     },
   },
@@ -151,23 +142,23 @@ export default {
 
       if (value.length === 6) {
         uni.showLoading({
-          title: this.change ? '請稍後' : '正在登錄中',
-        })
+          title: this.change ? "請稍後" : "正在登錄中",
+        });
 
-        //驗證驗證碼，
-        try {
-          await verifyCode({mobile: self.phone, code: self.verificationCode})
-        } catch (e) {
-          self.customToast('驗證碼錯誤')
-          return;
-        }
+        // TODO 驗證驗證碼
+        // try {
+        //   await verifyCode({ mobile: self.phone, code: self.verificationCode });
+        // } catch (e) {
+        //   self.customToast("驗證碼錯誤");
+        //   return;
+        // }
 
         // change有值則跳轉到設置交易密碼頁面
         if (self.change) {
-          uni.hideLoading()
+          uni.hideLoading();
           uni.redirectTo({
-            url: '/pages/setPassword/setPassword',
-          })
+            url: "/pages/setPassword/setPassword",
+          });
           return;
         }
 
@@ -175,21 +166,21 @@ export default {
         //小程序登陆
         // #ifdef MP-WEIXIN
         uni.login({
-          provider: 'weixin',
-          scopes: 'auth_base',
+          provider: "weixin",
+          scopes: "auth_base",
           async success(wxCode) {
             try {
               result = await login({
                 mobile: self.phone,
-                code: wxCode.code
-              })
-              self.loginSuccess(result)
+                code: wxCode.code,
+              });
+              self.loginSuccess(result);
             } catch (e) {
-              console.log('登錄失敗', e)
-              self.loginError()
+              console.log("登錄失敗", e);
+              self.loginError();
             }
-          }
-        })
+          },
+        });
         // #endif
 
         // APP 和 H5 登陆
@@ -197,24 +188,24 @@ export default {
         try {
           result = await login({
             mobile: self.phone,
-          })
-          self.loginSuccess(result)
+          });
+          self.loginSuccess(result);
         } catch (e) {
-          console.log('登錄錯誤', e)
-          self.loginError()
+          console.log("登錄錯誤", e);
+          self.loginError();
         }
         // #endif
       }
-    }
+    },
   },
   components: {
-    oneInput
-  }
-}
+    oneInput,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.check_code{
+.check_code {
   width: 100vw;
   padding: 0 $spacing-base;
   box-sizing: border-box;
@@ -230,7 +221,7 @@ export default {
     }
   }
 
-  .input_container{
+  .input_container {
     width: 100%;
     height: 405rpx;
     display: flex;
@@ -259,11 +250,11 @@ export default {
     }
   }
 
-  .code_input{
+  .code_input {
     display: flex;
     justify-content: space-between;
 
-    .input_content{
+    .input_content {
       width: 80rpx;
       height: 1rpx;
       border-bottom: 1rpx solid #cccccc;
@@ -271,18 +262,17 @@ export default {
       z-index: -1;
     }
 
-    .empty_input{
+    .empty_input {
       width: calc(100% + 200rpx);
       position: absolute;
       opacity: 0;
       z-index: 999;
       background-color: pink;
       margin-left: -200rpx;
-
     }
   }
 
-  .code_timer{
+  .code_timer {
     height: 33rpx;
     font-size: $font-size-sm;
     color: $font-color3;
