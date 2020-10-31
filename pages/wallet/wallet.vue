@@ -105,8 +105,8 @@ export default {
               uni.showLoading({
                 title: '正在發送驗證碼'
               })
-              // TODO 发送验证码
-              // await sendCheckCode({mobile: self.originPhone})
+              // 发送验证码
+              await sendCheckCode({mobile: self.originPhone})
               uni.redirectTo({
                 url: '/pages/checkCode/checkCode?query=' + JSON.stringify({change: 1}),
                 success() {
@@ -139,7 +139,7 @@ export default {
           console.log(e);
           self.paymentStatus = false;
           self.rechargeAmount = '';
-          self.customToast('充值失敗')
+          uni.hideLoading()
         }
       }
     },

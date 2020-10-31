@@ -4,8 +4,9 @@
       <template>
         <view class="content">
           <view class="user_info">
-            <image src="../../static/images_t/my/user_avatar.png"></image>
-            <view>{{ user.user_name }}</view>
+            <image v-if="wxUserInfo.avatarUrl" :src="wxUserInfo.avatarUrl" ></image>
+            <image v-else src="../../static/images_t/my/user_avatar.png"></image>
+            <view>{{wxUserInfo.nickName || user.user_name  }}</view>
           </view>
 <!--          <view class="payment">-->
 <!--            <image @click="usedWallet" v-if="!isWallet" src="../../static/images_t/bulkInvoice/select_false.png"></image>-->
@@ -33,6 +34,7 @@ export default {
   data() {
     return {
       user: {},
+      wxUserInfo:{},
       qrCodeData: '',
       isWallet:false,
       timer :null
@@ -41,6 +43,7 @@ export default {
   async onLoad() {
     try{
       this.user = getApp().globalData.userInfo;
+      this.wxUserInfo = getApp().globalData.wxUserInfo;
       await this.QRcode();
       this.timer = setInterval(async ()=>{
         await this.QRcode()
@@ -103,6 +106,8 @@ image {
         height: 130rpx;
         margin-bottom: 10rpx;
         vertical-align: middle;
+        border-radius: 50%;
+        overflow: hidden;
       }
     }
 

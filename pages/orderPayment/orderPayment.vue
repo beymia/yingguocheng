@@ -695,7 +695,7 @@ export default {
             margin-right: 10rpx;
           }
 
-          /* #ifdef H5 | App-PLUS*/
+          /* #ifdef H5 | APP-PLUS*/
           /deep/.uni-radio-input {
             width: 34rpx;
             height: 34rpx;

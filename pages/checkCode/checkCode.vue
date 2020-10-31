@@ -141,17 +141,20 @@ export default {
       let self = this;
 
       if (value.length === 6) {
+        // TODO 验证码输入完毕后隐藏软键盘，解决跳转到设置密码页面安卓手机不聚焦问题
+        uni.hideKeyboard()
+
         uni.showLoading({
           title: this.change ? "請稍後" : "正在登錄中",
         });
 
-        // TODO 驗證驗證碼
-        // try {
-        //   await verifyCode({ mobile: self.phone, code: self.verificationCode });
-        // } catch (e) {
-        //   self.customToast("驗證碼錯誤");
-        //   return;
-        // }
+        // 驗證驗證碼
+        try {
+          await verifyCode({ mobile: self.phone, code: self.verificationCode });
+        } catch (e) {
+          self.customToast("驗證碼錯誤");
+          return;
+        }
 
         // change有值則跳轉到設置交易密碼頁面
         if (self.change) {

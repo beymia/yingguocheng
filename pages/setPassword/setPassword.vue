@@ -7,7 +7,7 @@
         <text class="title_tip">為了您的資金安全，請先設置交易密碼</text>
       </view>
     </view>
-    <oneInput :is-pwd="true" v-model="currentPwd" type="box" :maxlength="6"></oneInput>
+     <oneInput :is-pwd="true" v-model="currentPwd" type="box" :maxlength="6"></oneInput>
   </view>
 </template>
 

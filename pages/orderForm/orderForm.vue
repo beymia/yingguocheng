@@ -321,6 +321,9 @@ uni-page-body{
   .order_history {
     display: flex;
     flex-direction: column;
+    /* #ifdef APP-PLUS*/
+    padding-top:162rpx;
+    /* #endif*/
 
     .history_head {
       width: 100%;
