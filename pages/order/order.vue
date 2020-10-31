@@ -788,10 +788,43 @@
 									resolve(res)
 								},
 								fail(err){
+									 // #ifdef APP-PLUS
+										            uni.getSystemInfo({
+										                success(res) {
+										                    if(res.platform=='ios'){ //IOS
+										                        plus.runtime.openURL("app-settings://");
+										                    } else if (res.platform=='android'){ //安卓
+										                       /* let main = plus.android.runtimeMainActivity();
+										                        let Intent = plus.android.importClass("android.content.Intent");
+										                        let mIntent = new Intent('android.settings.ACTION_SETTINGS');
+										                        main.startActivity(mIntent); */
+																plus.runtime.openURL("app-settings://");
+										                    }
+										                }
+										            });
+									// #endif
 									reject(err)
 								}
 							})
-						}).catch(e=>{})
+						}).catch(e=>{
+							// #ifdef APP-PLUS
+								plus.nativeUI.confirm("此页面需要获取您的位置信息，请确定开启定位且授权本应用后重新启动", function(e){
+											console.log("Close confirm: "+e.index);
+										},
+										{"title":"",
+											"buttons":["是"],
+											"verticalAlign":"center"
+										}
+									);
+							// #endif
+							// #ifndef APP-PLUS
+								uni.showModal({
+								content:"此页面需要获取您的位置111信息，请确定开启定位且授权本应用后重新启动",
+								showCancel:false
+								})
+							// #endif
+							
+						})
 						latitude = loca_res.latitude
 						longitude = loca_res.longitude
 					// #endif

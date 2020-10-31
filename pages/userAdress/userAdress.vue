@@ -49,10 +49,10 @@
 			</button>
 			<!-- #endif -->
 			
-			<button type="default" class="add_adress" @tap="add">
+			<view  class="add_adress" @tap="add">
 				<image src="/static/images/userAdress/add.jpg" mode=""></image>
 				<text>添加地址</text>
-			</button>
+			</view>
 		</view>
 	</view>
 </template>
@@ -94,7 +94,10 @@
 			}
 			console.log(token)
 			let uddresses = (await userAddresses()).data;
-			this.SET_USER_ADDRESSES(uddresses);
+			if(uddresses){
+				this.SET_USER_ADDRESSES(uddresses);
+			}
+			console.log(this.userAddresses)
 			
 			console.log('from:'+from)
 			if(from){

@@ -37,7 +37,10 @@
 			color: #999999;
 		}
 	}
-	
+	.submenu1,.submenu2,.submenu3{
+		border-radius: 10rpx;
+		box-shadow: 0px 8rpx 30rpx 0px rgba(204,204,204,0.2);
+	}
 	.menu1{
 		@include mix_menu;
 		.submenu1{

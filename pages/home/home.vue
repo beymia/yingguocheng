@@ -129,9 +129,13 @@
 				swiper: {dots:false,indicator_color:'',indicator_active_color:'',autoplay:true,circular:true,interval:5000,duration:1000},
 				integral:0,
 				home_images:{
-					poster:['/static/images_t/home/swiper01.png',
-					'/static/images_t/home/swiper01.png','/static/images_t/home/swiper01.png'],
-					logo:['../../static/icon/home_selected.png']
+					poster:[
+					// 	'/static/images_t/home/swiper01.png',
+					// 	'/static/images_t/home/swiper01.png','/static/images_t/home/swiper01.png',
+					],
+					logo:[
+						// '../../static/icon/home_selected.png',
+						]
 				},
 			}
 		},
