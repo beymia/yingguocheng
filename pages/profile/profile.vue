@@ -1,11 +1,12 @@
 <template>
   <view class="profile">
     <view class="head">
-      <image src="../../static/images_t/my/user_avatar.png"></image>
+      <image v-if="wxUserInfo.avatarUrl" :src="wxUserInfo.avatarUrl"></image>
+      <image v-else src="../../static/images_t/my/user_avatar.png"></image>
     </view>
     <view class="content">
       <view class="item name">
-        <text>暱稱</text>{{userInfo.user_name}}
+        <text>暱稱</text>{{wxUserInfo.nickName || user.user_name}}
       </view>
       <view class="item phone">
         <text>手機</text>{{handlerPhone}}
@@ -22,7 +23,8 @@ const APP = getApp().globalData
 export default {
   data() {
     return {
-      userInfo:APP.userInfo
+      userInfo:APP.userInfo,
+      wxUserInfo:APP.wxUserInfo,
     }
   },
   computed:{
@@ -56,6 +58,8 @@ export default {
       width: 110rpx;
       height: 110rpx;
       vertical-align: middle;
+      border-radius: 50%;
+      overflow:hidden;
     }
   }
 

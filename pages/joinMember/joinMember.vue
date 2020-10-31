@@ -168,8 +168,7 @@ export default {
         //支付成功执行
         await self.joinSuccess()
       } catch (e) {
-        console.log(e);
-        this.customToast('开通失敗')
+        uni.hideLoading()
         self.paymentStatus = false;
       }
     },
