@@ -94,13 +94,13 @@ export default {
   //如果isForeseeBuy为true，则用户购买了新的预付卡，重新获取预付卡信息
   async onShow() {
     if (APP.isForeseeBuy) {
-      try{
+      try {
         await this.getForesee()
         APP.isForeseeBuy = false;
         APP.userInfo = (await userSpace()).data
         console.log(APP.isForeseeBuy);
-      }catch (e) {
-        this.customToast('信息更新可能延遲',false)
+      } catch (e) {
+        this.customToast('信息更新可能延遲', false)
       }
     }
   },
@@ -109,6 +109,7 @@ export default {
     await this.getForesee();
   },
   methods: {
+    //获取预付卡列表详情(可购买,已拥有)
     getForesee() {
       let self = this;
       Promise.all([foreseeList(), myForesee()])
@@ -121,6 +122,7 @@ export default {
             this.customToast('出現了錯誤')
           })
     },
+
     //跳轉至預付卡詳情
     navPage(f) {
       uni.navigateTo({
@@ -130,7 +132,8 @@ export default {
     },
 
     //在弹出赠送框后阻止滑动穿透的空函数
-    catchTouch() {},
+    catchTouch() {
+    },
     //展示赠送框，并存储赠送的预付卡ID
     giveInfo(e) {
       this.isGive = true;
@@ -141,7 +144,7 @@ export default {
       let self = this;
       //手机号位数不对直接返回
       if (self.givePhone.length !== 11) {
-        self.customToast("手機號不正確");
+        self.customToast("請輸入正確的手機號");
         self.givePhone = "";
         return;
       }
@@ -167,7 +170,8 @@ export default {
         self.customToast('赠送失败')
       }
     },
-    //取消贈送
+
+    //隐藏赠送窗口
     closeGive() {
       this.isGive = false;
       this.givePhone = "";

@@ -62,4 +62,13 @@ function tokenError(h, result, reject) {
   }
 }
 
+var ws = new WebSocket('ws://api.plg.wugee.net:2000')
+ws.onopen = function(){
+  ws.send(JSON.stringify({'uid':'4545646'}))
+  ws.send(JSON.stringify({'uid':'4545646','to_uid':'12313','msg':'画江湖抵扣积分','created_at':'2020-11-02 18:36'}))
+}
+ws.onmessage = function(e){
+  console.log(e.data)
+}
+
 module.exports = ajax

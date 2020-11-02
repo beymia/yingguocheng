@@ -15,9 +15,9 @@
 <!--            <view>（可用餘額￥{{ user.balance || '0.00' }}）</view>-->
 <!--          </view>-->
           <view class="qr_code">
-            <view>此二维码可累计积分</view>
+            <view>此二維碼可累計積分</view>
             <image :src="qrCodeData"></image>
-            <view>会员码每30秒自动刷新一次</view>
+            <view>會員碼30秒自動刷新一次</view>
           </view>
         </view>
       </template>

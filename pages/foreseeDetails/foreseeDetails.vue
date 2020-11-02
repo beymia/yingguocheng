@@ -35,6 +35,7 @@
 <script>
 import {buyForesee, userSpace} from "../../request/api";
 const APP = getApp().globalData;
+//预付卡详情页面
 export default {
   data() {
     return {

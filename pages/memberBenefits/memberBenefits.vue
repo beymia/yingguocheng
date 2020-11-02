@@ -98,6 +98,21 @@ export default {
   },
   async mounted() {
     this.user = APP.userInfo;
+
+    if(this.user.level_title === '普通会员'){
+      uni.showModal({
+        title:'您還沒有開通會員',
+        success(res){
+          if(res.confirm){
+            uni.redirectTo({
+              url:'/pages/joinMember/joinMember'
+            })
+          }
+        }
+      })
+    }
+
+    //计算经验值进度条
     this.exProgress = (this.user.empiric / this.user.n_empiric) * 100
     //不相干的請求，同時發送
     await this.getPackData()
@@ -107,9 +122,9 @@ export default {
     getPackData() {
       Promise.all([levelPack(), monthPack(), interestsPark()])
           .then(data => {
-            this.level = data[0].data;
-            this.month = data[1].data;
-            this.interests = data[2].data;
+            this.level = data[0].data || [];
+            this.month = data[1].data || [];
+            this.interests = data[2].data || [];
             //接口数据没有标注礼包类型，手动添加
             this.level.forEach((item) => {
               item.type = 'level'
