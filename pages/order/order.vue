@@ -205,6 +205,7 @@
 	import locaAutho from './components/locaAutho/locaAutho.vue'
 	import {shops_list,shops_detail,goods_list,goods_detail,pintuan_creat,pintuan_detail} from '@/request/api_y.js'
 	import {during} from '@/util/Date.js'
+	import permission from '@/util/permission.js'
 	export default{
 		components:{
 			actions,
@@ -789,7 +790,7 @@
 								},
 								fail(err){
 									 // #ifdef APP-PLUS
-										            uni.getSystemInfo({
+										            /* uni.getSystemInfo({
 										                success(res) {
 										                    if(res.platform=='ios'){ //IOS
 										                        plus.runtime.openURL("app-settings://");
@@ -800,16 +801,33 @@
 										                        main.startActivity(mIntent);
 										                    }
 										                }
-										            });
+										            }); */
+													uni.showModal({
+														content:"此页面需要获取您的位置信息，请开启定位且授权本应用后重新打开",
+														showCancel:false,
+														async success() {
+															permission.handleLocation()
+															let is_l=false;
+															do{
+																await new Promise((resolve1)=>{
+																	setTimeout(function(){
+																		uni.getLocation({
+																			success(res1) {
+																				is_l=true
+																				resolve1(1)
+																				resolve(res1)
+																			}
+																		})
+																	},1000);
+																}) 
+															}while(!is_l)
+														}
+													})
 									// #endif
 									reject(err)
 								}
 							})
 						}).catch(e=>{
-								uni.showModal({
-								content:"此页面需要获取您的位置信息，请确定开启定位且授权本应用后重新打开",
-								showCancel:false
-								})
 							
 						})
 						latitude = loca_res.latitude
