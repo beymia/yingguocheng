@@ -40,7 +40,7 @@
     </view>
     <!--用戶輸入框-->
     <view class="user_input">
-      <input v-model="userMsg" type="text"/>
+      <input maxlength="-1" v-model="userMsg" type="text"/>
       <button @click="sendMessage" plain>發送</button>
     </view>
     <view class="empty"></view>
@@ -138,7 +138,7 @@ export default {
         console.log(res);
         console.log('连接成功,onSocketOpen')
         self.socket.send({
-          data: JSON.stringify({uid: this.userInfo.id})
+          data: JSON.stringify({uid: this.userInfo.id,type:'login'})
         })
         //连接成功发送心跳包
         this.setInterval()
@@ -179,10 +179,11 @@ export default {
         }
 
         if (data.msg && data.to_uid === self.userInfo.id) {
-          console.log(2);
           self.chatList.push({msg: data.msg, type: 'server'})
         }
-
+        this.$nextTick(async ()=>{
+          await self.getContentHeight()
+        })
       })
     },
 
@@ -201,12 +202,8 @@ export default {
 
       try {
         await this.sendMsgSocket(this.userMsg)
-        let scrollHeight =(await this.getContentHeight()) - this.windowHeight
-        uni.pageScrollTo({
-          scrollTop:scrollHeight,
-          duration:150
-        })
-        console.log(scrollHeight);
+        await this.getContentHeight()
+
         this.userMsg = '';
       } catch (e) {
         console.log(e);
@@ -225,7 +222,8 @@ export default {
           uid: self.userInfo.id,
           to_uid: '15984344337496191',
           msg: msg,
-          created_at: self.reDate(1)
+          created_at: self.reDate(1),
+          type:'send'
         }
       } else {
         sendMsg = {type: 'ping'}
@@ -248,9 +246,16 @@ export default {
       }, 50000)
     },
 
-    //获取消息内容区的总高度
+    //将屏幕滚动至最新消息处,(最新的消息始终处于可见状态)
     async getContentHeight(){
-     return (await this.getLayoutInfo('.customer_service')).height
+      let scrollHeight =((await this.getLayoutInfo('.customer_service')).height) - this.windowHeight
+      console.log(scrollHeight);
+      console.log((await this.getLayoutInfo('.customer_service')).height);
+      console.log(this.windowHeight);
+      uni.pageScrollTo({
+        scrollTop:scrollHeight,
+        duration:150
+      })
     },
 
     //格式化时间
@@ -384,6 +389,10 @@ image {
         word-break: break-all;
         display: flex;
         align-items: center;
+      }
+
+      image{
+        align-self: flex-start;
       }
     }
   }
