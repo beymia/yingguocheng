@@ -24,6 +24,7 @@ export default {
    await uni.getUserInfo({
       provider:'weixin',
       success(res){
+        console.log(res.userInfo);
         self.globalData.wxUserInfo = res.userInfo;
         self.globalData.isAuth = true;
       },
