@@ -68,11 +68,9 @@ export const paymentStart = (data) => ajax('/pay/pay', {data})
 //訂單可用優惠券
 export const usedCoupon = (data) => ajax('/ticket/suit-tickets', {data})
 
-//初始化聊天室
-export const initChat = (data) => ajax('/dialog/init-dialog', {data})
-//發送消息
+//非实时消息存储
 export const sendMsg = (data) => ajax('/dialog/send-msg', {data})
-//接受消息
+//接收非实时消息
 export const receiveMsg = (data) => ajax('/dialog/latest-dialog',{data})
 
 //奶茶有礼列表

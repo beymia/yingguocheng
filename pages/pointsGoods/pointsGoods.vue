@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {pointsGoodsDetail,redeemGifts} from "../../request/api";
+import {pointsGoodsDetail, redeemGifts, userSpace} from "../../request/api";
 
 const APP = getApp().globalData
 export default {
@@ -24,32 +24,25 @@ export default {
     }
   },
  async onLoad(options){
-    console.log(options);
-    this.goods = await this.getGoodsDetail(options.params)
-    console.log(this.goods);
-  },
- async mounted(){
-
+    try{
+      this.goods = (await pointsGoodsDetail({goods_id:options.params})).data
+    }catch (e) {
+      console.log(e);
+      this.customToast('詳情獲取失敗')
+    }
   },
   methods: {
-   async getGoodsDetail(id){
-     try{
-       return (await pointsGoodsDetail({goods_id:id})).data
-     }catch (e){
-       console.log(e);
-       this.customToast('詳情獲取失敗',false)
-     }
-   },
     async redeemNow(){
+      //已有積分少於商品積分直接返回
+      if(APP.userInfo.integral < this.goods.barter_integral) {
+        this.customToast('積分不足',false)
+        return
+      }
+
      try{
-       //已有積分少於商品積分直接返回
-       console.log(APP.userInfo.integral);
-       if(APP.userInfo.integral < this.goods.barter_integral) {
-         this.customToast('積分不足',false)
-         return
-       }
        uni.showLoading({title:'兌換中'})
        await redeemGifts({goods_id:this.goods.id})
+       APP.userInfo = (await userSpace()).data
        this.customToast('兌換成功')
      }catch (e){
        console.log(e);

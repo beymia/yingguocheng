@@ -26,7 +26,7 @@ export default {
   },
   async mounted(){
     try{
-      this.msgList = (await msgCenter()).data;
+      this.msgList = ((await msgCenter()).data || []);
     }catch (e) {
       this.msgList = []
     }

@@ -118,7 +118,7 @@ export default {
       return this.takeawayOrder
     },
 
-    //判断是否暂时空页面
+    //判断是否展示空页面
     isEmpty() {
       if (this.activeFeat === 'current') {
         return !(this.currentOrderForm.data.length)
@@ -253,7 +253,6 @@ uni-page-body{
 
     .current,
     .history {
-      width: 128rpx;
       font-size: $font-size-lg;
       font-weight: $font-weight-lg;
       text-align: left;

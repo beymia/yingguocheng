@@ -76,7 +76,6 @@ export default {
 
     //重新发送验证码
     reCountDown() {
-      this.timer = 200;
       let self = this;
       uni.showModal({
         title: "是否重新發送驗證碼",
@@ -111,7 +110,6 @@ export default {
     //登录成功，將token賦值給全局對象並且存入本地storage中
     loginSuccess(result) {
       let self = this;
-      console.log(1);
       uni.hideLoading();
       APP.userToken = result.data.token;
       APP.isLoginBox = false;

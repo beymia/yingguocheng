@@ -78,12 +78,10 @@ export default {
     //请求积分商品数据
     async getConvertList() {
       let result = (await convert({authority_type: this.active === 'knight' ? 2 : 1})).data
-      if(!result){
-        result = []
-      }
+      !result&&(result=[])
       return result
     },
-    //
+    //導航至對應的頁面
     navPage(p){
       let {page,v} = p;
       uni.navigateTo({
