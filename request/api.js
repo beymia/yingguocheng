@@ -68,8 +68,6 @@ export const paymentStart = (data) => ajax('/pay/pay', {data})
 //訂單可用優惠券
 export const usedCoupon = (data) => ajax('/ticket/suit-tickets', {data})
 
-//初始化聊天室
-export const initChat = (data) => ajax('/dialog/init-dialog', {data})
 //非实时消息存储
 export const sendMsg = (data) => ajax('/dialog/send-msg', {data})
 //接收非实时消息

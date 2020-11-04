@@ -1,7 +1,7 @@
 <template>
-  <view class="customer_service">
+  <view :style="{'margin-bottom':headBarHeight}" class="customer_service">
     <!--自定義導航欄-->
-    <view :style="{'top':headBarHeight}" class="head">
+    <view class="head">
       <uni-icons @click="toBack"
                  style="display: inline-block;vertical-align: middle"
                  type="arrowleft"
@@ -26,21 +26,25 @@
         <view v-for="(msg,index) in chatList" :key="index">
           <view :class="[msg.type==='server'?'left':'right']">
             <view class="left_item content">
-              <text v-if="msg.type==='user'">{{ msg.msg }}</text>
+              <text selectable v-if="msg.type==='user'">{{ msg.msg }}</text>
               <image
                   :src="msg.type==='user'
                   ?(wxUserInfo.avatarUrl||'../../static/images_t/my/user_avatar.png')
                   : '../../static/images_t/customerService/server.png'">
               </image>
-              <text v-if="msg.type!=='user'">{{ msg.msg }}</text>
+              <text selectable v-if="msg.type!=='user'">{{ msg.msg }}</text>
             </view>
           </view>
         </view>
       </view>
     </view>
     <!--用戶輸入框-->
-    <view class="user_input">
-      <input maxlength="-1" v-model="userMsg" type="text"/>
+    <view  :style="{'bottom':headBarHeight}"  class="user_input">
+      <input :adjust-position="false"
+             confirm-type="send"
+             maxlength="-1"
+             v-model="userMsg"
+             type="text"/>
       <button @click="sendMessage" plain>發送</button>
     </view>
     <view class="empty"></view>
@@ -48,7 +52,7 @@
 </template>
 
 <script>
-import {initChat, sendMsg, receiveMsg} from "../../request/api";
+import {sendMsg, receiveMsg} from "../../request/api";
 
 const APP = getApp().globalData
 export default {
@@ -60,71 +64,50 @@ export default {
       userMsg: '',
       userInfo: '',
       wxUserInfo: {},
-      headBarHeight:0,
-      windowHeight:0,
+      headBarHeight: 0,
+      serverId:'15984344337496191',
     };
   },
   async mounted() {
-    this.initTime = this.reDate()
-    this.userInfo = APP.userInfo;
-    this.wxUserInfo = APP.wxUserInfo;
-    this.socketTimer = null;
-    this.reconnect = 0;
+    this.initTime = this.reDate()//进入聊天室的时间
+    this.userInfo = APP.userInfo;//用户信息
+    this.wxUserInfo = APP.wxUserInfo;//小程序展示微信信息
+    this.socketTimer = null;//心跳包的定时器
+    this.reconnect = 0;//重连次数,3次后取消重连
+    this.reconnecting = false;//重连状态,重连成功后拉取一次客服消息
     try {
-      let self = this;
-      //初始化聊天室
-      await initChat()
-      //请求未读消息
-      let historyMsg = ((await receiveMsg()).data || [])
-      historyMsg.forEach((item) => {
-        if (item.msg && item.uid === self.userInfo.id) {
-          self.chatList.push({
-            msg: item.msg,
-            type: 'server'
-          })
-        }
-      })
-      this.chatList.push({
-        msg: ' timeout: 3000,',
-        type:'server'
-      })
-      this.chatList.push({
-        msg: 'kflksdjflkajsdlfkjiewjfoiwefoniohoi',
-        type:'server'
-      });
-      console.log(this.chatList);
+      //请求未读消息,并处理消息类型为 server
+      await this.unReadServer()
       //建立webSocket连接
       await this.createSocket()
+      //获取设备屏幕高度,计算多消息时屏幕滚动的距离
+      this.windowHeight = uni.getSystemInfoSync().windowHeight;
+      //监听键盘高度变化
+      uni.onKeyboardHeightChange(async (res) => {
+        console.log(JSON.stringify(res));
+        this.headBarHeight = res.height + 'px';
+        await this.getContentHeight(res.height)
+      });
     } catch (e) {
       console.log(e);
       this.customToast('連接失敗了')
     }
-
-    //监听键盘高度变化
-    uni.onKeyboardHeightChange((res)=>{
-      console.log(res);
-      this.headBarHeight = res.height + 'px';
-    });
-    //获取设备屏幕高度,计算多消息时屏幕滚动的距离
-    this.windowHeight = uni.getSystemInfoSync().windowHeight;
-    await this.getContentHeight()
   },
 
   methods: {
     //建立webSocket连接通道
     async createSocket() {
-      let self = this;
       try {
         //建立连接通道
         this.socket = await uni.connectSocket({
-          url: 'wss://api.plg.wugee.net:2000',
+          url: 'wss://api.plg.wugee.net:200',
           success(res) {
             console.log(res);
           },
         })
-        console.log(self.socket);
+
         //监听相关事件
-        await self.monitorEvent()
+        await this.monitorEvent()
       } catch (e) {
         this.customToast('连接出错')
       }
@@ -133,34 +116,25 @@ export default {
     //监听socket事件
     monitorEvent() {
       //连接成功
-      let self = this;
-      this.socket.onOpen((res) => {
-        console.log(res);
-        console.log('连接成功,onSocketOpen')
-        self.socket.send({
-          data: JSON.stringify({uid: this.userInfo.id,type:'login'})
-        })
-        //连接成功发送心跳包
-        this.setInterval()
+      this.socket.onOpen(async (res) => {
+        console.log(res)
+        try{
+          uni.hideLoading()
+          await this.socket.send({data: JSON.stringify({uid: this.userInfo.id, type: 'login'})})
+          //链接成功后发送心跳包，确保和服务端始终处于连接状态
+          await this.heartBeat()
+          //重连成功后才重新拉去客服消息，正常流程链接流程不进行拉去
+          this.reconnecting && await this.unReadServer()
+          this.reconnecting = false;
+        }catch (e) {
+          console.log(e);
+        }
       })
-
 
       //连接失败
       this.socket.onError(async (res) => {
-        console.log(res);
-        console.log('连接出现了错误,onSocketError');
-        uni.showLoading({title: `正在嘗試重新連接...`, mask: true})
-        clearInterval(this.socketTimer)
-        this.reconnect++;
-        if (this.reconnect < 3) {
-          self.socket = null;
-          await self.createSocket()
-        } else {
-          uni.hideLoading()
-          self.customToast('重連失敗了')
-          self.socket = null;
-          uni.closeSocket()
-        }
+        console.log(res)
+        await this.socketError()
       })
 
       //监听关闭事件,客户端手动关闭socket
@@ -170,18 +144,19 @@ export default {
 
       //接收服务器消息
       this.socket.onMessage(async ({data}) => {
-        console.log('服务器消息对象是:' + data);
-        data = JSON.parse(data);
+        let {code, msg, to_uid} = JSON.parse(data);
         //1001 = 客服不在线,转存消息
-        if (data.code === 1001) {
+        if (code === 1001) {
           await sendMsg({msg: self.userMsg})
           return;
         }
 
-        if (data.msg && data.to_uid === self.userInfo.id) {
-          self.chatList.push({msg: data.msg, type: 'server'})
+        if (msg && to_uid === this.userInfo.id) {
+          console.log(JSON.stringify(data));
+          this.chatList.push({msg: msg, type: 'server'})
         }
-        this.$nextTick(async ()=>{
+        //消息接收完毕并且页面更新之后滚动页面至对应的位置
+        this.$nextTick(async () => {
           await self.getContentHeight()
         })
       })
@@ -191,24 +166,22 @@ export default {
     async sendMessage() {
       //空字符直接返回，不做处理
       if (!(this.userMsg.trim())) return;
-
-      if (!this.socket) {
-        this.customToast('發送失敗')
-        this.chatList.push({msg: this.userMsg, type: 'user', error: true})
-        return;
-      }
-
-      this.chatList.push({msg: this.userMsg, type: 'user', error: false})
-
       try {
-        await this.sendMsgSocket(this.userMsg)
-        await this.getContentHeight()
+        //socket为null时websocket则连接失败,发送消息时手动抛出一个错误
+        // if (!this.socket) {
+        //   throw 1
+        // }
 
+        this.chatList.push({msg: this.userMsg, type: 'user'})
+
+        await this.sendMsgSocket(this.userMsg)
+        //消息发送完成之后更新页面滚动的位置
+        await this.getContentHeight()
         this.userMsg = '';
       } catch (e) {
         console.log(e);
         this.userMsg = '';
-        this.customToast('出現了錯誤', false)
+        this.customToast('網絡連接錯誤', false)
       }
     },
 
@@ -220,10 +193,10 @@ export default {
       if (msg) {
         sendMsg = {
           uid: self.userInfo.id,
-          to_uid: '15984344337496191',
-          msg: msg,
+          to_uid: self.serverId,
+          msg,
           created_at: self.reDate(1),
-          type:'send'
+          type: 'send'
         }
       } else {
         sendMsg = {type: 'ping'}
@@ -238,7 +211,7 @@ export default {
     },
 
     //设置心跳包定时器
-    async setInterval() {
+    async heartBeat() {
       //发送心跳包
       this.socketTimer = setInterval(async () => {
         await this.sendMsgSocket()
@@ -246,15 +219,43 @@ export default {
       }, 50000)
     },
 
+    //websocket连接失败
+    async socketError() {
+      console.log('连接出现了错误,onSocketError');
+      uni.showLoading({title: `正在嘗試重新連接...`, mask: true})
+      clearInterval(this.socketTimer)
+      this.reconnect++;
+      if (this.reconnect < 3) {
+        this.socket = null;
+        await this.createSocket()
+        this.reconnecting = true;
+      } else {
+        uni.hideLoading()
+        this.customToast('重連失敗了')
+        this.socket = null;
+        uni.closeSocket()
+        this.reconnecting = false;
+      }
+    },
+
+    //拉取未读的客服消息
+    async unReadServer() {
+      let self = this;
+      let historyMsg = ((await receiveMsg()).data || [])
+      historyMsg.forEach((item) => {
+        if (item.msg && item.to_uid === self.userInfo.id) {
+          self.chatList.push({msg: item.msg, type: 'server'})
+        }
+      })
+    },
+
     //将屏幕滚动至最新消息处,(最新的消息始终处于可见状态)
-    async getContentHeight(){
-      let scrollHeight =((await this.getLayoutInfo('.customer_service')).height) - this.windowHeight
-      console.log(scrollHeight);
-      console.log((await this.getLayoutInfo('.customer_service')).height);
-      console.log(this.windowHeight);
+    async getContentHeight(attach = 0) {
+      let scrollHeight = ((await this.getLayoutInfo('.customer_service')).height) - this.windowHeight
+      console.log(attach + scrollHeight,scrollHeight);
       uni.pageScrollTo({
-        scrollTop:scrollHeight,
-        duration:150
+        scrollTop: scrollHeight,
+        duration: 100
       })
     },
 
