@@ -788,7 +788,7 @@
 								success(res) {
 									resolve(res)
 								},
-								fail(err){
+								async fail(err){
 									 // #ifdef APP-PLUS
 										            /* uni.getSystemInfo({
 										                success(res) {
@@ -803,28 +803,75 @@
 										                }
 										            }); */
 													uni.showModal({
-														content:"此页面需要获取您的位置信息，请开启定位且授权本应用后重新打开",
+														content:"无法获取位置信息，请开启定位且授权本应用后重新打开",
 														showCancel:false,
 														async success() {
-															permission.handleLocation()
-															let is_l=false;
-															do{
-																await new Promise((resolve1)=>{
-																	setTimeout(function(){
-																		uni.getLocation({
-																			success(res1) {
-																				is_l=true
-																				resolve1(1)
-																				resolve(res1)
-																			}
-																		})
-																	},1000);
-																}) 
-															}while(!is_l)
+															if(permission.isIOS){
+																plus.runtime.openURL("app-settings://");
+															}else{
+																permission.handleLocation()
+															}
 														}
 													})
+													/* if(permission.isIOS){
+														let lres = permission.requestIOS('location')
+														if(lres!==1){
+															uni.showModal({
+																title:'提示',
+																content:'请先授权获取位置信息',
+																showCancel:false,
+																success() {
+																	permission.gotoAppSetting()
+																}
+															})
+														}else{
+															uni.showModal({
+																title:'提示',
+																content:'请先打开定位服务功能',
+																showCancel:false,
+																success() {
+																	plus.runtime.openURL("app-settings://");
+																}
+															})
+														}
+													}else{
+														let lres = permission.requestAndroid('location')
+														if(lres!==1){
+															uni.showModal({
+																title:'提示',
+																content:'请先授权获取位置信息',
+																showCancel:false,
+																success() {
+																	permission.gotoAppSetting()
+																}
+															})
+														}else{
+																permission.handleLocation()
+														}
+													} */
+													let is_l=false;
+													do{
+														await new Promise((resolvec,rejectc)=>{
+															setTimeout(function(){
+																console.log('locationlocationlocation location')
+																uni.getLocation({
+																	success(res1) {
+																		console.log(res1)
+																		is_l=true
+																		resolvec(1)
+																		resolve(res1)
+																	},
+																	fail(err1) {
+																		console.log(22222222222)
+																		rejectc(err1)
+																	}
+																})
+															},1000);
+														}).catch(e1=>{})
+														
+														console.log(3333333333)
+													}while(!is_l)
 									// #endif
-									reject(err)
 								}
 							})
 						}).catch(e=>{
