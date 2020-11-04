@@ -254,7 +254,7 @@ export default {
       let scrollHeight = ((await this.getLayoutInfo('.customer_service')).height) - this.windowHeight
       console.log(attach + scrollHeight,scrollHeight);
       uni.pageScrollTo({
-        scrollTop: scrollHeight,
+        scrollTop: scrollHeight + attach,
         duration: 100
       })
     },
