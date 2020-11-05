@@ -41,10 +41,9 @@ function ajax(url, {data = {}, method = 'POST', isToken = true}) {
 //本地存在token，并且请求的数据需要token！但错误信息为token错误时触发
 function tokenError(h, result, reject) {
   let token = uni.getStorageSync('token')
-  console.log(token);
-  /* #ifdef MP-WEIXIN*/
   if (token && (h && result.data.msg === 'Token Error')) {
     uni.hideLoading()
+    // #ifndef MP-WEIXIN
     uni.showModal({
       title: '登陆状态失效!\n请重新登陆',
       success(res) {
@@ -59,23 +58,22 @@ function tokenError(h, result, reject) {
         reject(result)
       },
     })
-    /* #endif*/
+    // #endif
 
-    /* #ifndef MP-WEIXIN*/
+    // #ifdef MP-WEIXIN
     uni.login({
       provider: "weixin",
       async success(wxCode) {
         try {
           APP.userToken = (await login({code: wxCode.code,})).data.token;
-          uni.setStorageSync('token',APP.userToken)
+          uni.setStorageSync('token', APP.userToken)
         } catch (e) {
           console.log(e);
           APP.isLoginBox = true;
         }
       },
     });
-    /* #endif*/
-
+    // #endif
   } else {
     //正常错误直接抛出
     reject(result)
