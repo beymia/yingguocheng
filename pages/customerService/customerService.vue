@@ -1,7 +1,7 @@
 <template>
   <view :style="{'margin-bottom':headBarHeight}" class="customer_service">
     <!--自定義導航欄-->
-    <view class="head">
+  <!--  <view class="head">
       <uni-icons @click="toBack"
                  style="display: inline-block;vertical-align: middle"
                  type="arrowleft"
@@ -12,7 +12,7 @@
         <text>品立高餐飲</text>
         <text>客服會話</text>
       </view>
-    </view>
+    </view>-->
     <!--聊天內容-->
     <view class="content">
       <!--歡迎語 & 時間-->
@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       initTime: 0,
-      chatList: [],
+      chatList: [],//聊天记录存储
       chatId: '',
       userMsg: '',
       userInfo: '',
@@ -69,6 +69,7 @@ export default {
     };
   },
   async mounted() {
+    this.chatList = uni.getStorageSync('chatList') || [];//离开时存储，进入时读取，应用销毁时清空
     this.initTime = this.reDate()//进入聊天室的时间
     this.userInfo = APP.userInfo;//用户信息
     this.wxUserInfo = APP.wxUserInfo;//小程序展示微信信息
@@ -84,9 +85,8 @@ export default {
       this.windowHeight = uni.getSystemInfoSync().windowHeight;
       //监听键盘高度变化
       uni.onKeyboardHeightChange(async (res) => {
-        console.log(JSON.stringify(res));
-        this.headBarHeight = res.height + 'px';
-        await this.getContentHeight(res.height)
+        this.headBarHeight = res.height + 'px';//键盘弹出时将内容区域margin-bottom值设置软键盘高度
+        await this.getContentHeight(res.height)//滚动屏幕至最新的一条消息
       });
     } catch (e) {
       console.log(e);
@@ -100,7 +100,7 @@ export default {
       try {
         //建立连接通道
         this.socket = await uni.connectSocket({
-          url: 'wss://api.plg.wugee.net:200',
+          url: 'wss://api.plg.wugee.net:2000',
           success(res) {
             console.log(res);
           },
@@ -157,7 +157,7 @@ export default {
         }
         //消息接收完毕并且页面更新之后滚动页面至对应的位置
         this.$nextTick(async () => {
-          await self.getContentHeight()
+          await this.getContentHeight(0, 100)
         })
       })
     },
@@ -168,15 +168,14 @@ export default {
       if (!(this.userMsg.trim())) return;
       try {
         //socket为null时websocket则连接失败,发送消息时手动抛出一个错误
-        // if (!this.socket) {
-        //   throw 1
-        // }
+        if (!this.socket) {
+          throw 1
+        }
 
         this.chatList.push({msg: this.userMsg, type: 'user'})
-
         await this.sendMsgSocket(this.userMsg)
         //消息发送完成之后更新页面滚动的位置
-        await this.getContentHeight()
+        await this.getContentHeight(0, 150)
         this.userMsg = '';
       } catch (e) {
         console.log(e);
@@ -250,12 +249,15 @@ export default {
     },
 
     //将屏幕滚动至最新消息处,(最新的消息始终处于可见状态)
-    async getContentHeight(attach = 0) {
-      let scrollHeight = ((await this.getLayoutInfo('.customer_service')).height) - this.windowHeight
-      console.log(attach + scrollHeight,scrollHeight);
-      uni.pageScrollTo({
-        scrollTop: scrollHeight + attach,
-        duration: 100
+    async getContentHeight(attach, time) {
+      attach = attach || 0;
+      await this.$nextTick(async () => {
+        let scrollHeight = ((await this.getLayoutInfo('.customer_service')).height) - this.windowHeight
+        console.log(scrollHeight);
+        uni.pageScrollTo({
+          scrollTop: scrollHeight + attach,
+          duration: time || 0
+        })
       })
     },
 
@@ -271,20 +273,17 @@ export default {
     },
 
     //返回
-    toBack() {
-      uni.navigateBack();
-    },
+    // toBack() {
+    //   uni.navigateBack();
+    // },
   },
-  //页面不可见或者卸载时清楚定时器
-  // onHide() {
-  //   uni.closeSocket()
-  //   console.log('关闭了连接')
-  // },
+
   onUnload() {
     uni.closeSocket()
     clearInterval(this.socketTimer)
     this.socket = null;
     console.log('关闭了连接')
+    uni.setStorageSync('chatList',this.chatList)
   },
 
 };
@@ -439,6 +438,7 @@ image {
       color: #ffffff;
       line-height: 80rpx;
       border-radius: 10rpx;
+      transition: all 0.2s;
     }
   }
   .empty {

@@ -1,5 +1,5 @@
 <template>
-  <view class="container">
+  <view v-if="isLoginBox" class="container">
     <popUpLayer>
       <template>
         <view class="login_box">
@@ -42,6 +42,8 @@
 
 <script>
 import popUpLayer from "../popUpLayer/popUpLayer";
+import {login, userSpace} from "../../request/api";
+
 
 const APP = getApp().globalData
 export default {
@@ -49,6 +51,7 @@ export default {
   data() {
     return {
       isAuth: 0,
+      isLoginBox:true
     }
   },
   methods: {
@@ -58,14 +61,43 @@ export default {
     },
     // #endif
     // #ifdef MP-WEIXIN
-    getUserInfo(e) {
+    async getUserInfo(e) {
+      let self = this;
       if (e.detail.userInfo) {
+        uni.showLoading({
+          title: '正在登陆中...',
+          mask: true
+        })
         APP.wxUserInfo = e.detail.userInfo;
-        this.isAuth++;
-        APP.isAuth = true;
+        uni.login({
+          provider: "weixin",
+          async success(wxCode) {
+            try {
+              APP.userToken = (await login({code: wxCode.code,})).data.token;
+              APP.userInfo = (await userSpace()).data
+              self.isLoginBox = APP.isLoginBox = false;
+              uni.hideLoading()
+              let pageUlr = getCurrentPages();
+              pageUlr = pageUlr.slice(-1)
+
+              uni.reLaunch({
+                url: '/' + pageUlr[0].is,
+                complete(res) {
+                  console.log(res);
+                }
+              })
+
+            } catch (e) {
+              console.log(e);
+              uni.hideLoading()
+              self.isAuth++;
+              APP.isAuth = true;
+            }
+          },
+        });
       } else {
         APP.isAuth = false;
-        this.isAuth = 0;
+        self.isAuth = 0;
       }
     },
     // #endif

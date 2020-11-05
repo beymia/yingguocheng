@@ -105,7 +105,8 @@
     {
       "path": "pages/customerService/customerService",
       "style": {
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "品立高餐飲",
+        "navigationBarBackgroundColor": "#FFFFFF"
       }
     },
     {

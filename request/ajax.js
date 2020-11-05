@@ -1,4 +1,6 @@
-function ajax(url, {data={},method='POST',isToken=true}) {
+import {login, userSpace} from "./api";
+
+function ajax(url, {data = {}, method = 'POST', isToken = true}) {
 
   // TODO 生产环境需要替换默认的URL地址
 
@@ -40,6 +42,7 @@ function ajax(url, {data={},method='POST',isToken=true}) {
 function tokenError(h, result, reject) {
   let token = uni.getStorageSync('token')
   console.log(token);
+  /* #ifdef MP-WEIXIN*/
   if (token && (h && result.data.msg === 'Token Error')) {
     uni.hideLoading()
     uni.showModal({
@@ -56,6 +59,22 @@ function tokenError(h, result, reject) {
         reject(result)
       },
     })
+    /* #endif*/
+
+    /* #ifndef MP-WEIXIN*/
+    uni.login({
+      provider: "weixin",
+      async success(wxCode) {
+        try {
+          APP.userToken = (await login({code: wxCode.code,})).data.token;
+        } catch (e) {
+          console.log(e);
+          APP.isLoginBox = true;
+        }
+      },
+    });
+    /* #endif*/
+
   } else {
     //正常错误直接抛出
     reject(result)

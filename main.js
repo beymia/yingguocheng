@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App";
 import store from "./store";
-import { VueJsonp } from "vue-jsonp";
+import {VueJsonp} from "vue-jsonp";
 
 Vue.use(VueJsonp);
 //极其简单的数据为空时展示的页面
@@ -37,11 +37,11 @@ Vue.prototype.getLayoutInfo = function (name) {
     query = uni.createSelectorQuery();
     // #endif
     query
-      .select(name)
-      .boundingClientRect((data) => {
-        data ? resolve(data) : reject(data);
-      })
-      .exec();
+        .select(name)
+        .boundingClientRect((data) => {
+          data ? resolve(data) : reject(data);
+        })
+        .exec();
   });
 };
 
@@ -53,7 +53,7 @@ Vue.prototype.getLayoutInfo = function (name) {
  */
 Vue.prototype.utilPayment = async function (orderInfo, provider = "wxpay") {
   //提取支付所需的信息
-  let { signType, paySign, timeStamp, nonceStr } = orderInfo;
+  let {signType, paySign, timeStamp, nonceStr} = orderInfo;
 
   return new Promise((resolve, reject) => {
     //微信支付

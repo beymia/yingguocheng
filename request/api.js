@@ -12,7 +12,9 @@ export const invoice = (data) => ajax('/invoice-apply/create-apply',{data})
 export const sendCheckCode = (data) => ajax('/sms/login-sms',{data,isToken:false})
 //效验验证码
 export const verifyCode = (data) => ajax('/sms/verify-sms',{data,isToken:false})
-//登录&注册
+//注册
+export const registered = (data)=>ajax('/login/enroll',{data,isToken:false})
+//登录
 export const login = (data) => ajax('/login/login', {data,isToken:false})
 //积分商城
 export const convert = (data) => ajax('/convert/list',{data})

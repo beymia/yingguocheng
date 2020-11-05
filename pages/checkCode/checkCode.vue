@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { login, verifyCode, sendCheckCode } from "../../request/api";
+import {login, verifyCode, sendCheckCode, registered} from "../../request/api";
 import oneInput from "../../components/myp-one/myp-one";
 
 const APP = getApp().globalData;
@@ -171,7 +171,7 @@ export default {
           scopes: "auth_base",
           async success(wxCode) {
             try {
-              result = await login({
+              result = await registered({
                 mobile: self.phone,
                 code: wxCode.code,
               });
@@ -192,8 +192,15 @@ export default {
           });
           self.loginSuccess(result);
         } catch (e) {
-          console.log("登錄錯誤", e);
-          self.loginError();
+          try {
+            result = await registered({
+              mobile: self.phone,
+            });
+            self.loginSuccess(result);
+          } catch (e) {
+            console.log("登錄錯誤", e);
+            self.loginError();
+          }
         }
         // #endif
       }
