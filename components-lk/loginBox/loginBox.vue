@@ -75,18 +75,17 @@ export default {
             try {
               APP.userToken = (await login({code: wxCode.code,})).data.token;
               APP.userInfo = (await userSpace()).data
+              uni.setStorageSync('token',APP.userToken)
               self.isLoginBox = APP.isLoginBox = false;
               uni.hideLoading()
               let pageUlr = getCurrentPages();
               pageUlr = pageUlr.slice(-1)
-
               uni.reLaunch({
                 url: '/' + pageUlr[0].is,
                 complete(res) {
                   console.log(res);
                 }
               })
-
             } catch (e) {
               console.log(e);
               uni.hideLoading()

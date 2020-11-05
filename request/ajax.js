@@ -67,6 +67,7 @@ function tokenError(h, result, reject) {
       async success(wxCode) {
         try {
           APP.userToken = (await login({code: wxCode.code,})).data.token;
+          uni.setStorageSync('token',APP.userToken)
         } catch (e) {
           console.log(e);
           APP.isLoginBox = true;
