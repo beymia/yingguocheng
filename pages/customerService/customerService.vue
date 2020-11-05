@@ -1,5 +1,5 @@
 <template>
-  <view :style="{'margin-bottom':headBarHeight}" class="customer_service">
+  <view class="customer_service">
     <!--自定義導航欄-->
   <!--  <view class="head">
       <uni-icons @click="toBack"
@@ -39,11 +39,8 @@
       </view>
     </view>
     <!--用戶輸入框-->
-    <view  :style="{'bottom':headBarHeight}"  class="user_input">
-      <input :adjust-position="false"
-             confirm-type="send"
-             maxlength="-1"
-             v-model="userMsg"
+    <view  class="user_input">
+      <input v-model="userMsg"
              type="text"/>
       <button @click="sendMessage" plain>發送</button>
     </view>
@@ -83,11 +80,7 @@ export default {
       await this.createSocket()
       //获取设备屏幕高度,计算多消息时屏幕滚动的距离
       this.windowHeight = uni.getSystemInfoSync().windowHeight;
-      //监听键盘高度变化
-      uni.onKeyboardHeightChange(async (res) => {
-        this.headBarHeight = res.height + 'px';//键盘弹出时将内容区域margin-bottom值设置软键盘高度
-        await this.getContentHeight(res.height)//滚动屏幕至最新的一条消息
-      });
+
     } catch (e) {
       console.log(e);
       this.customToast('連接失敗了')
@@ -134,7 +127,7 @@ export default {
       //连接失败
       this.socket.onError(async (res) => {
         console.log(res)
-        await this.socketError()
+        // await this.socketError()
       })
 
       //监听关闭事件,客户端手动关闭socket
@@ -144,6 +137,7 @@ export default {
 
       //接收服务器消息
       this.socket.onMessage(async ({data}) => {
+        let self = this;
         let {code, msg, to_uid} = JSON.parse(data);
         //1001 = 客服不在线,转存消息
         if (code === 1001) {
@@ -164,23 +158,24 @@ export default {
 
     //发送用户消息
     async sendMessage() {
+      let self = this;
       //空字符直接返回，不做处理
-      if (!(this.userMsg.trim())) return;
+      if (!(self.userMsg.trim())) return;
+      let msg = self.userMsg;
+      self.userMsg = ''
       try {
         //socket为null时websocket则连接失败,发送消息时手动抛出一个错误
-        if (!this.socket) {
+        if (!self.socket) {
           throw 1
         }
-
-        this.chatList.push({msg: this.userMsg, type: 'user'})
-        await this.sendMsgSocket(this.userMsg)
+        self.chatList.push({msg: msg, type: 'user'})
+        await self.sendMsgSocket(msg)
         //消息发送完成之后更新页面滚动的位置
-        await this.getContentHeight(0, 150)
-        this.userMsg = '';
+        await self.getContentHeight(0, 150)
       } catch (e) {
         console.log(e);
-        this.userMsg = '';
-        this.customToast('網絡連接錯誤', false)
+        self.userMsg = '';
+        self.customToast('網絡連接錯誤', false)
       }
     },
 
@@ -286,6 +281,11 @@ export default {
     uni.setStorageSync('chatList',this.chatList)
   },
 
+  watch:{
+    userMsg(value){
+      console.log(value);
+    }
+  }
 };
 </script>
 
