@@ -191,6 +191,7 @@
 	import locaAutho from './components/locaAutho/locaAutho.vue'
 	import {shops_list,shops_detail,goods_list,goods_detail,pintuan_creat,pintuan_detail,pintuan_order} from '@/request/api_y.js'
 	import {during} from '@/util/Date.js'
+	import wxLogin from '@/util/wxLogin.js'
 	export default{
 		components:{
 			actions,
@@ -643,18 +644,33 @@
 			console.log(2222222222)
 			console.log(token)
 			if(!token){
+				// #ifdef MP-WEIXIN
+					let iswl= await wxLogin({
+						confirm(){
+							uni.navigateTo({
+								url:'/pages/login/login?from=pintuan'
+							})
+						},
+						cancel(){
+						}
+					});
+					if(iswl == 0)return
+				// #endif
+				// #ifndef MP-WEIXIN
+				
 				uni.showModal({
 				    content: '您還沒有登錄，請先登錄',
 				    success: function (res) {
 				        if (res.confirm) {
 							uni.navigateTo({
-								url:'/pages/login/login'
+								url:'/pages/login/login?from=pintuan'
 							})
 				        } else if (res.cancel) {
 				        }
 				    }
 				});
 				return
+				// #endif
 			}
 			console.log(33333333)
 			uni.showLoading({})

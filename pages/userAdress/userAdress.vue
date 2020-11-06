@@ -61,6 +61,7 @@
 	import {mapState, mapMutations} from 'vuex'
 	import listCell from '@/components-lk/list-cell/list-cell.vue'
 	import {userAddresses,address_delete,address_add} from '@/request/api_y.js'
+	import wxLogin from '@/util/wxLogin.js'
 	export default {
 		components: {
 			listCell
@@ -76,6 +77,24 @@
 		async onLoad({from}) {
 			const token = uni.getStorageSync('token');
 			if(!token){
+				
+				// #ifdef MP-WEIXIN
+					let iswl= await wxLogin({
+						confirm(){
+							uni.navigateTo({
+								url:'/pages/login/login?from=order'
+							})
+						},
+						cancel(){
+							uni.navigateBack({
+								delta:1
+							})
+						}
+					});
+					if(iswl == 0)return
+				// #endif
+				// #ifndef MP-WEIXIN
+				
 				uni.showModal({
 				    content: '您還沒有登錄，請先登錄',
 				    success: function (res) {
@@ -91,6 +110,7 @@
 				    }
 				});
 				return
+				// #endif
 			}
 			console.log(token)
 			let uddresses = (await userAddresses()).data;
