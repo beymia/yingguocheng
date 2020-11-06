@@ -141,6 +141,7 @@
 	import {shops_list,shops_detail,pintuan_creat,pintuan_order,pintuan_invite,pintuan_invite_code,pintuan_lock,pintuan_unlock,pintuan_detail,pintuan_cancel} from '@/request/api_y.js'
 	import locaAutho from '@/pages/order/components/locaAutho/locaAutho.vue'
 	import qrcode from './components/qrcode.vue'
+	import wxLogin from '@/util/wxLogin.js'
 	export default {
 		components:{
 			locaAutho,
@@ -166,6 +167,24 @@
 				if(!token){
 					getApp().globalData.isInvite = true
 					getApp().globalData.pintuanCode = options.code
+					
+					// #ifdef MP-WEIXIN
+						let iswl= await wxLogin({
+							confirm(){
+								uni.navigateTo({
+									url:'/pages/login/login?from=pintuan'
+								})
+							},
+							cancel(){
+								uni.switchTab({
+									url:'/pages/order/order'
+								})
+							}
+						});
+						if(iswl == 0)return
+					// #endif
+					
+					// #ifndef MP-WEIXIN
 					uni.showModal({
 					    content: '您還沒有登錄，請先登錄',
 					    success: function (res) {
@@ -181,6 +200,7 @@
 					    }
 					});
 					return
+					// #endif
 				}
 					getApp().globalData.isInvite = false
 					try{
@@ -257,6 +277,23 @@
 				//正常进入但没有拼团
 			const token = uni.getStorageSync('token');
 			if(!token){
+				// #ifdef MP-WEIXIN
+					let iswl = await wxLogin({
+						confirm(){
+							uni.navigateTo({
+								url:'/pages/login/login?from=pintuan'
+							})
+						},
+						cancel(){
+							uni.switchTab({
+								url:'/pages/order/order'
+							})
+						}
+					});
+					if(iswl == 0)return
+				// #endif
+				
+				// #ifndef MP-WEIXIN
 				uni.showModal({
 				    content: '您還沒有登錄，請先登錄',
 				    success: function (res) {
@@ -272,6 +309,7 @@
 				    }
 				});
 				return
+				// #endif
 			}
 			console.log(this.choosedShop)
 				if(!this.pintuanType){
@@ -643,6 +681,20 @@
 				const token = uni.getStorageSync('token');
 				console.log(token)
 				if(!token){
+					// #ifdef MP-WEIXIN
+						let iswl = await wxLogin({
+							confirm(){
+								uni.navigateTo({
+									url:'/pages/login/login?from=pintuan'
+								})
+							},
+							cancel(){
+								
+							}
+						});
+						if(iswl == 0)return
+					// #endif
+					// #ifndef MP-WEIXIN
 					uni.showModal({
 					    content: '您還沒有登錄，請先登錄',
 					    success: function (res) {
@@ -655,6 +707,7 @@
 					    }
 					});
 					return
+					// #endif
 				}
 				
 				this.judge_is_rest()//
@@ -858,6 +911,7 @@
 							color: #333333;
 							margin-right: 10rpx;
 							max-width: 280rpx;
+							overflow: hidden;
 						}
 						.is_me{
 							width: 30rpx;

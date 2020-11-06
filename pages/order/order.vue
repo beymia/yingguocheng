@@ -206,6 +206,7 @@
 	import {shops_list,shops_detail,goods_list,goods_detail,pintuan_creat,pintuan_detail} from '@/request/api_y.js'
 	import {during} from '@/util/Date.js'
 	import permission from '@/util/permission.js'
+	import wxLogin from '@/util/wxLogin.js'
 	export default{
 		components:{
 			actions,
@@ -492,59 +493,77 @@
 				// #endif
 				const token = uni.getStorageSync('token');
 				console.log(token)
-				if(token){
-					var code = uni.getStorageSync('pintuanCode');
-					if(code){
-						try{
-							console.log('cccccccccccccc')
-							var a = await pintuan_detail({code:code})
-							console.log('aaaaaaaaaaaaaaaaa')
-							if(a.code == 1001){
-								console.log('bbbbbbbbbbbbbbbb')
-								this.showPintuan =true
-							}else{
+				if(!token){
+					// #ifdef MP-WEIXIN
+						let iswl = await wxLogin({
+							confirm(){
 								uni.navigateTo({
-									url:'/pages/pintuan/pintuan?code='+code
+									url:'/pages/login/login?from=order'
 								})
+							},
+							cancel(){
+								
 							}
-						}catch(e){
-							//TODO handle the exception
-							console.log(e)
-						}
-						
-					}else{
-						try{
-							let res_pc = await pintuan_creat()
-							console.log('res_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pc')
-							console.log(res_pc)
-							if(res_pc.code == 1000){
-								uni.setStorage({
-									key:'pintuanCode',
-									data:res_pc.data.code
-								})
-								uni.navigateTo({
-									url:'/pages/pintuan/pintuan?code='+	res_pc.data.code
-								})
-							}else{
-								this.showPintuan =true
-							}
-						}catch(e){
-							//TODO handle the exception
-							console.log(e)
-						}
-					}
-				}else{
-						uni.showModal({
-						    content: '您還沒有登錄，請先登錄',
-						    success: function (res) {
-						        if (res.confirm) {
-									uni.navigateTo({
-										url:'/pages/login/login?from=order'
-									})
-						        } else if (res.cancel) {
-						        }
-						    }
 						});
+						console.log(iswl)
+						if(iswl == 0)return
+						console.log('iswliswliswliswl')
+					// #endif
+					
+					// #ifndef MP-WEIXIN
+					uni.showModal({
+					    content: '您還沒有登錄，請先登錄',
+					    success: function (res) {
+					        if (res.confirm) {
+								uni.navigateTo({
+									url:'/pages/login/login?from=order'
+								})
+					        } else if (res.cancel) {
+					        }
+					    }
+					});
+					return
+					// #endif
+				}
+				var code = uni.getStorageSync('pintuanCode');
+				if(code){
+					try{
+						console.log('cccccccccccccc')
+						var a = await pintuan_detail({code:code})
+						console.log('aaaaaaaaaaaaaaaaa')
+						if(a.code == 1001){
+							console.log('bbbbbbbbbbbbbbbb')
+							this.showPintuan =true
+						}else{
+							uni.navigateTo({
+								url:'/pages/pintuan/pintuan?code='+code
+							})
+						}
+					}catch(e){
+						//TODO handle the exception
+						console.log(e)
+					}
+					
+				}else{
+					try{
+						let res_pc = await pintuan_creat()
+						console.log('res_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pcres_pc')
+						console.log(res_pc)
+						if(res_pc.code == 1000){
+							uni.setStorage({
+								key:'pintuanCode',
+								data:res_pc.data.code
+							})
+							uni.navigateTo({
+								url:'/pages/pintuan/pintuan?code='+	res_pc.data.code
+							})
+						}else{
+							this.showPintuan =true
+						}
+					}catch(e){
+						//TODO handle the exception
+						console.log(e)
+					}
 				}
 			},
 			loca_tap(){
@@ -692,10 +711,25 @@
 			}
 			
 		},
-		pay(price){
+		async pay(price){
 			const token = uni.getStorageSync('token');
 			console.log(token)
 			if(!token){
+				// #ifdef MP-WEIXIN
+					let iswl = await wxLogin({
+						confirm(){
+							uni.navigateTo({
+								url:'/pages/login/login?from=order'
+							})
+						},
+						cancel(){
+							
+						}
+					});
+					if(iswl == 0)return
+				// #endif
+				// #ifndef MP-WEIXIN
+				
 				uni.showModal({
 				    content: '您還沒有登錄，請先登錄',
 				    success: function (res) {
@@ -708,6 +742,7 @@
 				    }
 				});
 				return
+				// #endif
 			}
 			this.judge_is_rest()//
 			if(!this.is_rest){
