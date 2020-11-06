@@ -17,11 +17,12 @@ export default {
     //应用初次启动时从缓存中读取用户token
     this.globalData.userToken = uni.getStorageSync("token");
     console.log("App Launch");
-
+    //进入应用时删除历史聊天记录
+    uni.removeStorageSync('chatList')
     // #ifdef MP-WEIXIN
     //判断用户是否授权获取相关信息，已经授权直接存在userInfo中
     let self = this;
-   await uni.getUserInfo({
+    await uni.getUserInfo({
       provider:'weixin',
       success(res){
         console.log(res.userInfo);
