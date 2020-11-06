@@ -12,7 +12,6 @@
         <view>
           <view style="height: 100rpx"></view>
           <one-input v-model="verificationCode" :maxlength="6"></one-input>
-          <view style="height: 100rpx"></view>
         </view>
       </view>
       <view class="code_timer">
@@ -23,7 +22,12 @@
 </template>
 
 <script>
-import {login, verifyCode, sendCheckCode, registered} from "../../request/api";
+import {
+  login,
+  verifyCode,
+  sendCheckCode,
+  registered,
+} from "../../request/api";
 import oneInput from "../../components/myp-one/myp-one";
 
 const APP = getApp().globalData;
@@ -115,22 +119,40 @@ export default {
       APP.isLoginBox = false;
       uni.setStorageSync("token", APP.userToken);
       //options没有值时默认跳转首页
-      if (self.from) {
+      let tabbarPage = ["home", "order", "orderForm", "my"];
+      self.from = self.from || "home";
+      if (tabbarPage.indexOf(self.from) !== -1) {
+        uni.switchTab({
+          url: `/pages/${self.from}/${self.from}`,
+          success() {
+            self.pageHide();
+          },
+        });
+      } else {
         uni.redirectTo({
           url: `/pages/${self.from}/${self.from}`,
           success() {
             self.pageHide();
           },
         });
-        return;
       }
 
-      uni.switchTab({
-        url: "/pages/home/home",
-        success() {
-          self.pageHide();
-        },
-      });
+      // if (self.from && self.from !== "order") {
+      //   uni.redirectTo({
+      //     url: `/pages/${self.from}/${self.from}`,
+      //     success() {
+      //       self.pageHide();
+      //     },
+      //   });
+      // } else {
+      //   let pageUrl = self.from || "home";
+      //   uni.switchTab({
+      //     url: `/pages/${pageUrl}/${pageUrl}`,
+      //     success() {
+      //       self.pageHide();
+      //     },
+      //   });
+      // }
     },
   },
 
@@ -140,7 +162,7 @@ export default {
 
       if (value.length === 6) {
         // TODO 验证码输入完毕后隐藏软键盘，解决跳转到设置密码页面安卓手机不聚焦问题
-        uni.hideKeyboard()
+        uni.hideKeyboard();
 
         uni.showLoading({
           title: this.change ? "請稍後" : "正在登錄中",
@@ -281,11 +303,13 @@ export default {
   }
 
   .code_timer {
+    width: 100%;
     height: 33rpx;
     font-size: $font-size-sm;
     color: $font-color3;
-    margin-left: auto;
+    text-align: end;
     line-height: 33rpx;
+    margin-top: 100rpx;
   }
 }
 </style>
