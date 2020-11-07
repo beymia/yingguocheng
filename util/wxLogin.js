@@ -6,6 +6,8 @@ export default async function (data={confirm:function(){},cancel:function(){},sh
 					  provider: "weixin",
 					  async success(wxCode) {
 						try{
+							console.log('appapp')
+							console.log(APP)
 							APP.userToken = (await login({code: wxCode.code,})).data.token;
 						}catch(e2){
 							//TODO handle the exception

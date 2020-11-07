@@ -67,6 +67,7 @@ function tokenError(h, result, reject) {
 	  // #endif
 	  
 	  // #ifdef MP-WEIXIN
+	  const APP = getApp().globalData
 	  uni.login({
 	    provider: "weixin",
 	    async success(wxCode) {
