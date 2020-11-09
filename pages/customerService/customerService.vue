@@ -134,7 +134,7 @@ export default {
         //建立连接通道
         this.socket = await uni.connectSocket({
           // TODO
-          url: "wss://api.plg.wugee.net:200",
+          url: "wss://api.plg.wugee.net:2000",
           success(res) {
             console.log(res);
           },
@@ -171,7 +171,7 @@ export default {
       this.socket.onError(async (res) => {
         console.log(res);
         // TODO
-        // await this.socketError()
+        await this.socketError()
       });
 
       //监听关闭事件,客户端手动关闭socket
