@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "奶茶有禮",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "my-foresee-page": "/pages/milkTeaGift/components/myForeseePage",
-    "swiper-switch": "/components-lk/swiperSwitch/swiperSwitch"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "会员权益",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "options": "/pages/memberBenefits/components/options"
-  }
-}

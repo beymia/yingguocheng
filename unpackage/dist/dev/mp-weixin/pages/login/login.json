@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "登錄",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons"
-  }
-}

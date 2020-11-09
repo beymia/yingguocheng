@@ -1,1 +1,0 @@
-<view class="layer data-v-45718578" style="{{'z-index:'+(floor)+';'}}"><view data-event-opts="{{[['tap',[['$emit',['mask-click']]]]]}}" class="masking data-v-45718578" bindtap="__e"></view><view class="content data-v-45718578"><slot></slot></view></view>

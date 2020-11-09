@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "foresee-list": "/components-lk/foreseeList/foreseeList"
-  }
-}
