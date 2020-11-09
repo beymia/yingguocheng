@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { userSpace } from "../../request/api";
+import {login, userSpace } from "../../request/api";
 
 import userInfo from "./components/userInfo";
 import giftPack from "./components/giftPack";
@@ -128,11 +128,14 @@ export default {
       this.loginBoxShow = APP.isLoginBox = false;
     },
     //跳转至對應的頁面
-    navFitPage(aims) {
+   async navFitPage(aims) {
       //用户没有登录不做处理
       if (!this.token || !this.userInfo.user_name) {
-        this.customToast("請先登錄", false);
-        return;
+        // this.customToast("請先登錄", false);
+        // return;
+        APP.userToken = (await login()).data.token
+        APP.userInfo = (await userSpace()).data
+        this.userInfo = APP.userInfo
       }
       let { page, v } = aims;
       switch (page) {

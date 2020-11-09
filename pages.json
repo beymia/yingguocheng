@@ -106,11 +106,13 @@
       "path": "pages/customerService/customerService",
       "style": {
         "navigationBarTitleText": "品立高餐飲",
-        "navigationBarBackgroundColor": "#FFFFFF"
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "app-plus": {
+          "softinputMode": "adjustResize"
+        }
       },
       "app-plus": {
-        "softinputNavBar": "none",
-        "softinputMode": "adjustPan"
+        "softinputMode": "adjustResize"
       }
     },
     {

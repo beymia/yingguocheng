@@ -23,7 +23,7 @@
 
 
       <!--具體聊天內容-->
-      <view class="detail">
+      <view class="detail" @click="hideKeyboard">
         <view v-for="(msg, index) in chatList" :key="index">
           <view :class="[msg.type === 'server' ? 'left' : 'right']">
             <view class="left_item content">
@@ -311,6 +311,12 @@ export default {
              ? `${y}-${m}-${d} ${h}:${mm}`
              : `${h}:${mm}`;
     },
+
+    //点击空白隐藏键盘
+    hideKeyboard(){
+      uni.hideLoading()
+      console.log(1);
+    }
 
     //返回
     // toBack() {
