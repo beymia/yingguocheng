@@ -6,7 +6,7 @@
     </view>
     <view class="content">
       <view class="item name">
-        <text>暱稱</text>{{wxUserInfo.nickName || user.user_name}}
+        <text>暱稱</text>{{wxUserInfo.nickName || userInfo.user_name}}
       </view>
       <view class="item phone">
         <text>手機</text>{{handlerPhone}}
@@ -23,13 +23,17 @@ const APP = getApp().globalData
 export default {
   data() {
     return {
-      userInfo:APP.userInfo,
-      wxUserInfo:APP.wxUserInfo,
+      userInfo:{},
+      wxUserInfo:{},
     }
+  },
+  mounted(){
+    this.userInfo = APP.userInfo;
+    this.wxUserInfo = APP.wxUserInfo;
   },
   computed:{
     handlerPhone(){
-     return this.userInfo.mobile.replace(/\d/g, function (value, index) {
+      return this.userInfo.mobile.replace(/\d/g, function (value, index) {
         if (index >= 3 && index <= 6) {
           return '*'
         } else {
