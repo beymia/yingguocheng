@@ -70,10 +70,10 @@ export default {
           title: '正在發送驗證碼',
           mask: true,
         })
-        //發送驗證碼
-       await sendCheckCode({
-          mobile: this.phone
-        })
+        //發送驗證碼 TODO
+       // await sendCheckCode({
+       //    mobile: this.phone
+       //  })
         uni.hideLoading()
         /*手机号正确，跳转至验证码接收頁*/
         uni.navigateTo({

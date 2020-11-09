@@ -3,7 +3,7 @@ export default {
   globalData: {
     userToken: null, //用戶token
     userInfo: {}, //用户基本信息
-    isLoginBox: true, //用户登录引导框,微信需弹出授权窗口
+    isLoginBox: false, //用户登录引导框,微信需弹出授权窗口
     isAuth:true,//用户是否已经授权，微信小程序
     wxUserInfo:{},//getUserInfo获取到的用户信息，微信小程序
     goodsPayment: {}, //订单的结算信息

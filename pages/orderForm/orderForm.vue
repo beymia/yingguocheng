@@ -64,7 +64,7 @@
     </view>
 
     <!--登录提示框-->
-    <loginBox v-if="loginBoxShow" @close-login-box="hideLoginBox"></loginBox>
+    <loginBox v-show="loginBoxShow" @close-login-box="hideLoginBox"></loginBox>
   </view>
 </template>
 
@@ -130,13 +130,14 @@ export default {
 
   //页面每次展示重新获取token，请求重新请求订单数据
   async onShow() {
+    this.loginBoxShow = APP.isLoginBox = false;
     if (APP.userToken) {
       this.loginBoxShow = APP.isLoginBox = false;
       this.token = APP.userToken
       try {
         await this.getData()
       } catch (e) {
-        console.log(e);
+        this.loginBoxShow = APP.isLoginBox = true;
       }
     } else {
       this.loginBoxShow = APP.isLoginBox = true;

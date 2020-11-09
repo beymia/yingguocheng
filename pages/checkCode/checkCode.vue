@@ -168,13 +168,13 @@ export default {
           title: this.change ? "請稍後" : "正在登錄中",
         });
 
-        // 驗證驗證碼
-        try {
-          await verifyCode({ mobile: self.phone, code: self.verificationCode });
-        } catch (e) {
-          self.customToast("驗證碼錯誤");
-          return;
-        }
+        // 驗證驗證碼 TODO
+        // try {
+        //   await verifyCode({ mobile: self.phone, code: self.verificationCode });
+        // } catch (e) {
+        //   self.customToast("驗證碼錯誤");
+        //   return;
+        // }
 
         // change有值則跳轉到設置交易密碼頁面
         if (self.change) {
@@ -253,7 +253,6 @@ export default {
 
   .input_container {
     width: 100%;
-    height: 405rpx;
     display: flex;
     padding-top: 50rpx;
     flex-direction: column;
@@ -265,7 +264,6 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin-bottom: 103rpx;
 
       text:nth-child(1) {
         font-size: $font-size-lg + 2rpx;
