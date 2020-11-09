@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "英国城",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "actions": "/pages/order/components/actions/actions",
+    "notice": "/pages/order/components/notice/notice",
+    "product-modal": "/pages/order/components/product-modal/product-modal",
+    "cart-bar": "/pages/order/components/cartbar/cartbar-pintuan",
+    "search": "/pages/order/components/search/search",
+    "rest": "/pages/order/components/rest/rest",
+    "pintuan": "/pages/order/components/pintuan/pintuan",
+    "loca-autho": "/pages/order/components/locaAutho/locaAutho"
+  }
+}

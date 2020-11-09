@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "選擇門店",
+  "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "search": "/pages/chooseShop/components/search/search"
+  }
+}
