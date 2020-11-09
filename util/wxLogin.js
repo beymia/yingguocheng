@@ -1,4 +1,5 @@
 import {login, userSpace} from "@/request/api";
+
 export default async function (data={confirm:function(){},cancel:function(){},showCancel:true}) {
 				return new Promise((resolve,reject)=>{
 					const APP = getApp().globalData

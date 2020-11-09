@@ -1,4 +1,5 @@
 <template>
+	
 	<view class="page address_con">
 		<view class="content">
 			<view class="zwdz" v-if="!userAddresses.length">

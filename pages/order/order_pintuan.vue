@@ -10,6 +10,7 @@
 				</view>
 			</template>
 		</uni-nav-bar>
+		
 		<!-- 自定义导航栏end -->
 		
 		<!-- 头部start -->

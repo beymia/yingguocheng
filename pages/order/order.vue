@@ -14,6 +14,7 @@
 					<uni-icons type="scan" size='36' @tap='scan'></uni-icons>
 			</template> -->
 			
+			
 		</uni-nav-bar>
 		<!-- 自定义导航栏end -->
 		

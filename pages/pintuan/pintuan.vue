@@ -1,4 +1,5 @@
 <template>
+	
 	<view class="page">
 			<view class="pintuanShop">
 				<view class="info">
