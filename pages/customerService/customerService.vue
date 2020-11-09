@@ -328,7 +328,6 @@ export default {
     uni.closeSocket();
     clearInterval(this.socketTimer);
     this.socket = null;
-    console.log("关闭了连接");
     uni.setStorageSync("chatList", this.chatList);
   },
 
