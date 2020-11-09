@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "英国城",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "head-nav": "/components-lk/headNav/headNav",
+    "order-detail": "/components-lk/orderDetail/orderDetail",
+    "login-box": "/components-lk/loginBox/loginBox"
+  }
+}

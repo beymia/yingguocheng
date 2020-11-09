@@ -1,0 +1,1 @@
+<view class="more data-v-5796f226"><options-list vue-id="c97058c0-1" height="100rpx" border="{{true}}" list="{{options}}" data-event-opts="{{[['^optionsClick',[['navPage']]]]}}" bind:optionsClick="__e" class="data-v-5796f226" bind:__l="__l"></options-list></view>

@@ -1,0 +1,129 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 英国城自定义 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+/*通用字体属性*/
+/*margin或者padding值*/
+/*默认整体的背景色*/
+/*默认的局部主题色*/
+image.data-v-3b98a0e6 {
+  width: 100rpx;
+  height: 100rpx;
+}
+.member_code.data-v-3b98a0e6 {
+  width: 100%;
+  height: 100vh;
+  z-index: -1111;
+}
+.member_code .content.data-v-3b98a0e6 {
+  width: 100vw;
+  height: 984rpx;
+  background-color: #FFFFFF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.member_code .content .user_info.data-v-3b98a0e6 {
+  font-size: 32rpx;
+  color: #000000;
+  margin-bottom: 50rpx;
+  margin-top: -75rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.member_code .content .user_info image.data-v-3b98a0e6 {
+  width: 130rpx;
+  height: 130rpx;
+  margin-bottom: 10rpx;
+  vertical-align: middle;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  overflow: hidden;
+}
+.member_code .content .payment.data-v-3b98a0e6 {
+  width: 500rpx;
+  height: 54rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-around;
+          justify-content: space-around;
+  border-bottom: 1rpx solid #cccccc;
+  font-size: 24rpx;
+  color: #000000;
+  margin-bottom: 100rpx;
+}
+.member_code .content .payment image.data-v-3b98a0e6 {
+  width: 30rpx;
+  height: 30rpx;
+  vertical-align: middle;
+}
+.member_code .content .payment view.data-v-3b98a0e6:nth-child(3) {
+  color: #999999;
+}
+.member_code .content .qr_code.data-v-3b98a0e6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.member_code .content .qr_code view.data-v-3b98a0e6:nth-child(1) {
+  font-size: 24rpx;
+  color: #000000;
+  margin-bottom: 30rpx;
+}
+.member_code .content .qr_code image.data-v-3b98a0e6 {
+  width: 260rpx;
+  height: 260rpx;
+  vertical-align: middle;
+  margin-bottom: 20rpx;
+}
+.member_code .content .qr_code view.data-v-3b98a0e6:nth-child(3) {
+  font-size: 22rpx;
+  color: #999999;
+}
+

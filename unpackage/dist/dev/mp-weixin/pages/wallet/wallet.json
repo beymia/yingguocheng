@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "options-list": "/components-lk/optionsList/optionsList"
+  }
+}

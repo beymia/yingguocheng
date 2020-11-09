@@ -1,0 +1,1 @@
+<uni-popup vue-id="8f228858-1" type="center" maskClick="{{true}}" data-ref="qrcode" class="data-v-cacf991c vue-ref" bind:__l="__l" vue-slots="{{['default']}}"><view class="qr_con data-v-cacf991c"><view class="title data-v-cacf991c">請使用點單頁面右上角的掃碼功能掃描下方二維碼</view><view class="img data-v-cacf991c"><image src="{{qrUrl}}" mode class="data-v-cacf991c"></image></view></view></uni-popup>

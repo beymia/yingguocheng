@@ -1,0 +1,245 @@
+/deep/.uni-navbar__header-container-inner{font-size: 17px;}//标题字号
+
+// location start
+	.location{
+		height: 95rpx;
+		padding: 0 24rpx;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 23rpx;
+		
+		// left start
+		.left{
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			justify-content: space-between;
+			.top{
+				display: flex;
+				align-items: center;
+				.loca_icon{
+					width: 28rpx;
+					height: 35rpx;
+				}
+				.shop_adress{
+					max-width: 334rpx;
+					color: #333333;
+					font-size: 34rpx;
+					font-weight: bolder;
+					// display: -webkit-box;
+					// -webkit-box-orient: vertical;
+					// -webkit-line-clamp: 1;
+					// overflow: hidden; 
+					margin-left: 10rpx;
+				}
+				.foward_icon{
+					font-size: 28rpx;
+				}
+			}
+			
+			.bottom{
+				display: flex;
+				align-items: center;
+				.shop_tab_icon{
+					width: 22rpx;
+					height: 20rpx;
+				}
+				.shop_name{
+					font-size: 26rpx;
+					color: #666666;
+					margin:0 10rpx;
+				}
+				.tip_text{
+					font-size: 26rpx;
+					color: #999999;	
+				}
+			}
+			
+		}
+		// left end
+		//right start
+		.right{
+			width: 240rpx;
+			height: 68rpx;
+			border: 1px solid $main-color;
+			border-radius: 40rpx;
+			box-sizing: border-box;
+			padding: 0 12rpx;
+			display: flex;
+			align-items: center;
+			.order_type{
+				height: 56rpx;
+				line-height: 56rpx;
+				font-size: 26rpx;
+				color: $main-color;
+				flex: 1;
+				border-radius: 24rpx;
+				text-align: center;
+			}
+			.order_type_selected{
+				color: #FFFFFF;
+				background-color: $main-color;
+			}
+		}
+		//right end
+		
+		}
+// location end
+// notice start
+.notice{
+	display: flex;
+	padding: 0 24rpx;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 23rpx;
+	margin-bottom: 17rpx;
+	font-size: 24rpx;
+	color: #999999;
+	height: 35rpx;
+	.swiper_wrap_notice{
+		flex: 1;
+		margin-right: 52rpx;
+		height: 35rpx;
+		.notice_title{
+			display: flex;
+			align-items: center;
+			.notice_icon{
+				width: 28rpx;
+				height: 35rpx;
+			}
+			.notice_text{
+				margin-left: 10rpx;
+				flex: 1;
+				overflow: hidden; 
+				text-overflow: ellipsis; 
+				white-space: nowrap;
+			}
+		}
+	}
+	
+	.notice_more{
+		display: flex;
+		align-items: center;
+		.item_text{
+			margin-right: 6rpx;
+		}
+	}
+}
+// notice end
+// main start
+.main{
+	flex: 1;
+	display: flex;
+	overflow: hidden;
+	.menu_bar{
+		width: 160rpx;
+		margin-right: 30rpx;
+		background-color: #F6F6F6;
+		.menu_item{
+			height: 130rpx;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			color: #999999;
+			&:nth-last-child(1){
+				margin-bottom: 100rpx;
+			}
+			&.active{
+				background-color: #FFFFFF;
+				color: $main-color;
+				border-left: 7rpx solid $main-color;
+			}
+			.menu_icon{
+				width: 40rpx;
+				height: 40rpx;
+			}
+			.menu_name{
+				font-size: 26rpx;
+				color: #999999;
+				white-space: nowrap;
+			}
+		}
+	}
+}
+// main end
+
+// goods start 
+.goods{
+	flex: 1;
+	overflow: hidden;
+	
+	.pdb50{
+		padding-bottom: 130rpx;
+	}
+	.goods_list{
+		.goods_title{
+			height: 80rpx;
+			font-size: 22rpx;
+			color: #333333;
+			font-weight: bold;
+		}
+		.goods_item{
+			display: flex;
+			align-items: center;
+			padding-bottom: 50rpx;
+			.good_icon{
+				width: 130rpx;
+				height: 130rpx;
+				margin-right: 33rpx;
+				flex-shrink: 0;
+			}
+			.good_intro{
+				display: flex;
+				flex-direction: column;
+				flex: 1;
+				margin-right: 24rpx;
+				.good_name{
+					font-size: 28rpx;
+					color: #333333;
+					font-weight: bold;
+				}
+				.good_label{
+					margin-top: 14rpx;
+					margin-left: 10rpx;
+					font-size: 20rpx;
+					color: #999999;
+					display: flex;
+					overflow: hidden;
+					.isHot{
+						color: $main-color;
+						font-size: 20rpx;
+						background-color: #E7F5FF;
+						margin-right: 20rpx;
+						flex-shrink: 0;
+						
+					}
+				}
+				.good_des{
+					margin-top: 14rpx;
+					line-height: 26rpx;
+					font-size: 20rpx;
+					color: #999999;
+					display: -webkit-box;
+					 -webkit-box-orient: vertical;
+					  -webkit-line-clamp: 2;
+					  overflow: hidden;
+}
+				.price{
+					display: flex;
+					justify-content: space-between;
+					height: 48rpx;
+					line-height: 48rpx;
+					font-size: 34rpx;
+					color: #333333;
+					font-weight: bold;
+					margin-top: 12rpx;
+				}
+			}
+		}
+	}
+	
+}
+// goods end

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "英国城",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "user-info": "/pages/my/components/userInfo",
+    "gift-pack": "/pages/my/components/giftPack",
+    "options-list": "/components-lk/optionsList/optionsList",
+    "login-box": "/components-lk/loginBox/loginBox"
+  }
+}

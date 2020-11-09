@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "優惠券",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "discount-module": "/components-lk/discountModule/discountModule"
+  }
+}
