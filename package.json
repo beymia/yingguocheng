@@ -1,0 +1,18 @@
+{
+  "name": "yingguocheng",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/uni-app": "^1.4.3"
+  },
+  "dependencies": {
+    "vue": "^2.6.12",
+    "vue-jsonp": "^2.0.0"
+  }
+}
