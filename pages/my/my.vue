@@ -34,7 +34,7 @@
     <!-- #ifdef H5-->
     <view class="empty"></view>
     <!-- #endif-->
-    <loginBox v-if="loginBoxShow" @close-login-box="hideLoginBox"></loginBox>
+    <loginBox v-show="loginBoxShow" @close-login-box="hideLoginBox"></loginBox>
   </view>
 </template>
 
@@ -86,8 +86,9 @@ export default {
    * token没有引导用户登录
    */
   async onShow() {
+    this.loginBoxShow = APP.isLoginBox = false;
     if (APP.userToken) {
-      APP.isLoginBox = false;
+      this.loginBoxShow = APP.isLoginBox = false;
       this.token = APP.userToken;
       if (APP.userInfo && APP.userInfo.level) {
         this.userInfo = APP.userInfo;
@@ -100,9 +101,8 @@ export default {
         }
       }
     } else {
-      APP.isLoginBox = true;
+      this.loginBoxShow =  APP.isLoginBox = true;
     }
-    this.loginBoxShow = APP.isLoginBox;
   },
 
   methods: {
@@ -120,7 +120,6 @@ export default {
         uni.hideLoading();
       } catch (e) {
         this.customToast("需要登錄", false);
-        
       }
     },
     //隐藏登陆引导框

@@ -1,5 +1,5 @@
 <template>
-  <view v-if="isLoginBox" class="container">
+  <view class="container">
     <popUpLayer>
       <template>
         <view class="login_box">
@@ -51,7 +51,6 @@ export default {
   data() {
     return {
       isAuth: 0,
-      isLoginBox:true
     }
   },
   methods: {
