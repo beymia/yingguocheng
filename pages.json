@@ -3,7 +3,7 @@
     {
       "path": "pages/home/home",
       "style": {
-        "navigationBarTitleText": "英国城",
+        "navigationBarTitleText": "英國城",
         "navigationStyle": "custom"
       }
     },
@@ -16,14 +16,14 @@
     {
       "path": "pages/order/order",
       "style": {
-        "navigationBarTitleText": "英国城",
+        "navigationBarTitleText": "英國城",
         "navigationStyle": "custom"
       }
     },
 	{
 	  "path": "pages/order/order_pintuan",
 	  "style": {
-	    "navigationBarTitleText": "英国城",
+	    "navigationBarTitleText": "英國城",
 	    "navigationStyle": "custom"
 	  }
 	},
@@ -42,14 +42,14 @@
     {
       "path": "pages/orderForm/orderForm",
       "style": {
-        "navigationBarTitleText": "英国城",
+        "navigationBarTitleText": "英國城",
         "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/my/my",
       "style": {
-        "navigationBarTitleText": "英国城",
+        "navigationBarTitleText": "英國城",
         "navigationStyle": "custom"
       }
     },
