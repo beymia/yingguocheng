@@ -661,6 +661,12 @@
   -webkit-justify-content: space-around;
           justify-content: space-around;
 }
+.order_payment .goods_list .attach_service .service1 .right.data-v-34761706,
+.order_payment .goods_list .attach_service .service2 .right.data-v-34761706,
+.order_payment .goods_list .attach_service .service3 .right.data-v-34761706,
+.order_payment .goods_list .attach_service .delivery_fee .right.data-v-34761706 {
+  position: relative;
+}
 .order_payment .goods_list .attach_service .service1 .left .left_name.data-v-34761706 {
   -webkit-align-self: flex-start;
           align-self: flex-start;
@@ -706,6 +712,16 @@
 }
 .order_payment .goods_list .attach_service .service3 .right.data-v-34761706 {
   color: #000000;
+  -webkit-align-self: flex-start;
+          align-self: flex-start;
+}
+.order_payment .goods_list .attach_service .service3 .right .remarks_content.data-v-34761706 {
+  display: block;
+  max-width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 40rpx;
 }
 .order_payment .goods_list .attach_service .service2.data-v-34761706 {
   min-height: 46rpx;
