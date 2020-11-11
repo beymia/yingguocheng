@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "收送歷史",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "usingComponents": {
-    "swiper-switch": "/components-lk/swiperSwitch/swiperSwitch",
-    "list-content": "/pages/mutualHistory/components/listContent"
-  }
-}

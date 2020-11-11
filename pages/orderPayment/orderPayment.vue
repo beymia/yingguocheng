@@ -326,12 +326,12 @@ export default {
         address_id,
         haul_method,
         goods_data: this.goods_data,
-        remake: '',
+        remake: this.remarksSelect,
         attach_id: '',
         ticket_id: APP.coupon.id,
       }
       paramsObj.goods_data = JSON.stringify(paramsObj.goods_data)
-      //訂單備註
+      /*訂單備註
       for (let key in self.remarksData) {
         if (self.remarksData.hasOwnProperty(key)) {
           if (self.remarksData[key]) {
@@ -341,7 +341,7 @@ export default {
       }
       if (paramsObj.remake) {
         paramsObj.remake = paramsObj.remake.substr(0, paramsObj.remake.length - 1);
-      }
+      }*/
       //附加信息
       if (self.attachArr.length) {
         self.attachArr.forEach((item) => {

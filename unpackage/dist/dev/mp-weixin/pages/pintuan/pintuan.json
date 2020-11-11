@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "拼单",
-  "usingComponents": {
-    "loca-autho": "/pages/order/components/locaAutho/locaAutho",
-    "qrcode": "/pages/pintuan/components/qrcode"
-  }
-}
