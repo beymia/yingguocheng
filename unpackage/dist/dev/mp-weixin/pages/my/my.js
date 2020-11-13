@@ -217,24 +217,24 @@ var _default = {
       * 有用户信息再次从全局对象中获取，防止信息偏差
       * token没有引导用户登录
       */
-  onShow: function onShow() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!
-              APP.userToken) {_context.next = 18;break;}
-              APP.isLoginBox = false;
+  onShow: function onShow() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              _this.loginBoxShow = APP.isLoginBox = false;if (!
+              APP.userToken) {_context.next = 19;break;}
+              _this.loginBoxShow = APP.isLoginBox = false;
               _this.token = APP.userToken;if (!(
-              APP.userInfo && APP.userInfo.level)) {_context.next = 7;break;}
-              _this.userInfo = APP.userInfo;_context.next = 16;break;case 7:_context.prev = 7;_context.next = 10;return (
+              APP.userInfo && APP.userInfo.level)) {_context.next = 8;break;}
+              _this.userInfo = APP.userInfo;_context.next = 17;break;case 8:_context.prev = 8;_context.next = 11;return (
 
 
-                _this.getUserInfo());case 10:_context.next = 16;break;case 12:_context.prev = 12;_context.t0 = _context["catch"](7);
+                _this.getUserInfo());case 11:_context.next = 17;break;case 13:_context.prev = 13;_context.t0 = _context["catch"](8);
 
               console.log(_context.t0);
-              _this.customToast("信息获取失败");case 16:_context.next = 19;break;case 18:
+              _this.customToast("信息获取失败");case 17:_context.next = 20;break;case 19:
 
 
 
-              APP.isLoginBox = true;case 19:
+              _this.loginBoxShow = APP.isLoginBox = true;case 20:case "end":return _context.stop();}}}, _callee, null, [[8, 13]]);}))();
 
-              _this.loginBoxShow = APP.isLoginBox;case 20:case "end":return _context.stop();}}}, _callee, null, [[7, 12]]);}))();
   },
 
   methods: {
@@ -252,7 +252,6 @@ var _default = {
                 uni.hideLoading();_context2.next = 13;break;case 10:_context2.prev = 10;_context2.t0 = _context2["catch"](1);
 
                 _this2.customToast("需要登錄", false);case 13:case "end":return _context2.stop();}}}, _callee2, null, [[1, 10]]);}))();
-
 
     },
     //隐藏登陆引导框

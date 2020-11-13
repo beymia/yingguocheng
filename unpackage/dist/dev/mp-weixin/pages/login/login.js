@@ -197,29 +197,29 @@ var _default = {
 
 
                 _this.phone.length !== 11)) {_context.next = 3;break;}
-                _this.customToast('手機號錯誤', false);return _context.abrupt("return");case 3:_context.prev = 3;
+                _this.customToast('手機號錯誤', false);return _context.abrupt("return");case 3:
 
 
 
+                try {
+                  uni.showLoading({
+                    title: '正在發送驗證碼',
+                    mask: true });
 
-                uni.showLoading({
-                  title: '正在發送驗證碼',
-                  mask: true });
+                  //發送驗證碼 TODO
+                  // await sendCheckCode({
+                  //    mobile: this.phone
+                  //  })
+                  uni.hideLoading();
+                  /*手机号正确，跳转至验证码接收頁*/
+                  uni.navigateTo({
+                    url: '/pages/checkCode/checkCode?query=' + JSON.stringify({ phone: _this.phone, from: _this.from }) });
 
-                //發送驗證碼
-                _context.next = 7;return (0, _api.sendCheckCode)({
-                  mobile: _this.phone });case 7:
-
-                uni.hideLoading();
-                /*手机号正确，跳转至验证码接收頁*/
-                uni.navigateTo({
-                  url: '/pages/checkCode/checkCode?query=' + JSON.stringify({ phone: _this.phone, from: _this.from }) });_context.next = 15;break;case 11:_context.prev = 11;_context.t0 = _context["catch"](3);
-
-
-                console.log(_context.t0);
-                //驗證碼發送失敗
-                _this.customToast('驗證碼發送失敗');case 15:case "end":return _context.stop();}}}, _callee, null, [[3, 11]]);}))();
-
+                } catch (e) {
+                  console.log(e);
+                  //驗證碼發送失敗
+                  _this.customToast('驗證碼發送失敗');
+                }case 4:case "end":return _context.stop();}}}, _callee);}))();
     },
     changeAreaCode: function changeAreaCode(e) {
       this.cAreaCode = e.detail.value;

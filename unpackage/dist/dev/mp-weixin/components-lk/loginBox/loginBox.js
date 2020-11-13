@@ -170,8 +170,7 @@ var APP = getApp().globalData;var _default =
   name: "loginBox",
   data: function data() {
     return {
-      isAuth: 0,
-      isLoginBox: true };
+      isAuth: 0 };
 
   },
   methods: {

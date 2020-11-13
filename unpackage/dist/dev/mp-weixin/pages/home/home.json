@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "英国城",
+  "navigationBarTitleText": "英國城",
   "navigationStyle": "custom",
   "usingComponents": {
     "uni-status-bar": "/components/uni-status-bar/uni-status-bar"

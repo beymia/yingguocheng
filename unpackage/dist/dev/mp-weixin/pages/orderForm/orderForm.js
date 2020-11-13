@@ -284,17 +284,18 @@ var APP = getApp().globalData;var _default =
 
 
   //页面每次展示重新获取token，请求重新请求订单数据
-  onShow: function onShow() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!
-              APP.userToken) {_context.next = 13;break;}
+  onShow: function onShow() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              _this2.loginBoxShow = APP.isLoginBox = false;if (!
+              APP.userToken) {_context.next = 14;break;}
               _this2.loginBoxShow = APP.isLoginBox = false;
-              _this2.token = APP.userToken;_context.prev = 3;_context.next = 6;return (
+              _this2.token = APP.userToken;_context.prev = 4;_context.next = 7;return (
 
-                _this2.getData());case 6:_context.next = 11;break;case 8:_context.prev = 8;_context.t0 = _context["catch"](3);
+                _this2.getData());case 7:_context.next = 12;break;case 9:_context.prev = 9;_context.t0 = _context["catch"](4);
 
-              console.log(_context.t0);case 11:_context.next = 14;break;case 13:
+              _this2.loginBoxShow = APP.isLoginBox = true;case 12:_context.next = 15;break;case 14:
 
 
-              _this2.loginBoxShow = APP.isLoginBox = true;case 14:case "end":return _context.stop();}}}, _callee, null, [[3, 8]]);}))();
+              _this2.loginBoxShow = APP.isLoginBox = true;case 15:case "end":return _context.stop();}}}, _callee, null, [[4, 9]]);}))();
 
   },
 
