@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "更多",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "usingComponents": {
-    "options-list": "/components-lk/optionsList/optionsList"
-  }
-}

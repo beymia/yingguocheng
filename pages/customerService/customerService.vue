@@ -1,5 +1,5 @@
 <template>
-  <view class="customer_service">
+  <view class="customer_service" @click="hideKeyboard">
     <!--自定義導航欄-->
     <!--  <view class="head">
         <uni-icons @click="toBack"
@@ -23,7 +23,7 @@
 
 
       <!--具體聊天內容-->
-      <view class="detail" @click="hideKeyboard">
+      <view class="detail" >
         <view v-for="(msg, index) in chatList" :key="index">
           <view :class="[msg.type === 'server' ? 'left' : 'right']">
             <view class="left_item content">
@@ -87,63 +87,56 @@ export default {
       wxUserInfo: {},
       serverId: "15984344337496191",
       wxHeight: 0,//微信小程序使用
-      scrollTime:200,
+      scrollTime: 200,
     };
   },
   async mounted() {
-    this.chatList = uni.getStorageSync('chatList') || [];//离开时存储，进入时读取，应用销毁时清空
+    this.chatList = uni.getStorageSync('chatList') || [];//离开时存储，进入时读取，应用首次进入时清空
     this.initTime = this.reDate(); //进入聊天室的时间
     this.userInfo = APP.userInfo; //用户信息
     this.wxUserInfo = APP.wxUserInfo; //小程序展示微信信息
     this.socketTimer = null; //心跳包的定时器
     this.reconnect = 0; //重连次数,3次后取消重连
     this.reconnecting = false; //重连状态,重连成功后拉取一次客服消息
-    this.forwardMsg = ""; //转发给客服的消息,用户输入的消息每次发送后都会马上清空
+    this.connecting = false;//socket连接状态,
+    this.forwardMsg = ""; //缓存用户发送的消息,客服不在线时发送至服务器
+    //绑定键盘高度变化时间
+    uni.onKeyboardHeightChange(async (res) => {
+      // #ifdef MP-WEIXIN
+      this.wxHeight = res.height
+      // #endif
+      if (res.height) {
+        this.keyboardTimer && clearTimeout(this.keyboardTimer)
+        this.keyboardTimer = setTimeout(() => {
+          this.getContentHeight(1);
+        }, 80)
+      }
+    })
     try {
       //请求未读消息,并处理消息类型为 server
       await this.unReadServer();
       //建立webSocket连接
       await this.createSocket();
-      //获取设备屏幕高度,计算多消息时屏幕滚动的距离
-      this.windowHeight = uni.getSystemInfoSync().windowHeight;
-
-      //获取键盘高度
-      uni.onKeyboardHeightChange(async (res) => {
-        // #ifdef MP-WEIXIN
-        this.wxHeight = res.height
-        // #endif
-        if(res.height){
-          this.keyboardTimer && clearTimeout(this.keyboardTimer)
-          this.keyboardTimer = setTimeout(()=>{
-            this.getContentHeight(1);
-          },80)
-        }
-      })
-
     } catch (e) {
-      console.log(e);
       this.customToast("連接失敗了");
     }
   },
 
   methods: {
-
     //建立webSocket连接通道
     async createSocket() {
       try {
         //建立连接通道
         this.socket = await uni.connectSocket({
-          // TODO
           url: "wss://api.plg.wugee.net:2000",
           success(res) {
-            console.log(res);
+            console.log(res,'建立连接');
           },
         });
-
-        //监听相关事件
+        //开启相关事件监听
         await this.monitorEvent();
       } catch (e) {
-        this.customToast("连接出错");
+        this.customToast("連接錯誤了");
       }
     },
 
@@ -151,15 +144,16 @@ export default {
     monitorEvent() {
       //连接成功
       this.socket.onOpen(async (res) => {
-        console.log(res);
+        console.log('连接成功',res)
         try {
           uni.hideLoading();
+          this.connecting = true;
           await this.socket.send({
             data: JSON.stringify({uid: this.userInfo.id, type: "login"}),
           });
           //链接成功后发送心跳包，确保和服务端始终处于连接状态
           await this.heartBeat();
-          //重连成功后才重新拉去客服消息，正常流程链接流程不进行拉去
+          //重连成功后才重新拉去客服消息，正常链接流程不进行拉去
           this.reconnecting && (await this.unReadServer());
           this.reconnecting = false;
         } catch (e) {
@@ -169,8 +163,8 @@ export default {
 
       //连接失败
       this.socket.onError(async (res) => {
-        console.log(res);
-        // TODO
+        console.log('连接失败',res);
+        this.connecting = false;
         await this.socketError()
       });
 
@@ -186,17 +180,20 @@ export default {
         //1001 = 客服不在线,转存消息
         if (code === 1001) {
           await sendMsg({msg: self.forwardMsg});
+          console.log('1234')
           return;
         }
 
+        this.chatList.push({msg: msg, type: "server"});
+
         if (msg && to_uid === this.userInfo.id) {
-          console.log(JSON.stringify(data));
           this.chatList.push({msg: msg, type: "server"});
         }
         //消息接收完毕并且页面更新之后滚动页面至对应的位置
         this.$nextTick(() => {
           this.getContentHeight(self.scrollTime);
         });
+
       });
     },
 
@@ -205,27 +202,22 @@ export default {
       let self = this;
       //空字符直接返回，不做处理
       if (!self.userMsg.trim()) return;
-      try {
-        //socket为null时websocket则连接失败,发送消息时手动抛出一个错误
-        if (!self.socket) {
-          throw 1;
-        }
+      //socket为null时websocket则连接失败,发送消息时手动抛出一个错误
+      if (self.connecting) {
         self.chatList.push({msg: self.userMsg, type: "user"});
         await self.sendMsgSocket(self.userMsg);
         self.forwardMsg = self.userMsg;
         self.userMsg = "";
         //消息发送完成之后更新页面滚动的位置
         self.getContentHeight(self.scrollTime);
-      } catch (e) {
-        console.log(e);
-        self.userMsg = "";
-        self.customToast("網絡連接錯誤", false);
+        return;
       }
+      self.userMsg = "";
+      self.customToast("網絡連接錯誤", false);
     },
 
-    //socket发送消息
+    //socket发送消息 msg 有值是用户手动发送消息,没有值是发送心跳包
     sendMsgSocket(msg) {
-      console.log(msg);
       let sendMsg = {},
           self = this;
       if (msg) {
@@ -245,7 +237,7 @@ export default {
           data: JSON.stringify(sendMsg),
         });
       } catch (e) {
-        self.customToast("消息發送失敗了");
+        msg && self.customToast("消息發送失敗了");
       }
     },
 
@@ -254,16 +246,15 @@ export default {
       //发送心跳包
       this.socketTimer = setInterval(async () => {
         await this.sendMsgSocket();
-        console.log("心跳包发送成功");
       }, 50000);
     },
 
-    //websocket连接失败
+    //websocket重連
     async socketError() {
-      console.log("连接出现了错误,onSocketError");
       uni.showLoading({title: `正在嘗試重新連接...`, mask: true});
       clearInterval(this.socketTimer);
       this.reconnect++;
+      this.connecting = false;
       if (this.reconnect < 3) {
         this.socket = null;
         await this.createSocket();
@@ -272,8 +263,8 @@ export default {
       else {
         uni.hideLoading();
         this.customToast("重連失敗了");
+        this.socket.close()
         this.socket = null;
-        uni.closeSocket();
         this.reconnecting = false;
       }
     },
@@ -289,9 +280,9 @@ export default {
       });
     },
 
-    //将屏幕滚动至最新消息处,(最新的消息始终处于可见状态)
+    //将屏幕滚动至底部,(最新的消息始终处于可见状态)
     getContentHeight(time) {
-      this.$nextTick(async () => {
+      this.$nextTick(() => {
         uni.pageScrollTo({
           scrollTop: 99999999999,
           duration: time || 0,
@@ -312,29 +303,18 @@ export default {
              : `${h}:${mm}`;
     },
 
-    //点击空白隐藏键盘
-    hideKeyboard(){
+    //ios点击空白隐藏键盘
+    hideKeyboard() {
       uni.hideLoading()
-      console.log(1);
     }
-
-    //返回
-    // toBack() {
-    //   uni.navigateBack();
-    // },
   },
 
+  //页面卸载时关闭连接,将聊天记录存入本地storage
   onUnload() {
-    uni.closeSocket();
+    this.socket.close();
     clearInterval(this.socketTimer);
     this.socket = null;
     uni.setStorageSync("chatList", this.chatList);
-  },
-
-  watch: {
-    userMsg(value) {
-      console.log(value);
-    },
   },
 };
 </script>

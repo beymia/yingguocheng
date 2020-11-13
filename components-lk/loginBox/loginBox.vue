@@ -44,7 +44,6 @@
 import popUpLayer from "../popUpLayer/popUpLayer";
 import {login, userSpace} from "../../request/api";
 
-
 const APP = getApp().globalData
 export default {
   name: "loginBox",
@@ -63,27 +62,23 @@ export default {
     async getUserInfo(e) {
       let self = this;
       if (e.detail.userInfo) {
-        uni.showLoading({
-          title: '正在登陆中...',
-          mask: true
-        })
+        uni.showLoading({title: '正在登陆中...', mask: true})
         APP.wxUserInfo = e.detail.userInfo;
         uni.login({
           provider: "weixin",
           async success(wxCode) {
             try {
+              //获取token以及用户信息
               APP.userToken = (await login({code: wxCode.code,})).data.token;
               APP.userInfo = (await userSpace()).data
               uni.setStorageSync('token',APP.userToken)
               self.isLoginBox = APP.isLoginBox = false;
               uni.hideLoading()
+              //强制刷新当前页面
               let pageUlr = getCurrentPages();
               pageUlr = pageUlr.slice(-1)
               uni.reLaunch({
                 url: '/' + pageUlr[0].is,
-                complete(res) {
-                  console.log(res);
-                }
               })
             } catch (e) {
               console.log(e);

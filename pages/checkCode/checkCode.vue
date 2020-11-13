@@ -169,12 +169,12 @@ export default {
         });
 
         // 驗證驗證碼 TODO
-        // try {
-        //   await verifyCode({ mobile: self.phone, code: self.verificationCode });
-        // } catch (e) {
-        //   self.customToast("驗證碼錯誤");
-        //   return;
-        // }
+        try {
+          await verifyCode({ mobile: self.phone, code: self.verificationCode });
+        } catch (e) {
+          self.customToast("驗證碼錯誤");
+          return;
+        }
 
         // change有值則跳轉到設置交易密碼頁面
         if (self.change) {

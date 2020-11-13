@@ -33,15 +33,12 @@ export default {
   data() {
     return {
       record: [],
-      page: 1
     }
   },
   onLoad(options) {
-    if(options.data){
-      this.record = JSON.parse(decodeURIComponent(options.data))
-      return;
-    }
-    this.record = [];
+    options.data
+    ? this.record = JSON.parse(decodeURIComponent(options.data))
+    : this.record = [];
   },
   computed: {
     //根据月份分离出对应的数据

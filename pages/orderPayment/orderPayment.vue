@@ -95,7 +95,7 @@
                 <text>推薦選擇</text>
               </view>
               <view class="left_des">
-                <text>保冷保暖，鎖住新鮮口感</text>
+                <text></text>
               </view>
             </view>
             <view @click="addAttachFee(attachItem.id)" class="right">
@@ -138,20 +138,15 @@
             <text>備註</text>
           </view>
           <view @click="isRemarks = !isRemarks" class="right">
-            <text v-if="remarksData.noContact">無接觸配送，</text>
-            <text v-if="remarksData.paper">纸巾，</text>
-            <text v-if="remarksData.sugar">糖包</text>
-            <uni-icons style="display: inline-block;vertical-align: middle"
+            <text class="remarks_content">{{remarksSelect}}</text>
+<!--            <text v-if="remarksData.noContact">無接觸配送，</text>-->
+<!--            <text v-if="remarksData.paper">纸巾，</text>-->
+<!--            <text v-if="remarksData.sugar">糖包</text>-->
+            <uni-icons style="display: inline-block;vertical-align: middle;position: absolute;top: 0;right: 0"
                        type="arrowright"
                        size="35"
                        color="#999999">
             </uni-icons>
-          </view>
-          <view v-if="isRemarks" class="remarks">
-            <remarks
-                :remarks="remarksArr"
-                @close-remarks="closeRemarks">
-            </remarks>
           </view>
         </view>
       </view>
@@ -179,6 +174,13 @@
       </view>
     </view>
     <view class="empty"></view>
+    <view v-if="isRemarks" class="remarks">
+      <remarks
+          :remarks="remarksArr"
+          :remarksSelect="remarksSelect"
+          @close-remarks="closeRemarks">
+      </remarks>
+    </view>
   </view>
 </template>
 
@@ -193,8 +195,8 @@ export default {
     return {
       userPhone: '',
       isRemarks: false,
-      remarksData: {},
       remarksArr: ['無接觸配送', '紙巾', '糖包'],
+      remarksSelect:'',//选中的备注
       discountAmount: 0,
       goodsPrice: 0,
       goodsData: [],
@@ -279,8 +281,9 @@ export default {
 
     //訂單備註
     closeRemarks(remarks) {
+      console.log(remarks);
       this.isRemarks = false;
-      this.remarksData = remarks
+      this.remarksSelect = remarks
     },
     //跳轉至優惠券
     navDiscount() {
@@ -323,12 +326,12 @@ export default {
         address_id,
         haul_method,
         goods_data: this.goods_data,
-        remake: '',
+        remake: this.remarksSelect,
         attach_id: '',
         ticket_id: APP.coupon.id,
       }
       paramsObj.goods_data = JSON.stringify(paramsObj.goods_data)
-      //訂單備註
+      /*訂單備註
       for (let key in self.remarksData) {
         if (self.remarksData.hasOwnProperty(key)) {
           if (self.remarksData[key]) {
@@ -338,7 +341,7 @@ export default {
       }
       if (paramsObj.remake) {
         paramsObj.remake = paramsObj.remake.substr(0, paramsObj.remake.length - 1);
-      }
+      }*/
       //附加信息
       if (self.attachArr.length) {
         self.attachArr.forEach((item) => {
@@ -372,7 +375,6 @@ export default {
         await self.utilPayment(orderInfo)
         await self.paymentSuccess();
       } catch (e) {
-        self.customToast('订单创建失败');
         self.paymentStatus = false;
         console.log(e);
       }
@@ -654,6 +656,10 @@ export default {
           flex-direction: column;
           justify-content: space-around;
         }
+
+        .right{
+          position: relative;
+        }
       }
 
       .service1 {
@@ -716,6 +722,16 @@ export default {
       .service3{
         .right{
           color: $font-color1;
+          align-self: flex-start;
+
+          .remarks_content{
+            display: block;
+            max-width:400rpx;
+            overflow:hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-right: 40rpx;
+          }
         }
       }
       .service2{
