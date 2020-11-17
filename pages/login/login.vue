@@ -27,7 +27,7 @@
     </view>
     <view class="login_submit" @click="loginStart">
       <button plain
-              :class="[phone.length===11?'phone_success':'']"
+              :class="[phone.length>=6?'phone_success':'']"
               hover-class="none">
         <uni-icons
             class="submit"
@@ -71,9 +71,9 @@ export default {
           mask: true,
         })
         //發送驗證碼 TODO
-       await sendCheckCode({
-          mobile: this.phone
-        })
+       // await sendCheckCode({
+       //    mobile: this.phone
+       //  })
         uni.hideLoading()
         /*手机号正确，跳转至验证码接收頁*/
         uni.navigateTo({

@@ -16,7 +16,7 @@
 						<text>X{{pack.goods_num}}</text>
 					</view>
 				</view>
-      <view class="items" v-for="(empty,index) in computeLength" :key="index">
+      <view class="items" v-for="(empty,index) in computeLength" :key="index+'po'">
       </view>
 
 <!--				<view class="items">-->
