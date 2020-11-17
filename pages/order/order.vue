@@ -982,7 +982,8 @@
 				}
 				menu_list2.push(obj)
 			})
-			console.log(menu_list2)
+			// await goods_detail({goods_id:'16055845558452662'}).then((data)=>{console.log(data)})
+			// console.log(menu_list2)
 			await Promise.all(goods_promise).then( values =>{
 				 console.log(values)
 				let index = 0
@@ -998,7 +999,7 @@
 								let normobj ={}
 								normobj.group_name = itemn.name
 								normobj.values = []
-								itemn.child.forEach(itemvc=>{
+								itemn.child && itemn.child.forEach(itemvc=>{
 									let valobj ={}
 									valobj.id = itemvc.id
 									valobj.parent_id = itemvc.parent_id
