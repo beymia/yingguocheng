@@ -60,7 +60,7 @@ export default {
     async loginStart() {
 
       //手机号错误的处理
-      if (this.phone.length !== 11) {
+      if (this.phone.length > 11 || this.phone.length < 6) {
         this.customToast('手機號錯誤',false)
         return
       }

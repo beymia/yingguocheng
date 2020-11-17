@@ -260,7 +260,8 @@ uni-page-body {
     }
 
     .open_package {
-      @include container(380rpx);
+      @include container(auto);
+      min-height: 380rpx;
     }
 
     .fun_list {

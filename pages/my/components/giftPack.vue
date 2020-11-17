@@ -6,67 +6,89 @@
 			<text v-else>更多</text>
 		</view>
 		<view class="package_content">
-			<view class="package_top">
         <!-- TODO 礼包数据需要从用户数据接口获取-->
 				<view class="items" v-for="(pack,index) in giftPack" :key="index">
 					<view class="icon_exception package_icon">
-						<image :src="pack.home_avatar"></image>
+						<image :src="pack.home_avatar | filterImg"></image>
 					</view>
 					<view class="package_title">
 						<text>{{pack.goods_name}}</text>
 						<text>X{{pack.goods_num}}</text>
 					</view>
 				</view>
-<!--				<view class="items">
-					<view class="package_icon">
-						<image src="../../../static/images/my/free_one.png"></image>
-					</view>
-					<view class="package_title">
-						<text>買壹贈壹券</text>
-						<text>X1</text>
-					</view>
-				</view>
-				<view class="items">
-					<view class="package_icon">
-						<image src="../../../static/images/my/free_two.png"></image>
-					</view>
-					<view class="package_title">
-						<text>買二贈壹券</text>
-						<text>X2</text>
-					</view>
-				</view>
-			</view>
-			<view class="package_bottom">
-				<view class="items">
-					<view class="package_icon">
-						<image src="../../../static/images/my/free_food.png"></image>
-					</view>
-					<view class="package_title">
-						<text>買二贈壹券</text>
-						<text>X2</text>
-					</view>
-				</view>
-				<view class="items">
-					<view class="package_icon">
-						<image src="../../../static/images/my/priority.png"></image>
-					</view>
-					<view class="package_title">
-						<text>優先券</text>
-						<text>X2</text>
-					</view>
-				</view>
-				<view class="items">
-					<view class="package_icon">
-						<image src="../../../static/images/my/free_shipping.png"></image>
-					</view>
-					<view class="package_title">
-						<text>免運費券</text>
-						<text>X2</text>
-					</view>
-				</view>-->
+      <view class="items" v-for="(empty,index) in computeLength" :key="index">
+      </view>
+
+<!--				<view class="items">-->
+<!--					<view class="package_icon">-->
+<!--						<image src="../../../static/images/my/free_one.png"></image>-->
+<!--					</view>-->
+<!--					<view class="package_title">-->
+<!--						<text>買壹贈壹券</text>-->
+<!--						<text>X1</text>-->
+<!--					</view>-->
+<!--				</view>-->
+<!--				<view class="items">-->
+<!--					<view class="package_icon">-->
+<!--						<image src="../../../static/images/my/free_two.png"></image>-->
+<!--					</view>-->
+<!--					<view class="package_title">-->
+<!--						<text>買二贈壹券</text>-->
+<!--						<text>X2</text>-->
+<!--				</view>-->
+<!--			</view>-->
+<!--				<view class="items">-->
+<!--					<view class="package_icon">-->
+<!--						<image src="../../../static/images/my/free_food.png"></image>-->
+<!--					</view>-->
+<!--					<view class="package_title">-->
+<!--						<text>買二贈壹券</text>-->
+<!--						<text>X2</text>-->
+<!--					</view>-->
+<!--				</view>-->
+<!--				<view class="items">-->
+<!--					<view class="package_icon">-->
+<!--						<image src="../../../static/images/my/priority.png"></image>-->
+<!--					</view>-->
+<!--					<view class="package_title">-->
+<!--						<text>優先券</text>-->
+<!--						<text>X2</text>-->
+<!--					</view>-->
+<!--				</view>-->
+<!--        <view class="items">-->
+<!--          <view class="package_icon">-->
+<!--            <image src="../../../static/images/my/priority.png"></image>-->
+<!--          </view>-->
+<!--          <view class="package_title">-->
+<!--            <text>優先券</text>-->
+<!--            <text>X2</text>-->
+<!--          </view>-->
+<!--        </view>-->
+<!--        <view class="items">-->
+<!--          <view class="package_icon">-->
+<!--            <image src="../../../static/images/my/priority.png"></image>-->
+<!--          </view>-->
+<!--          <view class="package_title">-->
+<!--            <text>優先券</text>-->
+<!--            <text>X2</text>-->
+<!--          </view>-->
+<!--        </view>-->
+<!--				<view class="items">-->
+<!--					<view class="package_icon">-->
+<!--						<image src="../../../static/images/my/free_shipping.png"></image>-->
+<!--					</view>-->
+<!--					<view class="package_title">-->
+<!--						<text>免運費券</text>-->
+<!--						<text>X2</text>-->
+<!--					</view>-->
+<!--				</view>-->
+
+<!--      <view class="items" v-for="(empty,index) in computeLength" :key="index">-->
+<!--      </view>-->
+
+
 			</view>
 		</view>
-	</view>
 </template>
 
 <script>
@@ -82,6 +104,20 @@
         default:()=>[]
       }
     },
+    computed:{
+      computeLength() {
+        let l = this.giftPack.length;
+        if (l === 3) {
+          return 0
+        }
+        if (l > 3) {
+          return l % 3;
+        }
+        if (l < 3) {
+          return 3 - l
+        }
+      },
+    }
 	}
 </script>
 
@@ -123,18 +159,12 @@
 		.package_content {
 			flex-grow: 1;
 			display: flex;
-			flex-direction: column;
+      flex-wrap: wrap;
 			justify-content: space-between;
-
-			.package_top,
-			.package_bottom {
-				display: flex;
-				align-items: flex-end;
-        flex-wrap: wrap;
 
 				.items {
 					flex: 1;
-          min-width:147rpx;
+          min-width:167rpx;
           margin-bottom: 37rpx;
 					display: flex;
 					flex-direction: column;
@@ -161,7 +191,6 @@
 						}
 					}
 				}
-			}
 		}
 	}
 </style>
