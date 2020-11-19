@@ -235,8 +235,8 @@
 				is_rest:false,
 				showPintuan:false,
 				showLocaAutho:false,
-				shop_change_time:0
-			
+				shop_change_time:0,
+				timer:null
 			}
 		},
 		watch:{
@@ -286,7 +286,7 @@
 			this.judge_is_rest()//判斷是否在休息
 			await this.menu_list_init()//获取并设置当前门店下全部商品信息
 			var that = this
-			this.itv1 = setInterval( async ()=>{
+			this.timer = setInterval( async ()=>{
 				await this.shop_update()
 			},2000)
 			
@@ -324,6 +324,9 @@
 			console.log("order onhide")
 			console.log(this.choosedShop)
 			console.log(this.shopList)
+		},
+		onUnload() {
+			clearInterval(this.timer)
 		},
 		onShareAppMessage(obj) {
 			
@@ -953,6 +956,7 @@
 			console.log(spl)
 			this.SET_SHOP_LIST(spl)
 			this.SET_CHOOSED_SHOP(this.shopList[0])
+			getApp().globalData.co ={current_cups:this.choosedShop.current_cups,current_order:this.choosedShop.current_order}
 			// console.log(this.choosedShop)
 			 //alert(this.choosedShop.id)
 		},
