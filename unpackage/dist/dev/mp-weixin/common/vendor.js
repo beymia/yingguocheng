@@ -1936,9 +1936,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 14:
-/*!******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/store/index.js ***!
-  \******************************************************************/
+/*!********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/store/index.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3238,9 +3238,9 @@ var index = {
 /***/ }),
 
 /***/ 16:
-/*!********************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/node_modules/vue-jsonp/dist/index.esm.js ***!
-  \********************************************************************************************/
+/*!**********************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/node_modules/vue-jsonp/dist/index.esm.js ***!
+  \**********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9304,21 +9304,23 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 23:
-/*!********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/api_y.js ***!
-  \********************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api_y.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.home_images = exports.address_delete = exports.address_edit = exports.address_add = exports.userAddresses = exports.pintuan_cancel = exports.pintuan_detail = exports.pintuan_unlock = exports.pintuan_lock = exports.pintuan_invite_code = exports.pintuan_invite = exports.pintuan_order = exports.pintuan_creat = exports.goods_detail = exports.goods_list = exports.shops_detail = exports.shops_list = void 0;var ajax = __webpack_require__(/*! ./ajax_y */ 24);
+Object.defineProperty(exports, "__esModule", { value: true });exports.home_images = exports.address_delete = exports.address_edit = exports.address_add = exports.userAddresses = exports.pintuan_cancel = exports.pintuan_detail = exports.pintuan_unlock = exports.pintuan_lock = exports.pintuan_invite_code = exports.pintuan_invite = exports.pintuan_order = exports.pintuan_creat = exports.goods_detail = exports.goods_list = exports.shops_search = exports.shops_detail = exports.shops_list = void 0;var ajax = __webpack_require__(/*! ./ajax_y */ 24);
 
 //門店列表
 var shops_list = function shops_list(data) {return ajax('/shop/shop-list', data, 'post', 0);};
 //門店詳情
 exports.shops_list = shops_list;var shops_detail = function shops_detail(data) {return ajax('/shop/shop-detail', data, 'post', 0);};
+//门店搜索
+exports.shops_detail = shops_detail;var shops_search = function shops_search(data) {return ajax('/shop/shop-search', data, 'post', 0);};
 //商品列表
-exports.shops_detail = shops_detail;var goods_list = function goods_list(data) {return ajax('/goods/list', data, 'post', 0);};
+exports.shops_search = shops_search;var goods_list = function goods_list(data) {return ajax('/goods/list', data, 'post', 0);};
 //商品詳情
 exports.goods_list = goods_list;var goods_detail = function goods_detail(data) {return ajax('/goods/details', data, 'post', 0);};
 
@@ -9357,17 +9359,17 @@ exports.address_delete = address_delete;var home_images = function home_images(d
 /***/ }),
 
 /***/ 24:
-/*!*********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/ajax_y.js ***!
-  \*********************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax_y.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 4));var _api = __webpack_require__(/*! ./api */ 25);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
 /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * 简易封装模拟测试请求
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 简易封装模拟测试请求
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * */
 function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'GET';var h = arguments.length > 3 ? arguments[3] : undefined;
   // TODO 生产环境需要替换默认的URL地址
 
@@ -9474,9 +9476,9 @@ module.exports = ajax;
 /***/ }),
 
 /***/ 25:
-/*!******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/api.js ***!
-  \******************************************************************/
+/*!********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9572,9 +9574,9 @@ exports.mutualRecord = mutualRecord;var giveForesee = function giveForesee(data)
 /***/ }),
 
 /***/ 26:
-/*!*******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/ajax.js ***!
-  \*******************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9709,9 +9711,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 353:
-/*!*********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-icons/icons.js ***!
-  \*********************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9862,9 +9864,9 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 5);
 /***/ }),
 
 /***/ 429:
-/*!*********************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-swipe-action-item/mpwxs.js ***!
-  \*********************************************************************************************/
+/*!***********************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-swipe-action-item/mpwxs.js ***!
+  \***********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9988,9 +9990,9 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 5);
 /***/ }),
 
 /***/ 43:
-/*!****************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/util/Date.js ***!
-  \****************************************************************/
+/*!******************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/util/Date.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10025,297 +10027,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.during = v
 
 /***/ }),
 
-/***/ 44:
-/*!**********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/util/permission.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(uni) {/// null = 未请求，1 = 已允许，0 = 拒绝|受限, 2 = 系统未开启
-
-var isIOS;
-function album() {
-  var result = 0;
-  var PHPhotoLibrary = plus.ios.import("PHPhotoLibrary");
-  var authStatus = PHPhotoLibrary.authorizationStatus();
-  if (authStatus === 0) {
-    result = null;
-  } else if (authStatus == 3) {
-    result = 1;
-  } else {
-    result = 0;
-  }
-  plus.ios.deleteObject(PHPhotoLibrary);
-  return result;
-}
-
-function camera() {
-  var result = 0;
-  var AVCaptureDevice = plus.ios.import("AVCaptureDevice");
-  var authStatus = AVCaptureDevice.authorizationStatusForMediaType('vide');
-  if (authStatus === 0) {
-    result = null;
-  } else if (authStatus == 3) {
-    result = 1;
-  } else {
-    result = 0;
-  }
-  plus.ios.deleteObject(AVCaptureDevice);
-  return result;
-}
-
-function location() {
-  var result = 0;
-  var cllocationManger = plus.ios.import("CLLocationManager");
-  var enable = cllocationManger.locationServicesEnabled();
-  var status = cllocationManger.authorizationStatus();
-  if (!enable) {
-    result = 2;
-  } else if (status === 0) {
-    result = null;
-  } else if (status === 3 || status === 4) {
-    result = 1;
-  } else {
-    result = 0;
-  }
-  plus.ios.deleteObject(cllocationManger);
-  return result;
-}
-
-function push() {
-  var result = 0;
-  var UIApplication = plus.ios.import("UIApplication");
-  var app = UIApplication.sharedApplication();
-  var enabledTypes = 0;
-  if (app.currentUserNotificationSettings) {
-    var settings = app.currentUserNotificationSettings();
-    enabledTypes = settings.plusGetAttribute("types");
-    if (enabledTypes == 0) {
-      result = 0;
-      console.log("推送权限没有开启");
-    } else {
-      result = 1;
-      console.log("已经开启推送功能!");
-    }
-    plus.ios.deleteObject(settings);
-  } else {
-    enabledTypes = app.enabledRemoteNotificationTypes();
-    if (enabledTypes == 0) {
-      result = 3;
-      console.log("推送权限没有开启!");
-    } else {
-      result = 4;
-      console.log("已经开启推送功能!");
-    }
-  }
-  plus.ios.deleteObject(app);
-  plus.ios.deleteObject(UIApplication);
-  return result;
-}
-
-function contact() {
-  var result = 0;
-  var CNContactStore = plus.ios.import("CNContactStore");
-  var cnAuthStatus = CNContactStore.authorizationStatusForEntityType(0);
-  if (cnAuthStatus === 0) {
-    result = null;
-  } else if (cnAuthStatus == 3) {
-    result = 1;
-  } else {
-    result = 0;
-  }
-  plus.ios.deleteObject(CNContactStore);
-  return result;
-}
-
-function record() {
-  var result = null;
-  var avaudiosession = plus.ios.import("AVAudioSession");
-  var avaudio = avaudiosession.sharedInstance();
-  var status = avaudio.recordPermission();
-  console.log("permissionStatus:" + status);
-  if (status === 1970168948) {
-    result = null;
-  } else if (status === 1735552628) {
-    result = 1;
-  } else {
-    result = 0;
-  }
-  plus.ios.deleteObject(avaudiosession);
-  return result;
-}
-
-function calendar() {
-  var result = null;
-  var EKEventStore = plus.ios.import("EKEventStore");
-  var ekAuthStatus = EKEventStore.authorizationStatusForEntityType(0);
-  if (ekAuthStatus == 3) {
-    result = 1;
-    console.log("日历权限已经开启");
-  } else {
-    console.log("日历权限没有开启");
-  }
-  plus.ios.deleteObject(EKEventStore);
-  return result;
-}
-
-function memo() {
-  var result = null;
-  var EKEventStore = plus.ios.import("EKEventStore");
-  var ekAuthStatus = EKEventStore.authorizationStatusForEntityType(1);
-  if (ekAuthStatus == 3) {
-    result = 1;
-    console.log("备忘录权限已经开启");
-  } else {
-    console.log("备忘录权限没有开启");
-  }
-  plus.ios.deleteObject(EKEventStore);
-  return result;
-}
-
-
-function requestIOS(permissionID) {
-  return new Promise(function (resolve, reject) {
-    switch (permissionID) {
-      case "push":
-        resolve(push());
-        break;
-      case "location":
-        resolve(location());
-        break;
-      case "record":
-        resolve(record());
-        break;
-      case "camera":
-        resolve(camera());
-        break;
-      case "album":
-        resolve(album());
-        break;
-      case "contact":
-        resolve(contact());
-        break;
-      case "calendar":
-        resolve(calendar());
-        break;
-      case "memo":
-        resolve(memo());
-        break;
-      default:
-        resolve(0);
-        break;}
-
-  });
-}
-
-function requestAndroid(permissionID) {
-  return new Promise(function (resolve, reject) {
-    plus.android.requestPermissions(
-    [permissionID],
-    function (resultObj) {
-      console.log(resultObj);
-      var result = 0;
-      for (var i = 0; i < resultObj.granted.length; i++) {
-        var grantedPermission = resultObj.granted[i];
-        console.log('已获取的权限：' + grantedPermission);
-        result = 1;
-      }
-      for (var i = 0; i < resultObj.deniedPresent.length; i++) {
-        var deniedPresentPermission = resultObj.deniedPresent[i];
-        console.log('拒绝本次申请的权限：' + deniedPresentPermission);
-        result = 0;
-      }
-      for (var i = 0; i < resultObj.deniedAlways.length; i++) {
-        var deniedAlwaysPermission = resultObj.deniedAlways[i];
-        console.log('永久拒绝申请的权限：' + deniedAlwaysPermission);
-        result = -1;
-      }
-      resolve(result);
-    },
-    function (error) {
-      console.log('result error: ' + error.message);
-      resolve({
-        code: error.code,
-        message: error.message });
-
-    });
-
-  });
-}
-
-function gotoAppPermissionSetting() {
-  if (permission.isIOS) {
-    var UIApplication = plus.ios.import("UIApplication");
-    var application2 = UIApplication.sharedApplication();
-    var NSURL2 = plus.ios.import("NSURL");
-    var setting2 = NSURL2.URLWithString("app-settings:");
-    application2.openURL(setting2);
-    plus.ios.deleteObject(setting2);
-    plus.ios.deleteObject(NSURL2);
-    plus.ios.deleteObject(application2);
-  } else {
-    var Intent = plus.android.importClass("android.content.Intent");
-    var Settings = plus.android.importClass("android.provider.Settings");
-    var Uri = plus.android.importClass("android.net.Uri");
-    var mainActivity = plus.android.runtimeMainActivity();
-    var intent = new Intent();
-    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-    var uri = Uri.fromParts("package", mainActivity.getPackageName(), null);
-    intent.setData(uri);
-    mainActivity.startActivity(intent);
-  }
-}
-
-function handleLocation() {
-  /* let system = uni.getSystemInfoSync();// 获取系统信息
-                           console.log(JSON.stringify(system));
-                           if (system.platform === 'android') { // 判断平台 */
-  var context = plus.android.importClass("android.content.Context");
-  var locationManager = plus.android.importClass("android.location.LocationManager");
-  var main = plus.android.runtimeMainActivity();
-  var mainSvr = main.getSystemService(context.LOCATION_SERVICE);
-  /* if (!mainSvr.isProviderEnabled(locationManager.GPS_PROVIDER)) {
-                                                                 	uni.showModal({
-                                                                 		title: '提示',
-                                                                 		content: '请打开定位服务功能',
-                                                                 		showCancel: false, // 不显示取消按钮
-                                                                 		success() {
-                                                                 			if (!mainSvr.isProviderEnabled(locationManager.GPS_PROVIDER)) { */
-  var Intent = plus.android.importClass('android.content.Intent');
-  var Settings = plus.android.importClass('android.provider.Settings');
-  var intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-  main.startActivity(intent); // 打开系统设置GPS服务页面
-  /* 			} else {
-  				console.log('GPS功能已开启');
-  			}
-  		}
-  	});
-  } */
-  /* }else{
-       	plus.runtime.openURL("app-settings://");
-       } */
-}
-
-var permission = {
-  get isIOS() {
-    return typeof isIOS === 'boolean' ? isIOS : isIOS = uni.getSystemInfoSync().platform === 'ios';
-  },
-  requestIOS: requestIOS,
-  requestAndroid: requestAndroid,
-  gotoAppSetting: gotoAppPermissionSetting,
-  handleLocation: handleLocation };
-
-
-module.exports = permission;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
 /***/ 45:
-/*!*******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/util/wxLogin.js ***!
-  \*******************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/util/wxLogin.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10411,9 +10126,9 @@ if (hadRuntime) {
 /***/ }),
 
 /***/ 579:
-/*!*********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/popup.js ***!
-  \*********************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/popup.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10446,9 +10161,9 @@ var config = {
 /***/ }),
 
 /***/ 580:
-/*!***********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/message.js ***!
-  \***********************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/message.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11215,10 +10930,297 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
+/***/ 656:
+/*!************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/util/permission.js ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {/// null = 未请求，1 = 已允许，0 = 拒绝|受限, 2 = 系统未开启
+
+var isIOS;
+function album() {
+  var result = 0;
+  var PHPhotoLibrary = plus.ios.import("PHPhotoLibrary");
+  var authStatus = PHPhotoLibrary.authorizationStatus();
+  if (authStatus === 0) {
+    result = null;
+  } else if (authStatus == 3) {
+    result = 1;
+  } else {
+    result = 0;
+  }
+  plus.ios.deleteObject(PHPhotoLibrary);
+  return result;
+}
+
+function camera() {
+  var result = 0;
+  var AVCaptureDevice = plus.ios.import("AVCaptureDevice");
+  var authStatus = AVCaptureDevice.authorizationStatusForMediaType('vide');
+  if (authStatus === 0) {
+    result = null;
+  } else if (authStatus == 3) {
+    result = 1;
+  } else {
+    result = 0;
+  }
+  plus.ios.deleteObject(AVCaptureDevice);
+  return result;
+}
+
+function location() {
+  var result = 0;
+  var cllocationManger = plus.ios.import("CLLocationManager");
+  var enable = cllocationManger.locationServicesEnabled();
+  var status = cllocationManger.authorizationStatus();
+  if (!enable) {
+    result = 2;
+  } else if (status === 0) {
+    result = null;
+  } else if (status === 3 || status === 4) {
+    result = 1;
+  } else {
+    result = 0;
+  }
+  plus.ios.deleteObject(cllocationManger);
+  return result;
+}
+
+function push() {
+  var result = 0;
+  var UIApplication = plus.ios.import("UIApplication");
+  var app = UIApplication.sharedApplication();
+  var enabledTypes = 0;
+  if (app.currentUserNotificationSettings) {
+    var settings = app.currentUserNotificationSettings();
+    enabledTypes = settings.plusGetAttribute("types");
+    if (enabledTypes == 0) {
+      result = 0;
+      console.log("推送权限没有开启");
+    } else {
+      result = 1;
+      console.log("已经开启推送功能!");
+    }
+    plus.ios.deleteObject(settings);
+  } else {
+    enabledTypes = app.enabledRemoteNotificationTypes();
+    if (enabledTypes == 0) {
+      result = 3;
+      console.log("推送权限没有开启!");
+    } else {
+      result = 4;
+      console.log("已经开启推送功能!");
+    }
+  }
+  plus.ios.deleteObject(app);
+  plus.ios.deleteObject(UIApplication);
+  return result;
+}
+
+function contact() {
+  var result = 0;
+  var CNContactStore = plus.ios.import("CNContactStore");
+  var cnAuthStatus = CNContactStore.authorizationStatusForEntityType(0);
+  if (cnAuthStatus === 0) {
+    result = null;
+  } else if (cnAuthStatus == 3) {
+    result = 1;
+  } else {
+    result = 0;
+  }
+  plus.ios.deleteObject(CNContactStore);
+  return result;
+}
+
+function record() {
+  var result = null;
+  var avaudiosession = plus.ios.import("AVAudioSession");
+  var avaudio = avaudiosession.sharedInstance();
+  var status = avaudio.recordPermission();
+  console.log("permissionStatus:" + status);
+  if (status === 1970168948) {
+    result = null;
+  } else if (status === 1735552628) {
+    result = 1;
+  } else {
+    result = 0;
+  }
+  plus.ios.deleteObject(avaudiosession);
+  return result;
+}
+
+function calendar() {
+  var result = null;
+  var EKEventStore = plus.ios.import("EKEventStore");
+  var ekAuthStatus = EKEventStore.authorizationStatusForEntityType(0);
+  if (ekAuthStatus == 3) {
+    result = 1;
+    console.log("日历权限已经开启");
+  } else {
+    console.log("日历权限没有开启");
+  }
+  plus.ios.deleteObject(EKEventStore);
+  return result;
+}
+
+function memo() {
+  var result = null;
+  var EKEventStore = plus.ios.import("EKEventStore");
+  var ekAuthStatus = EKEventStore.authorizationStatusForEntityType(1);
+  if (ekAuthStatus == 3) {
+    result = 1;
+    console.log("备忘录权限已经开启");
+  } else {
+    console.log("备忘录权限没有开启");
+  }
+  plus.ios.deleteObject(EKEventStore);
+  return result;
+}
+
+
+function requestIOS(permissionID) {
+  return new Promise(function (resolve, reject) {
+    switch (permissionID) {
+      case "push":
+        resolve(push());
+        break;
+      case "location":
+        resolve(location());
+        break;
+      case "record":
+        resolve(record());
+        break;
+      case "camera":
+        resolve(camera());
+        break;
+      case "album":
+        resolve(album());
+        break;
+      case "contact":
+        resolve(contact());
+        break;
+      case "calendar":
+        resolve(calendar());
+        break;
+      case "memo":
+        resolve(memo());
+        break;
+      default:
+        resolve(0);
+        break;}
+
+  });
+}
+
+function requestAndroid(permissionID) {
+  return new Promise(function (resolve, reject) {
+    plus.android.requestPermissions(
+    [permissionID],
+    function (resultObj) {
+      console.log(resultObj);
+      var result = 0;
+      for (var i = 0; i < resultObj.granted.length; i++) {
+        var grantedPermission = resultObj.granted[i];
+        console.log('已获取的权限：' + grantedPermission);
+        result = 1;
+      }
+      for (var i = 0; i < resultObj.deniedPresent.length; i++) {
+        var deniedPresentPermission = resultObj.deniedPresent[i];
+        console.log('拒绝本次申请的权限：' + deniedPresentPermission);
+        result = 0;
+      }
+      for (var i = 0; i < resultObj.deniedAlways.length; i++) {
+        var deniedAlwaysPermission = resultObj.deniedAlways[i];
+        console.log('永久拒绝申请的权限：' + deniedAlwaysPermission);
+        result = -1;
+      }
+      resolve(result);
+    },
+    function (error) {
+      console.log('result error: ' + error.message);
+      resolve({
+        code: error.code,
+        message: error.message });
+
+    });
+
+  });
+}
+
+function gotoAppPermissionSetting() {
+  if (permission.isIOS) {
+    var UIApplication = plus.ios.import("UIApplication");
+    var application2 = UIApplication.sharedApplication();
+    var NSURL2 = plus.ios.import("NSURL");
+    var setting2 = NSURL2.URLWithString("app-settings:");
+    application2.openURL(setting2);
+    plus.ios.deleteObject(setting2);
+    plus.ios.deleteObject(NSURL2);
+    plus.ios.deleteObject(application2);
+  } else {
+    var Intent = plus.android.importClass("android.content.Intent");
+    var Settings = plus.android.importClass("android.provider.Settings");
+    var Uri = plus.android.importClass("android.net.Uri");
+    var mainActivity = plus.android.runtimeMainActivity();
+    var intent = new Intent();
+    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+    var uri = Uri.fromParts("package", mainActivity.getPackageName(), null);
+    intent.setData(uri);
+    mainActivity.startActivity(intent);
+  }
+}
+
+function handleLocation() {
+  /* let system = uni.getSystemInfoSync();// 获取系统信息
+                           console.log(JSON.stringify(system));
+                           if (system.platform === 'android') { // 判断平台 */
+  var context = plus.android.importClass("android.content.Context");
+  var locationManager = plus.android.importClass("android.location.LocationManager");
+  var main = plus.android.runtimeMainActivity();
+  var mainSvr = main.getSystemService(context.LOCATION_SERVICE);
+  /* if (!mainSvr.isProviderEnabled(locationManager.GPS_PROVIDER)) {
+                                                                 	uni.showModal({
+                                                                 		title: '提示',
+                                                                 		content: '请打开定位服务功能',
+                                                                 		showCancel: false, // 不显示取消按钮
+                                                                 		success() {
+                                                                 			if (!mainSvr.isProviderEnabled(locationManager.GPS_PROVIDER)) { */
+  var Intent = plus.android.importClass('android.content.Intent');
+  var Settings = plus.android.importClass('android.provider.Settings');
+  var intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+  main.startActivity(intent); // 打开系统设置GPS服务页面
+  /* 			} else {
+  				console.log('GPS功能已开启');
+  			}
+  		}
+  	});
+  } */
+  /* }else{
+       	plus.runtime.openURL("app-settings://");
+       } */
+}
+
+var permission = {
+  get isIOS() {
+    return typeof isIOS === 'boolean' ? isIOS : isIOS = uni.getSystemInfoSync().platform === 'ios';
+  },
+  requestIOS: requestIOS,
+  requestAndroid: requestAndroid,
+  gotoAppSetting: gotoAppPermissionSetting,
+  handleLocation: handleLocation };
+
+
+module.exports = permission;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 7:
-/*!**************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages.json ***!
-  \**************************************************************/
+/*!****************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/pages.json ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

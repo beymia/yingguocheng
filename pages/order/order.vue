@@ -241,11 +241,12 @@
 		},
 		watch:{
 			choosedShop:{
-				async handler(newval){
+				async handler(newval,oldval){
 					if(this.shop_change_time == 0){
 						this.shop_change_time =1
 						return
 					}
+					if(newval.id == oldval.id)return
 					console.log(this.shop_change_time)
 					console.log(66666666666666666666666)
 					console.log(newval)
@@ -284,7 +285,10 @@
 			await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
 			this.judge_is_rest()//判斷是否在休息
 			await this.menu_list_init()//获取并设置当前门店下全部商品信息
-			
+			var that = this
+			this.itv1 = setInterval( async ()=>{
+				await this.shop_update()
+			},2000)
 			
 			 //await this.init()
 			  console.log("order onLoad")
@@ -949,6 +953,63 @@
 			console.log(spl)
 			this.SET_SHOP_LIST(spl)
 			this.SET_CHOOSED_SHOP(this.shopList[0])
+			// console.log(this.choosedShop)
+			 //alert(this.choosedShop.id)
+		},
+		async shop_update(){
+			let loca_res
+			try{
+				loca_res = await new Promise((resolve,reject)=>{
+					uni.getLocation({
+						success(res_l2){
+							resolve(res_l2)
+						},
+						fail(){
+							reject(0)
+						}
+					})
+				})
+			}catch(e){
+				//TODO handle the exception
+				console.log(e)
+			}
+			if(!loca_res)return
+			getApp().globalData.loca_res = loca_res
+			let spl= (await shops_list({latitude:loca_res.latitude,longitude:loca_res.longitude})).data
+			// console.log(spl)
+			//this.SET_SHOP_LIST(spl)
+			spl.sort(function(item1,item2){
+				if(parseInt(item1.distance*100) <= parseInt(item2.distance*100) ){
+					return -1;
+				}else{
+					return 1
+				}
+			})
+			if(JSON.stringify(spl) == JSON.stringify(this.shopList))return
+			// console.log(spl)
+			let spl_prom=[]
+			spl.forEach( async (item,index) =>{
+				// console.log(shop_detail2)
+				//spl[index].detail = (await shops_detail({shop_id:item.id})).data 
+				spl_prom.push(shops_detail({shop_id:item.id}))
+			})
+			await Promise.all(spl_prom).then(values=>{
+				let index = 0
+				spl.forEach(item=>{
+					item.detail = values[index].data
+					index++
+				})
+				
+			})
+			console.log(spl)
+			this.SET_SHOP_LIST(spl)
+			let chshopinfo = (await shops_detail({shop_id:this.choosedShop.id})).data
+			if(chshopinfo){
+				getApp().globalData.current_cups = chshopinfo.current_cups
+				getApp().globalData.current_order = chshopinfo.current_order
+			}
+			
+			
 			// console.log(this.choosedShop)
 			 //alert(this.choosedShop.id)
 		},
