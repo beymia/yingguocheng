@@ -39,7 +39,7 @@ export default {
       phone: "",
       verificationCode: "",
       isFocus: 0,
-      timer: 200,
+      timer: 120,
       wxCode: "",
       from: "",
     };
@@ -72,7 +72,7 @@ export default {
         self.timer--;
         if (self.timer === 0) {
           clearInterval(self.countDown);
-          self.timer = 200;
+          self.timer = 120;
           fill();
         }
       }, 1000);
@@ -101,7 +101,7 @@ export default {
     pageHide() {
       this.verificationCode = "";
       uni.hideLoading();
-      this.timer = 200;
+      this.timer = 120;
       clearInterval(this.countDown);
     },
 

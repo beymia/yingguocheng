@@ -79,6 +79,7 @@ export default {
     async getConvertList() {
       let result = (await convert({authority_type: this.active === 'knight' ? 2 : 1})).data
       !result&&(result=[])
+      console.log(result);
       return result
     },
     //導航至對應的頁面
