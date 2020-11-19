@@ -1005,8 +1005,7 @@
 			this.SET_SHOP_LIST(spl)
 			let chshopinfo = (await shops_detail({shop_id:this.choosedShop.id})).data
 			if(chshopinfo){
-				getApp().globalData.current_cups = chshopinfo.current_cups
-				getApp().globalData.current_order = chshopinfo.current_order
+				getApp().globalData.co ={current_cups:chshopinfo.current_cups,current_order:chshopinfo.current_order} 
 			}
 			
 			
