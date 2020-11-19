@@ -16,9 +16,12 @@
 				<!-- 新聞列表結束 -->
 				<!-- 配送開始 -->
 					<view class="other" v-if="shop_detial">
-						<view class="title">
+						<!-- <view class="title">
 							配送
 						</view>
+						<view class="text" >
+							<rich-text :nodes="shop_detial"></rich-text>
+						</view> -->
 						<view class="text" >
 							<rich-text :nodes="shop_detial"></rich-text>
 						</view>

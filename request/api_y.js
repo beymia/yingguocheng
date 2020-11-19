@@ -4,6 +4,8 @@ const ajax = require('./ajax_y')
 export const shops_list = (data) => ajax('/shop/shop-list', data, 'post', 0)
 //門店詳情
 export const shops_detail = (data) => ajax('/shop/shop-detail', data, 'post', 0)
+//门店搜索
+export const shops_search = (data) => ajax('/shop/shop-search', data, 'post', 0)
 //商品列表
 export const goods_list = (data) => ajax('/goods/list', data, 'post', 0)
 //商品詳情

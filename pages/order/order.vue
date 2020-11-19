@@ -280,6 +280,7 @@
 			
 			let loca_res = await this.long_lati()//获取当前定位经纬度
 			this.loca_res = loca_res
+			getApp().globalData.loca_res = loca_res
 			await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
 			this.judge_is_rest()//判斷是否在休息
 			await this.menu_list_init()//获取并设置当前门店下全部商品信息

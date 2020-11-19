@@ -3,25 +3,17 @@
 		<view class="d-flex flex-column overflow-hidden common">
 			<view class="search-box">
 				<view class="search-input">
-					<image src="/static/images/order/search-icon.png" class="search-icon"></image>
-					<input class="s_input" type="text" v-model="keyword" 
+					<image src="/static/images/order/search-icon.png" class="search-icon" @tap='searchImageTap'></image>
+					<input :focus='igb' ref='inputk' class="s_input" type="text" v-model="keyword" 
 							placeholder=" " 
-							placeholder-class="placeholder" @input="handleKeywordInput">
+							placeholder-class="placeholder"  @confirm="handleKeywordComfirm">
 				    <image v-if="keyword" src="/static/images/order/image-delete.png" class="close-icon" @tap="clear" />
 				</view>
 				<view class="ml-30" @tap="hide">取消</view>
 			</view>
 			<scroll-view class="result" scroll-y>
 				<view class="wrapper" style="padding: 0 0 30rpx 24rpx;">
-					
-						<!-- <view class="product" v-for="(item, index) in result" :key="index" @tap="handleChoose(item, true)">
-							<view class="d-flex align-items-center">
-								<image :src="item.imgurl" class="pro-image"/>
-								<view class="pro-name">{{ item.name }}</view>
-							</view>
-							<view class="pro-price">￥{{ item.price }}</view>
-						</view> -->
-						<view v-if="result.length" class="shop_item" v-for="(item, index) in result" :key="index" @tap="handleChoose(item, true)">
+						<view v-if="result.length" class="shop_item" v-for="(item, index) in result" :key="index" @tap="handleChoose(item)">
 							<view class="shop_name">
 								{{item.shop_name}}
 							</view>
@@ -31,13 +23,13 @@
 						</view>
 					</view>
 			</scroll-view>
-			</view>
 		</view>
 	</uni-transition>
 </template>
 
 <script>
 	import uniTransition from '@/components/uni-transition/uni-transition.vue'
+	import {shops_search} from '@/request/api_y.js'
 	export default {
 		name: 'search',
 		components: {
@@ -72,7 +64,8 @@
 				},
 				
 				keyword: '',
-				result: []
+				result: [],
+				igb:false
 			}
 		},
 		async created() {
@@ -80,6 +73,9 @@
 			this.historySearch = await this.$api('historySearch') */
 			/* var statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
 			this.tranStyles.top= statusBarHeight + 44 +"px"; */
+			setTimeout(()=>{this.igb=true},100)
+		},
+		beforeDestroy() {
 		},
 		methods: {
 			hide() {
@@ -87,20 +83,13 @@
 				this.result = []
 				this.$emit('hide')
 			},
-			handleChoose(item, isSearch = false) {
-				if(isSearch) {
+			searchImageTap(){
+				console.log(this.$refs.inputk.value)
+				this.handleKeywordComfirm({detail:{value:this.$refs.inputk.value}})
+			},
+			handleChoose(item) {
 					this.hide()
 					this.$emit('choose', item)
-					return
-				}
-				this.categories.forEach(category => {
-					const find = category.goods_list.find(good => good.id == item.id)
-					if(find) {
-						this.hide()
-						this.$emit('choose', find)
-						return
-					}
-				})
 			},
 			handleKeywordInput(e) {
 				//为了方便，这里使用商品列表的数据来筛选结果
@@ -122,6 +111,33 @@
 						}
 				})
 				setTimeout(() => this.result = result.concat(second_result), 300)
+			},
+			async handleKeywordComfirm(e){
+				console.log('confirmconfirm',e)
+				const {value} = e.detail
+				
+				if(!value) {
+					this.result = []
+					return
+				}
+				uni.showLoading({
+				})
+				var getSearched = (await shops_search({key:value})).data
+				console.log(getSearched)
+				uni.hideLoading()
+				if(!getSearched)return
+				this.result = getSearched
+				/* let result = []
+				let second_result = [] */
+				/* this.categories.forEach(shop => {
+					
+						if(shop.shop_name.indexOf(value) > -1) {
+							result.push(shop)
+						}else if(shop.shop_address.indexOf(value) > -1){
+							second_result.push(shop)
+						}
+				}) */
+				// setTimeout(() => this.result = result.concat(second_result), 300)
 			},
 			clearHistory(){
 				this.historySearch=[]

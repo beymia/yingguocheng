@@ -292,7 +292,7 @@ var _default = {
     verificationCode: function verificationCode(value) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var self, result;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
                 self = _this;if (!(
 
-                value.length === 6)) {_context3.next = 18;break;}
+                value.length === 6)) {_context3.next = 9;break;}
                 // TODO 验证码输入完毕后隐藏软键盘，解决跳转到设置密码页面安卓手机不聚焦问题
                 uni.hideKeyboard();
 
@@ -301,18 +301,18 @@ var _default = {
 
 
                 // 驗證驗證碼 TODO
-                _context3.prev = 4;_context3.next = 7;return (
-                  (0, _api.verifyCode)({ mobile: self.phone, code: self.verificationCode }));case 7:_context3.next = 13;break;case 9:_context3.prev = 9;_context3.t0 = _context3["catch"](4);
+                // try {
+                //   await verifyCode({ mobile: self.phone, code: self.verificationCode });
+                // } catch (e) {
+                //   self.customToast("驗證碼錯誤");
+                //   return;
+                // }
 
-                self.customToast("驗證碼錯誤");return _context3.abrupt("return");case 13:if (!
-
-
-
-
-                self.change) {_context3.next = 17;break;}
+                // change有值則跳轉到設置交易密碼頁面
+                if (!self.change) {_context3.next = 8;break;}
                 uni.hideLoading();
                 uni.redirectTo({
-                  url: "/pages/setPassword/setPassword" });return _context3.abrupt("return");case 17:
+                  url: "/pages/setPassword/setPassword" });return _context3.abrupt("return");case 8:
 
 
 
@@ -339,7 +339,7 @@ var _default = {
 
 
                 // APP 和 H5 登陆
-              case 18:case "end":return _context3.stop();}}}, _callee3, null, [[4, 9]]);}))();
+              case 9:case "end":return _context3.stop();}}}, _callee3);}))();
 
 
 

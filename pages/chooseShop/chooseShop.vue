@@ -26,7 +26,7 @@
 				</view>
 			</view>
 			
-			<map v-if="map_show" :latitude="choosedShop.latitude ? choosedShop.latitude : latitude" :longitude="choosedShop.longitude ? choosedShop.longitude :longitude" :markers="markers" class="map"></map>
+			<map v-show="map_show && !showSearch" :latitude="choosedShop.latitude ? choosedShop.latitude : latitude" :longitude="choosedShop.longitude ? choosedShop.longitude :longitude" :markers="markers" class="map"></map>
 			
 			<view class="is_hide_map" v-if="map_show" @tap="map_show=false">
 				<text>收起地圖</text>
@@ -146,7 +146,7 @@
 		</view>
 		<!-- 常用結束 -->
 		<!-- 搜索页面start -->
-		<search :show="showSearch" :categories="shopList" @hide="showSearch=false" @choose="search_choose" ></search>
+		<search v-if='showSearch' :show="showSearch" :categories="shopList" @hide="showSearch=false" @choose="search_choose" ></search>
 		<!-- 搜索页面end -->
 	</view>
 </template>
@@ -154,6 +154,7 @@
 <script>
 	import {mapState, mapMutations} from 'vuex'
 	import search from './components/search/search.vue'
+	import {shops_detail} from '@/request/api_y.js'
 	export default {
 		components:{
 			search
@@ -161,8 +162,10 @@
 		data() {
 			return {
 				is_xzmd:true,
-				latitude: 39.909,
-				longitude: 116.39742,
+				// latitude: 39.909,
+				// longitude: 116.39742,
+				latitude: getApp().globalData.loca_res.latitude,
+				longitude: getApp().globalData.loca_res.longitude,
 				map_show:true,
 				showSearch:false,
 				searchShopList:null,
@@ -172,6 +175,19 @@
 		computed:{
 			...mapState(["choosedShop","shopList","cyShopList"]),
 			markers(){
+				if(!this.choosedShop.latitude){
+					return [{
+						latitude:this.latitude,
+						longitude:this.longitude,
+						iconPath: '/static/images/order/mark.png',
+						width:'58rpx',
+						height:'96rpx',
+						callout:{
+							content:"你的位置",
+							display:"ALWAYS"
+						}
+						}] 
+				}
 				return [{
 					latitude:this.choosedShop.latitude,
 					longitude:this.choosedShop.longitude,
@@ -185,7 +201,7 @@
 					}]
 			}
 		},
-		onLoad() {
+		async onLoad() {
 			/* this.shopList.forEach(item =>{
 				let order= Math.ceil(Math.random() * 15);
 				let cup =0;
@@ -223,10 +239,24 @@
 		},
 		methods:{
 			...mapMutations(["SET_CHOOSED_SHOP","SET_SHOP_LIST","SET_CY_SHOP_LIST"]),
-			search_choose(shop){
-				this.SET_CHOOSED_SHOP(shop)
-				this.searchShopList=[shop];
-				
+			async search_choose(shop){
+				/* this.SET_CHOOSED_SHOP(shop)
+				this.searchShopList=[shop]; */
+				//上面是原来的处理方式
+				let shopd = (await shops_detail({shop_id:shop.id})).data
+				let chshop = Object.assign({},shop)
+				chshop.detail = shopd
+				chshop.current_cups = shopd.current_cups
+				chshop.current_order = shopd.current_order
+				chshop.work_status = shopd.work_status
+				chshop.work_time = ''
+				chshop.rest_time = ''
+				chshop.distance = ''
+				console.log(shopd)
+				this.SET_CHOOSED_SHOP(chshop)
+				uni.switchTab({
+					url:'/pages/order/order'
+				})
 			},
 			shop_tap(indexs){
 				console.log(44444444444)
