@@ -1,19 +1,23 @@
 <script>
+// #ifdef APP-PLUS
+import APPUpdate from "./js_sdk/zhouWei-APPUpdate/APPUpdate/index";
+// #endif
+
 export default {
   globalData: {
     userToken: null, //用戶token
     userInfo: {}, //用户基本信息
     isLoginBox: false, //用户登录引导框,微信需弹出授权窗口
-    isAuth:true,//用户是否已经授权，微信小程序
-    wxUserInfo:{},//getUserInfo获取到的用户信息，微信小程序
+    isAuth: true,//用户是否已经授权，微信小程序
+    wxUserInfo: {},//getUserInfo获取到的用户信息，微信小程序
     goodsPayment: {}, //订单的结算信息
     coupon: 0, //使用的優惠券信息
-    isForeseeBuy:false,//用户购买预付卡的表示，为true时重新获取用户拥有的预付卡
+    isForeseeBuy: false,//用户购买预付卡的表示，为true时重新获取用户拥有的预付卡
     userAddresses: [], //用户收货地址
     edit_address_id: {}, //当前编辑的收货地址id
     choosed_address: {}, //用户选择的地址
   },
-  onLaunch:async function () {
+  onLaunch: async function () {
     //应用初次启动时从缓存中读取用户token
     this.globalData.userToken = uni.getStorageSync("token");
     console.log("App Launch");
@@ -23,16 +27,20 @@ export default {
     //判断用户是否授权获取相关信息，已经授权直接存在userInfo中
     let self = this;
     await uni.getUserInfo({
-      provider:'weixin',
-      success(res){
+      provider: 'weixin',
+      success(res) {
         console.log(res.userInfo);
         self.globalData.wxUserInfo = res.userInfo;
         self.globalData.isAuth = true;
       },
-      fail(){
+      fail() {
         self.globalData.isAuth = false
       },
     })
+    // #endif
+
+    // #ifdef APP-PLUS
+    APPUpdate();
     // #endif
   },
   onShow: function () {
@@ -66,7 +74,7 @@ export default {
 }
 
 .container {
-  width: 702rpx;
+  width: 702 rpx;
   height: 100%;
   margin: 0 auto;
   box-sizing: border-box;
@@ -85,14 +93,14 @@ page {
 }
 
 checkbox .wx-checkbox-input {
-  width: 42rpx !important;
-  height: 42rpx !important;
+  width: 42 rpx !important;
+  height: 42 rpx !important;
   border-radius: 50%;
 }
 
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
-  width: 46rpx !important;
-  height: 46rpx !important;
+  width: 46 rpx !important;
+  height: 46 rpx !important;
   border-radius: 50%;
   background: #17A1FF;
   color: #fff !important;
@@ -100,23 +108,23 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 }
 
 radio .wx-radio-input {
-  width: 34rpx !important;
-  height: 34rpx !important;
+  width: 34 rpx !important;
+  height: 34 rpx !important;
   padding: 0 !important;
 }
 
 progress .wx-progress-bar {
-  height: 30rpx !important;
-  border-radius: 15rpx !important;
+  height: 30 rpx !important;
+  border-radius: 15 rpx !important;
 }
 
 progress .wx-progress-inner-bar {
-  border-radius: 15rpx !important;
+  border-radius: 15 rpx !important;
 }
 
 /* #endif */
 .align-items-center {
-  align-items:center;
+  align-items: center;
 }
 
 .d-flex {
@@ -128,8 +136,8 @@ uni-page-body, uni-view, uni-scroll-view, uni-text, uni-image, uni-textarea, uni
 }
 
 button {
-  font-size: 26rpx;
-  border-radius: 4rpx;
+  font-size: 26 rpx;
+  border-radius: 4 rpx;
   margin: 0;
 
   &:after {
@@ -141,7 +149,7 @@ button {
 
     &[plain] {
       background-color: #FFFFFF;
-      border: 2rpx solid $main-color;;
+      border: 2 rpx solid $main-color;;
       color: $main-color;
     }
 

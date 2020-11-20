@@ -43,10 +43,10 @@
       </view>
       <view class="order_progress">
         <text>前面</text>
-        <text class="text_color">{{ goodsData.current_order }}單/{{ goodsData.current_cups }}杯</text>
+        <text class="text_color">{{ co.current_order }}單/{{ co.current_cups }}杯</text>
         <text>制作中，</text>
         <text>預計</text>
-        <text class="text_color">{{ goodsData.current_cups }}分鐘</text>
+        <text class="text_color">{{ co.current_cups }}分鐘</text>
         <text>後取茶</text>
       </view>
       <view class="current_progress">
@@ -87,8 +87,8 @@
             <text>￥{{ goodsData.delivery_cost }}</text>
           </view>
         </view>
-        <view class="service1">
-          <block v-for="attachItem in attach" :key="attachItem.id">
+        <view class="service1" v-for="attachItem in attach" :key="attachItem.id">
+          <block >
             <view class="left">
               <view class="left_name">
                 <text>{{ attachItem.attach_name }}</text>
@@ -139,9 +139,9 @@
           </view>
           <view @click="isRemarks = !isRemarks" class="right">
             <text class="remarks_content">{{remarksSelect}}</text>
-<!--            <text v-if="remarksData.noContact">無接觸配送，</text>-->
-<!--            <text v-if="remarksData.paper">纸巾，</text>-->
-<!--            <text v-if="remarksData.sugar">糖包</text>-->
+            <!--            <text v-if="remarksData.noContact">無接觸配送，</text>-->
+            <!--            <text v-if="remarksData.paper">纸巾，</text>-->
+            <!--            <text v-if="remarksData.sugar">糖包</text>-->
             <uni-icons style="display: inline-block;vertical-align: middle;position: absolute;top: 0;right: 0"
                        type="arrowright"
                        size="35"
@@ -205,14 +205,23 @@ export default {
       attachArr: [],
       couponInfo: [],
       paymentStatus: false,//订单的支付状态，为true时禁止再次点击支付
+      co:APP.co,
+      timer:null,
+      attrArr:[],
     }
   },
   computed: {
     //計算取茶時間進度條
     computeProgress() {
-      let {current_cups, current_order} = this.goodsData;
-      return (current_order / current_cups) * 100;
+      return (this.co.current_order / this.co.current_cups) * 100;
     }
+  },
+
+  mounted() {
+    this.timer && clearInterval(this.timer)
+    this.timer = setInterval(()=>{
+      this.co = APP.co;
+    },2000)
   },
 
   async onLoad() {
@@ -295,16 +304,12 @@ export default {
     //使用附加服務
     addAttachFee(id) {
       let self = this;
+
       self.isAttach = !self.isAttach;
-      self.attach.forEach((item) => {
+      self.attach.forEach((item,index) => {
         if (item.id === id) {
-          if (self.isAttach) {
-            self.totalAmount += parseFloat(this.attach[0].attach_price);
-            self.attachArr.push(id)
-          } else {
-            self.totalAmount -= parseFloat(this.attach[0].attach_price)
-            self.attachArr.splice(self.attachArr.indexOf(id), 1)
-          }
+          self.totalAmount += parseFloat(this.attach[index].attach_price);
+          self.attachArr.push(id)
         }
       })
     },
@@ -781,6 +786,10 @@ export default {
             }
           }
         }
+      }
+
+      .service1{
+        min-height: 100rpx;
       }
     }
 
