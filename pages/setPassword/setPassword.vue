@@ -28,7 +28,7 @@ export default {
       if (value.length === 6 && this.pwd.length === 6) {
         if (value === this.pwd) {
           uni.showLoading({
-            title: "请稍后",
+            title: "請稍候",
           });
           try {
             await setPwd({ password: this.pwd, veify_pwd: value });

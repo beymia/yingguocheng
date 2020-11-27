@@ -9,7 +9,7 @@
         ></image>
       </view>
       <view class="head_logo">
-        <text>英国城</text>
+        <text>英國城</text>
       </view>
     </view>
     <view class="profile_content">
@@ -97,7 +97,7 @@ export default {
           await this.getUserInfo();
         } catch (e) {
           console.log(e);
-          this.customToast("信息获取失败");
+          this.customToast("信息獲取失敗");
         }
       }
     } else {

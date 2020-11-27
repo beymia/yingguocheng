@@ -65,7 +65,7 @@ export default {
     //購買成功後重新獲取用戶信息
     async paymentSuccess(){
       this.paymentStatus = false;
-      this.customToast('购买成功');
+      this.customToast('購買成功');
       APP.userInfo = (await userSpace()).data
       APP.isForeseeBuy = true;
     }

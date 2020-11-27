@@ -27,7 +27,7 @@
         </view>
         <view class="select_count">
           <text>共￥{{ amount || 0 }}</text>
-          <text>{{ count || 0 }}个订单</text>
+          <text>{{ count || 0 }}個訂單</text>
         </view>
         <view @click="navInvoiceInfo"
               class="next_stop">

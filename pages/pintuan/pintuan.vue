@@ -37,7 +37,7 @@
 					</template>
 					<template v-else>
 						<button class="pindan_cancel" @tap="pindan_cancel">
-							退出拼单
+							退出拼單
 						</button>
 					</template>
 					

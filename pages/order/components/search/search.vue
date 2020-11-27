@@ -15,7 +15,7 @@
 				<template v-if="!result.length">
 					<view class="section" v-if="historySearch.length">
 						<view class="header">
-							<view class="title">历史搜索</view>
+							<view class="title">歷史搜索</view>
 							<view class="subtitle" @tap="clearHistory">
 								<image src="/static/images/order/delete.png"></image>
 								<view>清除</view>
@@ -29,7 +29,7 @@
 					</view>
 					<view class="section">
 						<view class="header">
-							<view class="title">热门推荐</view>
+							<view class="title">熱門推薦</view>
 						</view>
 						<view class="list">
 							<view class="item" v-for="(item, index) in hotSearch" :key="index" @tap="handleChoose(item)">
@@ -211,7 +211,7 @@
 					return
 				}else{
 					uni.showToast({
-					    title: '商品已过期',
+					    title: '商品已過期',
 					    duration: 1500,
 						icon:"none",
 					});

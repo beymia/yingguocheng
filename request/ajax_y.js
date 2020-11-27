@@ -37,7 +37,7 @@ function ajax(url, data = {}, method = 'GET', h) {
          
         },
       fail(err) {
-        console.log('请求出错', err.data);
+        console.log('請求出錯', err.data);
         reject(err)
       }
     })
@@ -51,7 +51,7 @@ function tokenError(h, result, reject) {
   if (token && (h && result.data.msg === 'Token Error')) {
 	  // #ifndef MP-WEIXIN
 	  uni.showModal({
-	    title: '登陆状态失效!\n请重新登陆',
+	    title: '登錄狀態失效!\n請重新登錄',
 	    success(res) {
 	      //点击确定跳转登录页
 	      if (res.confirm) {
@@ -78,7 +78,7 @@ function tokenError(h, result, reject) {
 	      } catch (e) {
 	        console.log(e);
 			uni.showModal({
-			  title: '登陆状态失效!\n请重新登陆',
+			  title: '登錄狀態失效!\n請重新登錄',
 			  success(res) {
 			    //点击确定跳转登录页
 			    if (res.confirm) {

@@ -66,7 +66,7 @@ export default {
           !result && (result = [])
           return result
       } catch (e) {
-        this.customToast('请求出错')
+        this.customToast('請求出錯')
         console.log(e);
       }
     },

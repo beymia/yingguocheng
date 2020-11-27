@@ -22,7 +22,7 @@
         </view>
         <view class="progress">
           <view class="text">
-            <text>当前星球经验值{{ user.empiric }}/{{ user.n_empiric }}</text>
+            <text>當前星球經驗值{{ user.empiric }}/{{ user.n_empiric }}</text>
           </view>
           <view class="pro_com">
             <progress activeColor="#17a1ff"

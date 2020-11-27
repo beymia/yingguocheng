@@ -10,7 +10,7 @@
 			<view class="border"></view>
 			<list-cell padding="30rpx">
 				<view class="form-item">
-					<view class="label">性别</view>
+					<view class="label">性別</view>
 					<view class="radio" @tap="form.contact_sex = 1">
 						<image :src="form.contact_sex == 1 ? '/static/images/userAdress/round-black-selected.png' : '/static/images/userAdress/gouxuankuang.png' "></image>
 						<view>先生</view>
@@ -39,8 +39,8 @@
 			<view class="border"></view>
 			<list-cell padding="30rpx">
 				<view class="form-item">
-					<view class="label">门牌号</view>
-					<input type="text" v-model="form.contact_number" placeholder="例:B座6楼606室" placeholder-class="placeholder"/>
+					<view class="label">門牌號</view>
+					<input type="text" v-model="form.contact_number" placeholder="例:B座6樓606室" placeholder-class="placeholder"/>
 				</view>
 			</list-cell>
 			<view class="border"></view>
@@ -49,7 +49,7 @@
 				<view class="form-item">
 					<view class="radio" @tap="form.default_status == 1 ? form.default_status =2 : form.default_status = 1">
 						<image :src="form.default_status == 1 ? '/static/images/userAdress/round-black-selected.png' : '/static/images/userAdress/gouxuankuang.png'  "></image>
-						<view>设为默认地址</view>
+						<view>設爲默認地址</view>
 					</view>
 				</view>
 			</list-cell>

@@ -130,7 +130,7 @@ export default {
         this.socket = await uni.connectSocket({
           url: "wss://api.plg.wugee.net:2000",
           success(res) {
-            console.log(res,'建立连接');
+            console.log(res,'建立連接');
           },
         });
         //开启相关事件监听
@@ -144,7 +144,7 @@ export default {
     monitorEvent() {
       //连接成功
       this.socket.onOpen(async (res) => {
-        console.log('连接成功',res)
+        console.log('連接成功',res)
         try {
           uni.hideLoading();
           this.connecting = true;
@@ -163,7 +163,7 @@ export default {
 
       //连接失败
       this.socket.onError(async (res) => {
-        console.log('连接失败',res);
+        console.log('連接失败',res);
         this.connecting = false;
         await this.socketError()
       });

@@ -27,8 +27,8 @@
 					
 				</view>
 			</view>
-			<button v-if="restMoney && orderType == 1" type="primary" class="right" >结算</button>
-			<button v-else type="primary" class="right" @tap="pay">结算</button>
+			<button v-if="restMoney && orderType == 1" type="primary" class="right" >結算</button>
+			<button v-else type="primary" class="right" @tap="pay">結算</button>
 		</uni-transition>
 		<cart-popup :cart="cart" ref="cartPopup" @add="add" @minus="minus" @clear="clear" @change="popChange" @checkboxChange="checkboxChange"></cart-popup>
 	</view>

@@ -13,7 +13,7 @@
 				</view>
 				<view class="privilege">
 					<text @click="$emit('handler-click',{page:'joinMember'})">{{user.level_title}}</text>
-					<view v-if="user.level_title === '普通會員'"
+					<view v-if="user.level_title === '普通会员'"
                 @click="$emit('handler-click',{page:'joinMember'})"
                 class="level_title">
 						<text>成為騎士會員享雙倍積分</text>
@@ -40,7 +40,7 @@
       </view>
       <view @click="$emit('handler-click',{page:'milkTeaGift'})">
         <text>{{user.foresee_num || 0}}</text>
-        <text>奶茶有裡</text>
+        <text>奶茶有禮</text>
       </view>
     </view>
 	</view>

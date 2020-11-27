@@ -50,7 +50,7 @@ export default {
       this.record = (await expensesRecord({page: this.page})).data
     } catch (e) {
       console.log(e);
-      this.customToast('请求出错', false)
+      this.customToast('請求出錯', false)
     }
   },
   computed: {
@@ -86,7 +86,7 @@ export default {
       this.record = this.record.concat(data)
       console.log(this.record);
     }catch (e) {
-      this.customToast('没有更多数据了',false)
+      this.customToast('沒有更多數據了',false)
     }
   },
 }

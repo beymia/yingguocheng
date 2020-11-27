@@ -2,7 +2,7 @@
   <view class="msg_center">
     <view v-if="!msgList.length" class="empty">
       <image src="../../static/images_t/messageCenter/msg_empty.png"></image>
-      <text>消息列表为空</text>
+      <text>消息列表爲空</text>
     </view>
     <view v-else class="msg_content">
       <view class="msg_item"

@@ -208,7 +208,7 @@ export default {
         //支付成功重新获取数据
         await self.getData()
         self.paymentStatus = false;
-        self.customToast('结算成功')
+        self.customToast('結算成功')
       } catch (e) {
         self.paymentStatus = false;
         uni.hideLoading()

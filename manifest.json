@@ -147,7 +147,6 @@
             "mode" : "hash"
         },
         "devServer" : {
-            "https" : true,
             "proxy" : {
                 "/api" : {
                     "target" : "https://api.plg.wugee.net/",
