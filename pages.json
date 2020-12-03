@@ -41,8 +41,8 @@
 		{
 			"path": "pages/orderForm/orderForm",
 			"style": {
-				"navigationBarTitleText": "英國城",
-				"navigationStyle": "custom"
+				"navigationStyle": "custom",
+				"onReachBottomDistance": 50
 			}
 		},
 		{

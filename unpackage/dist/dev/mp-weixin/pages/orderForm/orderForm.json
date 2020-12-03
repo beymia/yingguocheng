@@ -1,6 +1,6 @@
 {
-  "navigationBarTitleText": "英國城",
   "navigationStyle": "custom",
+  "onReachBottomDistance": 50,
   "usingComponents": {
     "head-nav": "/components-lk/headNav/headNav",
     "order-detail": "/components-lk/orderDetail/orderDetail",

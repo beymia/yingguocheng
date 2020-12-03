@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/orderForm/orderForm"],{
 
 /***/ 72:
-/*!****************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/main.js?{"page":"pages%2ForderForm%2ForderForm"} ***!
-  \****************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/main.js?{"page":"pages%2ForderForm%2ForderForm"} ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_orderForm.default);
 /***/ }),
 
 /***/ 73:
-/*!*********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/orderForm/orderForm.vue ***!
-  \*********************************************************************************/
+/*!*****************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/pages/orderForm/orderForm.vue ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/orderForm/orderForm.vue"
 /***/ }),
 
 /***/ 74:
-/*!****************************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/orderForm/orderForm.vue?vue&type=template&id=02cae1a8&scoped=true& ***!
-  \****************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/pages/orderForm/orderForm.vue?vue&type=template&id=02cae1a8&scoped=true& ***!
+  \************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 75:
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/yingguocheng/pages/orderForm/orderForm.vue?vue&type=template&id=02cae1a8&scoped=true& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/work/英国城/pages/orderForm/orderForm.vue?vue&type=template&id=02cae1a8&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -130,9 +130,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 76:
-/*!**********************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/orderForm/orderForm.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/pages/orderForm/orderForm.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -146,9 +146,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 77:
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/yingguocheng/pages/orderForm/orderForm.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/work/英国城/pages/orderForm/orderForm.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -246,8 +246,9 @@ var APP = getApp().globalData;var _default =
       takeawayOrder: [], //外賣订单
       invoiceData: [], //未开发票订单
       loginBoxShow: false,
-      paymentStatus: false //订单结算状态
-    };
+      paymentStatus: false, //订单结算状态
+      isMore: false };
+
   },
   computed: {
     //分离出外賣订单，自提订单，未开发票订单
@@ -256,6 +257,7 @@ var APP = getApp().globalData;var _default =
       this.takeawayOrder = [];
       this.oneSelfOrder = [];
       this.invoiceData = [];
+      if (!this.historyOrderForm.data.length) return;
       this.historyOrderForm.data.forEach(function (item) {
         if (item.haul_method === '外卖') {
           _this.takeawayOrder.push(item);
@@ -303,27 +305,76 @@ var APP = getApp().globalData;var _default =
     this.paymentStatus = false;
   },
 
+  //触底刷新
+  onReachBottom: function onReachBottom() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var type, page, data;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:if (!(
+              _this3.isMore || _this3.loadMoreStatus)) {_context2.next = 2;break;}return _context2.abrupt("return");case 2:
+              _this3.loadMoreStatus = true;_context2.prev = 3;
+
+
+
+              if (_this3.activeFeat === 'current') {
+                type = 1;
+                page = ++_this3.currentOrderForm.page;
+              } else
+              {
+                type = 2;
+                page = ++_this3.historyOrderForm.page;
+              }_context2.next = 7;return (
+                _this3.requestOrder(type, page));case 7:_context2.t0 = _context2.sent;if (_context2.t0) {_context2.next = 10;break;}_context2.t0 = [];case 10:data = _context2.t0;if (!(
+              !data || !data.length)) {_context2.next = 14;break;}
+              _this3.isMore = true;return _context2.abrupt("return");case 14:
+
+
+              if (_this3.activeFeat === 'current') {
+                _this3.currentOrderForm.data = _this3.currentOrderForm.data.concat(data);
+              } else {
+                _this3.historyOrderForm.data = _this3.historyOrderForm.data.concat(data);
+              }
+              uni.hideLoading();
+              _this3.loadMoreStatus = false;_context2.next = 23;break;case 19:_context2.prev = 19;_context2.t1 = _context2["catch"](3);
+
+
+              _this3.loadMoreStatus = false;
+              _this3.customToast('錯誤出現了!請您稍後再試');case 23:case "end":return _context2.stop();}}}, _callee2, null, [[3, 19]]);}))();
+
+  },
+
   methods: {
     //点击隐藏登陆引导框
     hideLoginBox: function hideLoginBox() {
       this.loginBoxShow = APP.isLoginBox = false;
     },
     //请求数据
-    requestOrder: function requestOrder(type, page) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
-                  (0, _api.orderForm)({ type: type, page: page }));case 2:return _context2.abrupt("return", _context2.sent.data);case 3:case "end":return _context2.stop();}}}, _callee2);}))();
+    requestOrder: function requestOrder(type, page) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var data;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.prev = 0;_context3.next = 3;return (
+
+                  (0, _api.orderForm)({ type: type, page: page }));case 3:_context3.t0 = _context3.sent.data;if (_context3.t0) {_context3.next = 6;break;}_context3.t0 = [];case 6:data = _context3.t0;
+                if (!data || !data.length) {
+                  if (_this4.activeFeat === 'current' && _this4.currentOrderForm.page > 1) {
+                    _this4.currentOrderForm.page--;
+                  } else if (_this4.historyOrderForm.page > 1) {
+                    _this4.historyOrderForm.page--;
+                  }
+                }return _context3.abrupt("return",
+                data);case 11:_context3.prev = 11;_context3.t1 = _context3["catch"](0);
+
+                _this4.loadMoreStatus = false;
+                if (_this4.activeFeat === 'current' && _this4.currentOrderForm.page > 1) {
+                  _this4.currentOrderForm.page--;
+                } else if (_this4.historyOrderForm.page > 1) {
+                  _this4.historyOrderForm.page--;
+                }
+                _this4.customToast('錯誤出現了,請您稍後再試');case 16:case "end":return _context3.stop();}}}, _callee3, null, [[0, 11]]);}))();
+
     },
 
     //同时请求两种订单格式，没有值时设置空数组
-    getData: function getData() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                uni.showLoading({
-                  title: '請稍後' });_context3.prev = 1;_context3.next = 4;return (
+    getData: function getData() {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.prev = 0;_context4.next = 3;return (
 
+                  _this5.requestOrder(1, _this5.currentOrderForm.page));case 3:_this5.currentOrderForm.data = _context4.sent;_context4.next = 6;return (
+                  _this5.requestOrder(2, _this5.historyOrderForm.page));case 6:_this5.historyOrderForm.data = _context4.sent;_context4.next = 13;break;case 9:_context4.prev = 9;_context4.t0 = _context4["catch"](0);
 
-                  _this3.requestOrder(1, _this3.currentOrderForm.page));case 4:_context3.t0 = _context3.sent;if (_context3.t0) {_context3.next = 7;break;}_context3.t0 = [];case 7:_this3.currentOrderForm.data = _context3.t0;_context3.next = 10;return (
-                  _this3.requestOrder(2, _this3.historyOrderForm.page));case 10:_context3.t1 = _context3.sent;if (_context3.t1) {_context3.next = 13;break;}_context3.t1 = [];case 13:_this3.historyOrderForm.data = _context3.t1;
-                uni.hideLoading();_context3.next = 20;break;case 17:_context3.prev = 17;_context3.t2 = _context3["catch"](1);
-
-                _this3.customToast('訂單信息獲取失敗');case 20:case "end":return _context3.stop();}}}, _callee3, null, [[1, 17]]);}))();
+                console.log(_context4.t0);
+                _this5.customToast('訂單信息獲取失敗', true);case 13:case "end":return _context4.stop();}}}, _callee4, null, [[0, 9]]);}))();
 
     },
 
@@ -346,28 +397,28 @@ var APP = getApp().globalData;var _default =
     },
 
     // 没有支付的订单，点击直接支付
-    orderPayment: function orderPayment(g) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var self, order, orderInfo;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:if (!
-                _this4.paymentStatus) {_context4.next = 2;break;}return _context4.abrupt("return");case 2:
-                _this4.paymentStatus = true;
+    orderPayment: function orderPayment(g) {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var self, order, orderInfo;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:if (!
+                _this6.paymentStatus) {_context5.next = 2;break;}return _context5.abrupt("return");case 2:
+                _this6.paymentStatus = true;
                 uni.showLoading({
                   title: '结算中...' });
 
-                self = _this4,
+                self = _this6,
                 order = g.order;
                 //订单的预支付信息
-                _context4.prev = 5;_context4.next = 8;return (
+                _context5.prev = 5;_context5.next = 8;return (
 
-                  (0, _api.paymentStart)({ order_id: order.id, shop_id: order.shop_id }));case 8:orderInfo = _context4.sent.data;_context4.next = 11;return (
+                  (0, _api.paymentStart)({ order_id: order.id, shop_id: order.shop_id }));case 8:orderInfo = _context5.sent.data;_context5.next = 11;return (
 
-                  self.utilPayment(orderInfo));case 11:_context4.next = 13;return (
+                  self.utilPayment(orderInfo));case 11:_context5.next = 13;return (
 
                   self.getData());case 13:
                 self.paymentStatus = false;
-                self.customToast('结算成功');_context4.next = 22;break;case 17:_context4.prev = 17;_context4.t0 = _context4["catch"](5);
+                self.customToast('結算成功');_context5.next = 22;break;case 17:_context5.prev = 17;_context5.t0 = _context5["catch"](5);
 
                 self.paymentStatus = false;
                 uni.hideLoading();
-                console.log(_context4.t0);case 22:case "end":return _context4.stop();}}}, _callee4, null, [[5, 17]]);}))();
+                console.log(_context5.t0);case 22:case "end":return _context5.stop();}}}, _callee5, null, [[5, 17]]);}))();
 
     } },
 
@@ -381,9 +432,9 @@ var APP = getApp().globalData;var _default =
 /***/ }),
 
 /***/ 78:
-/*!*******************************************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/orderForm/orderForm.vue?vue&type=style&index=0&id=02cae1a8&lang=scss&scoped=true& ***!
-  \*******************************************************************************************************************************************/
+/*!***************************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/pages/orderForm/orderForm.vue?vue&type=style&index=0&id=02cae1a8&lang=scss&scoped=true& ***!
+  \***************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -397,9 +448,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 79:
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/yingguocheng/pages/orderForm/orderForm.vue?vue&type=style&index=0&id=02cae1a8&lang=scss&scoped=true& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/work/英国城/pages/orderForm/orderForm.vue?vue&type=style&index=0&id=02cae1a8&lang=scss&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

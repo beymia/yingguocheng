@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/my/my"],{
 
 /***/ 80:
-/*!**************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/main.js?{"page":"pages%2Fmy%2Fmy"} ***!
-  \**************************************************************************************/
+/*!**********************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/main.js?{"page":"pages%2Fmy%2Fmy"} ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_my.default);
 /***/ }),
 
 /***/ 81:
-/*!*******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/my/my.vue ***!
-  \*******************************************************************/
+/*!***************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/pages/my/my.vue ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/my/my.vue"
 /***/ }),
 
 /***/ 82:
-/*!**************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/my/my.vue?vue&type=template&id=0be17cc6&scoped=true& ***!
-  \**************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/pages/my/my.vue?vue&type=template&id=0be17cc6&scoped=true& ***!
+  \**********************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 83:
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/yingguocheng/pages/my/my.vue?vue&type=template&id=0be17cc6&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/work/英国城/pages/my/my.vue?vue&type=template&id=0be17cc6&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -107,9 +107,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 84:
-/*!********************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/my/my.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/pages/my/my.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -123,9 +123,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 85:
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/yingguocheng/pages/my/my.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/work/英国城/pages/my/my.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -229,7 +229,7 @@ var _default = {
                 _this.getUserInfo());case 11:_context.next = 17;break;case 13:_context.prev = 13;_context.t0 = _context["catch"](8);
 
               console.log(_context.t0);
-              _this.customToast("信息获取失败");case 17:_context.next = 20;break;case 19:
+              _this.customToast("信息獲取失敗");case 17:_context.next = 20;break;case 19:
 
 
 
@@ -239,19 +239,15 @@ var _default = {
 
   methods: {
     //请求用户信息
-    getUserInfo: function getUserInfo() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                uni.showLoading({
-                  title: "請稍後" });_context2.prev = 1;if (!
+    getUserInfo: function getUserInfo() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.prev = 0;if (!
 
 
+                _this2.token) {_context2.next = 6;break;}_context2.next = 4;return (
+                  (0, _api.userSpace)());case 4:_this2.userInfo = _context2.sent.data;
+                APP.userInfo = _this2.userInfo;case 6:_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](0);
 
-                _this2.token) {_context2.next = 7;break;}_context2.next = 5;return (
-                  (0, _api.userSpace)());case 5:_this2.userInfo = _context2.sent.data;
-                APP.userInfo = _this2.userInfo;case 7:
 
-                uni.hideLoading();_context2.next = 13;break;case 10:_context2.prev = 10;_context2.t0 = _context2["catch"](1);
-
-                _this2.customToast("需要登錄", false);case 13:case "end":return _context2.stop();}}}, _callee2, null, [[1, 10]]);}))();
+                _this2.customToast("需要登錄", false);case 11:case "end":return _context2.stop();}}}, _callee2, null, [[0, 8]]);}))();
 
     },
     //隐藏登陆引导框
@@ -331,9 +327,9 @@ var _default = {
 /***/ }),
 
 /***/ 86:
-/*!*****************************************************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages/my/my.vue?vue&type=style&index=0&id=0be17cc6&lang=scss&scoped=true& ***!
-  \*****************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/pages/my/my.vue?vue&type=style&index=0&id=0be17cc6&lang=scss&scoped=true& ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -347,9 +343,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 87:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/yingguocheng/pages/my/my.vue?vue&type=style&index=0&id=0be17cc6&lang=scss&scoped=true& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Administrator/Desktop/work/英国城/pages/my/my.vue?vue&type=style&index=0&id=0be17cc6&lang=scss&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

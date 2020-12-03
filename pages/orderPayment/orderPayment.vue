@@ -44,7 +44,7 @@
       <view class="order_progress">
         <text>前面</text>
         <text class="text_color">{{ co.current_order }}單/{{ co.current_cups }}杯</text>
-        <text>製作中，</text>
+        <text>制作中，</text>
         <text>預計</text>
         <text class="text_color">{{ co.current_cups }}分鐘</text>
         <text>後取茶</text>
@@ -308,8 +308,13 @@ export default {
       self.isAttach = !self.isAttach;
       self.attach.forEach((item,index) => {
         if (item.id === id) {
-          self.totalAmount += parseFloat(this.attach[index].attach_price);
-          self.attachArr.push(id)
+          if (self.attachArr.indexOf(id) === -1) {
+            self.totalAmount += parseFloat(this.attach[index].attach_price);
+            self.attachArr.push(id)
+          } else {
+            self.totalAmount -= parseFloat(this.attach[index].attach_price)
+            self.attachArr.splice(self.attachArr.indexOf(id), 1)
+          }
         }
       })
     },
@@ -387,7 +392,7 @@ export default {
     //订单结算成功，跳转至订单页
     async paymentSuccess() {
       this.paymentStatus = false;
-      this.customToast('結算成功');
+      this.customToast('结算成功');
       uni.switchTab({
         url: '/pages/orderForm/orderForm',
       })
@@ -668,6 +673,8 @@ export default {
       }
 
       .service1 {
+        margin-bottom: 0;
+
         .left {
           .left_name {
             align-self: flex-start;

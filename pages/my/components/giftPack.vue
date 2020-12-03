@@ -19,72 +19,72 @@
       <view class="items" v-for="(empty,index) in computeLength" :key="index+'po'">
       </view>
 
-<!--				<view class="items">-->
-<!--					<view class="package_icon">-->
-<!--						<image src="../../../static/images/my/free_one.png"></image>-->
-<!--					</view>-->
-<!--					<view class="package_title">-->
-<!--						<text>買壹贈壹券</text>-->
-<!--						<text>X1</text>-->
-<!--					</view>-->
-<!--				</view>-->
-<!--				<view class="items">-->
-<!--					<view class="package_icon">-->
-<!--						<image src="../../../static/images/my/free_two.png"></image>-->
-<!--					</view>-->
-<!--					<view class="package_title">-->
-<!--						<text>買二贈壹券</text>-->
-<!--						<text>X2</text>-->
-<!--				</view>-->
-<!--			</view>-->
-<!--				<view class="items">-->
-<!--					<view class="package_icon">-->
-<!--						<image src="../../../static/images/my/free_food.png"></image>-->
-<!--					</view>-->
-<!--					<view class="package_title">-->
-<!--						<text>買二贈壹券</text>-->
-<!--						<text>X2</text>-->
-<!--					</view>-->
-<!--				</view>-->
-<!--				<view class="items">-->
-<!--					<view class="package_icon">-->
-<!--						<image src="../../../static/images/my/priority.png"></image>-->
-<!--					</view>-->
-<!--					<view class="package_title">-->
-<!--						<text>優先券</text>-->
-<!--						<text>X2</text>-->
-<!--					</view>-->
-<!--				</view>-->
-<!--        <view class="items">-->
-<!--          <view class="package_icon">-->
-<!--            <image src="../../../static/images/my/priority.png"></image>-->
-<!--          </view>-->
-<!--          <view class="package_title">-->
-<!--            <text>優先券</text>-->
-<!--            <text>X2</text>-->
-<!--          </view>-->
-<!--        </view>-->
-<!--        <view class="items">-->
-<!--          <view class="package_icon">-->
-<!--            <image src="../../../static/images/my/priority.png"></image>-->
-<!--          </view>-->
-<!--          <view class="package_title">-->
-<!--            <text>優先券</text>-->
-<!--            <text>X2</text>-->
-<!--          </view>-->
-<!--        </view>-->
-<!--				<view class="items">-->
-<!--					<view class="package_icon">-->
-<!--						<image src="../../../static/images/my/free_shipping.png"></image>-->
-<!--					</view>-->
-<!--					<view class="package_title">-->
-<!--						<text>免運費券</text>-->
-<!--						<text>X2</text>-->
-<!--					</view>-->
-<!--				</view>-->
+<!--				<view class="items">
+					<view class="package_icon">
+						<image src="../../../static/images/my/free_one.png"></image>
+					</view>
+					<view class="package_title">
+						<text>買壹贈壹券</text>
+						<text>X1</text>
+					</view>
+				</view>
+				<view class="items">
+					<view class="package_icon">
+						<image src="../../../static/images/my/free_two.png"></image>
+					</view>
+					<view class="package_title">
+						<text>買二贈壹券</text>
+						<text>X2</text>
+				</view>
+			</view>
+				<view class="items">
+					<view class="package_icon">
+						<image src="../../../static/images/my/free_food.png"></image>
+					</view>
+					<view class="package_title">
+						<text>買二贈壹券</text>
+						<text>X2</text>
+					</view>
+				</view>
+				<view class="items">
+					<view class="package_icon">
+						<image src="../../../static/images/my/priority.png"></image>
+					</view>
+					<view class="package_title">
+						<text>優先券</text>
+						<text>X2</text>
+					</view>
+				</view>
+        <view class="items">
+          <view class="package_icon">
+            <image src="../../../static/images/my/priority.png"></image>
+          </view>
+          <view class="package_title">
+            <text>優先券</text>
+            <text>X2</text>
+          </view>
+        </view>
+        <view class="items">
+          <view class="package_icon">
+            <image src="../../../static/images/my/priority.png"></image>
+          </view>
+          <view class="package_title">
+            <text>優先券</text>
+            <text>X2</text>
+          </view>
+        </view>
+				<view class="items">
+					<view class="package_icon">
+						<image src="../../../static/images/my/free_shipping.png"></image>
+					</view>
+					<view class="package_title">
+						<text>免運費券</text>
+						<text>X2</text>
+					</view>
+				</view>
 
-<!--      <view class="items" v-for="(empty,index) in computeLength" :key="index">-->
-<!--      </view>-->
+      <view class="items" v-for="(empty,index) in computeLength" :key="index">
+      </view>-->
 
 
 			</view>
@@ -111,7 +111,11 @@
           return 0
         }
         if (l > 3) {
-          return l % 3;
+          let count = 2;
+          while (count * 3 < l){
+            count++;
+          }
+          return count * 3 - l;
         }
         if (l < 3) {
           return 3 - l

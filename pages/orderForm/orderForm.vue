@@ -92,6 +92,7 @@ export default {
       invoiceData: [],//未开发票订单
       loginBoxShow: false,
       paymentStatus: false,//订单结算状态
+      isMore:false,
     }
   },
   computed: {
@@ -101,6 +102,7 @@ export default {
       this.takeawayOrder = [];
       this.oneSelfOrder = [];
       this.invoiceData = [];
+      if(!this.historyOrderForm.data.length) return
       this.historyOrderForm.data.forEach((item) => {
         if (item.haul_method === '外卖') {
           this.takeawayOrder.push(item)
@@ -148,6 +150,40 @@ export default {
     this.paymentStatus = false;
   },
 
+  //触底刷新
+  async onReachBottom() {
+    if (this.isMore || this.loadMoreStatus) return;
+    this.loadMoreStatus = true;
+    try {
+      let type,
+          page;
+      if (this.activeFeat === 'current') {
+        type = 1;
+        page = ++this.currentOrderForm.page;
+      }
+      else {
+        type = 2;
+        page = ++this.historyOrderForm.page;
+      }
+      let data = (await this.requestOrder(type,page)) || []
+      if(!data ||!data.length){
+        this.isMore = true;
+        return;
+      }
+      if(this.activeFeat === 'current'){
+        this.currentOrderForm.data = this.currentOrderForm.data.concat(data)
+      }else{
+        this.historyOrderForm.data = this.historyOrderForm.data.concat(data)
+      }
+      uni.hideLoading()
+      this.loadMoreStatus = false
+    }
+    catch (e) {
+      this.loadMoreStatus = false
+      this.customToast('錯誤出現了!請您稍後再試')
+    }
+  },
+
   methods: {
     //点击隐藏登陆引导框
     hideLoginBox() {
@@ -155,20 +191,35 @@ export default {
     },
     //请求数据
     async requestOrder(type, page) {
-      return (await orderForm({type, page})).data;
+      try{
+        let data = (await orderForm({type,page})).data || []
+        if(!data || !data.length){
+          if(this.activeFeat === 'current' && this.currentOrderForm.page > 1){
+            this.currentOrderForm.page--;
+          }else if(this.historyOrderForm.page > 1){
+            this.historyOrderForm.page--;
+          }
+        }
+        return data
+      }catch (e) {
+        this.loadMoreStatus = false;
+        if(this.activeFeat === 'current' && this.currentOrderForm.page > 1){
+          this.currentOrderForm.page--;
+        }else if(this.historyOrderForm.page > 1){
+          this.historyOrderForm.page--;
+        }
+        this.customToast('錯誤出現了,請您稍後再試')
+      }
     },
 
     //同时请求两种订单格式，没有值时设置空数组
     async getData() {
-      uni.showLoading({
-        title: '請稍後'
-      })
       try {
-        this.currentOrderForm.data = (await this.requestOrder(1, this.currentOrderForm.page) || [])
-        this.historyOrderForm.data = (await this.requestOrder(2, this.historyOrderForm.page) || [])
-        uni.hideLoading()
+        this.currentOrderForm.data = (await this.requestOrder(1, this.currentOrderForm.page))
+        this.historyOrderForm.data = (await this.requestOrder(2, this.historyOrderForm.page))
       } catch (e) {
-        this.customToast('訂單信息獲取失敗')
+        console.log(e);
+        this.customToast('訂單信息獲取失敗',true)
       }
     },
 
