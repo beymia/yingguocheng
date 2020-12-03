@@ -40,7 +40,7 @@ export default {
     // #endif
 
     // #ifdef APP-PLUS
-    APPUpdate();
+    APPUpdate(true);
     // #endif
   },
   onShow: function () {
