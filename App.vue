@@ -2,6 +2,8 @@
 // #ifdef APP-PLUS
 import APPUpdate from "./js_sdk/zhouWei-APPUpdate/APPUpdate/index";
 // #endif
+import getSocket from "@/util/initWebSocket.js";
+
 
 export default {
   globalData: {
@@ -13,12 +15,11 @@ export default {
     goodsPayment: {}, //订单的结算信息
     coupon: 0, //使用的優惠券信息
     isForeseeBuy: false,//用户购买预付卡的表示，为true时重新获取用户拥有的预付卡
-    userAddresses: [], //用户收货地址
-    edit_address_id: {}, //当前编辑的收货地址id
-    choosed_address: {}, //用户选择的地址
+	getSocket:null,
   },
   onLaunch: async function () {
     //应用初次启动时从缓存中读取用户token
+	this.globalData.getSocket = getSocket
     this.globalData.userToken = uni.getStorageSync("token");
     console.log("App Launch");
     //进入应用时删除历史聊天记录

@@ -208,6 +208,8 @@
 	import {during} from '@/util/Date.js'
 	import permission from '@/util/permission.js'
 	import wxLogin from '@/util/wxLogin.js'
+	
+	const APP = getApp().globalData
 	export default{
 		components:{
 			actions,
@@ -236,7 +238,10 @@
 				showPintuan:false,
 				showLocaAutho:false,
 				shop_change_time:0,
-				timer:null
+				timer:null,
+				socket:null,
+				heartTimer:null,
+				socketStatus:0
 			}
 		},
 		watch:{
@@ -260,6 +265,8 @@
 			}
 		},
 		async onLoad() {
+			this.initWebSocket()
+			return
 			let conti = true
 			// #ifdef MP-WEIXIN
 				uni.getSetting({
@@ -285,11 +292,9 @@
 			await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
 			this.judge_is_rest()//判斷是否在休息
 			await this.menu_list_init()//获取并设置当前门店下全部商品信息
-			var that = this
-			this.timer = setInterval( async ()=>{
+			/* this.timer = setInterval( async ()=>{
 				await this.shop_update()
-			},2000)
-			
+			},2000) */
 			 //await this.init()
 			  console.log("order onLoad")
 			this.$nextTick(() => this.calcSize())
@@ -327,6 +332,7 @@
 		},
 		onUnload() {
 			clearInterval(this.timer)
+			this.socket && this.socket.close()
 		},
 		onShareAppMessage(obj) {
 			
@@ -417,6 +423,20 @@
 						}
 					}
 				})
+			},
+			async initWebSocket(){
+				let socket
+				try{
+					 await APP.getSocket();
+					 APP.socket.onMessage(res=>{
+						 console.log('从服务器获取的内容order:',res)
+					 })
+					 
+				}catch(e){
+					//TODO handle the exception
+					console.log(e)
+				}
+				
 			},
 			async openSetting(){
 				//this.showLocaAutho = false

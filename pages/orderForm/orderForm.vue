@@ -144,6 +144,16 @@ export default {
     } else {
       this.loginBoxShow = APP.isLoginBox = true;
     }
+	
+	console.log(APP.socket,'APP socket')
+	APP.socket.onMessage(res=>{
+		console.log('订单页获取的服务器内容：',res.data)
+	})
+	setInterval(()=>{
+		APP.socket.send({
+		          data: JSON.stringify({type:'222222'}),
+		        });
+	},1000)
   },
 
   onHide() {
