@@ -2,7 +2,7 @@
   <view class="join_member">
     <!--頭部-->
     <view class="top">
-      <giftPack :giftPack="giftPack" title="開通/續費星球會員後，立刻發放"></giftPack>
+      <giftPack :giftPack="giftPack" title="開通/續費會員後，立刻發放"></giftPack>
     </view>
     <!--中間-->
     <view class="center">
@@ -47,8 +47,8 @@
     <!--底部-->
     <view class="bottom">
       <view  class="items" >
-        <text class="title">星球會員權益</text>
-        <text class="summary">星球會員有效期內可使用</text>
+        <text class="title">會員權益</text>
+        <text class="summary">會員有效期內可使用</text>
       </view>
 
       <view class="items" v-for="(park,index) in interestsPark" :key="index">

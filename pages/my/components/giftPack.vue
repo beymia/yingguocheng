@@ -15,7 +15,6 @@
 				</view>
 			</view>
 			<view class="items" v-for="(empty, i) in computeLength" :key="i"></view>
-			ii
 
 			<!--				<view class="items">
 					<view class="package_icon">

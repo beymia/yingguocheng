@@ -12,7 +12,7 @@
       </view>
       <view class="ex_info">
         <view class="level">
-          <text>LV.{{ user.level }}</text>
+          <text>LV.{{ user.level || 1 }}</text>
           <uni-icons class="icon"
                      style="display: inline-block;vertical-align: middle"
                      type="info"
@@ -22,12 +22,11 @@
         </view>
         <view class="progress">
           <view class="text">
-            <text>當前星球經驗值{{ user.empiric }}/{{ user.n_empiric }}</text>
+            <text>當前会员經驗值{{ user.empiric || '' }}/{{ user.n_empiric || '' }}</text>
           </view>
           <view class="pro_com">
             <progress activeColor="#17a1ff"
                       backgroundColor="#f0f0f0"
-                      active
                       :percent="exProgress">
             </progress>
           </view>
@@ -44,7 +43,7 @@
           <!--          <text>根據購買日期，每月容易時間領取</text>-->
         </view>
         <view class="content">
-          <options @recive-start="receiveStart" :list="level"></options>
+          <options @receive-start="receiveStart" :list="level"></options>
         </view>
       </view>
       <view class="cut_off"></view>
@@ -55,7 +54,7 @@
           <text>根據購買日期，每月同一時間領取</text>
         </view>
         <view class="content">
-          <options @recive-start="receiveStart" :list="month"></options>
+          <options @receive-start="receiveStart" :list="month"></options>
         </view>
       </view>
       <view class="cut_off"></view>
@@ -66,9 +65,12 @@
           <text>{{ user.level_title }}有效期內可以使用</text>
         </view>
         <view class="content">
-          <options @recive-start="receiveStart" :list="interests"></options>
+          <options @receive-start="receiveStart" :list="interests"></options>
         </view>
       </view>
+    </view>
+    <view class="btn">
+      <button @click="skipJoinMember">開通會員</button>
     </view>
   </view>
 </template>
@@ -99,25 +101,19 @@ export default {
   async mounted() {
     this.user = APP.userInfo;
 
-    if(this.user.level_title === '普通会员'){
-      uni.showModal({
-        title:'您還沒有開通會員',
-        success(res){
-          if(res.confirm){
-            uni.redirectTo({
-              url:'/pages/joinMember/joinMember'
-            })
-          }
-        }
-      })
-    }
-
     //计算经验值进度条
     this.exProgress = (this.user.empiric / this.user.n_empiric) * 100
     //不相干的請求，同時發送
     await this.getPackData()
   },
   methods: {
+    //跳转开通页面
+    skipJoinMember() {
+      uni.redirectTo({
+        url: '/pages/joinMember/joinMember'
+      })
+    },
+
     //获取礼包数据
     getPackData() {
       Promise.all([levelPack(), monthPack(), interestsPark()])
@@ -137,6 +133,8 @@ export default {
             })
           })
     },
+
+
     //领取礼包
     async receiveStart(e) {
       uni.showLoading({
@@ -146,24 +144,28 @@ export default {
         switch (e.type) {
           case 'level':
             await receiveLevel({park_id: e.id})
+            this.level = (await levelPack()).data || []
             break;
           case 'month':
             await receivePack({park_id: e.id})
+            this.month = (await monthPack()).data || []
             break;
           case 'interests':
             await receiveKnight({park_id: e.id})
+            this.interests = (await interestsPark()).data || []
         }
         this.customToast('領取成功')
         APP.userInfo = (await userSpace()).data
-      } catch (e) {
+      }
+      catch (e) {
         console.log(e);
         this.customToast('領取失敗')
       }
     },
     //跳轉購買記錄
-    navRecord(){
+    navRecord() {
       uni.navigateTo({
-        url:'/pages/rechargeRecord/rechargeRecord'
+        url: '/pages/rechargeRecord/rechargeRecord'
       })
     },
   },
@@ -289,5 +291,17 @@ export default {
   height: $spacing-lg;
   background-color: #F5F6F8;
   margin-left: -$spacing-lg;
+}
+.btn{
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  button{
+    width: 300rpx;
+    border-radius: 40rpx;
+    background: $main-color;
+    color: #FFFFFF;
+  }
 }
 </style>

@@ -116,7 +116,7 @@ export default {
       //请求未读消息,并处理消息类型为 server
       await this.unReadServer();
       //建立webSocket连接
-      await this.createSocket();
+      // await this.createSocket();
     } catch (e) {
       this.customToast("連接失敗了");
     }
@@ -124,7 +124,7 @@ export default {
 
   methods: {
     //建立webSocket连接通道
-    async createSocket() {
+    /*async createSocket() {
       try {
         //建立连接通道
         this.socket = await uni.connectSocket({
@@ -138,7 +138,7 @@ export default {
       } catch (e) {
         this.customToast("連接錯誤了");
       }
-    },
+    },*/
 
     //监听socket事件
     monitorEvent() {

@@ -5,7 +5,10 @@
         <text>{{ item.goods_name }}*{{ item.goods_num }}</text>
       </view>
       <view class="right">
-        <view @click="$emit('receive-start',item)" v-if="item.receive_status===1" class="unused status">領取</view>
+        <view @click="$emit('receive-start',item)"
+              v-if="item.receive_status === '1'"
+              class="unused status">領取
+        </view>
         <view v-else class="used status">已領取</view>
       </view>
     </view>
