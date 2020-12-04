@@ -126,8 +126,13 @@ export default {
       if (tabbarPage.indexOf(self.from) !== -1) {
         uni.switchTab({
           url: `/pages/${self.from}/${self.from}`,
-          success() {
+          async success() {
             self.pageHide();
+            try{
+              await APP.getSocket()
+            }catch (e) {
+              console.log(e);
+            }
           },
         });
       } else {

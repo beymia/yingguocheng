@@ -29,19 +29,19 @@ export default async function (self,callBack){
 							          data: JSON.stringify(data),
 							        });
 							
-							APP.socketTimer = setInterval(()=>{
+							setInterval(()=>{
 								APP.socket.send({
 								          data: JSON.stringify({type:'ping'}),
 								        });
-							},3000)
+							},500000)
 							resolve_c(APP.socket)
 						})
 						console.log(3)
 						APP.socket.onError(function(){
 							console.log('websocket连接打开失败')
 							conected = false
-							APP.socket.close()
-							APP.socket = null
+							App.socket.close()
+							App.socket = null
 							reject_c(false)
 						})
 						

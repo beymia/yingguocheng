@@ -91,14 +91,22 @@ export default {
     };
   },
   async mounted() {
+    if(!APP.socket){
+      uni.showModal({
+        title:'網絡連接出錯',
+        content:'由於未知原因導致網絡連接出錯,請您稍後再試!'
+      })
+      return
+    }else{
+      this.connecting = true;//socket连接状态,
+    }
     this.chatList = uni.getStorageSync('chatList') || [];//离开时存储，进入时读取，应用首次进入时清空
     this.initTime = this.reDate(); //进入聊天室的时间
     this.userInfo = APP.userInfo; //用户信息
     this.wxUserInfo = APP.wxUserInfo; //小程序展示微信信息
-    this.socketTimer = null; //心跳包的定时器
-    this.reconnect = 0; //重连次数,3次后取消重连
-    this.reconnecting = false; //重连状态,重连成功后拉取一次客服消息
-    this.connecting = false;//socket连接状态,
+    // this.socketTimer = null; //心跳包的定时器
+    // this.reconnect = 0; //重连次数,3次后取消重连
+    // this.reconnecting = false; //重连状态,重连成功后拉取一次客服消息
     this.forwardMsg = ""; //缓存用户发送的消息,客服不在线时发送至服务器
     //绑定键盘高度变化时间
     uni.onKeyboardHeightChange(async (res) => {
@@ -143,38 +151,38 @@ export default {
     //监听socket事件
     monitorEvent() {
       //连接成功
-      this.socket.onOpen(async (res) => {
-        console.log('連接成功',res)
-        try {
-          uni.hideLoading();
-          this.connecting = true;
-          await this.socket.send({
-            data: JSON.stringify({uid: this.userInfo.id, type: "login"}),
-          });
-          //链接成功后发送心跳包，确保和服务端始终处于连接状态
-          await this.heartBeat();
-          //重连成功后才重新拉去客服消息，正常链接流程不进行拉去
-          this.reconnecting && (await this.unReadServer());
-          this.reconnecting = false;
-        } catch (e) {
-          console.log(e);
-        }
-      });
+      // this.socket.onOpen(async (res) => {
+      //   console.log('連接成功',res)
+      //   try {
+      //     uni.hideLoading();
+      //     this.connecting = true;
+      //     await this.socket.send({
+      //       data: JSON.stringify({uid: this.userInfo.id, type: "login"}),
+      //     });
+      //     //链接成功后发送心跳包，确保和服务端始终处于连接状态
+      //     await this.heartBeat();
+      //     //重连成功后才重新拉去客服消息，正常链接流程不进行拉去
+      //     this.reconnecting && (await this.unReadServer());
+      //     this.reconnecting = false;
+      //   } catch (e) {
+      //     console.log(e);
+      //   }
+      // });
 
       //连接失败
-      this.socket.onError(async (res) => {
-        console.log('連接失败',res);
-        this.connecting = false;
-        await this.socketError()
-      });
+      // this.socket.onError(async (res) => {
+      //   console.log('連接失败',res);
+      //   this.connecting = false;
+      //   await this.socketError()
+      // });
 
       //监听关闭事件,客户端手动关闭socket
-      this.socket.onClose(() => {
-        this.socket && this.socket.close();
-      });
+      // this.socket.onClose(() => {
+      //   this.socket && this.socket.close();
+      // });
 
       //接收服务器消息
-      this.socket.onMessage(async ({data}) => {
+      APP.socket.onMessage(async ({data}) => {
         let self = this;
         let {code, msg, to_uid} = JSON.parse(data);
         //1001 = 客服不在线,转存消息
@@ -233,7 +241,7 @@ export default {
         sendMsg = {type: "ping"};
       }
       try {
-        self.socket.send({
+        APP.socket.send({
           data: JSON.stringify(sendMsg),
         });
       } catch (e) {
@@ -242,32 +250,32 @@ export default {
     },
 
     //设置心跳包定时器
-    async heartBeat() {
-      //发送心跳包
-      this.socketTimer = setInterval(async () => {
-        await this.sendMsgSocket();
-      }, 50000);
-    },
+    // async heartBeat() {
+    //   //发送心跳包
+    //   this.socketTimer = setInterval(async () => {
+    //     await this.sendMsgSocket();
+    //   }, 50000);
+    // },
 
     //websocket重連
-    async socketError() {
-      uni.showLoading({title: `正在嘗試重新連接...`, mask: true});
-      clearInterval(this.socketTimer);
-      this.reconnect++;
-      this.connecting = false;
-      if (this.reconnect < 3) {
-        this.socket = null;
-        await this.createSocket();
-        this.reconnecting = true;
-      }
-      else {
-        uni.hideLoading();
-        this.customToast("重連失敗了");
-        this.socket.close()
-        this.socket = null;
-        this.reconnecting = false;
-      }
-    },
+    // async socketError() {
+    //   uni.showLoading({title: `正在嘗試重新連接...`, mask: true});
+    //   clearInterval(this.socketTimer);
+    //   this.reconnect++;
+    //   this.connecting = false;
+    //   if (this.reconnect < 3) {
+    //     this.socket = null;
+    //     await this.createSocket();
+    //     this.reconnecting = true;
+    //   }
+    //   else {
+    //     uni.hideLoading();
+    //     this.customToast("重連失敗了");
+    //     this.socket.close()
+    //     this.socket = null;
+    //     this.reconnecting = false;
+    //   }
+    // },
 
     //拉取未读的客服消息
     async unReadServer() {
@@ -311,9 +319,6 @@ export default {
 
   //页面卸载时关闭连接,将聊天记录存入本地storage
   onUnload() {
-    this.socket.close();
-    clearInterval(this.socketTimer);
-    this.socket = null;
     uni.setStorageSync("chatList", this.chatList);
   },
 };
