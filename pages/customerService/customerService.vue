@@ -188,7 +188,6 @@ export default {
         //1001 = 客服不在线,转存消息
         if (code === 1001) {
           await sendMsg({msg: self.forwardMsg});
-          console.log('1234')
           return;
         }
 
@@ -201,7 +200,6 @@ export default {
         this.$nextTick(() => {
           this.getContentHeight(self.scrollTime);
         });
-
       });
     },
 

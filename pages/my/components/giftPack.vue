@@ -14,7 +14,7 @@
 					<text>X{{ pack.goods_num }}</text>
 				</view>
 			</view>
-			<view class="items" v-for="(empty, i) in computeLength" :key="i"></view>
+			<view class="items" v-for="(empty, i) in computeLength"></view>
 
 			<!--				<view class="items">
 					<view class="package_icon">

@@ -146,16 +146,6 @@
         "router" : {
             "mode" : "hash"
         },
-        "devServer" : {
-            "proxy" : {
-                "/api" : {
-                    "target" : "http://libapi.wugee.net/",
-                    "pathRewrite" : {
-                        "^/api" : ""
-                    }
-                }
-            }
-        },
         "sdkConfigs" : {
             "maps" : {
                 "qqmap" : {
