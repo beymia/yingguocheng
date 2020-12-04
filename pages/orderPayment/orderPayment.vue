@@ -188,6 +188,8 @@
 import remarks from "../../components-lk/remarks/remarks";
 import {createOrder, paymentAttach, paymentStart, usedCoupon} from "../../request/api";
 import order from "../order/order";
+import {mapState, mapMutations} from 'vuex'
+import {shops_detail} from '@/request/api_y.js'
 
 const APP = getApp().globalData;
 export default {
@@ -211,6 +213,7 @@ export default {
     }
   },
   computed: {
+	  ...mapState(['choosedShop','shopList']),
     //計算取茶時間進度條
     computeProgress() {
       return (this.co.current_order / this.co.current_cups) * 100;
@@ -283,6 +286,7 @@ export default {
     APP.coupon = {};
   },
   methods: {
+	  ...mapMutations(['SET_SHOP_LIST']),
     //自動輸入手機號
     autoFill() {
       this.userPhone = APP.userInfo.mobile;
@@ -395,6 +399,17 @@ export default {
       this.customToast('结算成功');
       uni.switchTab({
         url: '/pages/orderForm/orderForm',
+		success: async ()=> {
+			let res = (await shops_detail({shop_id:this.choosedShop.id})).data
+			let spl = JSON.parse(JSON.stringify(this.shopList))
+			let chp = spl.find(item=>{item.id == this.choosedShop.id})
+			chp.current_cups = res.current_cups
+			chp.current_order = res.current_order
+			chp.detail.current_cups = res.current_cups
+			chp.detail.current_order = res.current_order
+			this.SET_SHOP_LIST(spl)
+			}
+			
       })
     }
   },

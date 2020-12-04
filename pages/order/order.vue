@@ -241,7 +241,8 @@
 				timer:null,
 				socket:null,
 				heartTimer:null,
-				socketStatus:0
+				socketStatus:0,
+				showTime:0,
 			}
 		},
 		watch:{
@@ -265,8 +266,6 @@
 			}
 		},
 		async onLoad() {
-			this.initWebSocket()
-			return
 			let conti = true
 			// #ifdef MP-WEIXIN
 				uni.getSetting({
@@ -297,7 +296,9 @@
 			},2000) */
 			 //await this.init()
 			  console.log("order onLoad")
+			  this.initWebSocket()
 			this.$nextTick(() => this.calcSize())
+			
 		},
 
 		 onReady() {
@@ -322,8 +323,11 @@
 			 }) */
 			console.log("order onShow")
 			this.handle_from()
+			
+			this.showTime!==0&&this.initWebSocket()
 			console.log(this.choosedShop)
 			console.log(this.shopList)
+			this.showTime++
 		},
 		onHide() {
 			console.log("order onhide")
@@ -425,17 +429,30 @@
 				})
 			},
 			async initWebSocket(){
-				let socket
-				try{
-					 await APP.getSocket();
-					 APP.socket.onMessage(res=>{
-						 console.log('从服务器获取的内容order:',res)
-					 })
-					 
-				}catch(e){
-					//TODO handle the exception
-					console.log(e)
+				if(!APP.socket){
+					try{
+						 await APP.getSocket();
+						 
+					}catch(e){
+						//TODO handle the exception
+						console.log(e)
+					}
 				}
+				if(APP.socket){
+					APP.socket.onMessage(res=>{
+							 console.log('从服务器获取的内容order:',res.data)
+							 let spl = JSON.parse(JSON.stringify(this.shopList)) 
+							 let chp = spl.find(item=>{
+								 item.id == res.data.shop_id
+							 })
+							 chp.current_cups = res.data.current_cups
+							 chp.current_order = res.data.current_order
+							 chp.detail.current_cups = res.data.current_cups
+							 chp.detail.current_order = res.data.current_order
+							 this.SET_SHOP_LIST(spl)
+					})
+				}
+				
 				
 			},
 			async openSetting(){

@@ -18,6 +18,7 @@ export default {
 	getSocket:null,
   },
   onLaunch: async function () {
+	  setInterval(()=>{this.globalData.test=Math.random()},1000)
     //应用初次启动时从缓存中读取用户token
 	this.globalData.getSocket = getSocket
     this.globalData.userToken = uni.getStorageSync("token");

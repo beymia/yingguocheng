@@ -1,7 +1,7 @@
 
 export default async function (self,callBack){
-	var APP = getApp().globalData
-	APP.socket && !function(){ APP.socket.close();APP.socket=null}()
+	const APP = getApp().globalData
+	APP.socket && !function(){  if(APP.socketTimer){ clearInterval(APP.socketTimer);APP.socketTimer=null};APP.socket.close();APP.socket=null}()
 	return new Promise((resolve,reject)=>{
 		
 		setTimeout( async ()=>{
@@ -44,6 +44,11 @@ export default async function (self,callBack){
 							APP.socket = null
 							reject_c(false)
 						})
+						APP.socket.onClose(() => {
+							APP.socket.close();
+							clearInterval(APP.socketTimer)
+							APP.socketTimer = null
+						  });
 						
 					})
 					
