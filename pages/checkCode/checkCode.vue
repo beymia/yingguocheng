@@ -26,7 +26,7 @@ import {
   login,
   verifyCode,
   sendCheckCode,
-  registered,
+  registered, userSpace,
 } from "../../request/api";
 import oneInput from "../../components/myp-one/myp-one";
 
@@ -113,14 +113,13 @@ export default {
     },
 
     //登录成功，將token賦值給全局對象並且存入本地storage中
-    loginSuccess(result) {
+    async loginSuccess(result) {
       let self = this;
       uni.hideLoading();
       APP.userToken = result.data.token;
       APP.isLoginBox = false;
       uni.setStorageSync("token", APP.userToken);
-      //TODO 登陆成功开启socket
-      // APP.getSocket();
+      APP.userInfo = (await userSpace()).data
       //options没有值时默认跳转首页
       let tabbarPage = ["home", "order", "orderForm", "my"];
       self.from = self.from || "home";
@@ -131,13 +130,21 @@ export default {
             self.pageHide();
           },
         });
-      } else {
+      }
+      else {
         uni.redirectTo({
           url: `/pages/${self.from}/${self.from}`,
           success() {
             self.pageHide();
           },
         });
+      }
+
+      try {
+       await APP.getSocket()
+      }
+      catch (e) {
+        console.log(e);
       }
 
       // if (self.from && self.from !== "order") {
@@ -200,7 +207,7 @@ export default {
                 mobile: self.phone,
                 code: wxCode.code,
               });
-              self.loginSuccess(result);
+             await self.loginSuccess(result);
             } catch (e) {
               console.log("登錄失敗", e);
               self.loginError();
@@ -215,13 +222,13 @@ export default {
           result = await login({
             mobile: self.phone,
           });
-          self.loginSuccess(result);
+          await self.loginSuccess(result);
         } catch (e) {
           try {
             result = await registered({
               mobile: self.phone,
             });
-            self.loginSuccess(result);
+            await self.loginSuccess(result);
           } catch (e) {
             console.log("登錄錯誤", e);
             self.loginError();

@@ -3,6 +3,7 @@
 import APPUpdate from "./js_sdk/zhouWei-APPUpdate/APPUpdate/index";
 // #endif
 import getSocket from "@/util/initWebSocket.js";
+import {userSpace} from "./request/api";
 
 
 export default {
