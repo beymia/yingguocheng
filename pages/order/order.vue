@@ -236,7 +236,10 @@
 				showPintuan:false,
 				showLocaAutho:false,
 				shop_change_time:0,
-				timer:null
+				timer:null,
+				socket:null,
+				heartTimer:null,
+				socketStatus:0
 			}
 		},
 		watch:{
@@ -285,11 +288,10 @@
 			await this.shop_init(this.loca_res)//获取门店列表和设置当前门店
 			this.judge_is_rest()//判斷是否在休息
 			await this.menu_list_init()//获取并设置当前门店下全部商品信息
-			var that = this
-			this.timer = setInterval( async ()=>{
+			/* this.timer = setInterval( async ()=>{
 				await this.shop_update()
-			},2000)
-			
+			},2000) */
+			this.initWebSocket()
 			 //await this.init()
 			  console.log("order onLoad")
 			this.$nextTick(() => this.calcSize())
@@ -327,6 +329,7 @@
 		},
 		onUnload() {
 			clearInterval(this.timer)
+			this.socket && this.socket.close()
 		},
 		onShareAppMessage(obj) {
 			
@@ -417,6 +420,57 @@
 						}
 					}
 				})
+			},
+			async initWebSocket(){
+				var self =this
+				let url ='ws://47.116.2.59:2000'
+				async function createSocket(){//建立连接通道
+					self.socket = await uni.connectSocket({
+					    url: url, 
+					    success: (res)=> {},
+						fail:err=>{
+							console.log(err)
+						}
+					});
+				}
+				
+				getApp().globalData.socket = self.socket = await uni.connectSocket({
+					url:url,
+					
+					complete(res) {
+						console.log(res)
+					}
+				})
+				console.log('jjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
+				console.log(getApp().globalData.socket ,'order页面socket')
+				
+				self.socket.onOpen(res=>{
+					console.log('websocket连接已经打开')
+					self.socket.send({
+					          data: JSON.stringify({type:'accept'}),
+					        });
+					
+					setInterval(()=>{
+						self.socket.send({
+						          data: JSON.stringify({type:'ping'}),
+						        });
+					},3000)
+				})
+				
+				self.socket.onError(function(){
+					console.log('websocket连接打开失败')
+				})
+				
+				self.socket.onClose(function(){
+					console.log('websocket 已经关闭')
+					self.socket && self.socket.close()
+				})
+				
+				self.socket.onMessage(function(res){
+					console.log('从服务器接收的内容为：',res.data)
+				})
+				
+				
 			},
 			async openSetting(){
 				//this.showLocaAutho = false

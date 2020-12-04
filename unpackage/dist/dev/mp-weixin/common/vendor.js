@@ -904,7 +904,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1936,9 +1936,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 14:
-/*!******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/store/index.js ***!
-  \******************************************************************/
+/*!********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/store/index.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3238,9 +3238,9 @@ var index = {
 /***/ }),
 
 /***/ 16:
-/*!********************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/node_modules/vue-jsonp/dist/index.esm.js ***!
-  \********************************************************************************************/
+/*!**********************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/node_modules/vue-jsonp/dist/index.esm.js ***!
+  \**********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8782,7 +8782,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8803,14 +8803,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8896,7 +8896,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"英國城","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9304,9 +9304,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 23:
-/*!********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/api_y.js ***!
-  \********************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api_y.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9359,17 +9359,17 @@ exports.address_delete = address_delete;var home_images = function home_images(d
 /***/ }),
 
 /***/ 24:
-/*!*********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/ajax_y.js ***!
-  \*********************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax_y.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 4));var _api = __webpack_require__(/*! ./api */ 25);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
 /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * 简易封装模拟测试请求
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 简易封装模拟测试请求
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * */
 function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'GET';var h = arguments.length > 3 ? arguments[3] : undefined;
   // TODO 生产环境需要替换默认的URL地址
 
@@ -9405,7 +9405,7 @@ function ajax(url) {var data = arguments.length > 1 && arguments[1] !== undefine
 
       },
       fail: function fail(err) {
-        console.log('请求出错', err.data);
+        console.log('請求出錯', err.data);
         reject(err);
       } });
 
@@ -9446,7 +9446,7 @@ function tokenError(h, result, reject) {
 
                   console.log(_context.t0);
                   uni.showModal({
-                    title: '登陆状态失效!\n请重新登陆',
+                    title: '登錄狀態失效!\n請重新登錄',
                     success: function success(res) {
                       //点击确定跳转登录页
                       if (res.confirm) {
@@ -9476,19 +9476,21 @@ module.exports = ajax;
 /***/ }),
 
 /***/ 25:
-/*!******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/api.js ***!
-  \******************************************************************/
+/*!********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.giveForesee = exports.mutualRecord = exports.buyForesee = exports.myForesee = exports.foreseeList = exports.receiveMsg = exports.sendMsg = exports.usedCoupon = exports.paymentStart = exports.createOrder = exports.paymentAttach = exports.memberRechargeInfo = exports.msgCenter = exports.rechargeRecord = exports.receiveKnight = exports.interestsPark = exports.receivePack = exports.monthPack = exports.receiveLevel = exports.levelPack = exports.recharge = exports.qrCode = exports.expensesRecord = exports.setPwd = exports.discount = exports.joinMember = exports.userSpace = exports.redeemGifts = exports.pointsGoodsDetail = exports.exchangeRecord = exports.pointsDetails = exports.convert = exports.login = exports.registered = exports.verifyCode = exports.sendCheckCode = exports.invoice = exports.orderForm = exports.tolk = void 0;var ajax = __webpack_require__(/*! ./ajax */ 26);
+Object.defineProperty(exports, "__esModule", { value: true });exports.giveForesee = exports.mutualRecord = exports.buyForesee = exports.myForesee = exports.foreseeList = exports.receiveMsg = exports.sendMsg = exports.usedCoupon = exports.paymentStart = exports.createOrder = exports.paymentAttach = exports.memberRechargeInfo = exports.msgCenter = exports.rechargeRecord = exports.receiveKnight = exports.interestsPark = exports.receivePack = exports.monthPack = exports.receiveLevel = exports.levelPack = exports.recharge = exports.qrCode = exports.expensesRecord = exports.setPwd = exports.discount = exports.joinMember = exports.userSpace = exports.redeemGifts = exports.pointsGoodsDetail = exports.exchangeRecord = exports.pointsDetails = exports.convert = exports.login = exports.registered = exports.verifyCode = exports.sendCheckCode = exports.invoice = exports.orderForm = exports.tolk = exports.updateApp = void 0;var ajax = __webpack_require__(/*! ./ajax */ 26);
 
 //true是请求时携带Token，false为不携带
 
+var updateApp = function updateApp(data) {return ajax('/config/talk', { data: data, isToken: false });};
+
 //致用戶
-var tolk = function tolk(data) {return ajax('/config/talk', { data: data, isToken: false });};
+exports.updateApp = updateApp;var tolk = function tolk(data) {return ajax('/config/talk', { data: data, isToken: false });};
 //订单详情
 exports.tolk = tolk;var orderForm = function orderForm(data) {return ajax('/user/order', { data: data });};
 //开发票
@@ -9574,9 +9576,9 @@ exports.mutualRecord = mutualRecord;var giveForesee = function giveForesee(data)
 /***/ }),
 
 /***/ 26:
-/*!*******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/request/ajax.js ***!
-  \*******************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9614,7 +9616,7 @@ function ajax(url, _ref) {var _ref$data = _ref.data,data = _ref$data === void 0 
         resolve(result.data);
       },
       fail: function fail(err) {
-        console.log('请求出错', err.data);
+        console.log('請求出錯', err.data);
         reject(err);
       } });
 
@@ -9711,9 +9713,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 353:
-/*!*********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-icons/icons.js ***!
-  \*********************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9864,9 +9866,9 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 5);
 /***/ }),
 
 /***/ 429:
-/*!*********************************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-swipe-action-item/mpwxs.js ***!
-  \*********************************************************************************************/
+/*!***********************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-swipe-action-item/mpwxs.js ***!
+  \***********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9990,9 +9992,9 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 5);
 /***/ }),
 
 /***/ 43:
-/*!****************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/util/Date.js ***!
-  \****************************************************************/
+/*!******************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/util/Date.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10028,9 +10030,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.during = v
 /***/ }),
 
 /***/ 44:
-/*!**********************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/util/permission.js ***!
-  \**********************************************************************/
+/*!************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/util/permission.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10315,9 +10317,9 @@ module.exports = permission;
 /***/ }),
 
 /***/ 45:
-/*!*******************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/util/wxLogin.js ***!
-  \*******************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/util/wxLogin.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10413,9 +10415,9 @@ if (hadRuntime) {
 /***/ }),
 
 /***/ 579:
-/*!*********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/popup.js ***!
-  \*********************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/popup.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10448,9 +10450,9 @@ var config = {
 /***/ }),
 
 /***/ 580:
-/*!***********************************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/components/uni-popup/message.js ***!
-  \***********************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/message.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11218,9 +11220,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 7:
-/*!**************************************************************!*\
-  !*** C:/Users/Administrator/Desktop/yingguocheng/pages.json ***!
-  \**************************************************************/
+/*!****************************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/pages.json ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
