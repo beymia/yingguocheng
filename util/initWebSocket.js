@@ -1,9 +1,10 @@
 
 export default async function (self,callBack){
 	var APP = getApp().globalData
-	APP.socket && (()=>{ APP.socket.close();APP.socket=null}())
-	return new Promise((resolve,reject){
-		setTimeOut( async ()=>{
+	APP.socket && !function(){ APP.socket.close();APP.socket=null}()
+	return new Promise((resolve,reject)=>{
+		
+		setTimeout( async ()=>{
 			let conectCount =0
 			let conected = false
 			do{
@@ -23,7 +24,7 @@ export default async function (self,callBack){
 							console.log('websocket连接已经打开')
 							conected = true
 							let data ={type:'accept'}
-							APP.userInfo.id && data.uid = APP.userInfo.id
+							APP.userInfo.id && (data.uid = APP.userInfo.id)
 							APP.socket.send({
 							          data: JSON.stringify(data),
 							        });
@@ -34,7 +35,6 @@ export default async function (self,callBack){
 								        });
 							},500000)
 							resolve_c(APP.socket)
-							resolve(APP.socket)
 						})
 						console.log(3)
 						APP.socket.onError(function(){
@@ -47,9 +47,11 @@ export default async function (self,callBack){
 						
 					})
 					
-				}catch(e=>{
+				}catch(e){
+					//TODO handle the exception
 					console.log(e)
-					})
+				}
+					
 				if(res){
 					resolve(res)
 				}else{

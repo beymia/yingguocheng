@@ -197,12 +197,12 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 4));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 4));
 
 
 
-// import getSocket from "@/u";
-var _default =
+var _initWebSocket = _interopRequireDefault(__webpack_require__(/*! @/util/initWebSocket.js */ 665));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+
 
 {
   globalData: {
@@ -214,18 +214,18 @@ var _default =
     goodsPayment: {}, //订单的结算信息
     coupon: 0, //使用的優惠券信息
     isForeseeBuy: false, //用户购买预付卡的表示，为true时重新获取用户拥有的预付卡
-    socket: null,
     getSocket: null },
 
   onLaunch: function () {var _onLaunch = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var self;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
               //应用初次启动时从缓存中读取用户token
+              this.globalData.getSocket = _initWebSocket.default;
               this.globalData.userToken = uni.getStorageSync("token");
               console.log("App Launch");
               //进入应用时删除历史聊天记录
               uni.removeStorageSync('chatList');
 
               //判断用户是否授权获取相关信息，已经授权直接存在userInfo中
-              self = this;_context.next = 6;return (
+              self = this;_context.next = 7;return (
                 uni.getUserInfo({
                   provider: 'weixin',
                   success: function success(res) {
@@ -235,7 +235,7 @@ var _default =
                   },
                   fail: function fail() {
                     self.globalData.isAuth = false;
-                  } }));case 6:case "end":return _context.stop();}}}, _callee, this);}));function onLaunch() {return _onLaunch.apply(this, arguments);}return onLaunch;}(),
+                  } }));case 7:case "end":return _context.stop();}}}, _callee, this);}));function onLaunch() {return _onLaunch.apply(this, arguments);}return onLaunch;}(),
 
 
 
