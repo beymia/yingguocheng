@@ -1936,9 +1936,15 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 14:
+<<<<<<< HEAD
 /*!********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/store/index.js ***!
   \********************************************************************************************************/
+=======
+/*!**************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/store/index.js ***!
+  \**************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3238,9 +3244,15 @@ var index = {
 /***/ }),
 
 /***/ 16:
+<<<<<<< HEAD
 /*!**********************************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/node_modules/vue-jsonp/dist/index.esm.js ***!
   \**********************************************************************************************************************************/
+=======
+/*!****************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/node_modules/vue-jsonp/dist/index.esm.js ***!
+  \****************************************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9304,9 +9316,15 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 23:
+<<<<<<< HEAD
 /*!**********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api_y.js ***!
   \**********************************************************************************************************/
+=======
+/*!****************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/request/api_y.js ***!
+  \****************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9359,9 +9377,15 @@ exports.address_delete = address_delete;var home_images = function home_images(d
 /***/ }),
 
 /***/ 24:
+<<<<<<< HEAD
 /*!***********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax_y.js ***!
   \***********************************************************************************************************/
+=======
+/*!*****************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/request/ajax_y.js ***!
+  \*****************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9476,9 +9500,15 @@ module.exports = ajax;
 /***/ }),
 
 /***/ 25:
+<<<<<<< HEAD
 /*!********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/api.js ***!
   \********************************************************************************************************/
+=======
+/*!**************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/request/api.js ***!
+  \**************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9576,9 +9606,15 @@ exports.mutualRecord = mutualRecord;var giveForesee = function giveForesee(data)
 /***/ }),
 
 /***/ 26:
+<<<<<<< HEAD
 /*!*********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/request/ajax.js ***!
   \*********************************************************************************************************/
+=======
+/*!***************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/request/ajax.js ***!
+  \***************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9713,9 +9749,15 @@ module.exports = g;
 /***/ }),
 
 /***/ 353:
+<<<<<<< HEAD
 /*!***********************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-icons/icons.js ***!
   \***********************************************************************************************************************/
+=======
+/*!*****************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/components/uni-icons/icons.js ***!
+  \*****************************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9866,9 +9908,15 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 5);
 /***/ }),
 
 /***/ 429:
+<<<<<<< HEAD
 /*!***********************************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-swipe-action-item/mpwxs.js ***!
   \***********************************************************************************************************************************/
+=======
+/*!*****************************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/components/uni-swipe-action-item/mpwxs.js ***!
+  \*****************************************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9992,9 +10040,15 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 5);
 /***/ }),
 
 /***/ 43:
+<<<<<<< HEAD
 /*!******************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/util/Date.js ***!
   \******************************************************************************************************/
+=======
+/*!************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/util/Date.js ***!
+  \************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10030,9 +10084,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.during = v
 /***/ }),
 
 /***/ 44:
+<<<<<<< HEAD
 /*!************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/util/permission.js ***!
   \************************************************************************************************************/
+=======
+/*!******************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/util/permission.js ***!
+  \******************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10317,9 +10377,15 @@ module.exports = permission;
 /***/ }),
 
 /***/ 45:
+<<<<<<< HEAD
 /*!*********************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/util/wxLogin.js ***!
   \*********************************************************************************************************/
+=======
+/*!***************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/util/wxLogin.js ***!
+  \***************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10415,9 +10481,15 @@ if (hadRuntime) {
 /***/ }),
 
 /***/ 579:
+<<<<<<< HEAD
 /*!***********************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/popup.js ***!
   \***********************************************************************************************************************/
+=======
+/*!*****************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/components/uni-popup/popup.js ***!
+  \*****************************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10450,9 +10522,15 @@ var config = {
 /***/ }),
 
 /***/ 580:
+<<<<<<< HEAD
 /*!*************************************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/components/uni-popup/message.js ***!
   \*************************************************************************************************************************/
+=======
+/*!*******************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/components/uni-popup/message.js ***!
+  \*******************************************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11220,9 +11298,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 7:
+<<<<<<< HEAD
 /*!****************************************************************************************************!*\
   !*** C:/Users/Administrator/Desktop/work/develop/program/yingguocheng_git/yingguocheng/pages.json ***!
   \****************************************************************************************************/
+=======
+/*!**********************************************************!*\
+  !*** C:/Users/Administrator/Desktop/work/英国城/pages.json ***!
+  \**********************************************************/
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 /*! no static exports found */
 /***/ (function(module, exports) {
 

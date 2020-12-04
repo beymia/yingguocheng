@@ -85,6 +85,10 @@
   },
   "usingComponents": {
     "no-more-data": "/components-lk/noMoreData/noMoreData"
+<<<<<<< HEAD
   },
   "sitemapLocation": "sitemap.json"
+=======
+  }
+>>>>>>> 4ea0598dd368a5ba4dbb402ac06cb35287697c64
 }

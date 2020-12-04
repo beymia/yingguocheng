@@ -108,16 +108,12 @@ export default {
   methods: {
     //请求用户信息
     async getUserInfo() {
-      uni.showLoading({
-        title: "請稍後",
-      });
       try {
         //token存在静默登录
         if (this.token) {
           this.userInfo = (await userSpace()).data;
           APP.userInfo = this.userInfo;
         }
-        uni.hideLoading();
       } catch (e) {
         this.customToast("需要登錄", false);
       }

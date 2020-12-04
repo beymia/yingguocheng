@@ -239,19 +239,15 @@ var _default = {
 
   methods: {
     //请求用户信息
-    getUserInfo: function getUserInfo() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                uni.showLoading({
-                  title: "請稍後" });_context2.prev = 1;if (!
+    getUserInfo: function getUserInfo() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.prev = 0;if (!
 
 
+                _this2.token) {_context2.next = 6;break;}_context2.next = 4;return (
+                  (0, _api.userSpace)());case 4:_this2.userInfo = _context2.sent.data;
+                APP.userInfo = _this2.userInfo;case 6:_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](0);
 
-                _this2.token) {_context2.next = 7;break;}_context2.next = 5;return (
-                  (0, _api.userSpace)());case 5:_this2.userInfo = _context2.sent.data;
-                APP.userInfo = _this2.userInfo;case 7:
 
-                uni.hideLoading();_context2.next = 13;break;case 10:_context2.prev = 10;_context2.t0 = _context2["catch"](1);
-
-                _this2.customToast("需要登錄", false);case 13:case "end":return _context2.stop();}}}, _callee2, null, [[1, 10]]);}))();
+                _this2.customToast("需要登錄", false);case 11:case "end":return _context2.stop();}}}, _callee2, null, [[0, 8]]);}))();
 
     },
     //隐藏登陆引导框

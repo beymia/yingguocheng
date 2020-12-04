@@ -11,7 +11,7 @@ const platform = uni.getSystemInfoSync().platform;
 // 主颜色
 const $mainColor = "FF5B78";
 // 弹窗图标url
-const $iconUrl = "/static/icon/ic_ar.png";
+const $iconUrl = "../static/ic_ar.png";
 
 // 获取当前应用的版本号
 export const getCurrentNo = function (callback) {
@@ -53,12 +53,11 @@ const getServerNo = function (version, isPrompt = false, callback) {
      * | downloadUrl	 | y	    | String	| 版本下载链接（IOS安装包更新请放跳转store应用商店链接,安卓apk和wgt文件放文件下载链接）  |
      */
     if (platform === "android") {
-      res.versionName = '1.1'
+      res.versionName = '1.0'
       res.versionInfo = '修复了一些BUG'
-      res.downloadUrl = 'https://ss1.bdstatic.com/0cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3895630235,4212690360&fm=26&gp=0.jpg';
-      res.forceUpdate = true;
+      res.downloadUrl = 'http://yingguochengh5.hf5g.com/update/__UNI__120641A.wgt';
+      res.forceUpdate = false;
       if (res && res.downloadUrl) {
-        console.log(res);
         callback && callback(res);
       }
     }
@@ -362,8 +361,6 @@ function updatePopup(data, callback) {
   // 绘制底边按钮
   popupView.drawRect({
     radius: "3px",
-    borderColor: "#f1f1f1",
-    borderWidth: "1px",
   }, {
     bottom: viewContentPadding + 'px',
     left: viewContentPadding + "px",
@@ -376,8 +373,8 @@ function updatePopup(data, callback) {
     color: $mainColor,
   }, {
     bottom: viewContentPadding + 'px',
-    left: ((viewContentWidth - viewContentPadding) / 2 + viewContentPadding * 2) + "px",
-    width: (viewContentWidth - viewContentPadding) / 2 + "px",
+    left: ((viewContentWidth - viewContentPadding)/5 + viewContentPadding * 2) + "px",
+    width: (viewContentWidth - viewContentPadding)/2 + "px",
     height: "30px",
   });
   // popupViewContentList.push({
@@ -409,7 +406,7 @@ function updatePopup(data, callback) {
     },
     position: {
       bottom: viewContentPadding + 'px',
-      left: ((viewContentWidth - viewContentPadding) / 2 + viewContentPadding * 2) + "px",
+      left: ((viewContentWidth - viewContentPadding) / 5 + viewContentPadding * 2) + "px",
       width: (viewContentWidth - viewContentPadding) / 2 + "px",
       height: "30px",
     }
@@ -426,7 +423,11 @@ function updatePopup(data, callback) {
       //   popupView.hide();
       // }
       // else
-      if (e.clientX > maxLeft - buttonWidth && e.clientX < maxLeft) {
+      // maskLayer.hide();
+      // popupView.hide();
+      // callback && callback();
+      //TODO 按钮点击区域修改
+      if (e.clientX > (maxLeft - buttonWidth -60) && (e.clientX + 60) < maxLeft) {
         // 立即升级
         maskLayer.hide();
         popupView.hide();
@@ -436,8 +437,8 @@ function updatePopup(data, callback) {
   });
   // 点击遮罩层
   maskLayer.addEventListener("click", function () { //处理遮罩层点击
-    maskLayer.hide();
-    popupView.hide();
+    // maskLayer.hide();
+    // popupView.hide();
   });
   // 显示弹窗
   maskLayer.show();
@@ -777,19 +778,19 @@ function downloadPopup(data) {
           callbackData.reboot();
         }
       }
-      else if (buttonNum == 2) {
-        // 双按钮
-        let buttonWidth = (popupViewData.viewContentWidth - popupViewData.viewContentPadding) / 2;
-        if (e.clientX > popupViewData.viewContentPadding && e.clientX < maxLeft - buttonWidth - popupViewData.viewContentPadding) {
-          maskLayer.hide();
-          popupView.hide();
-          callbackData.cancelDownload();
-        }
-        else if (e.clientX > maxLeft - buttonWidth && e.clientX < maxLeft) {
-          maskLayer.hide();
-          popupView.hide();
-        }
-      }
+      // else if (buttonNum == 2) {
+      //   // 双按钮
+      //   let buttonWidth = (popupViewData.viewContentWidth - popupViewData.viewContentPadding) / 2;
+      //   if (e.clientX > popupViewData.viewContentPadding && e.clientX < maxLeft - buttonWidth - popupViewData.viewContentPadding) {
+      //     maskLayer.hide();
+      //     popupView.hide();
+      //     callbackData.cancelDownload();
+      //   }
+      //   else if (e.clientX > maxLeft - buttonWidth && e.clientX < maxLeft) {
+      //     maskLayer.hide();
+      //     popupView.hide();
+      //   }
+      // }
     }
   });
   // 显示弹窗

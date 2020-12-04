@@ -149,7 +149,7 @@
         "devServer" : {
             "proxy" : {
                 "/api" : {
-                    "target" : "https://api.plg.wugee.net/",
+                    "target" : "http://libapi.wugee.net/",
                     "pathRewrite" : {
                         "^/api" : ""
                     }

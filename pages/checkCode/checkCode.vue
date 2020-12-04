@@ -106,7 +106,8 @@ export default {
     },
 
     //登陆失败
-    loginError() {
+    loginError(e) {
+      console.log(JSON.stringify(e));
       this.pageHide();
       this.customToast("登錄失敗");
     },
@@ -118,6 +119,8 @@ export default {
       APP.userToken = result.data.token;
       APP.isLoginBox = false;
       uni.setStorageSync("token", APP.userToken);
+      //TODO 登陆成功开启socket
+      // APP.getSocket();
       //options没有值时默认跳转首页
       let tabbarPage = ["home", "order", "orderForm", "my"];
       self.from = self.from || "home";

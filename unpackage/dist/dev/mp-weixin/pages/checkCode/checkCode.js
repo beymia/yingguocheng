@@ -238,7 +238,8 @@ var _default = {
     },
 
     //登陆失败
-    loginError: function loginError() {
+    loginError: function loginError(e) {
+      console.log(JSON.stringify(e));
       this.pageHide();
       this.customToast("登錄失敗");
     },
@@ -250,6 +251,8 @@ var _default = {
       APP.userToken = result.data.token;
       APP.isLoginBox = false;
       uni.setStorageSync("token", APP.userToken);
+      //TODO 登陆成功开启socket
+      // APP.getSocket();
       //options没有值时默认跳转首页
       var tabbarPage = ["home", "order", "orderForm", "my"];
       self.from = self.from || "home";
