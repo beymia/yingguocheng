@@ -120,7 +120,6 @@ export default {
       APP.isLoginBox = false;
       uni.setStorageSync("token", APP.userToken);
       //TODO 登陆成功开启socket
-      // APP.getSocket();
       //options没有值时默认跳转首页
       let tabbarPage = ["home", "order", "orderForm", "my"];
       self.from = self.from || "home";
