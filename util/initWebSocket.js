@@ -33,7 +33,7 @@ export default async function (self,callBack){
 								APP.socket.send({
 								          data: JSON.stringify({type:'ping'}),
 								        });
-							},500000)
+							},50000)
 							resolve_c(APP.socket)
 						})
 						console.log(3)
