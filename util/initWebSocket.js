@@ -24,7 +24,11 @@ export default async function (self,callBack){
 							console.log('websocket连接已经打开')
 							conected = true
 							let data ={type:'accept'}
-							APP.userInfo.id && (data.uid = APP.userInfo.id)
+							// APP.userInfo.id && (data.uid = APP.userInfo.id)
+							if(APP.userInfo.id){
+								data.uid = APP.userInfo.id;
+								data.type = 'login'
+							}
 							APP.socket.send({
 							          data: JSON.stringify(data),
 							        });
