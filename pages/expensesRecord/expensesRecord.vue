@@ -48,7 +48,7 @@ export default {
   async mounted() {
     this.token = getApp().globalData.userToken;
     try {
-      this.record = (await expensesRecord({page: this.page})).data
+      this.record = (await expensesRecord({page: this.page})).data|| []
     } catch (e) {
       console.log(e);
       this.record = []

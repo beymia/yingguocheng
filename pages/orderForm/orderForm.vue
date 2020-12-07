@@ -162,6 +162,7 @@ export default {
 
   //触底刷新
   async onReachBottom() {
+    console.log(123);
     if (this.isMore || this.loadMoreStatus) return;
     this.loadMoreStatus = true;
     try {

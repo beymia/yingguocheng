@@ -185,6 +185,7 @@ export default {
       APP.socket.onMessage(async ({data}) => {
         let self = this;
         let {code, msg, to_uid} = JSON.parse(data);
+        if(!to_uid) return;
         //1001 = 客服不在线,转存消息
         if (code === 1001) {
           await sendMsg({msg: self.forwardMsg});

@@ -8,7 +8,9 @@
 		<view class="package_content">
 			<!-- TODO 礼包数据需要从用户数据接口获取-->
 			<view class="items" v-for="(pack, index) in giftPack" :key="index">
-				<view class="icon_exception package_icon"><image :src="pack.home_avatar | filterImg"></image></view>
+				<view class="icon_exception package_icon">
+          <image mode="widthFix" :src="pack.home_avatar | filterImg"></image>
+        </view>
 				<view class="package_title">
 					<text>{{ pack.goods_name }}</text>
 					<text>X{{ pack.goods_num }}</text>
